@@ -1,47 +1,37 @@
 <!doctype html>
 <html lang="en">
 <head>
-
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RapidRoad Mobile Mechanics — Mobile Mechanic, Diagnostics & Repairs</title>
-<meta name="description" content="Same-day mobile diagnostics, servicing & repairs. Book via WhatsApp.">
-<link rel="canonical" href="https://rapidroadmechanics.co.uk/">
-<meta property="og:title" content="RapidRoad Mobile Mechanics — Mobile Mechanic, Diagnostics & Repairs">
-<meta property="og:description" content="Same-day mobile diagnostics, servicing & repairs. Book via WhatsApp.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://rapidroadmechanics.co.uk/">
-<meta property="og:image" content="https://placehold.co/1200x630/png?text=RapidRoad+Mechanics">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="/assets/favicon.svg">
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: { extend: { fontFamily: { sans: ['Inter','ui-sans-serif','system-ui'] } } }
-  }
-</script>
-<style>
-  body { background: #0b0f17; color: #e7eaf0; }
-  .glass { backdrop-filter: blur(10px); background: rgba(15,20,30,.6); }
-  .card { background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); border: 1px solid rgba(255,255,255,.08); }
-  .btn { display:inline-flex; align-items:center; gap:.5rem; padding:.9rem 1.1rem; border-radius:9999px; font-weight:700; }
-  .btn-primary { background:#22c55e; color:#04110a; }
-  .btn-outline { border:1px solid rgba(255,255,255,.2); }
-  .grid-auto { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap:1rem; }
-  .section { padding: 4rem 0; }
-  .hero-bg { background: radial-gradient(1200px 500px at 50% -10%, rgba(59,130,246,.25), transparent 60%), url('https://placehold.co/2000x1200/jpg?text=Mobile+Mechanic') center/cover no-repeat; }
-  .pulse { animation: pulse 2s infinite; }
-  @keyframes pulse { 0% { box-shadow:0 0 0 0 rgba(34,197,94,.6) } 70% { box-shadow:0 0 0 20px rgba(34,197,94,0) } 100% { box-shadow:0 0 0 0 rgba(34,197,94,0) } }
-</style>
-<script type="application/ld+json">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>FixNow Mechanics — Mobile Mechanic</title>
+  <meta name="description" content="Mobile mechanic. Same-day diagnostics, servicing & repairs at your doorstep.">
+  <link rel="canonical" href="https://fixnowmechanics.co.uk/">
+  <meta property="og:title" content="FixNow Mechanics — Mobile Mechanic">
+  <meta property="og:description" content="Mobile mechanic. Same-day diagnostics, servicing & repairs at your doorstep.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://fixnowmechanics.co.uk/">
+  <meta property="og:image" content="https://placehold.co/1200x630/png?text=FixNow+Mechanics">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/assets/favicon.svg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background:#0b0f17; color:#e7eaf0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter; }
+    .btn { display:inline-flex; align-items:center; gap:.6rem; padding:.9rem 1.1rem; border-radius:9999px; font-weight:700; }
+    .btn-primary { background:#22c55e; color:#04110a; }
+    .card { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:1rem; }
+    .hero-bg { background: radial-gradient(1200px 500px at 50% -10%, rgba(59,130,246,.25), transparent 60%),
+       url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=2400&auto=format&fit=crop') center/cover no-repeat; }
+    .grid-auto { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap:1rem; }
+  </style>
+  <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "AutomotiveBusiness",
-  "name": "RapidRoad Mobile Mechanics",
-  "url": "https://rapidroadmechanics.co.uk/",
-  "telephone": "+44 7000 000000",
-  "email": "hello@rapidroad.me",
-  "image": "https://placehold.co/800x600/png?text=RapidRoad",
+  "name": "FixNow Mechanics",
+  "url": "https://fixnowmechanics.co.uk/",
+  "telephone": "+44 7444255968",
+  "email": "hello@fixnow.me",
+  "image": "https://placehold.co/800x600/png?text=FixNow",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "London",
@@ -49,10 +39,7 @@
     "addressCountry": "UK"
   },
   "areaServed": [
-    "Greater London",
-    "Hertfordshire",
-    "Buckinghamshire",
-    "Bedfordshire"
+    "Greater London & Hertfordshire"
   ],
   "openingHours": "Mo-Su 07:00-22:00",
   "priceRange": "\u00a3\u00a3",
@@ -61,163 +48,60 @@
     "Servicing",
     "Brakes",
     "Batteries",
-    "Breakdown Assist",
-    "Retrofits"
+    "Breakdown Assist"
   ]
 }
-</script>
-
+  </script>
 </head>
-<body class="font-sans">
+<body>
+  <header class="sticky top-0 z-50 bg-black/40 backdrop-blur border-b border-white/10">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3">
+        <img src="/assets/logo.svg" alt="FixNow Mechanics" class="w-10 h-10">
+        <strong>FixNow Mechanics</strong>
+      </a>
+      <a href="https://wa.me/447444255968?text=Hi%2C%20I%20need%20a%20mechanic%20today." class="btn btn-primary">WhatsApp to Book</a>
+    </div>
+  </header>
 
-<header class="sticky top-0 z-50 bg-black/40 backdrop-blur border-b border-white/10">
-  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-    <a href="/" class="flex items-center gap-3">
-      <img src="/assets/logo.svg" alt="Logo" class="w-8 h-8">
-      <span class="font-extrabold tracking-wide">RapidRoad Mobile Mechanics</span>
-    </a>
-    <nav class="hidden md:flex items-center gap-6 text-sm">
-      <a href="/#services" class="hover:opacity-80">Services</a>
-      <a href="/pricing.html" class="hover:opacity-80">Pricing</a>
-      <a href="/areas.html" class="hover:opacity-80">Areas</a>
-      <a href="/about.html" class="hover:opacity-80">About</a>
-      <a href="/contact.html" class="hover:opacity-80">Contact</a>
-    </nav>
-    <a href="#" id="cta-top" class="btn btn-primary pulse">WhatsApp to Book</a>
-  </div>
-</header>
-
-<section class="hero-bg">
-  <div class="max-w-6xl mx-auto px-4">
-    <div class="min-h-[72vh] flex flex-col justify-center">
-      <div class="max-w-2xl glass p-6 md:p-8 rounded-2xl shadow-2xl">
-        <p class="uppercase tracking-wider text-xs text-white/70">Mobile • Same-Day • 7am–10pm</p>
-        <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mt-2">Mobile Mechanic — We Come To You</h1>
-        <p class="text-lg md:text-xl text-white/80 mt-3">We come to you — diagnostics, servicing & repairs. Straight-to-WhatsApp booking in 60 seconds.</p>
-        <div class="mt-6 flex flex-wrap gap-3">
-          <a class="btn btn-primary" href="#" onclick="location.href=WA_BOOK_URL('Diagnostics — reg: [____] postcode: [____]');return false;">Book Diagnostics</a>
-          <a class="btn btn-outline" href="#services">Explore Services</a>
+  <section class="hero-bg">
+    <div class="max-w-5xl mx-auto px-4">
+      <div class="min-h-[70vh] flex flex-col justify-center">
+        <div class="max-w-2xl bg-black/45 p-6 md:p-8 rounded-2xl">
+          <p class="uppercase tracking-wider text-xs text-white/70">Mobile • Same-Day • 7am–10pm</p>
+          <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mt-2">Car trouble? FixNow — We Come To You.</h1>
+          <p class="text-lg md:text-xl text-white/85 mt-3">Mobile mechanic. Same-day diagnostics, servicing & repairs at your doorstep.</p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a class="btn btn-primary" href="https://wa.me/447444255968?text=Diagnostics%20%E2%80%94%20reg%3A%20%5B____%5D%20postcode%3A%20%5B____%5D">Book Diagnostics</a>
+            <a class="btn" style="border:1px solid rgba(255,255,255,.2)" href="https://wa.me/447444255968?text=Service%20quote%20%E2%80%94%20reg%3A%20%5B____%5D%2C%20engine%3A%20%5B____%5D">Book a Service</a>
+          </div>
         </div>
-        <ul class="mt-6 grid grid-cols-2 gap-2 text-sm text-white/80">
-          <li>✓ OBD2 Diagnostics</li>
-          <li>✓ Servicing & Brakes</li>
-          <li>✓ Battery & Alternator</li>
-          <li>✓ Breakdown Assist</li>
-        </ul>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="services" class="section">
-  <div class="max-w-6xl mx-auto px-4">
-    <h2 class="text-2xl md:text-3xl font-bold mb-6">Popular Services</h2>
-    <div class="grid-auto">
-      <div class="card p-5 rounded-xl">
-        <h3 class="font-bold text-lg">Same-Day Diagnostics</h3>
-        <p class="opacity-80">Full OBD scan + fault report + action plan.</p>
-        <p class="mt-2">From <strong>£49</strong> (call-out included)</p>
-        <a class="btn btn-primary mt-3" href="#" onclick="location.href=WA_BOOK_URL('Book diagnostics — my postcode is [____]');return false;">WhatsApp to Book</a>
-      </div>
-      <div class="card p-5 rounded-xl">
-        <h3 class="font-bold text-lg">Interim / Full Service</h3>
-        <p class="opacity-80">Oil, filters, inspection. OEM-spec parts.</p>
-        <p class="mt-2">From <strong>£129</strong></p>
-        <a class="btn btn-primary mt-3" href="#" onclick="location.href=WA_BOOK_URL('Book a service — reg: [____], engine: [____]');return false;">WhatsApp to Book</a>
-      </div>
-      <div class="card p-5 rounded-xl">
-        <h3 class="font-bold text-lg">Brakes (Pads/Discs)</h3>
-        <p class="opacity-80">On-driveway front/rear replacements.</p>
-        <p class="mt-2">From <strong>£99</strong></p>
-        <a class="btn btn-primary mt-3" href="#" onclick="location.href=WA_BOOK_URL('Quote for brakes — front/rear? reg: [____]');return false;">WhatsApp to Book</a>
-      </div>
-      <div class="card p-5 rounded-xl">
-        <h3 class="font-bold text-lg">Battery / Alternator</h3>
-        <p class="opacity-80">Test, replace, code if required.</p>
-        <p class="mt-2">From <strong>£79</strong></p>
-        <a class="btn btn-primary mt-3" href="#" onclick="location.href=WA_BOOK_URL('Battery/alternator help — symptoms: [____]');return false;">WhatsApp to Book</a>
-      </div>
-      <div class="card p-5 rounded-xl">
-        <h3 class="font-bold text-lg">Breakdown Assist</h3>
-        <p class="opacity-80">Quick response for non-starts & roadside issues.</p>
-        <p class="mt-2">Call-out <strong>£49</strong> (first 30 min included)</p>
-        <a class="btn btn-primary mt-3" href="#" onclick="location.href=WA_BOOK_URL('Breakdown assist — location: [____]');return false;">WhatsApp to Book</a>
-      </div>
+  <section class="py-12">
+    <div class="max-w-5xl mx-auto px-4 grid-auto">
+      <div class="card p-5"><h3 class="font-bold text-lg">Diagnostics</h3><p class="opacity-85">Full scan + report + clear codes.</p><p class="mt-2">From <b>£49</b></p><a class="btn btn-primary mt-3" href="https://wa.me/447444255968?text=Book%20diagnostics%20%E2%80%94%20postcode%3A%20%5B____%5D">WhatsApp to Book</a></div>
+      <div class="card p-5"><h3 class="font-bold text-lg">Servicing</h3><p class="opacity-85">Interim & full service with OEM-spec parts.</p><p class="mt-2">From <b>£129</b></p><a class="btn btn-primary mt-3" href="https://wa.me/447444255968?text=Book%20service%20%E2%80%94%20reg%3A%20%5B____%5D">WhatsApp to Book</a></div>
+      <div class="card p-5"><h3 class="font-bold text-lg">Brakes</h3><p class="opacity-85">Pads/discs — front or rear.</p><p class="mt-2">From <b>£99</b></p><a class="btn btn-primary mt-3" href="https://wa.me/447444255968?text=Quote%20for%20brakes%20%E2%80%94%20front/rear%3F%20reg%3A%20%5B____%5D">WhatsApp to Book</a></div>
+      <div class="card p-5"><h3 class="font-bold text-lg">Battery</h3><p class="opacity-85">Test, supply, fit (coding if required).</p><p class="mt-2">From <b>£79</b></p><a class="btn btn-primary mt-3" href="https://wa.me/447444255968?text=Battery%20help%20%E2%80%94%20symptoms%3A%20%5B____%5D">WhatsApp to Book</a></div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="section">
-  <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-6">
-    <div class="card rounded-xl p-5">
-      <h3 class="font-bold text-lg">Fast & Honest</h3>
-      <p class="opacity-80 mt-2">Clear quotes in WhatsApp before we visit. No surprises.</p>
-    </div>
-    <div class="card rounded-xl p-5">
-      <h3 class="font-bold text-lg">Fully Mobile</h3>
-      <p class="opacity-80 mt-2">Home, roadside, or workplace. 7am–10pm daily.</p>
-    </div>
-    <div class="card rounded-xl p-5">
-      <h3 class="font-bold text-lg">Coverage</h3>
-      <p class="opacity-80 mt-2">Greater London & Hertfordshire. Further? Send your postcode.</p>
-    </div>
-  </div>
-</section>
+  <section class="py-12 text-center">
+    <p class="opacity-80">Serving Greater London & Hertfordshire. Further? Send your postcode.</p>
+    <a class="btn btn-primary mt-4" href="https://wa.me/447444255968?text=Booking%20%E2%80%94%20reg%3A%20%5B____%5D%20postcode%3A%20%5B____%5D%20issue%3A%20%5B____%5D">Book on WhatsApp</a>
+  </section>
 
-<section class="section">
-  <div class="max-w-6xl mx-auto px-4 text-center">
-    <h2 class="text-2xl md:text-3xl font-bold">Ready to book?</h2>
-    <p class="opacity-80 mt-2">Tap below and paste your reg & postcode. We’ll confirm a slot in minutes.</p>
-    <a class="btn btn-primary mt-4" href="#" onclick="location.href=WA_BOOK_URL('Booking — reg: [____] postcode: [____] issue: [____]');return false;">Book on WhatsApp</a>
-  </div>
-</section>
-
-
-<footer class="border-t border-white/10 mt-16">
-  <div class="max-w-6xl mx-auto px-4 py-10 grid md:grid-cols-4 gap-8 text-sm">
-    <div>
-      <div class="flex items-center gap-3 mb-3">
-        <img src="/assets/logo.svg" class="w-8 h-8" alt="Logo">
-        <strong>RapidRoad Mobile Mechanics</strong>
+  <footer class="border-t border-white/10">
+    <div class="max-w-5xl mx-auto px-4 py-8 text-sm flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <img src="/assets/logo.svg" class="w-7 h-7" alt="FixNow Mechanics">
+        <span>© 2025 FixNow Mechanics</span>
       </div>
-      <p class="opacity-80">We come to you — diagnostics, servicing & repairs</p>
+      <div class="opacity-80">Email: <a class="underline" href="mailto:hello@fixnow.me">hello@fixnow.me</a></div>
     </div>
-    <div>
-      <strong class="block mb-3">Company</strong>
-      <ul class="space-y-2 opacity-90">
-        <li><a href="/about.html">About</a></li>
-        <li><a href="/pricing.html">Pricing</a></li>
-        <li><a href="/areas.html">Service Areas</a></li>
-        <li><a href="/contact.html">Contact</a></li>
-      </ul>
-    </div>
-    <div>
-      <strong class="block mb-3">Legal</strong>
-      <ul class="space-y-2 opacity-90">
-        <li><a href="/privacy.html">Privacy</a></li>
-        <li><a href="/terms.html">Terms</a></li>
-      </ul>
-    </div>
-    <div>
-      <strong class="block mb-3">Book</strong>
-      <p class="mb-2">WhatsApp: <a href="#" id="cta-foot" class="underline">07000 000000</a></p>
-      <p class="mb-2">Email: <a href="mailto:hello@rapidroad.me" class="underline">hello@rapidroad.me</a></p>
-      <p class="opacity-70">Open 7:00–22:00</p>
-    </div>
-  </div>
-  <div class="border-t border-white/10 py-4 text-center text-xs opacity-70">
-    © 2025 RapidRoad Mobile Mechanics. All rights reserved.
-  </div>
-</footer>
-<script src="/assets/config.js"></script>
-<script>
-  document.getElementById('cta-top').href = WA_BOOK_URL('Hi, can you book me in? I am in Greater London & Hertfordshire');
-  document.getElementById('cta-foot').href = WA_BOOK_URL('Hi, I need a mechanic. My postcode is [____].');
-  let pulsing = true;
-  window.addEventListener('scroll', () => {
-    if (pulsing) { document.querySelectorAll('.pulse').forEach(el => el.classList.remove('pulse')); pulsing = false; }
-  }, { passive: true });
-</script>
-
+  </footer>
 </body>
 </html>

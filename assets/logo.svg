@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120">
+  <rect width="400" height="120" rx="20" fill="#0b0f17"/>
+  <text x="30" y="78" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="900" fill="white">FixN<tspan fill="#22c55e">o</tspan>w</text>
+  <circle cx="195" cy="58" r="18" fill="none" stroke="#22c55e" stroke-width="6"/>
+  <path d="M187 58 l8 -8 m0 16 l-8 -8" stroke="#22c55e" stroke-width="4" stroke-linecap="round"/>
+  <text x="250" y="78" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#e7eaf0">Mechanics</text>
+</svg>
