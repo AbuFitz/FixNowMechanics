@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -15,13 +16,16 @@
   <link rel="icon" href="/assets/favicon.svg">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body { background:#0b0f17; color:#e7eaf0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter; }
+    :root { --bg:#0b0f17; --muted:rgba(255,255,255,.65); --card:rgba(255,255,255,.04); --border:rgba(255,255,255,.08); --brand:#22c55e; }
+    body { background:var(--bg); color:#e7eaf0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter; }
     .btn { display:inline-flex; align-items:center; gap:.6rem; padding:.9rem 1.1rem; border-radius:9999px; font-weight:700; }
-    .btn-primary { background:#22c55e; color:#04110a; }
-    .card { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:1rem; }
-    .hero-bg { background: radial-gradient(1200px 500px at 50% -10%, rgba(59,130,246,.25), transparent 60%),
-       url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=2400&auto=format&fit=crop') center/cover no-repeat; }
+    .btn-primary { background:var(--brand); color:#04110a; }
+    .btn-ghost { border:1px solid var(--border); }
+    .card { background:var(--card); border:1px solid var(--border); border-radius:1rem; }
     .grid-auto { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap:1rem; }
+    .hero { background: radial-gradient(1200px 500px at 50% -10%, rgba(59,130,246,.25), transparent 60%), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="800"><defs><pattern id="p" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M0 40h40M0 0h40M0 0v40M40 0v40" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23p)"/></svg>') center/cover no-repeat; }
+    details[open] summary svg { transform: rotate(180deg); }
+    .chip { display:inline-block; padding:.35rem .7rem; border-radius:9999px; border:1px solid var(--border); color:var(--muted); font-size:.9rem; }
   </style>
   <script type="application/ld+json">
 {
@@ -60,20 +64,30 @@
         <img src="/assets/logo.svg" alt="FixNow Mechanics" class="w-10 h-10">
         <strong>FixNow Mechanics</strong>
       </a>
-      <a href="https://wa.me/447444255968?text=Hi%2C%20I%20need%20a%20mechanic%20today." class="btn btn-primary">WhatsApp to Book</a>
+      <div class="flex items-center gap-3">
+        <a href="https://wa.me/447444255968" class="btn btn-primary">WhatsApp</a>
+        <a href="tel:+447444255968" class="btn btn-ghost hidden md:inline-flex">Call 07444 255968</a>
+      </div>
     </div>
   </header>
 
-  <section class="hero-bg">
+  <section class="hero">
     <div class="max-w-5xl mx-auto px-4">
-      <div class="min-h-[70vh] flex flex-col justify-center">
+      <div class="min-h-[64vh] flex flex-col justify-center">
         <div class="max-w-2xl bg-black/45 p-6 md:p-8 rounded-2xl">
           <p class="uppercase tracking-wider text-xs text-white/70">Mobile • Same-Day • 7am–10pm</p>
-          <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mt-2">Car trouble? FixNow — We Come To You.</h1>
+          <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mt-2">FixNow — We Come To You</h1>
           <p class="text-lg md:text-xl text-white/85 mt-3">Mobile mechanic. Same-day diagnostics, servicing & repairs at your doorstep.</p>
           <div class="mt-6 flex flex-wrap gap-3">
-            <a class="btn btn-primary" href="https://wa.me/447444255968?text=Diagnostics%20%E2%80%94%20reg%3A%20%5B____%5D%20postcode%3A%20%5B____%5D">Book Diagnostics</a>
-            <a class="btn" style="border:1px solid rgba(255,255,255,.2)" href="https://wa.me/447444255968?text=Service%20quote%20%E2%80%94%20reg%3A%20%5B____%5D%2C%20engine%3A%20%5B____%5D">Book a Service</a>
+            <a class="btn btn-primary" href="https://wa.me/447444255968">Message on WhatsApp</a>
+            <button id="copyBtn" class="btn btn-ghost" type="button">Copy Number</button>
+          </div>
+          <div class="mt-4 space-x-2">
+            <span class="chip">OBD Diagnostics</span>
+            <span class="chip">Servicing</span>
+            <span class="chip">Brakes</span>
+            <span class="chip">Battery</span>
+            <span class="chip">Breakdown Assist</span>
           </div>
         </div>
       </div>
@@ -82,16 +96,20 @@
 
   <section class="py-12">
     <div class="max-w-5xl mx-auto px-4 grid-auto">
-      <div class="card p-5"><h3 class="font-bold text-lg">Diagnostics</h3><p class="opacity-85">Full scan + report + clear codes.</p><p class="mt-2">From <b>£49</b></p><a class="btn btn-primary mt-3" href="https://wa.me/447444255968?text=Book%20diagnostics%20%E2%80%94%20postcode%3A%20%5B____%5D">WhatsApp to Book</a></div>
-      <div class="card p-5"><h3 class="font-bold text-lg">Servicing</h3><p class="opacity-85">Interim & full service with OEM-spec parts.</p><p class="mt-2">From <b>£129</b></p><a class="btn btn-primary mt-3" href="https://wa.me/447444255968?text=Book%20service%20%E2%80%94%20reg%3A%20%5B____%5D">WhatsApp to Book</a></div>
-      <div class="card p-5"><h3 class="font-bold text-lg">Brakes</h3><p class="opacity-85">Pads/discs — front or rear.</p><p class="mt-2">From <b>£99</b></p><a class="btn btn-primary mt-3" href="https://wa.me/447444255968?text=Quote%20for%20brakes%20%E2%80%94%20front/rear%3F%20reg%3A%20%5B____%5D">WhatsApp to Book</a></div>
-      <div class="card p-5"><h3 class="font-bold text-lg">Battery</h3><p class="opacity-85">Test, supply, fit (coding if required).</p><p class="mt-2">From <b>£79</b></p><a class="btn btn-primary mt-3" href="https://wa.me/447444255968?text=Battery%20help%20%E2%80%94%20symptoms%3A%20%5B____%5D">WhatsApp to Book</a></div>
+      <div class="card p-5"><h3 class="font-bold text-lg">Diagnostics</h3><p class="opacity-85">Full scan • fault report • clear codes.</p><p class="mt-2">From <b>£49</b></p><a class="btn btn-primary mt-3" href="https://wa.me/447444255968">WhatsApp</a></div>
+      <div class="card p-5"><h3 class="font-bold text-lg">Servicing</h3><p class="opacity-85">Interim & full service (OEM-spec parts).</p><p class="mt-2">From <b>£129</b></p><a class="btn btn-primary mt-3" href="https://wa.me/447444255968">WhatsApp</a></div>
+      <div class="card p-5"><h3 class="font-bold text-lg">Brakes</h3><p class="opacity-85">Pads/discs — front or rear.</p><p class="mt-2">From <b>£99</b></p><a class="btn btn-primary mt-3" href="https://wa.me/447444255968">WhatsApp</a></div>
+      <div class="card p-5"><h3 class="font-bold text-lg">Battery</h3><p class="opacity-85">Test • supply • fit (coding if required).</p><p class="mt-2">From <b>£79</b></p><a class="btn btn-primary mt-3" href="https://wa.me/447444255968">WhatsApp</a></div>
     </div>
   </section>
 
-  <section class="py-12 text-center">
-    <p class="opacity-80">Serving Greater London & Hertfordshire. Further? Send your postcode.</p>
-    <a class="btn btn-primary mt-4" href="https://wa.me/447444255968?text=Booking%20%E2%80%94%20reg%3A%20%5B____%5D%20postcode%3A%20%5B____%5D%20issue%3A%20%5B____%5D">Book on WhatsApp</a>
+  <section class="py-12 max-w-5xl mx-auto px-4">
+    <h2 class="text-2xl font-bold mb-4">FAQs</h2>
+    <div class="space-y-2">
+      <details class="card p-4"><summary class="cursor-pointer flex items-center justify-between"><span>How fast can you come out?</span><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg></summary><p class="mt-3 text-white/80">Same day in most cases (7am–10pm). Message us on WhatsApp and we’ll confirm a time.</p></details>
+      <details class="card p-4"><summary class="cursor-pointer flex items-center justify-between"><span>Do you charge a call-out fee?</span><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg></summary><p class="mt-3 text-white/80">Diagnostics from £49 covers call-out in core areas. We’ll confirm any extras in chat before visiting.</p></details>
+      <details class="card p-4"><summary class="cursor-pointer flex items-center justify-between"><span>What areas do you cover?</span><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg></summary><p class="mt-3 text-white/80">Greater London & Hertfordshire. Further afield? Send your postcode.</p></details>
+    </div>
   </section>
 
   <footer class="border-t border-white/10">
@@ -100,8 +118,19 @@
         <img src="/assets/logo.svg" class="w-7 h-7" alt="FixNow Mechanics">
         <span>© 2025 FixNow Mechanics</span>
       </div>
-      <div class="opacity-80">Email: <a class="underline" href="mailto:hello@fixnow.me">hello@fixnow.me</a></div>
+      <div class="opacity-80 flex items-center gap-3">
+        <span class="hidden md:inline">Email:</span> <a class="underline" href="mailto:hello@fixnow.me">hello@fixnow.me</a>
+        <span class="hidden md:inline">•</span>
+        <button id="copyBtnFoot" class="underline" type="button">Copy 07444 255968</button>
+      </div>
     </div>
   </footer>
+
+  <script>
+    const num = '07444 255968'.replace(/\s+/g,'');
+    function copyNum() {{ navigator.clipboard.writeText(num); const b = this; const t = b.textContent; b.textContent = 'Number copied'; setTimeout(()=>b.textContent=t, 1200); }}
+    document.getElementById('copyBtn').addEventListener('click', copyNum);
+    document.getElementById('copyBtnFoot').addEventListener('click', copyNum);
+  </script>
 </body>
 </html>
