@@ -25,17 +25,23 @@
     .grid-auto { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap:1rem; }
     .hero { background: radial-gradient(1200px 500px at 50% -10%, rgba(59,130,246,.25), transparent 60%), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="800"><defs><pattern id="p" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M0 40h40M0 0h40M0 0v40M40 0v40" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23p)"/></svg>') center/cover no-repeat; }
     .chip { display:inline-block; padding:.35rem .7rem; border-radius:9999px; border:1px solid var(--border); color:var(--muted); font-size:.9rem; }
-    /* Chatbot widget */
-    .chat-launch { position:fixed; right:1rem; bottom:1rem; z-index:60 }
-    .chat-panel { position:fixed; right:1rem; bottom:5rem; width:340px; max-width:calc(100vw - 2rem); background:#0f1420; border:1px solid var(--border); border-radius:1rem; overflow:hidden; display:none; z-index:60 }
-    .chat-header { display:flex; align-items:center; justify-content:space-between; padding:.75rem 1rem; background:#0e1220; border-bottom:1px solid var(--border) }
-    .chat-body { padding:1rem; max-height:48vh; overflow:auto }
+
+    /* POPUP CHAT */
+    .overlay { position:fixed; inset:0; background:rgba(0,0,0,.6); display:none; z-index:50; opacity:0; transition:opacity .2s ease; }
+    .overlay.open { display:block; opacity:1; }
+    .chat-panel { position:fixed; right:50%; top:50%; transform:translate(50%, 60%) scale(.96); opacity:0; width:680px; max-width:92vw; max-height:80vh; display:none; z-index:60;
+      background:#0f1420; border:1px solid var(--border); border-radius:1rem; overflow:hidden; transition: all .25s ease; }
+    .chat-panel.open { display:block; transform:translate(50%, -50%) scale(1); opacity:1; }
+    .chat-header { display:flex; align-items:center; justify-content:space-between; padding:.9rem 1rem; background:#0e1220; border-bottom:1px solid var(--border) }
+    .chat-body { padding:1rem; max-height:56vh; overflow:auto; background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0)); }
     .msg { padding:.6rem .8rem; border-radius:.8rem; margin:.3rem 0; max-width:85% }
     .msg-user { background:#1b2436; margin-left:auto }
     .msg-bot { background:#111827; border:1px solid var(--border) }
     .chat-input { display:flex; gap:.5rem; padding:.75rem; border-top:1px solid var(--border); background:#0e1220 }
     .chat-input input { flex:1; background:#0b0f17; border:1px solid var(--border); border-radius:.7rem; padding:.65rem .8rem; color:#e7eaf0; }
     .tag { display:inline-block; padding:.3rem .6rem; border:1px solid var(--border); border-radius:999px; font-size:.8rem; color:var(--muted); cursor:pointer; }
+    .chat-fab { position:fixed; right:1rem; bottom:1rem; z-index:61; box-shadow:0 10px 30px rgba(0,0,0,.4); }
+    @media (max-width:640px) { .chat-panel { right:50%; width:96vw; } }
   </style>
 </head>
 <body>
@@ -47,6 +53,7 @@
       </a>
       <div class="flex items-center gap-3">
         <a href="https://wa.me/447444255968" class="btn btn-primary">WhatsApp</a>
+        <button id="openChat" class="btn btn-ghost" type="button">Chat to Book</button>
       </div>
     </div>
   </header>
@@ -58,10 +65,6 @@
           <p class="uppercase tracking-wider text-xs text-white/70">Mobile • Same-Day • 7am–10pm</p>
           <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mt-2">Car trouble? FixNow — We Come To You.</h1>
           <p class="text-lg md:text-xl text-white/85 mt-3">Mobile mechanic. Same-day diagnostics, servicing & repairs at your doorstep.</p>
-          <div class="mt-6 flex flex-wrap gap-3">
-            <a class="btn btn-primary" href="https://wa.me/447444255968">Message on WhatsApp</a>
-            <button id="openChat" class="btn btn-ghost" type="button">Chat to Book</button>
-          </div>
           <div class="mt-4 space-x-2">
             <span class="chip">OBD Diagnostics</span>
             <span class="chip">Servicing</span>
@@ -93,11 +96,9 @@
     </div>
   </footer>
 
-  <!-- Chatbot launcher -->
-  <button class="chat-launch btn btn-primary" id="chatLaunch">Chat</button>
-
-  <!-- Chatbot panel -->
-  <div class="chat-panel" id="chatPanel" aria-live="polite">
+  <!-- Overlay + Popup Chat -->
+  <div class="overlay" id="chatOverlay"></div>
+  <div class="chat-panel" id="chatPanel" role="dialog" aria-modal="true" aria-label="FixNow assistant">
     <div class="chat-header">
       <strong>FixNow Assistant</strong>
       <button id="closeChat" title="Close">✕</button>
@@ -107,96 +108,115 @@
       <div class="msg msg-bot">Common options: <span class="tag" data-s="diagnostics">diagnostics</span> <span class="tag" data-s="servicing">servicing</span> <span class="tag" data-s="brakes">brakes</span> <span class="tag" data-s="battery">battery</span> <span class="tag" data-s="breakdown">breakdown</span></div>
     </div>
     <div class="chat-input">
-      <input id="chatInput" type="text" placeholder="Type your message…" autocomplete="off">
+      <input id="chatInput" type="text" placeholder="Type your message…" autocomplete="off" aria-label="Describe your issue">
       <button id="chatSend" class="btn btn-primary" type="button">Send</button>
     </div>
   </div>
 
+  <!-- Floating Action Button -->
+  <button class="chat-fab btn btn-primary" id="chatLaunch" aria-haspopup="dialog" aria-controls="chatPanel">Chat</button>
+
   <script>
-    // Open/close
-    const panel = document.getElementById('chatPanel');
-    document.getElementById('chatLaunch').onclick = () => panel.style.display = 'block';
-    document.getElementById('openChat').onclick = () => panel.style.display = 'block';
-    document.getElementById('closeChat').onclick = () => panel.style.display = 'none';
+    // Robust init after DOM ready
+    document.addEventListener('DOMContentLoaded', function() {
+      const panel = document.getElementById('chatPanel');
+      const overlay = document.getElementById('chatOverlay');
+      const launch = document.getElementById('chatLaunch');
+      const openBtn = document.getElementById('openChat');
+      const closeBtn = document.getElementById('closeChat');
+      const body = document.getElementById('chatBody');
+      const input = document.getElementById('chatInput');
+      const send = document.getElementById('chatSend');
 
-    // Helpers
-    function addMsg(text, who='bot') {{
-      const b = document.getElementById('chatBody');
-      const div = document.createElement('div');
-      div.className = 'msg ' + (who==='user' ? 'msg-user' : 'msg-bot');
-      div.textContent = text;
-      b.appendChild(div);
-      b.scrollTop = b.scrollHeight;
-    }}
-    function linkWa(text) {{
-      const url = 'https://wa.me/447444255968?text=' + encodeURIComponent(text);
-      const b = document.getElementById('chatBody');
-      const container = document.createElement('div'); container.className = 'msg msg-bot';
-      const a = document.createElement('a'); a.href = url; a.textContent = 'Open WhatsApp with my message'; a.className = 'underline';
-      a.target = '_blank'; a.rel = 'noopener';
-      container.appendChild(a);
-      b.appendChild(container);
-      b.scrollTop = b.scrollHeight;
-    }}
+      function openChat() {
+        panel.classList.add('open');
+        overlay.classList.add('open');
+        setTimeout(() => { try { input.focus(); } catch(e){} }, 50);
+      }
+      function closeChat() {
+        panel.classList.remove('open');
+        overlay.classList.remove('open');
+      }
 
-    // Lightweight intent + entity extraction (client-side)
-    const svcKeywords = {{
-      diagnostics: /diag(nostic)?s?/i,
-      servicing: /service|servicing/i,
-      brakes: /brake|pads|discs/i,
-      battery: /battery|alternator/i,
-      breakdown: /non[- ]?start|breakdown|stuck|won't start|wont start/i
-    }};
-    const ukPlate = /\b([A-Z]{{2}}\d{{2}}\s?[A-Z]{{3}}|[A-Z]{{1,3}}\d{{1,4}}\s?[A-Z]{{1,3}})\b/i;
-    const postcode = /\b([A-Z]{{1,2}}\d{{1,2}}[A-Z]?\s?\d[A-Z]{{2}})\b/i;
-    const whenRe = /(today|tomorrow|weekend|sat|sun|monday|tuesday|wednesday|thursday|friday|\b\d{{1,2}}(?::\d{{2}})?\s?(am|pm)?)/i;
-    const makeModel = /(audi|bmw|ford|vw|volkswagen|vauxhall|mercedes|mercedes-benz|toyota|nissan|honda|kia|hyundai|mazda|mini|peugeot|citroen|renault|skoda|seat)\s?[\w-]*/i;
+      [launch, openBtn].forEach(btn => btn && btn.addEventListener('click', openChat));
+      [closeBtn, overlay].forEach(el => el && el.addEventListener('click', closeChat));
 
-    function inferService(text) {{
-      for (const [k, re] of Object.entries(svcKeywords)) if (re.test(text)) return k;
-      return 'diagnostics';
-    }}
+      function addMsg(text, who) {
+        const div = document.createElement('div');
+        div.className = 'msg ' + (who === 'user' ? 'msg-user' : 'msg-bot');
+        div.textContent = text;
+        body.appendChild(div);
+        body.scrollTop = body.scrollHeight;
+      }
 
-    function buildSummary(text) {{
-      const svc = inferService(text);
-      const plate = (text.match(ukPlate)||[])[0] || '[reg?]';
-      const pc = (text.match(postcode)||[])[0] || '[postcode?]';
-      const when = (text.match(whenRe)||[])[0] || '[preferred time?]';
-      const mm = (text.match(makeModel)||[])[0] || '[make/model?]';
+      function linkWa(text) {
+        const url = 'https://wa.me/447444255968?text=' + encodeURIComponent(text);
+        const container = document.createElement('div');
+        container.className = 'msg msg-bot';
+        const a = document.createElement('a');
+        a.href = url; a.textContent = 'Open WhatsApp with my message'; a.className = 'underline';
+        a.target = '_blank'; a.rel = 'noopener';
+        container.appendChild(a);
+        body.appendChild(container);
+        body.scrollTop = body.scrollHeight;
+      }
 
-      // Short problem summary (trim to 140 chars)
-      const clean = text.replace(/\s+/g,' ').trim();
-      const issue = clean.length>140 ? clean.slice(0,137)+'…' : clean;
+      const svcKeywords = {
+        diagnostics: /diag(nostic)?s?/i,
+        servicing: /service|servicing/i,
+        brakes: /brake|pads|discs/i,
+        battery: /battery|alternator/i,
+        breakdown: /non[- ]?start|breakdown|stuck|won't start|wont start/i
+      };
+      const ukPlate = /\b([A-Z]{2}\d{2}\s?[A-Z]{3}|[A-Z]{1,3}\d{1,4}\s?[A-Z]{1,3})\b/i;
+      const postcode = /\b([A-Z]{1,2}\d{1,2}[A-Z]?\s?\d[A-Z]{2})\b/i;
+      const whenRe = /(today|tomorrow|weekend|sat|sun|monday|tuesday|wednesday|thursday|friday|\b\d{1,2}(?::\d{2})?\s?(am|pm)?)/i;
+      const makeModel = /(audi|bmw|ford|vw|volkswagen|vauxhall|mercedes|mercedes-benz|toyota|nissan|honda|kia|hyundai|mazda|mini|peugeot|citroen|renault|skoda|seat)\s?[\w-]*/i;
 
-      const labels = {{ diagnostics: 'Diagnostics', servicing: 'Servicing', brakes: 'Brakes', battery: 'Battery/Alternator', breakdown: 'Breakdown Assist' }};
-      const svcLabel = labels[svc];
+      function inferService(text) {
+        for (const [k, re] of Object.entries(svcKeywords)) if (re.test(text)) return k;
+        return 'diagnostics';
+      }
 
-      const msg = `Booking — ${{svcLabel}}\nMake/Model: ${{mm}}\nReg: ${{plate}}\nPostcode: ${{pc}}\nWhen: ${{when}}\nNotes: ${{issue}}`;
-      return {{ svc, msg, plate, pc, when, mm }};
-    }}
+      function buildSummary(text) {
+        const svc = inferService(text);
+        const plate = (text.match(ukPlate)||[])[0] || '[reg?]';
+        const pc = (text.match(postcode)||[])[0] || '[postcode?]';
+        const when = (text.match(whenRe)||[])[0] || '[preferred time?]';
+        const mm = (text.match(makeModel)||[])[0] || '[make/model?]';
 
-    function handleInput(raw) {{
-      const text = raw.trim();
-      if (!text) return;
-      addMsg(text, 'user');
-      const s = buildSummary(text);
-      addMsg('Got it. I prepared this message for you:');
-      addMsg(s.msg);
-      linkWa(s.msg);
-    }}
+        const clean = text.replace(/\s+/g,' ').trim();
+        const issue = clean.length>140 ? clean.slice(0,137)+'…' : clean;
 
-    // Send input
-    const input = document.getElementById('chatInput');
-    document.getElementById('chatSend').onclick = () => {{ handleInput(input.value); input.value=''; input.focus(); }};
-    input.addEventListener('keydown', (e) => {{ if (e.key==='Enter') {{ handleInput(input.value); input.value=''; }} }});
+        const labels = { diagnostics: 'Diagnostics', servicing: 'Servicing', brakes: 'Brakes', battery: 'Battery/Alternator', breakdown: 'Breakdown Assist' };
+        const svcLabel = labels[svc];
 
-    // Quick tags
-    document.querySelectorAll('.tag').forEach(t => {{
-      t.addEventListener('click', () => {{
-        input.value = (input.value + ' ' + t.dataset.s).trim();
-        input.focus();
-      }});
-    }});
+        const msg = `Booking — ${svcLabel}\nMake/Model: ${mm}\nReg: ${plate}\nPostcode: ${pc}\nWhen: ${when}\nNotes: ${issue}`;
+        return { msg };
+      }
+
+      function handleInput(raw) {
+        const text = (raw || '').trim();
+        if (!text) return;
+        addMsg(text, 'user');
+        const s = buildSummary(text);
+        addMsg('Got it. I prepared this message for you:');
+        addMsg(s.msg);
+        linkWa(s.msg);
+      }
+
+      if (send) send.addEventListener('click', function(){ handleInput(input.value); input.value=''; input.focus(); });
+      if (input) input.addEventListener('keydown', function(e){ if (e.key==='Enter'){ handleInput(input.value); input.value=''; }});
+
+      // Quick tags
+      document.querySelectorAll('.tag').forEach(t => {
+        t.addEventListener('click', function(){
+          if (!input) return;
+          input.value = (input.value + ' ' + t.dataset.s).trim();
+          input.focus();
+        });
+      });
+    });
   </script>
 </body>
 </html>
