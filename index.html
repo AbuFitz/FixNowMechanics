@@ -26,22 +26,25 @@
     .hero { background: radial-gradient(1200px 500px at 50% -10%, rgba(59,130,246,.25), transparent 60%), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="800"><defs><pattern id="p" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M0 40h40M0 0h40M0 0v40M40 0v40" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23p)"/></svg>') center/cover no-repeat; }
     .chip { display:inline-block; padding:.35rem .7rem; border-radius:9999px; border:1px solid var(--border); color:var(--muted); font-size:.9rem; }
 
-    /* POPUP CHAT */
-    .overlay { position:fixed; inset:0; background:rgba(0,0,0,.6); display:none; z-index:50; opacity:0; transition:opacity .2s ease; }
+    /* POPUP AI ASSISTANT */
+    .overlay { position:fixed; inset:0; background:rgba(0,0,0,.65); display:none; z-index:50; opacity:0; transition:opacity .2s ease; }
     .overlay.open { display:block; opacity:1; }
-    .chat-panel { position:fixed; right:50%; top:50%; transform:translate(50%, 60%) scale(.96); opacity:0; width:680px; max-width:92vw; max-height:80vh; display:none; z-index:60;
+    .ai-panel { position:fixed; right:50%; top:50%; transform:translate(50%, 60%) scale(.96); opacity:0; width:760px; max-width:95vw; max-height:85vh; display:none; z-index:60;
       background:#0f1420; border:1px solid var(--border); border-radius:1rem; overflow:hidden; transition: all .25s ease; }
-    .chat-panel.open { display:block; transform:translate(50%, -50%) scale(1); opacity:1; }
-    .chat-header { display:flex; align-items:center; justify-content:space-between; padding:.9rem 1rem; background:#0e1220; border-bottom:1px solid var(--border) }
-    .chat-body { padding:1rem; max-height:56vh; overflow:auto; background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0)); }
-    .msg { padding:.6rem .8rem; border-radius:.8rem; margin:.3rem 0; max-width:85% }
+    .ai-panel.open { display:block; transform:translate(50%, -50%) scale(1); opacity:1; }
+    .ai-header { display:flex; align-items:center; justify-content:space-between; padding:1rem; background:#0e1220; border-bottom:1px solid var(--border) }
+    .ai-body { display:grid; grid-template-columns: 1fr 320px; gap:1rem; padding:1rem; max-height:62vh; overflow:auto; }
+    .ai-col { background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0)); border:1px solid var(--border); border-radius:.75rem; padding:1rem; }
+    .ai-chat { max-height:54vh; overflow:auto; }
+    .msg { padding:.6rem .8rem; border-radius:.8rem; margin:.35rem 0; max-width:95% }
     .msg-user { background:#1b2436; margin-left:auto }
     .msg-bot { background:#111827; border:1px solid var(--border) }
-    .chat-input { display:flex; gap:.5rem; padding:.75rem; border-top:1px solid var(--border); background:#0e1220 }
-    .chat-input input { flex:1; background:#0b0f17; border:1px solid var(--border); border-radius:.7rem; padding:.65rem .8rem; color:#e7eaf0; }
-    .tag { display:inline-block; padding:.3rem .6rem; border:1px solid var(--border); border-radius:999px; font-size:.8rem; color:var(--muted); cursor:pointer; }
-    .chat-fab { position:fixed; right:1rem; bottom:1rem; z-index:61; box-shadow:0 10px 30px rgba(0,0,0,.4); }
-    @media (max-width:640px) { .chat-panel { right:50%; width:96vw; } }
+    .ai-input { display:flex; gap:.5rem; padding:1rem; border-top:1px solid var(--border); background:#0e1220 }
+    .ai-input input, .ai-input textarea { flex:1; background:#0b0f17; border:1px solid var(--border); border-radius:.7rem; padding:.65rem .8rem; color:#e7eaf0; min-height:44px; }
+    .tip { color:var(--muted); font-size:.9rem; }
+    .fab { position:fixed; right:1rem; bottom:1rem; z-index:61; box-shadow:0 10px 30px rgba(0,0,0,.4); }
+    .preview { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Courier New", monospace; font-size:.95rem; white-space:pre-wrap; }
+    @media (max-width:860px) { .ai-body { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -53,7 +56,7 @@
       </a>
       <div class="flex items-center gap-3">
         <a href="https://wa.me/447444255968" class="btn btn-primary">WhatsApp</a>
-        <button id="openChat" class="btn btn-ghost" type="button">Chat to Book</button>
+        <button id="openAI" class="btn btn-ghost" type="button">AI to Book</button>
       </div>
     </div>
   </header>
@@ -96,127 +99,108 @@
     </div>
   </footer>
 
-  <!-- Overlay + Popup Chat -->
-  <div class="overlay" id="chatOverlay"></div>
-  <div class="chat-panel" id="chatPanel" role="dialog" aria-modal="true" aria-label="FixNow assistant">
-    <div class="chat-header">
-      <strong>FixNow Assistant</strong>
-      <button id="closeChat" title="Close">✕</button>
+  <!-- Overlay + AI Panel -->
+  <div class="overlay" id="aiOverlay"></div>
+  <div class="ai-panel" id="aiPanel" role="dialog" aria-modal="true" aria-label="FixNow AI Assistant">
+    <div class="ai-header">
+      <strong>FixNow AI — craft your WhatsApp message</strong>
+      <button id="closeAI" title="Close">✕</button>
     </div>
-    <div class="chat-body" id="chatBody">
-      <div class="msg msg-bot">Hi! Tell me what’s wrong or what you need (e.g., “car won’t start in NW9”, “service for Fiesta reg AB12 CDE”). I’ll prepare a WhatsApp message for you to send.</div>
-      <div class="msg msg-bot">Common options: <span class="tag" data-s="diagnostics">diagnostics</span> <span class="tag" data-s="servicing">servicing</span> <span class="tag" data-s="brakes">brakes</span> <span class="tag" data-s="battery">battery</span> <span class="tag" data-s="breakdown">breakdown</span></div>
-    </div>
-    <div class="chat-input">
-      <input id="chatInput" type="text" placeholder="Type your message…" autocomplete="off" aria-label="Describe your issue">
-      <button id="chatSend" class="btn btn-primary" type="button">Send</button>
+    <div class="ai-body">
+      <div class="ai-col">
+        <div id="aiChat" class="ai-chat">
+          <div class="msg msg-bot">Tell me what's wrong and where you are (e.g., “Fiesta won't start in HA3, reg AB12 CDE, need today after 5pm”).</div>
+        </div>
+        <div class="ai-input">
+          <input id="aiInput" placeholder="Type here and press Enter…" autocomplete="off">
+          <button id="aiSend" class="btn btn-primary" type="button">Ask AI</button>
+        </div>
+        <p class="tip">The assistant turns your message into a clear booking text for WhatsApp.</p>
+      </div>
+      <div class="ai-col">
+        <h3 class="font-bold mb-2">Preview</h3>
+        <div id="aiPreview" class="preview card p-3">Your message will appear here…</div>
+        <a id="waBtn" class="btn btn-primary mt-3 inline-flex" href="https://wa.me/447444255968" target="_blank" rel="noopener">Open WhatsApp with this message</a>
+        <p id="aiStatus" class="tip mt-3"></p>
+      </div>
     </div>
   </div>
 
-  <!-- Floating Action Button -->
-  <button class="chat-fab btn btn-primary" id="chatLaunch" aria-haspopup="dialog" aria-controls="chatPanel">Chat</button>
+  <!-- Floating Button -->
+  <button class="fab btn btn-primary" id="aiLaunch">AI to Book</button>
 
   <script>
-    // Robust init after DOM ready
-    document.addEventListener('DOMContentLoaded', function() {
-      const panel = document.getElementById('chatPanel');
-      const overlay = document.getElementById('chatOverlay');
-      const launch = document.getElementById('chatLaunch');
-      const openBtn = document.getElementById('openChat');
-      const closeBtn = document.getElementById('closeChat');
-      const body = document.getElementById('chatBody');
-      const input = document.getElementById('chatInput');
-      const send = document.getElementById('chatSend');
+    const PHONE = "447444255968";
 
-      function openChat() {
-        panel.classList.add('open');
-        overlay.classList.add('open');
-        setTimeout(() => { try { input.focus(); } catch(e){} }, 50);
-      }
-      function closeChat() {
-        panel.classList.remove('open');
-        overlay.classList.remove('open');
-      }
+    function openAI() {
+      document.getElementById('aiPanel').classList.add('open');
+      document.getElementById('aiOverlay').classList.add('open');
+      setTimeout(() => document.getElementById('aiInput').focus(), 60);
+    }
+    function closeAI() {
+      document.getElementById('aiPanel').classList.remove('open');
+      document.getElementById('aiOverlay').classList.remove('open');
+    }
 
-      [launch, openBtn].forEach(btn => btn && btn.addEventListener('click', openChat));
-      [closeBtn, overlay].forEach(el => el && el.addEventListener('click', closeChat));
+    document.getElementById('aiLaunch').addEventListener('click', openAI);
+    document.getElementById('openAI').addEventListener('click', openAI);
+    document.getElementById('closeAI').addEventListener('click', closeAI);
+    document.getElementById('aiOverlay').addEventListener('click', closeAI);
 
-      function addMsg(text, who) {
-        const div = document.createElement('div');
-        div.className = 'msg ' + (who === 'user' ? 'msg-user' : 'msg-bot');
-        div.textContent = text;
-        body.appendChild(div);
-        body.scrollTop = body.scrollHeight;
-      }
+    const chat = document.getElementById('aiChat');
+    const input = document.getElementById('aiInput');
+    const send = document.getElementById('aiSend');
+    const preview = document.getElementById('aiPreview');
+    const waBtn = document.getElementById('waBtn');
+    const statusEl = document.getElementById('aiStatus');
 
-      function linkWa(text) {
-        const url = 'https://wa.me/447444255968?text=' + encodeURIComponent(text);
-        const container = document.createElement('div');
-        container.className = 'msg msg-bot';
-        const a = document.createElement('a');
-        a.href = url; a.textContent = 'Open WhatsApp with my message'; a.className = 'underline';
-        a.target = '_blank'; a.rel = 'noopener';
-        container.appendChild(a);
-        body.appendChild(container);
-        body.scrollTop = body.scrollHeight;
-      }
+    function addMsg(text, who='bot') {
+      const div = document.createElement('div');
+      div.className = 'msg ' + (who==='user' ? 'msg-user' : 'msg-bot');
+      div.textContent = text;
+      chat.appendChild(div);
+      chat.scrollTop = chat.scrollHeight;
+    }
 
-      const svcKeywords = {
-        diagnostics: /diag(nostic)?s?/i,
-        servicing: /service|servicing/i,
-        brakes: /brake|pads|discs/i,
-        battery: /battery|alternator/i,
-        breakdown: /non[- ]?start|breakdown|stuck|won't start|wont start/i
-      };
-      const ukPlate = /\b([A-Z]{2}\d{2}\s?[A-Z]{3}|[A-Z]{1,3}\d{1,4}\s?[A-Z]{1,3})\b/i;
-      const postcode = /\b([A-Z]{1,2}\d{1,2}[A-Z]?\s?\d[A-Z]{2})\b/i;
-      const whenRe = /(today|tomorrow|weekend|sat|sun|monday|tuesday|wednesday|thursday|friday|\b\d{1,2}(?::\d{2})?\s?(am|pm)?)/i;
-      const makeModel = /(audi|bmw|ford|vw|volkswagen|vauxhall|mercedes|mercedes-benz|toyota|nissan|honda|kia|hyundai|mazda|mini|peugeot|citroen|renault|skoda|seat)\s?[\w-]*/i;
-
-      function inferService(text) {
-        for (const [k, re] of Object.entries(svcKeywords)) if (re.test(text)) return k;
-        return 'diagnostics';
-      }
-
-      function buildSummary(text) {
-        const svc = inferService(text);
-        const plate = (text.match(ukPlate)||[])[0] || '[reg?]';
-        const pc = (text.match(postcode)||[])[0] || '[postcode?]';
-        const when = (text.match(whenRe)||[])[0] || '[preferred time?]';
-        const mm = (text.match(makeModel)||[])[0] || '[make/model?]';
-
-        const clean = text.replace(/\s+/g,' ').trim();
-        const issue = clean.length>140 ? clean.slice(0,137)+'…' : clean;
-
-        const labels = { diagnostics: 'Diagnostics', servicing: 'Servicing', brakes: 'Brakes', battery: 'Battery/Alternator', breakdown: 'Breakdown Assist' };
-        const svcLabel = labels[svc];
-
-        const msg = `Booking — ${svcLabel}\nMake/Model: ${mm}\nReg: ${plate}\nPostcode: ${pc}\nWhen: ${when}\nNotes: ${issue}`;
-        return { msg };
-      }
-
-      function handleInput(raw) {
-        const text = (raw || '').trim();
-        if (!text) return;
-        addMsg(text, 'user');
-        const s = buildSummary(text);
-        addMsg('Got it. I prepared this message for you:');
-        addMsg(s.msg);
-        linkWa(s.msg);
-      }
-
-      if (send) send.addEventListener('click', function(){ handleInput(input.value); input.value=''; input.focus(); });
-      if (input) input.addEventListener('keydown', function(e){ if (e.key==='Enter'){ handleInput(input.value); input.value=''; }});
-
-      // Quick tags
-      document.querySelectorAll('.tag').forEach(t => {
-        t.addEventListener('click', function(){
-          if (!input) return;
-          input.value = (input.value + ' ' + t.dataset.s).trim();
-          input.focus();
+    async function composeWithAI(userText) {
+      try {
+        statusEl.textContent = "Thinking…";
+        const rsp = await fetch('/api/compose', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ input: userText })
         });
-      });
-    });
+        if (!rsp.ok) throw new Error('API error ' + rsp.status);
+        const data = await rsp.json();
+        statusEl.textContent = "";
+        return data.message || userText;
+      } catch (e) {
+        // graceful fallback: local heuristic
+        statusEl.textContent = "AI offline — using a quick fallback.";
+        const ukPlate = /\b([A-Z]{2}\d{2}\s?[A-Z]{3}|[A-Z]{1,3}\d{1,4}\s?[A-Z]{1,3})\b/i;
+        const postcode = /\b([A-Z]{1,2}\d{1,2}[A-Z]?\s?\d[A-Z]{2})\b/i;
+        const whenRe = /(today|tomorrow|weekend|sat|sun|monday|tuesday|wednesday|thursday|friday|\b\d{1,2}(?::\d{2})?\s?(am|pm)?)/i;
+        const plate = (userText.match(ukPlate)||[])[0] || '[reg?]';
+        const pc = (userText.match(postcode)||[])[0] || '[postcode?]';
+        const when = (userText.match(whenRe)||[])[0] || '[when?]';
+        return `Booking — Mobile Mechanic\nReg: ${plate}\nPostcode: ${pc}\nWhen: ${when}\nNotes: ${userText.slice(0,200)}`;
+      }
+    }
+
+    async function handleSend() {
+      const t = input.value.trim();
+      if (!t) return;
+      addMsg(t, 'user');
+      input.value = '';
+      const msg = await composeWithAI(t);
+      const previewText = msg;
+      preview.textContent = previewText;
+      waBtn.href = 'https://wa.me/' + PHONE + '?text=' + encodeURIComponent(previewText);
+      addMsg('Here’s a WhatsApp-ready message. Tap the button on the right to send.', 'bot');
+    }
+
+    send.addEventListener('click', handleSend);
+    input.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleSend(); });
   </script>
 </body>
 </html>
