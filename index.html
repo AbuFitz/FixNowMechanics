@@ -24,38 +24,19 @@
     .card { background:var(--card); border:1px solid var(--border); border-radius:1rem; }
     .grid-auto { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap:1rem; }
     .hero { background: radial-gradient(1200px 500px at 50% -10%, rgba(59,130,246,.25), transparent 60%), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="800"><defs><pattern id="p" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M0 40h40M0 0h40M0 0v40M40 0v40" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23p)"/></svg>') center/cover no-repeat; }
-    details[open] summary svg { transform: rotate(180deg); }
     .chip { display:inline-block; padding:.35rem .7rem; border-radius:9999px; border:1px solid var(--border); color:var(--muted); font-size:.9rem; }
+    /* Chatbot widget */
+    .chat-launch { position:fixed; right:1rem; bottom:1rem; z-index:60 }
+    .chat-panel { position:fixed; right:1rem; bottom:5rem; width:340px; max-width:calc(100vw - 2rem); background:#0f1420; border:1px solid var(--border); border-radius:1rem; overflow:hidden; display:none; z-index:60 }
+    .chat-header { display:flex; align-items:center; justify-content:space-between; padding:.75rem 1rem; background:#0e1220; border-bottom:1px solid var(--border) }
+    .chat-body { padding:1rem; max-height:48vh; overflow:auto }
+    .msg { padding:.6rem .8rem; border-radius:.8rem; margin:.3rem 0; max-width:85% }
+    .msg-user { background:#1b2436; margin-left:auto }
+    .msg-bot { background:#111827; border:1px solid var(--border) }
+    .chat-input { display:flex; gap:.5rem; padding:.75rem; border-top:1px solid var(--border); background:#0e1220 }
+    .chat-input input { flex:1; background:#0b0f17; border:1px solid var(--border); border-radius:.7rem; padding:.65rem .8rem; color:#e7eaf0; }
+    .tag { display:inline-block; padding:.3rem .6rem; border:1px solid var(--border); border-radius:999px; font-size:.8rem; color:var(--muted); cursor:pointer; }
   </style>
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "AutomotiveBusiness",
-  "name": "FixNow Mechanics",
-  "url": "https://fixnowmechanics.co.uk/",
-  "telephone": "+44 7444255968",
-  "email": "hello@fixnow.me",
-  "image": "https://placehold.co/800x600/png?text=FixNow",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "London",
-    "addressRegion": "Greater London",
-    "addressCountry": "UK"
-  },
-  "areaServed": [
-    "Greater London & Hertfordshire"
-  ],
-  "openingHours": "Mo-Su 07:00-22:00",
-  "priceRange": "\u00a3\u00a3",
-  "serviceType": [
-    "Diagnostics",
-    "Servicing",
-    "Brakes",
-    "Batteries",
-    "Breakdown Assist"
-  ]
-}
-  </script>
 </head>
 <body>
   <header class="sticky top-0 z-50 bg-black/40 backdrop-blur border-b border-white/10">
@@ -66,7 +47,6 @@
       </a>
       <div class="flex items-center gap-3">
         <a href="https://wa.me/447444255968" class="btn btn-primary">WhatsApp</a>
-        <a href="tel:+447444255968" class="btn btn-ghost hidden md:inline-flex">Call 07444 255968</a>
       </div>
     </div>
   </header>
@@ -76,11 +56,11 @@
       <div class="min-h-[64vh] flex flex-col justify-center">
         <div class="max-w-2xl bg-black/45 p-6 md:p-8 rounded-2xl">
           <p class="uppercase tracking-wider text-xs text-white/70">Mobile • Same-Day • 7am–10pm</p>
-          <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mt-2">FixNow — We Come To You</h1>
+          <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mt-2">Car trouble? FixNow — We Come To You.</h1>
           <p class="text-lg md:text-xl text-white/85 mt-3">Mobile mechanic. Same-day diagnostics, servicing & repairs at your doorstep.</p>
           <div class="mt-6 flex flex-wrap gap-3">
             <a class="btn btn-primary" href="https://wa.me/447444255968">Message on WhatsApp</a>
-            <button id="copyBtn" class="btn btn-ghost" type="button">Copy Number</button>
+            <button id="openChat" class="btn btn-ghost" type="button">Chat to Book</button>
           </div>
           <div class="mt-4 space-x-2">
             <span class="chip">OBD Diagnostics</span>
@@ -103,34 +83,120 @@
     </div>
   </section>
 
-  <section class="py-12 max-w-5xl mx-auto px-4">
-    <h2 class="text-2xl font-bold mb-4">FAQs</h2>
-    <div class="space-y-2">
-      <details class="card p-4"><summary class="cursor-pointer flex items-center justify-between"><span>How fast can you come out?</span><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg></summary><p class="mt-3 text-white/80">Same day in most cases (7am–10pm). Message us on WhatsApp and we’ll confirm a time.</p></details>
-      <details class="card p-4"><summary class="cursor-pointer flex items-center justify-between"><span>Do you charge a call-out fee?</span><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg></summary><p class="mt-3 text-white/80">Diagnostics from £49 covers call-out in core areas. We’ll confirm any extras in chat before visiting.</p></details>
-      <details class="card p-4"><summary class="cursor-pointer flex items-center justify-between"><span>What areas do you cover?</span><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg></summary><p class="mt-3 text-white/80">Greater London & Hertfordshire. Further afield? Send your postcode.</p></details>
-    </div>
-  </section>
-
   <footer class="border-t border-white/10">
-    <div class="max-w-5xl mx-auto px-4 py-8 text-sm flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    <div class="max-w-5xl mx-auto px-4 py-8 text-sm flex items-center justify-between gap-4">
       <div class="flex items-center gap-3">
         <img src="/assets/logo.svg" class="w-7 h-7" alt="FixNow Mechanics">
         <span>© 2025 FixNow Mechanics</span>
       </div>
-      <div class="opacity-80 flex items-center gap-3">
-        <span class="hidden md:inline">Email:</span> <a class="underline" href="mailto:hello@fixnow.me">hello@fixnow.me</a>
-        <span class="hidden md:inline">•</span>
-        <button id="copyBtnFoot" class="underline" type="button">Copy 07444 255968</button>
-      </div>
+      <div class="opacity-80">Open 7:00–22:00 • Greater London & Hertfordshire</div>
     </div>
   </footer>
 
+  <!-- Chatbot launcher -->
+  <button class="chat-launch btn btn-primary" id="chatLaunch">Chat</button>
+
+  <!-- Chatbot panel -->
+  <div class="chat-panel" id="chatPanel" aria-live="polite">
+    <div class="chat-header">
+      <strong>FixNow Assistant</strong>
+      <button id="closeChat" title="Close">✕</button>
+    </div>
+    <div class="chat-body" id="chatBody">
+      <div class="msg msg-bot">Hi! Tell me what’s wrong or what you need (e.g., “car won’t start in NW9”, “service for Fiesta reg AB12 CDE”). I’ll prepare a WhatsApp message for you to send.</div>
+      <div class="msg msg-bot">Common options: <span class="tag" data-s="diagnostics">diagnostics</span> <span class="tag" data-s="servicing">servicing</span> <span class="tag" data-s="brakes">brakes</span> <span class="tag" data-s="battery">battery</span> <span class="tag" data-s="breakdown">breakdown</span></div>
+    </div>
+    <div class="chat-input">
+      <input id="chatInput" type="text" placeholder="Type your message…" autocomplete="off">
+      <button id="chatSend" class="btn btn-primary" type="button">Send</button>
+    </div>
+  </div>
+
   <script>
-    const num = '07444 255968'.replace(/\s+/g,'');
-    function copyNum() {{ navigator.clipboard.writeText(num); const b = this; const t = b.textContent; b.textContent = 'Number copied'; setTimeout(()=>b.textContent=t, 1200); }}
-    document.getElementById('copyBtn').addEventListener('click', copyNum);
-    document.getElementById('copyBtnFoot').addEventListener('click', copyNum);
+    // Open/close
+    const panel = document.getElementById('chatPanel');
+    document.getElementById('chatLaunch').onclick = () => panel.style.display = 'block';
+    document.getElementById('openChat').onclick = () => panel.style.display = 'block';
+    document.getElementById('closeChat').onclick = () => panel.style.display = 'none';
+
+    // Helpers
+    function addMsg(text, who='bot') {{
+      const b = document.getElementById('chatBody');
+      const div = document.createElement('div');
+      div.className = 'msg ' + (who==='user' ? 'msg-user' : 'msg-bot');
+      div.textContent = text;
+      b.appendChild(div);
+      b.scrollTop = b.scrollHeight;
+    }}
+    function linkWa(text) {{
+      const url = 'https://wa.me/447444255968?text=' + encodeURIComponent(text);
+      const b = document.getElementById('chatBody');
+      const container = document.createElement('div'); container.className = 'msg msg-bot';
+      const a = document.createElement('a'); a.href = url; a.textContent = 'Open WhatsApp with my message'; a.className = 'underline';
+      a.target = '_blank'; a.rel = 'noopener';
+      container.appendChild(a);
+      b.appendChild(container);
+      b.scrollTop = b.scrollHeight;
+    }}
+
+    // Lightweight intent + entity extraction (client-side)
+    const svcKeywords = {{
+      diagnostics: /diag(nostic)?s?/i,
+      servicing: /service|servicing/i,
+      brakes: /brake|pads|discs/i,
+      battery: /battery|alternator/i,
+      breakdown: /non[- ]?start|breakdown|stuck|won't start|wont start/i
+    }};
+    const ukPlate = /\b([A-Z]{{2}}\d{{2}}\s?[A-Z]{{3}}|[A-Z]{{1,3}}\d{{1,4}}\s?[A-Z]{{1,3}})\b/i;
+    const postcode = /\b([A-Z]{{1,2}}\d{{1,2}}[A-Z]?\s?\d[A-Z]{{2}})\b/i;
+    const whenRe = /(today|tomorrow|weekend|sat|sun|monday|tuesday|wednesday|thursday|friday|\b\d{{1,2}}(?::\d{{2}})?\s?(am|pm)?)/i;
+    const makeModel = /(audi|bmw|ford|vw|volkswagen|vauxhall|mercedes|mercedes-benz|toyota|nissan|honda|kia|hyundai|mazda|mini|peugeot|citroen|renault|skoda|seat)\s?[\w-]*/i;
+
+    function inferService(text) {{
+      for (const [k, re] of Object.entries(svcKeywords)) if (re.test(text)) return k;
+      return 'diagnostics';
+    }}
+
+    function buildSummary(text) {{
+      const svc = inferService(text);
+      const plate = (text.match(ukPlate)||[])[0] || '[reg?]';
+      const pc = (text.match(postcode)||[])[0] || '[postcode?]';
+      const when = (text.match(whenRe)||[])[0] || '[preferred time?]';
+      const mm = (text.match(makeModel)||[])[0] || '[make/model?]';
+
+      // Short problem summary (trim to 140 chars)
+      const clean = text.replace(/\s+/g,' ').trim();
+      const issue = clean.length>140 ? clean.slice(0,137)+'…' : clean;
+
+      const labels = {{ diagnostics: 'Diagnostics', servicing: 'Servicing', brakes: 'Brakes', battery: 'Battery/Alternator', breakdown: 'Breakdown Assist' }};
+      const svcLabel = labels[svc];
+
+      const msg = `Booking — ${{svcLabel}}\nMake/Model: ${{mm}}\nReg: ${{plate}}\nPostcode: ${{pc}}\nWhen: ${{when}}\nNotes: ${{issue}}`;
+      return {{ svc, msg, plate, pc, when, mm }};
+    }}
+
+    function handleInput(raw) {{
+      const text = raw.trim();
+      if (!text) return;
+      addMsg(text, 'user');
+      const s = buildSummary(text);
+      addMsg('Got it. I prepared this message for you:');
+      addMsg(s.msg);
+      linkWa(s.msg);
+    }}
+
+    // Send input
+    const input = document.getElementById('chatInput');
+    document.getElementById('chatSend').onclick = () => {{ handleInput(input.value); input.value=''; input.focus(); }};
+    input.addEventListener('keydown', (e) => {{ if (e.key==='Enter') {{ handleInput(input.value); input.value=''; }} }});
+
+    // Quick tags
+    document.querySelectorAll('.tag').forEach(t => {{
+      t.addEventListener('click', () => {{
+        input.value = (input.value + ' ' + t.dataset.s).trim();
+        input.focus();
+      }});
+    }});
   </script>
 </body>
 </html>
