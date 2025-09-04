@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -16,7 +15,7 @@
   <link rel="icon" href="/assets/favicon.svg">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    :root { --bg:#0b0f17; --muted:rgba(255,255,255,.65); --card:rgba(255,255,255,.04); --border:rgba(255,255,255,.08); --brand:#22c55e; }
+    :root { --bg:#0b0f17; --muted:rgba(255,255,255,.65); --card:rgba(255,255,255,.04); --border:rgba(255,255,255,.10); --brand:#22c55e; --accent:#3b82f6; }
     body { background:var(--bg); color:#e7eaf0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter; }
     .btn { display:inline-flex; align-items:center; gap:.6rem; padding:.9rem 1.1rem; border-radius:9999px; font-weight:700; }
     .btn-primary { background:var(--brand); color:#04110a; }
@@ -24,27 +23,29 @@
     .card { background:var(--card); border:1px solid var(--border); border-radius:1rem; }
     .grid-auto { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap:1rem; }
     .hero { background: radial-gradient(1200px 500px at 50% -10%, rgba(59,130,246,.25), transparent 60%), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="800"><defs><pattern id="p" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M0 40h40M0 0h40M0 0v40M40 0v40" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23p)"/></svg>') center/cover no-repeat; }
-    .chip { display:inline-block; padding:.35rem .7rem; border-radius:9999px; border:1px solid var(--border); color:var(--muted); font-size:.9rem; }
+    .chip { display:inline-block; padding:.35rem .7rem; border-radius:9999px; border:1px solid var(--border); color:#var(--muted); font-size:.9rem; }
 
-    /* POPUP AI ASSISTANT */
-    .overlay { position:fixed; inset:0; background:rgba(0,0,0,.65); display:none; z-index:50; opacity:0; transition:opacity .2s ease; }
-    .overlay.open { display:block; opacity:1; }
-    .ai-panel { position:fixed; right:50%; top:50%; transform:translate(50%, 60%) scale(.96); opacity:0; width:760px; max-width:95vw; max-height:85vh; display:none; z-index:60;
-      background:#0f1420; border:1px solid var(--border); border-radius:1rem; overflow:hidden; transition: all .25s ease; }
-    .ai-panel.open { display:block; transform:translate(50%, -50%) scale(1); opacity:1; }
-    .ai-header { display:flex; align-items:center; justify-content:space-between; padding:1rem; background:#0e1220; border-bottom:1px solid var(--border) }
-    .ai-body { display:grid; grid-template-columns: 1fr 320px; gap:1rem; padding:1rem; max-height:62vh; overflow:auto; }
-    .ai-col { background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0)); border:1px solid var(--border); border-radius:.75rem; padding:1rem; }
-    .ai-chat { max-height:54vh; overflow:auto; }
-    .msg { padding:.6rem .8rem; border-radius:.8rem; margin:.35rem 0; max-width:95% }
-    .msg-user { background:#1b2436; margin-left:auto }
-    .msg-bot { background:#111827; border:1px solid var(--border) }
-    .ai-input { display:flex; gap:.5rem; padding:1rem; border-top:1px solid var(--border); background:#0e1220 }
-    .ai-input input, .ai-input textarea { flex:1; background:#0b0f17; border:1px solid var(--border); border-radius:.7rem; padding:.65rem .8rem; color:#e7eaf0; min-height:44px; }
-    .tip { color:var(--muted); font-size:.9rem; }
-    .fab { position:fixed; right:1rem; bottom:1rem; z-index:61; box-shadow:0 10px 30px rgba(0,0,0,.4); }
-    .preview { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Courier New", monospace; font-size:.95rem; white-space:pre-wrap; }
-    @media (max-width:860px) { .ai-body { grid-template-columns: 1fr; } }
+    /* BotPenguin-style widget */
+    .bp-launch { position:fixed; right:1rem; bottom:1rem; z-index:60; background:#2563eb; color:white; border-radius:999px; padding:.8rem 1rem; display:flex; align-items:center; gap:.6rem; box-shadow:0 10px 30px rgba(0,0,0,.4); }
+    .bp-panel { position:fixed; right:1rem; bottom:5rem; width:360px; max-width:95vw; background:#0e1422; border:1px solid var(--border); border-radius:1rem; overflow:hidden; display:none; z-index:60 }
+    .bp-header { display:flex; align-items:center; justify-content:space-between; padding:.8rem 1rem; background:#0e1220; border-bottom:1px solid var(--border) }
+    .bp-brand { display:flex; align-items:center; gap:.5rem; font-weight:800; }
+    .bp-brand .dot { width:9px; height:9px; background:#22c55e; border-radius:999px; box-shadow:0 0 0 3px rgba(34,197,94,.25) inset; }
+    .bp-body { background:#0f1526; }
+    .bp-stream { padding:1rem; max-height:55vh; overflow:auto; }
+    .msg { display:flex; gap:.5rem; margin:.35rem 0; }
+    .msg .bubble { padding:.6rem .8rem; border-radius:1rem; max-width:80%; }
+    .msg.bot .bubble { background:#111827; border:1px solid var(--border); }
+    .msg.user { justify-content:flex-end; }
+    .msg.user .bubble { background:#1b2436; }
+    .bp-quick { display:flex; flex-wrap:wrap; gap:.5rem; padding:0 1rem 1rem 1rem; }
+    .pill { padding:.35rem .7rem; border:1px solid var(--border); border-radius:999px; font-size:.85rem; color:#cbd5e1; cursor:pointer; }
+    .bp-input { display:flex; gap:.5rem; padding:.75rem; border-top:1px solid var(--border); }
+    .bp-input input { flex:1; background:#0b0f17; border:1px solid var(--border); border-radius:.7rem; padding:.65rem .8rem; color:#e7eaf0; }
+    .bp-footer { padding:.6rem 1rem; font-size:.8rem; color:#9aa4b2; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; }
+    .bp-overlay { position:fixed; inset:0; display:none; z-index:50; }
+    .bp-badge { background:#ef4444; color:white; font-size:.7rem; padding:.1rem .4rem; border-radius:999px; }
+    @media (max-width:480px) { .bp-panel { right:.5rem; bottom:5rem; width:94vw; } }
   </style>
 </head>
 <body>
@@ -56,7 +57,6 @@
       </a>
       <div class="flex items-center gap-3">
         <a href="https://wa.me/447444255968" class="btn btn-primary">WhatsApp</a>
-        <button id="openAI" class="btn btn-ghost" type="button">AI to Book</button>
       </div>
     </div>
   </header>
@@ -99,108 +99,139 @@
     </div>
   </footer>
 
-  <!-- Overlay + AI Panel -->
-  <div class="overlay" id="aiOverlay"></div>
-  <div class="ai-panel" id="aiPanel" role="dialog" aria-modal="true" aria-label="FixNow AI Assistant">
-    <div class="ai-header">
-      <strong>FixNow AI — craft your WhatsApp message</strong>
-      <button id="closeAI" title="Close">✕</button>
+  <!-- BotPenguin-style floating button -->
+  <button class="bp-launch" id="bpLaunch">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M12 2a9 9 0 00-7.9 12.9L3 22l7.3-1.8A9 9 0 1012 2z"/></svg>
+    Chat
+    <span class="bp-badge" id="bpBadge">New</span>
+  </button>
+
+  <!-- Chat panel -->
+  <div class="bp-panel" id="bpPanel" role="dialog" aria-modal="true" aria-label="FixNow chat">
+    <div class="bp-header">
+      <div class="bp-brand"><span class="dot"></span> FixNow Assistant</div>
+      <button id="bpClose" title="Close">✕</button>
     </div>
-    <div class="ai-body">
-      <div class="ai-col">
-        <div id="aiChat" class="ai-chat">
-          <div class="msg msg-bot">Tell me what's wrong and where you are (e.g., “Fiesta won't start in HA3, reg AB12 CDE, need today after 5pm”).</div>
-        </div>
-        <div class="ai-input">
-          <input id="aiInput" placeholder="Type here and press Enter…" autocomplete="off">
-          <button id="aiSend" class="btn btn-primary" type="button">Ask AI</button>
-        </div>
-        <p class="tip">The assistant turns your message into a clear booking text for WhatsApp.</p>
+    <div class="bp-body">
+      <div class="bp-stream" id="bpStream"></div>
+      <div class="bp-quick" id="bpQuick"></div>
+      <div class="bp-input">
+        <input id="bpInput" placeholder="Type here…" autocomplete="off">
+        <button id="bpSend" class="btn btn-primary" type="button">Send</button>
       </div>
-      <div class="ai-col">
-        <h3 class="font-bold mb-2">Preview</h3>
-        <div id="aiPreview" class="preview card p-3">Your message will appear here…</div>
-        <a id="waBtn" class="btn btn-primary mt-3 inline-flex" href="https://wa.me/447444255968" target="_blank" rel="noopener">Open WhatsApp with this message</a>
-        <p id="aiStatus" class="tip mt-3"></p>
-      </div>
+      <div class="bp-footer"><span>We’ll prep a WhatsApp message.</span><a id="waBtn" class="btn btn-primary" target="_blank" rel="noopener" href="https://wa.me/447444255968">Open WhatsApp</a></div>
     </div>
   </div>
-
-  <!-- Floating Button -->
-  <button class="fab btn btn-primary" id="aiLaunch">AI to Book</button>
+  <div class="bp-overlay" id="bpOverlay"></div>
 
   <script>
+    // Simple step wizard
     const PHONE = "447444255968";
+    const steps = [
+      { id:'service',   q:'What do you need help with?', type:'choice', options:['Diagnostics','Servicing','Brakes','Battery','Breakdown Assist'] },
+      { id:'make',      q:'What\'s the make/model?',    type:'text',   placeholder:'e.g., Ford Fiesta 1.6' },
+      { id:'reg',       q:'What\'s the registration?',  type:'text',   placeholder:'e.g., AB12 CDE', validate:/\b([A-Z]{2}\d{2}\s?[A-Z]{3}|[A-Z]{1,3}\d{1,4}\s?[A-Z]{1,3})\b/i, hint:'Use UK format like AB12 CDE' },
+      { id:'postcode',  q:'What\'s the postcode?',      type:'text',   placeholder:'e.g., HA3 7AA', validate:/\b([A-Z]{1,2}\d{1,2}[A-Z]?\s?\d[A-Z]{2})\b/i, hint:'Use UK format like HA3 7AA' },
+      { id:'when',      q:'When would you like us to come?', type:'text', placeholder:'e.g., Today after 5pm' },
+      { id:'notes',     q:'Any extra notes? (optional)', type:'text',   placeholder:'e.g., car won\'t start, on driveway' }
+    ];
+    const state = {};
+    const el = (sel) => document.getElementById(sel);
+    const stream = el('bpStream');
+    const quick = el('bpQuick');
+    const input = el('bpInput');
+    const send = el('bpSend');
+    const waBtn = el('waBtn');
 
-    function openAI() {
-      document.getElementById('aiPanel').classList.add('open');
-      document.getElementById('aiOverlay').classList.add('open');
-      setTimeout(() => document.getElementById('aiInput').focus(), 60);
-    }
-    function closeAI() {
-      document.getElementById('aiPanel').classList.remove('open');
-      document.getElementById('aiOverlay').classList.remove('open');
-    }
-
-    document.getElementById('aiLaunch').addEventListener('click', openAI);
-    document.getElementById('openAI').addEventListener('click', openAI);
-    document.getElementById('closeAI').addEventListener('click', closeAI);
-    document.getElementById('aiOverlay').addEventListener('click', closeAI);
-
-    const chat = document.getElementById('aiChat');
-    const input = document.getElementById('aiInput');
-    const send = document.getElementById('aiSend');
-    const preview = document.getElementById('aiPreview');
-    const waBtn = document.getElementById('waBtn');
-    const statusEl = document.getElementById('aiStatus');
-
-    function addMsg(text, who='bot') {
-      const div = document.createElement('div');
-      div.className = 'msg ' + (who==='user' ? 'msg-user' : 'msg-bot');
-      div.textContent = text;
-      chat.appendChild(div);
-      chat.scrollTop = chat.scrollHeight;
+    function addBot(text) { addMsg(text, 'bot'); }
+    function addUser(text) { addMsg(text, 'user'); }
+    function addMsg(text, who) {
+      const row = document.createElement('div'); row.className = 'msg ' + (who==='user'?'user':'bot');
+      const bubble = document.createElement('div'); bubble.className = 'bubble'; bubble.textContent = text;
+      row.appendChild(bubble); stream.appendChild(row); stream.scrollTop = stream.scrollHeight;
     }
 
-    async function composeWithAI(userText) {
-      try {
-        statusEl.textContent = "Thinking…";
-        const rsp = await fetch('/api/compose', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ input: userText })
-        });
-        if (!rsp.ok) throw new Error('API error ' + rsp.status);
-        const data = await rsp.json();
-        statusEl.textContent = "";
-        return data.message || userText;
-      } catch (e) {
-        // graceful fallback: local heuristic
-        statusEl.textContent = "AI offline — using a quick fallback.";
-        const ukPlate = /\b([A-Z]{2}\d{2}\s?[A-Z]{3}|[A-Z]{1,3}\d{1,4}\s?[A-Z]{1,3})\b/i;
-        const postcode = /\b([A-Z]{1,2}\d{1,2}[A-Z]?\s?\d[A-Z]{2})\b/i;
-        const whenRe = /(today|tomorrow|weekend|sat|sun|monday|tuesday|wednesday|thursday|friday|\b\d{1,2}(?::\d{2})?\s?(am|pm)?)/i;
-        const plate = (userText.match(ukPlate)||[])[0] || '[reg?]';
-        const pc = (userText.match(postcode)||[])[0] || '[postcode?]';
-        const when = (userText.match(whenRe)||[])[0] || '[when?]';
-        return `Booking — Mobile Mechanic\nReg: ${plate}\nPostcode: ${pc}\nWhen: ${when}\nNotes: ${userText.slice(0,200)}`;
-      }
+    function setQuick(opts) {
+      quick.innerHTML='';
+      if (!opts) return;
+      opts.forEach(o=>{ const b=document.createElement('button'); b.className='pill'; b.textContent=o; b.onclick=()=>handleInput(o); quick.appendChild(b); });
     }
 
-    async function handleSend() {
-      const t = input.value.trim();
-      if (!t) return;
-      addMsg(t, 'user');
+    let stepIndex = 0;
+    function currentStep() { return steps[stepIndex]; }
+
+    function ask() {
+      const s = currentStep();
+      if (!s) return;
+      addBot(s.q);
+      setQuick(s.type==='choice' ? s.options : null);
       input.value = '';
-      const msg = await composeWithAI(t);
-      const previewText = msg;
-      preview.textContent = previewText;
-      waBtn.href = 'https://wa.me/' + PHONE + '?text=' + encodeURIComponent(previewText);
-      addMsg('Here’s a WhatsApp-ready message. Tap the button on the right to send.', 'bot');
+      input.placeholder = s.placeholder || '';
+      input.focus();
     }
 
-    send.addEventListener('click', handleSend);
-    input.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleSend(); });
+    function next() {
+      stepIndex++;
+      if (stepIndex < steps.length) ask(); else finish();
+    }
+
+    function handleInput(text) {
+      const s = currentStep();
+      if (!s) return;
+      const t = (text || input.value || '').trim();
+      if (!t) return;
+      if (s.validate && !s.validate.test(t)) { addBot(s.hint || 'Please check the format.'); return; }
+      addUser(t);
+      state[s.id] = t;
+      next();
+    }
+
+    function finish() {
+      const summary = [
+        `Booking — ${state.service || 'Service'}`,
+        `Make/Model: ${state.make || '[make/model?]'}`,
+        `Reg: ${state.reg || '[reg?]'}`,
+        `Postcode: ${state.postcode || '[postcode?]'}`,
+        `When: ${state.when || '[when?]'}`,
+        `Notes: ${state.notes || '—'}`
+      ].join('\n');
+      addBot('Great, here\'s your WhatsApp message:');
+      addBot(summary);
+      waBtn.href = 'https://wa.me/' + PHONE + '?text=' + encodeURIComponent(summary);
+      setQuick(['Edit details','Start over','Send on WhatsApp']);
+    }
+
+    quick.addEventListener('click', (e)=>{
+      if(e.target.classList.contains('pill')) {
+        const label = e.target.textContent;
+        if(label==='Send on WhatsApp') { window.open(waBtn.href,'_blank'); return; }
+        if(label==='Start over') { stream.innerHTML=''; Object.keys(state).forEach(k=>delete state[k]); stepIndex=0; intro(); return; }
+        if(label==='Edit details') { addBot('Which detail do you want to change?'); setQuick(steps.map(s=>s.id)); return; }
+        if(steps.map(s=>s.id).includes(label)) {
+          stepIndex = steps.findIndex(s=>s.id===label);
+          addBot('Okay, update: ' + label);
+          ask(); return;
+        }
+        handleInput(label);
+      }
+    });
+
+    function intro() { addBot('Hi! I\'ll get you booked in. I\'ll ask a few quick questions.'); ask(); }
+
+    const panel = document.getElementById('bpPanel');
+    const launch = document.getElementById('bpLaunch');
+    const closeBtn = document.getElementById('bpClose');
+    const overlay = document.getElementById('bpOverlay');
+    function openW() { panel.style.display='block'; overlay.style.display='block'; if(stream.children.length===0) intro(); input.focus(); }
+    function closeW() { panel.style.display='none'; overlay.style.display='none'; }
+    launch.addEventListener('click', openW);
+    closeBtn.addEventListener('click', closeW);
+    overlay.addEventListener('click', closeW);
+
+    send.addEventListener('click', ()=>handleInput());
+    input.addEventListener('keydown',(e)=>{ if(e.key==='Enter') handleInput(); });
+
+    launch.addEventListener('click', ()=>{ const badge=document.getElementById('bpBadge'); if(badge) badge.style.display='none'; });
   </script>
 </body>
 </html>
