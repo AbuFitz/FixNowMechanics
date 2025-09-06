@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360">
+  <rect width="900" height="360" fill="#0b0f17"/>
+  <g stroke="#2b3345" stroke-width="1">
+    <path d="M50 300 L850 300" opacity=".4"/>
+    <path d="M50 260 L850 260" opacity=".2"/>
+    <path d="M50 220 L850 220" opacity=".15"/>
+    <path d="M50 180 L850 180" opacity=".1"/>
+    <path d="M50 140 L850 140" opacity=".08"/>
+  </g>
+  <g transform="translate(450,180)">
+    <circle r="120" fill="none" stroke="#22c55e" stroke-width="2" stroke-dasharray="6 6" />
+    <circle r="4" fill="#22c55e"/>
+  </g>
+  <text x="470" y="182" fill="#cbd5e1" font-family="Arial" font-size="14">Hemel Hempstead</text>
+  <text x="30" y="40" fill="#e5e7eb" font-family="Arial" font-size="18">Coverage radius (~60 miles)</text>
+  <text x="30" y="65" fill="#94a3b8" font-family="Arial" font-size="14">Greater London • Hertfordshire • Bedfordshire • Buckinghamshire • parts of Essex & Berkshire</text>
+</svg>
