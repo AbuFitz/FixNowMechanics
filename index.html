@@ -1,5 +1,61 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><title>FixNow Mechanics</title></head>
-<body><h1>FixNow Mechanics v8</h1><p>Deploy ready site with reviews carousel, Leaflet map, FAQs, and chat widget.</p></body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>FixNow Mechanics — Mobile Mechanic</title>
+  <meta name="description" content="Mobile mechanic. Same-day diagnostics, servicing & repairs at your doorstep.">
+  <link rel="icon" href="/assets/favicon.svg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link id="leafletCss" rel="preload" as="style" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" onload="this.onload=null;this.rel='stylesheet'">
+  <script defer id="leafletJs" src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body class="bg-[#0b0f17] text-white">
+  <header class="p-4 flex justify-between">
+    <div class="flex items-center gap-2"><img src="/assets/logo.svg" class="h-10"/><strong>FixNow Mechanics</strong></div>
+    <div class="flex gap-2">
+      <a href="tel:+447444255968" class="bg-green-600 px-3 py-2 rounded">07444 255968</a>
+      <a href="https://wa.me/447444255968" class="bg-green-500 px-3 py-2 rounded">WhatsApp</a>
+    </div>
+  </header>
+  <main class="p-6 max-w-4xl mx-auto">
+    <section>
+      <h1 class="text-4xl font-bold">Car trouble? FixNow — We Come To You.</h1>
+      <p class="mt-2">Mobile mechanic. Same-day diagnostics, servicing & repairs at your doorstep.</p>
+    </section>
+    <section class="mt-10">
+      <h2 class="text-2xl font-bold">Services</h2>
+      <div class="grid grid-cols-2 gap-4 mt-4">
+        <div class="p-4 bg-black/40 rounded">Diagnostics — from £49</div>
+        <div class="p-4 bg-black/40 rounded">Servicing — from £129</div>
+        <div class="p-4 bg-black/40 rounded">Brakes — from £99</div>
+        <div class="p-4 bg-black/40 rounded">Battery — from £79</div>
+      </div>
+    </section>
+    <section class="mt-10">
+      <h2 class="text-2xl font-bold">What Our Customers Say</h2>
+      <div class="bg-black/30 p-6 rounded mt-4">
+        <blockquote>“Android screen upgrade looks OEM and booking was seamless.”</blockquote>
+        <p class="text-sm mt-2">— Riyana S.</p>
+      </div>
+    </section>
+    <section class="mt-10">
+      <h2 class="text-2xl font-bold">Live Coverage Map</h2>
+      <div id="map" class="h-72 mt-4 rounded"></div>
+    </section>
+    <section class="mt-10">
+      <h2 class="text-2xl font-bold">FAQs</h2>
+      <details class="bg-black/30 p-4 mt-2 rounded" open><summary>What areas do you cover?</summary><p>Greater London & Hertfordshire</p></details>
+      <details class="bg-black/30 p-4 mt-2 rounded"><summary>Can you come today?</summary><p>Often yes. Message us on WhatsApp to check.</p></details>
+    </section>
+  </main>
+  <footer class="p-4 text-center text-sm opacity-75">© 2025 FixNow Mechanics</footer>
+  <script>
+    document.addEventListener("DOMContentLoaded",()=>{
+      var map=L.map('map').setView([51.752,-0.475],10);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18, attribution:'&copy; OpenStreetMap'}).addTo(map);
+      L.circle([51.752,-0.475],{radius:96560,color:'#22c55e',fill:false,dashArray:'8 6'}).addTo(map);
+    });
+  </script>
+</body>
 </html>
