@@ -1,16 +1,18 @@
+
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <title>FixNow Mechanics — Mobile Mechanic</title>
   <meta name="description" content="Mobile mechanic. Same-day diagnostics, servicing & repairs at your doorstep.">
   <link rel="icon" href="/assets/favicon.svg">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    :root { --bg:#0b0f17; --muted:rgba(255,255,255,.70); --card:rgba(255,255,255,.04); --border:rgba(255,255,255,.10); --brand:#22c55e; }
-    body { background:var(--bg); color:#e7eaf0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter; transition: filter .3s ease; }
-    body.dim { filter:brightness(.85); }
+    :root { --bg:#0b0f17; --muted:rgba(255,255,255,.72); --card:rgba(255,255,255,.04); --border:rgba(255,255,255,.10); --brand:#22c55e; }
+    html, body { height:100%; }
+    body { background:var(--bg); color:#e7eaf0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto; transition: filter .25s ease; }
+    body.dim { filter:brightness(.86); }
     .btn { display:inline-flex; align-items:center; gap:.6rem; padding:.82rem 1.05rem; border-radius:9999px; font-weight:800; font-size:.98rem; }
     .btn-primary { background:var(--brand); color:#04110a; }
     .btn-neutral { background:#1f2937; color:#e5e7eb; border:1px solid #111827; }
@@ -20,45 +22,49 @@
     .grid-auto { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap:1rem; }
     .hero { background: radial-gradient(1200px 500px at 50% -10%, rgba(34,197,94,.18), transparent 60%), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="800"><defs><pattern id="p" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M0 40h40M0 0h40M0 0v40M40 0v40" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23p)"/></svg>') center/cover no-repeat; }
     .chip { display:inline-block; padding:.35rem .7rem; border-radius:9999px; border:1px solid var(--border); color:#cbd5e1; font-size:.9rem; }
-
-    /* Reviews carousel (like your screenshot) */
     .carousel { position:relative; }
     .slide { display:none; }
     .slide.active { display:block; }
     .stars i { display:inline-block; width:12px; height:12px; margin-right:3px; background:linear-gradient(90deg,#22c55e,#a7f3d0); -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M12 .587l3.668 7.431 8.2 1.193-5.934 5.787 1.401 8.169L12 18.896l-7.335 3.871 1.401-8.169L.131 9.211l8.2-1.193L12 .587z\"/></svg>') center/contain no-repeat; mask: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M12 .587l3.668 7.431 8.2 1.193-5.934 5.787 1.401 8.169L12 18.896l-7.335 3.871 1.401-8.169L.131 9.211l8.2-1.193L12 .587z\"/></svg>') center/contain no-repeat; }
-    .dots button { width:26px; height:6px; border-radius:999px; background:#334155; border:none; }
+    .dots button { width:30px; height:8px; border-radius:999px; background:#334155; border:none; }
     .dots button.active { background:#22c55e; }
-
-    /* Chat widget */
-    .bp-launch { position:fixed; right:1rem; bottom:1rem; z-index:60; background:var(--brand); color:#04110a; border-radius:999px; padding:.95rem 1.2rem; display:flex; align-items:center; gap:.6rem; box-shadow:0 10px 30px rgba(0,0,0,.45); }
+    .bp-launch { position:fixed; right:1rem; bottom:1rem; z-index:70; background:var(--brand); color:#04110a; border-radius:999px; padding:.95rem 1.2rem; display:flex; align-items:center; gap:.6rem; box-shadow:0 10px 30px rgba(0,0,0,.45); }
     .bp-launch.pulse { animation:pulse 1.8s infinite; }
-    @keyframes pulse { 0% { box-shadow:0 0 0 0 rgba(34,197,94,.6); } 70% { box-shadow:0 0 0 18px rgba(34,197,94,0); } 100% { box-shadow:0 0 0 0 rgba(34,197,94,0); } }
-    .bp-panel { position:fixed; right:1rem; bottom:5rem; width:370px; max-width:95vw; background:#0e1422; border:1px solid var(--border); border-radius:1rem; overflow:hidden; display:none; z-index:60 }
+    @keyframes pulse { 0% { box-shadow:0 0 0 0 rgba(34,197,94,.6); } 70% { box-shadow:0 0 0 20px rgba(34,197,94,0); } 100% { box-shadow:0 0 0 0 rgba(34,197,94,0); } }
+    .bp-panel { position:fixed; right:1rem; bottom:5rem; width:370px; max-width:95vw; background:#0e1422; border:1px solid var(--border); border-radius:1rem; overflow:hidden; display:none; z-index:80 }
     .bp-header { display:flex; align-items:center; justify-content:space-between; padding:.8rem 1rem; background:#0e1220; border-bottom:1px solid var(--border) }
-    .bp-stream { padding:1rem; max-height:55vh; overflow:auto; }
+    .bp-stream { padding:1rem; max-height:55vh; overflow:auto; scroll-behavior:smooth; }
     .msg { display:flex; gap:.5rem; margin:.35rem 0; }
     .msg .bubble { padding:.6rem .8rem; border-radius:1rem; max-width:80%; }
     .msg.bot .bubble { background:#111827; border:1px solid var(--border); }
     .msg.user { justify-content:flex-end; }
     .msg.user .bubble { background:#1f2937; }
     .bp-quick { display:flex; flex-wrap:wrap; gap:.5rem; padding:0 1rem 1rem 1rem; }
-    .pill { padding:.45rem .8rem; border:1px solid var(--border); border-radius:999px; font-size:.85rem; color:#e5e7eb; background:#111827; }
+    .pill { padding:.5rem .9rem; border:1px solid var(--border); border-radius:999px; font-size:.9rem; color:#e5e7eb; background:#111827; }
     .pill:hover { border-color:#1f2937; background:#0f172a; }
     .pill.active { border-color:#22c55e; background:#0b0f17; }
     .bp-input { display:flex; gap:.5rem; padding:.75rem; border-top:1px solid var(--border); }
-    .bp-input input { flex:1; background:#0b0f17; border:1px solid var(--border); border-radius:.7rem; padding:.65rem .8rem; color:#e7eaf0; }
+    .bp-input input { flex:1; background:#0b0f17; border:1px solid var(--border); border-radius:.7rem; padding:.7rem .85rem; color:#e7eaf0; }
     .bp-actions { display:none; gap:.5rem; padding:1rem; border-top:1px solid var(--border); }
     .bp-actions .cta { flex:1; padding:1rem; border-radius:.9rem; font-weight:800; text-align:center; border:1px solid var(--border); background:#111827; color:#e7eaf0; }
-    .bp-actions .cta.primary { background:var(--brand); color:#04110a; border:none; }
-    .bp-footer { display:none; }
-    .bp-overlay { position:fixed; inset:0; display:none; background:rgba(2,6,23,.55); backdrop-filter: blur(2px); z-index:50; }
+    .bp-actions .cta.primary { background:#22c55e; color:#04110a; border:none; }
+    .bp-overlay { position:fixed; inset:0; display:none; background:rgba(2,6,23,.6); backdrop-filter: blur(3px); z-index:75; }
+    @media (max-width:480px) {
+      .btn { padding:0.9rem 1rem; font-size:1rem; }
+      header .btn { padding:.6rem .9rem; font-weight:700; }
+      .hero .chip { font-size:.8rem; }
+      .card { border-radius:.9rem; }
+      .grid-auto { gap:.8rem; }
+      body { padding-bottom:5.5rem; }
+      #liveMap { height: 48vh !important; }
+    }
   </style>
-  <!-- Leaflet (lazy loaded on click) -->
-  <link id="leafletCss" rel="preload" as="style" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" onload="this.onload=null;this.rel='stylesheet'">
-  <script defer id="leafletJs" src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
-  <header class="sticky top-0 z-40 bg-black/40 backdrop-blur border-b border-white/10">
+  <header class="sticky top-0 z-50 bg-black/40 backdrop-blur border-b border-white/10">
     <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
       <a href="/" class="flex items-center gap-3">
         <img src="/assets/logo.svg" alt="FixNow Mechanics" class="w-10 h-10">
@@ -81,13 +87,11 @@
           <p class="uppercase tracking-wider text-xs text-white/70">Mobile • Same-Day • 7am–10pm</p>
           <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mt-2">Car trouble? FixNow — We Come To You.</h1>
           <p class="text-lg md:text-xl text-white/85 mt-3">Mobile mechanic. Same-day diagnostics, servicing & repairs at your doorstep.</p>
-
           <div class="mt-5 flex flex-wrap gap-2">
             <span class="chip">🚐 Mobile Mechanic</span>
             <span class="chip">⭐ 5★ Google Reviews</span>
             <span class="chip">⚡ Same‑Day Service</span>
           </div>
-
           <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
             <button class="btn btn-primary w-full" data-qs="Diagnostics">Diagnostics</button>
             <button class="btn btn-neutral w-full" data-qs="Servicing">Servicing</button>
@@ -107,7 +111,6 @@
     </div>
   </section>
 
-  <!-- Reviews carousel -->
   <section class="py-6">
     <div class="max-w-5xl mx-auto px-4">
       <h2 class="text-2xl font-extrabold mb-3">What Our Customers Say</h2>
@@ -136,21 +139,16 @@
     </div>
   </section>
 
-  <!-- Live Map (loads on click) -->
   <section class="py-6">
     <div class="max-w-5xl mx-auto px-4">
       <h2 class="text-2xl font-extrabold mb-3">Live Coverage Map</h2>
       <div class="card overflow-hidden">
-        <div id="mapWrap" class="relative" style="height:380px">
-          <button id="loadMap" class="absolute inset-0 w-full h-full bg-gradient-to-b from-black/40 to-black/30 flex items-center justify-center text-white/90 text-lg">Load Map</button>
-          <div id="liveMap" class="w-full h-full"></div>
-        </div>
-        <div class="p-3 text-xs text-slate-400">Map loads on click. No tracking cookies. Tiles © OpenStreetMap contributors.</div>
+        <div id="liveMap" style="height:380px"></div>
+        <div class="p-3 text-xs text-slate-400">Tiles © OpenStreetMap contributors.</div>
       </div>
     </div>
   </section>
 
-  <!-- FAQs -->
   <section class="py-10">
     <div class="max-w-5xl mx-auto px-4">
       <h2 class="text-2xl font-extrabold mb-3">FAQs</h2>
@@ -189,7 +187,6 @@
     </div>
   </footer>
 
-  <!-- Chat -->
   <button class="bp-launch pulse" id="bpLaunch" aria-haspopup="dialog" aria-controls="bpPanel" aria-label="Open chat to book">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a9 9 0 00-7.9 12.9L3 22l7.3-1.8A9 9 0 1012 2z"/></svg>
     Chat
@@ -217,7 +214,6 @@
   <div class="bp-overlay" id="bpOverlay"></div>
 
   <script>
-    // Reviews carousel
     (function() {
       const root = document.getElementById('reviews');
       if (!root) return;
@@ -233,18 +229,17 @@
       setInterval(()=>go(i+1), 6000);
     })();
 
-    // Live map (loads on click)
-    const loadMapBtn=document.getElementById('loadMap');
-    loadMapBtn.addEventListener('click',()=>{
-      loadMapBtn.remove();
-      const center=[51.752, -0.475]; // Hemel-ish
+    (function() {
+      const center=[51.752, -0.475];
       const map=L.map('liveMap').setView(center, 10);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{ maxZoom:18, attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
-      L.circle(center, { radius: 96560, color:'#22c55e', fill:false, dashArray:'8 6' }).addTo(map); // ~60 miles
+      L.circle(center, { radius: 96560, color:'#22c55e', fill:false, dashArray:'8 6' }).addTo(map);
       L.marker(center).addTo(map).bindPopup('FixNow Mechanics — HQ');
-    });
+      const fix = () => setTimeout(()=>map.invalidateSize(),200);
+      window.addEventListener('resize', fix);
+      setTimeout(fix, 300);
+    })();
 
-    // Chat wizard (final CTA screen)
     const PHONE = "447444255968";
     const steps = [
       { id:'service',   q:'What do you need help with?', type:'choice', options:['Diagnostics','Servicing','Brakes','Battery','Breakdown Assist'] },
@@ -264,14 +259,14 @@
     function setQuick(opts){ quick.innerHTML=''; if(!opts) return; opts.forEach(o=>{ const b=document.createElement('button'); b.className='pill'; b.textContent=o; b.onclick=()=>{ b.classList.add('active'); handleInput(o); }; quick.appendChild(b); }); }
 
     let i=0; const step=()=>steps[i];
-    function ask(){ const s=step(); if(!s) return; addBot(s.q); setQuick(s.type==='choice'?s.options:null); input.value=''; input.placeholder=s.placeholder||''; input.focus(); }
+    function ask(){ const s=step(); if(!s) return; addBot(s.q); setQuick(s.type==='choice'?s.options:null); input.value=''; input.placeholder=s.placeholder||''; if(!window.matchMedia('(max-width: 480px)').matches) input.focus(); }
     function next(){ i++; if(i<steps.length) ask(); else finish(); }
 
     function handleInput(txt){ const s=step(); if(!s) return; const t=(txt||input.value||'').trim(); if(!t) return;
       if(s.validate && !s.validate.test(t)){ addBot(s.hint||'Please check the format.'); return; }
       addUser(t); state[s.id]=t; next(); }
 
-    function finish(){ const summary=[`Booking — ${state.service||'Service'}`,`Make/Model: ${state.make||'[make/model?]'}`,`Reg: ${state.reg||'[reg?]'}`,`Postcode: ${state.postcode||'[postcode?]'}`,`When: ${state.when||'[when?]'}`,`Notes: ${state.notes||'—'}`].join('\n'); addBot('All set. Review below, then send on WhatsApp:'); addBot(summary); inputRow.style.display='none'; actions.style.display='flex'; waFinal.href='https://wa.me/'+PHONE+'?text='+encodeURIComponent(summary); setQuick(null); }
+    function finish(){ const summary=[`Booking — ${state.service||'Service'}`,`Make/Model: ${state.make||'[make/model?]']`,`Reg: ${state.reg||'[reg?]']`,`Postcode: ${state.postcode||'[postcode?]']`,`When: ${state.when||'[when?]']`,`Notes: ${state.notes||'—'}`].join('\n'); addBot('All set. Review below, then send on WhatsApp:'); addBot(summary); inputRow.style.display='none'; actions.style.display='flex'; waFinal.href='https://wa.me/'+PHONE+'?text='+encodeURIComponent(summary); setQuick(null); }
 
     actions.addEventListener('click',(e)=>{ const act=e.target.getAttribute('data-act'); if(!act) return;
       if(act==='restart'){ stream.innerHTML=''; Object.keys(state).forEach(k=>delete state[k]); i=0; inputRow.style.display='flex'; actions.style.display='none'; intro(); return; }
@@ -280,10 +275,16 @@
 
     function intro(){ addBot('Hi! I\'ll get you booked in. I\'ll ask a few quick questions.'); ask(); }
 
+    // Scroll lock for chat + ESC close
     const panel=$('bpPanel'), launch=$('bpLaunch'), closeBtn=$('bpClose'), overlay=$('bpOverlay');
-    function openW(){ panel.style.display='block'; overlay.style.display='block'; document.body.classList.add('dim'); if(stream.children.length===0) intro(); input.focus(); }
-    function closeW(){ panel.style.display='none'; overlay.style.display='none'; document.body.classList.remove('dim'); }
+    let scrollY=0;
+    function lockScroll(){ scrollY = window.scrollY || document.documentElement.scrollTop; document.body.style.top = `-${scrollY}px`; document.body.style.position='fixed'; document.body.style.left='0'; document.body.style.right='0'; document.body.style.width='100%'; }
+    function unlockScroll(){ document.body.style.position=''; document.body.style.top=''; document.body.style.left=''; document.body.style.right=''; document.body.style.width=''; window.scrollTo(0, scrollY||0); }
+    function openW(){ panel.style.display='block'; overlay.style.display='block'; document.body.classList.add('dim'); lockScroll(); if(stream.children.length===0) intro(); }
+    function closeW(){ panel.style.display='none'; overlay.style.display='none'; document.body.classList.remove('dim'); unlockScroll(); }
     launch.addEventListener('click', openW); closeBtn.addEventListener('click', closeW); overlay.addEventListener('click', closeW);
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeW(); });
+
     send.addEventListener('click', ()=>handleInput()); input.addEventListener('keydown',e=>{ if(e.key==='Enter') handleInput(); });
 
     document.querySelectorAll('[data-qs]').forEach(btn=>btn.addEventListener('click',()=>{ const svc=btn.getAttribute('data-qs'); openW(); if(stream.children.length===0) intro(); if(steps[i].id==='service') handleInput(svc); }));
