@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <title>FixNow Mechanics — Mobile Mechanic</title>
   <meta name="description" content="Mobile mechanic. Same-day diagnostics, servicing & repairs at your doorstep.">
-  <link rel="icon" href="/assets/favicon.svg">
+  <link rel="icon" href="assets/favicon.svg">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root { --bg:#0b0f17; --muted:rgba(255,255,255,.72); --card:rgba(255,255,255,.04); --border:rgba(255,255,255,.10); --brand:#22c55e; }
@@ -26,14 +26,17 @@
     .carousel { position:relative; }
     .slide { display:none; }
     .slide.active { display:block; }
-    .stars i { display:inline-block; width:12px; height:12px; margin-right:3px; background:linear-gradient(90deg,#22c55e,#a7f3d0); -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M12 .587l3.668 7.431 8.2 1.193-5.934 5.787 1.401 8.169L12 18.896l-7.335 3.871 1.401-8.169L.131 9.211l8.2-1.193L12 .587z\"/></svg>') center/contain no-repeat; mask: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M12 .587l3.668 7.431 8.2 1.193-5.934 5.787 1.401 8.169L12 18.896l-7.335 3.871 1.401-8.169L.131 9.211l8.2-1.193L12 .587z\"/></svg>') center/contain no-repeat; }
+    .stars i { display:inline-block; width:12px; height:12px; margin-right:3px; background:#334155; -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M12 .587l3.668 7.431 8.2 1.193-5.934 5.787 1.401 8.169L12 18.896l-7.335 3.871 1.401-8.169L.131 9.211l8.2-1.193L12 .587z\"/></svg>') center/contain no-repeat; mask: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M12 .587l3.668 7.431 8.2 1.193-5.934 5.787 1.401 8.169L12 18.896l-7.335 3.871 1.401-8.169L.131 9.211l8.2-1.193L12 .587z\"/></svg>') center/contain no-repeat; }
+    .stars i.on { background:linear-gradient(90deg,#22c55e,#a7f3d0); }
+
     .dots button { width:30px; height:8px; border-radius:999px; background:#334155; border:none; }
     .dots button.active { background:#22c55e; }
 
-    .bp-launch { position:fixed; right:1rem; bottom:1rem; z-index:70; background:var(--brand); color:#04110a; border-radius:999px; padding:.95rem 1.2rem; display:flex; align-items:center; gap:.6rem; box-shadow:0 10px 30px rgba(0,0,0,.45); }
+    /* Chat */
+    .bp-launch { position:fixed; right:1rem; bottom:1rem; z-index:9999; background:var(--brand); color:#04110a; border-radius:999px; padding:.95rem 1.2rem; display:flex; align-items:center; gap:.6rem; box-shadow:0 10px 30px rgba(0,0,0,.45); }
     .bp-launch.pulse { animation:pulse 1.8s infinite; }
     @keyframes pulse { 0% { box-shadow:0 0 0 0 rgba(34,197,94,.6); } 70% { box-shadow:0 0 0 20px rgba(34,197,94,0); } 100% { box-shadow:0 0 0 0 rgba(34,197,94,0); } }
-    .bp-panel { position:fixed; right:1rem; bottom:5rem; width:370px; max-width:95vw; background:#0e1422; border:1px solid var(--border); border-radius:1rem; overflow:hidden; display:none; z-index:80 }
+    .bp-panel { position:fixed; right:1rem; bottom:5rem; width:370px; max-width:95vw; background:#0e1422; border:1px solid var(--border); border-radius:1rem; overflow:hidden; display:none; z-index:10000; }
     .bp-header { display:flex; align-items:center; justify-content:space-between; padding:.8rem 1rem; background:#0e1220; border-bottom:1px solid var(--border) }
     .bp-stream { padding:1rem; max-height:55vh; overflow:auto; scroll-behavior:smooth; }
     .msg { display:flex; gap:.5rem; margin:.35rem 0; }
@@ -50,7 +53,7 @@
     .bp-actions { display:none; gap:.5rem; padding:1rem; border-top:1px solid var(--border); }
     .bp-actions .cta { flex:1; padding:1rem; border-radius:.9rem; font-weight:800; text-align:center; border:1px solid var(--border); background:#111827; color:#e7eaf0; }
     .bp-actions .cta.primary { background:var(--brand); color:#04110a; border:none; }
-    .bp-overlay { position:fixed; inset:0; display:none; background:rgba(2,6,23,.6); backdrop-filter: blur(3px); z-index:75; }
+    .bp-overlay { position:fixed; inset:0; display:none; background:rgba(2,6,23,.6); backdrop-filter: blur(3px); z-index:9998; }
 
     @media (max-width:480px) {
       .btn { padding:0.9rem 1rem; font-size:1rem; }
@@ -69,8 +72,8 @@
 <body>
   <header class="sticky top-0 z-50 bg-black/40 backdrop-blur border-b border-white/10">
     <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-      <a href="/" class="flex items-center gap-3">
-        <img src="/assets/logo.svg" alt="FixNow Mechanics" class="w-10 h-10">
+      <a href="#" class="flex items-center gap-3">
+        <img src="assets/logo.svg" alt="FixNow Mechanics" class="w-10 h-10">
         <strong>FixNow Mechanics</strong>
       </a>
       <div class="flex items-center gap-2">
@@ -93,7 +96,6 @@
 
           <div class="mt-5 flex flex-wrap gap-2">
             <span class="chip">🚐 Mobile Mechanic</span>
-            <span class="chip">⭐ 5★ Google Reviews</span>
             <span class="chip">⚡ Same‑Day Service</span>
           </div>
 
@@ -121,19 +123,25 @@
       <h2 class="text-2xl font-extrabold mb-3">What Our Customers Say</h2>
       <div class="card p-6 carousel" id="reviews">
         <div class="slide active">
-          <div class="stars mb-2"><i></i><i></i><i></i><i></i><i></i></div>
-          <blockquote class="text-center">“Android screen upgrade looks OEM and the WhatsApp booking was seamless. Highly recommend!”</blockquote>
-          <div class="text-center mt-2 text-sm text-slate-300">— Riyana S.</div>
-        </div>
-        <div class="slide">
-          <div class="stars mb-2"><i></i><i></i><i></i><i></i><i></i></div>
-          <blockquote class="text-center">“Diagnostics within an hour, clear quote, job done next morning.”</blockquote>
+          <div class="stars mb-2" aria-label="5 out of 5 stars">
+            <i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i>
+          </div>
+          <blockquote class="text-center">“Diagnosed a misfire on my Focus, replaced coil & plugs same‑day. Clear parts & labour breakdown.”</blockquote>
           <div class="text-center mt-2 text-sm text-slate-300">— Daniel P.</div>
         </div>
         <div class="slide">
-          <div class="stars mb-2"><i></i><i></i><i></i><i></i><i></i></div>
-          <blockquote class="text-center">“Battery replaced and coded on my driveway. Super professional.”</blockquote>
+          <div class="stars mb-2" aria-label="5 out of 5 stars">
+            <i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i>
+          </div>
+          <blockquote class="text-center">“Front & rear discs/pads on my driveway. Torque specs followed, bed‑in advice given. Great value.”</blockquote>
           <div class="text-center mt-2 text-sm text-slate-300">— Marta L.</div>
+        </div>
+        <div class="slide">
+          <div class="stars mb-2" aria-label="4 out of 5 stars">
+            <i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i>
+          </div>
+          <blockquote class="text-center">“Battery tested then replaced & coded. Took a bit longer than expected but fault is gone.”</blockquote>
+          <div class="text-center mt-2 text-sm text-slate-300">— Omar H.</div>
         </div>
         <div class="mt-4 flex justify-center gap-2 dots">
           <button class="active" data-ix="0" aria-label="Slide 1"></button>
@@ -186,7 +194,7 @@
   <footer class="border-t border-white/10">
     <div class="max-w-5xl mx-auto px-4 py-8 text-sm flex items-center justify-between gap-4">
       <div class="flex items-center gap-3">
-        <img src="/assets/logo.svg" class="w-7 h-7" alt="FixNow Mechanics">
+        <img src="assets/logo.svg" class="w-7 h-7" alt="FixNow Mechanics">
         <span>© 2025 FixNow Mechanics</span>
       </div>
       <div class="opacity-80">Open 7:00–22:00 • Greater London & Hertfordshire</div>
@@ -244,7 +252,6 @@
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{ maxZoom:18, attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
       const circle = L.circle(center, { radius: 96560, color:'#22c55e', fill:false, dashArray:'8 6' }).addTo(map);
       L.marker(center).addTo(map).bindPopup('FixNow Mechanics — HQ');
-      // Fit map to circle bounds
       map.fitBounds(circle.getBounds(), { padding:[20,20] });
       const fix = () => setTimeout(()=>map.invalidateSize(),200);
       window.addEventListener('resize', fix);
@@ -297,21 +304,18 @@
       if(act==='edit'){ addBot('Which detail do you want to change?'); const ids=steps.map(s=>s.id); quick.innerHTML=''; ids.forEach(id=>{ const b=document.createElement('button'); b.className='pill'; b.textContent=id; b.onclick=()=>{ i=steps.findIndex(s=>s.id===id); inputRow.style.display='flex'; actions.style.display='none'; ask(); }; quick.appendChild(b); }); }
     });
 
-    function intro(){ addBot('Hi! I\'ll get you booked in. I\'ll ask a few quick questions.'); ask(); }
+    function intro(){ addBot('Hi! I\'ll get you booked in. Quick questions about your vehicle & location.'); ask(); }
 
-    // Scroll lock to stop page jump
+    // Fixed-position chat + simple scroll lock
     const panel=$('bpPanel'), launch=$('bpLaunch'), closeBtn=$('bpClose'), overlay=$('bpOverlay');
-    let scrollY=0;
-    function lockScroll(){ scrollY = window.scrollY || document.documentElement.scrollTop; document.body.style.top = '-' + scrollY + 'px'; document.body.style.position='fixed'; document.body.style.left='0'; document.body.style.right='0'; document.body.style.width='100%'; }
-    function unlockScroll(){ document.body.style.position=''; document.body.style.top=''; document.body.style.left=''; document.body.style.right=''; document.body.style.width=''; window.scrollTo(0, scrollY||0); }
+    function lockScroll(){ document.body.style.overflow='hidden'; }
+    function unlockScroll(){ document.body.style.overflow=''; }
     function openW(){ panel.style.display='block'; overlay.style.display='block'; document.body.classList.add('dim'); lockScroll(); if(stream.children.length===0) intro(); }
     function closeW(){ panel.style.display='none'; overlay.style.display='none'; document.body.classList.remove('dim'); unlockScroll(); }
     launch.addEventListener('click', openW); closeBtn.addEventListener('click', closeW); overlay.addEventListener('click', closeW);
 
-    // Send handlers
     send.addEventListener('click', ()=>handleInput()); input.addEventListener('keydown',e=>{ if(e.key==='Enter') handleInput(); });
 
-    // Quick-start from hero
     document.querySelectorAll('[data-qs]').forEach(btn=>btn.addEventListener('click',()=>{ const svc=btn.getAttribute('data-qs'); openW(); if(stream.children.length===0) intro(); if(steps[i].id==='service') handleInput(svc); }));
   </script>
 </body>
