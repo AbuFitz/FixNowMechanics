@@ -69,6 +69,47 @@ function Stat({ kpi, label }) {
   );
 }
 
+// === Header (sticky) ===
+function Header() {
+  return (
+    <div className="sticky top-0 z-50 border-b border-white/10 backdrop-blur bg-black/40">
+      <Section className="py-3 flex items-center justify-between">
+        <a href="#top" className="text-white font-extrabold text-lg tracking-tight">
+          Fix<span style={{ color: BRAND.colors.primary }}>Now</span> Mechanics
+        </a>
+        <div className="hidden sm:flex items-center gap-6 text-white/80">
+          <a href="#services" className="hover:text-white">Services</a>
+          <a href="#areas" className="hover:text-white">Areas</a>
+          <a href="#contact" className="hover:text-white">Contact</a>
+          <a
+            href={`tel:${BRAND.phoneDisplay.replace(/\s/g, "")}`}
+            className="inline-flex items-center gap-2 rounded-lg px-3 py-2 font-semibold border"
+            style={{ borderColor: BRAND.colors.primary }}
+          >
+            <Phone size={18} /> {BRAND.phoneDisplay}
+          </a>
+        </div>
+      </Section>
+    </div>
+  );
+}
+
+// === Mobile CTA bar ===
+function MobileBottomBar() {
+  return (
+    <div className="fixed bottom-0 left-0 right-0 z-50 sm:hidden border-t border-white/10 bg-black/80 backdrop-blur p-3">
+      <div className="flex gap-3">
+        <a href={`tel:${BRAND.phoneDisplay.replace(/\s/g, "")}`} className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 font-semibold border" style={{ borderColor: BRAND.colors.primary, color: "white" }}>
+          <Phone size={18} /> Call
+        </a>
+        <a href={`https://wa.me/${BRAND.phoneIntl.replace("+", "")}?text=${BRAND.whatsappPrefill}`} className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 font-semibold" style={{ background: BRAND.colors.primary, color: "#0B0B0C" }}>
+          <MessageCircle size={18} /> WhatsApp
+        </a>
+      </div>
+    </div>
+  );
+}
+
 const WhatsAppButton = ({ className = "" }) => (
   <a
     href={`https://wa.me/${BRAND.phoneIntl.replace("+", "")}?text=${BRAND.whatsappPrefill}`}
@@ -92,12 +133,7 @@ const CallButton = ({ className = "" }) => (
 export default function FixNowSite() {
   return (
     <main id="top" className="min-h-screen w-full scroll-smooth" style={{ background: BRAND.colors.dark }}>
-      {/* Simple Header with anchor links */}
-      <div className="flex justify-center gap-6 py-4 text-white bg-black/30">
-        <a href="#services" className="hover:text-[${BRAND.colors.primary}]">Services</a>
-        <a href="#areas" className="hover:text-[${BRAND.colors.primary}]">Areas</a>
-        <a href="#contact" className="hover:text-[${BRAND.colors.primary}]">Contact</a>
-      </div>
+      <Header />
 
       {/* Announcement bar */}
       <div className="w-full" style={{ background: BRAND.colors.mid }}>
@@ -152,7 +188,7 @@ export default function FixNowSite() {
       </div>
 
       {/* Services */}
-      <Section id="services" className="py-16">
+      <Section id="services" className="py-16 scroll-mt-24">
         <h2 className="text-white text-3xl sm:text-4xl font-bold mb-2">Core services</h2>
         <p className="text-white/70 mb-8">High‑volume, fixed-price jobs so you always know the cost up front.</p>
         <div className="grid md:grid-cols-3 gap-6">
@@ -206,7 +242,7 @@ export default function FixNowSite() {
       </Section>
 
       {/* Service areas */}
-      <Section id="areas" className="py-16">
+      <Section id="areas" className="py-16 scroll-mt-24">
         <h2 className="text-white text-3xl font-bold mb-2">Service areas</h2>
         <p className="text-white/70 mb-6">We cover {BRAND.serviceAreas.join(", ")} and nearby.</p>
         <div className="flex flex-wrap gap-3">
@@ -217,7 +253,7 @@ export default function FixNowSite() {
       </Section>
 
       {/* Contact */}
-      <Section id="contact" className="py-16">
+      <Section id="contact" className="py-16 scroll-mt-24">
         <div className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-10 text-white">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
@@ -258,6 +294,7 @@ export default function FixNowSite() {
           </div>
         </Section>
       </footer>
+      <MobileBottomBar />
     </main>
   );
 }
