@@ -1,87 +1,89 @@
-import React from \"react\";
-import { Wrench, Clock, MapPin, Shield, Phone, MessageCircle, Settings2, Gauge, BadgeCheck, Droplet, BatteryCharging, Truck } from \"lucide-react\";
+import React from "react";
+import { Wrench, Clock, MapPin, Shield, Phone, MessageCircle, Settings2, Gauge, BadgeCheck, Droplet, BatteryCharging, Truck } from "lucide-react";
 
 // === Config ===
 const BRAND = {
-  name: \"FixNow Mechanics\",
-  phoneDisplay: \"07930 991598\",
-  phoneIntl: \"+447930991598\",
+  name: "FixNow Mechanics",
+  phoneDisplay: "07930 991598",
+  phoneIntl: "+447930991598",
   whatsappPrefill: encodeURIComponent(
-    \"Hi FixNow, I need a mobile mechanic. Car model: ____. Location: ____. Issue: ____. Earliest time: ____.\"
+    "Hi FixNow, I need a mobile mechanic. Car model: ____. Location: ____. Issue: ____. Earliest time: ____."
   ),
-  baseArea: \"Maylands Business Area, Hemel Hempstead, HP2 7DE\",
+  baseArea: "Maylands Business Area, Hemel Hempstead, HP2 7DE",
   serviceAreas: [
-    \"Hemel Hempstead\",
-    \"Watford\",
-    \"St Albans\",
-    \"Luton\",
-    \"Aylesbury\",
-    \"North London\"
+    "Hemel Hempstead",
+    "Watford",
+    "St Albans",
+    "Luton",
+    "Aylesbury",
+    "North London"
   ],
   colors: {
-    primary: \"#FFB800\", // amber/yellow accent
-    dark: \"#0B0B0C\",
-    mid: \"#151518\",
-    light: \"#F5F7FA\",
+    primary: "#FFB800", // amber/yellow accent
+    dark: "#0B0B0C",
+    mid: "#151518",
+    light: "#F5F7FA",
   },
 };
 
-const CALLOUT_NOTE = \"Any callouts are £28 for a physical inspection. Rough quoting over the phone is free.\";
+const CALLOUT_NOTE = "Any callouts are £28 for a physical inspection. Rough quoting over the phone is free.";
 
 // Imagery (royalty-free Unsplash)
 const heroBg =
-  \"https://images.unsplash.com/photo-1542367597-8849eb950fd8?q=80&w=1920&auto=format&fit=crop\";
+  "https://images.unsplash.com/photo-1542367597-8849eb950fd8?q=80&w=1920&auto=format&fit=crop";
 const serviceImg =
-  \"https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?q=80&w=1600&auto=format&fit=crop\";
+  "https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?q=80&w=1600&auto=format&fit=crop";
 const brakesImg =
-  \"https://images.unsplash.com/photo-1580261450046-d0a30080dc9b?q=80&w=1600&auto=format&fit=crop\";
+  "https://images.unsplash.com/photo-1580261450046-d0a30080dc9b?q=80&w=1600&auto=format&fit=crop";
 const diagImg =
-  \"https://images.unsplash.com/photo-1621996346565-e3dbc646d9f4?q=80&w=1600&auto=format&fit=crop\";
+  "https://images.unsplash.com/photo-1621996346565-e3dbc646d9f4?q=80&w=1600&auto=format&fit=crop";
 const batteryImg =
-  \"https://images.unsplash.com/photo-1612591214888-f8f2f9d8aa41?q=80&w=1600&auto=format&fit=crop\";
+  "https://images.unsplash.com/photo-1612591214888-f8f2f9d8aa41?q=80&w=1600&auto=format&fit=crop";
 const oilImg =
-  \"https://images.unsplash.com/photo-1603566234499-9b7961c6c69a?q=80&w=1600&auto=format&fit=crop\";
+  "https://images.unsplash.com/photo-1603566234499-9b7961c6c69a?q=80&w=1600&auto=format&fit=crop";
 const coiloverImg =
-  \"https://images.unsplash.com/photo-1580712516310-577037f7e4b9?q=80&w=1600&auto=format&fit=crop\";
+  "https://images.unsplash.com/photo-1580712516310-577037f7e4b9?q=80&w=1600&auto=format&fit=crop";
 const vanImg =
-  \"https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?q=80&w=1600&auto=format&fit=crop\";
+  "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?q=80&w=1600&auto=format&fit=crop";
 
-function Section({ children, className = \"\" }) {
+function Section({ children, className = "" }) {
   return (
-    <section className={\`w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${className}\`}>{children}</section>
+    <section className={`w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${className}`}>{children}</section>
   );
 }
 
 function Pill({ icon: Icon, children }) {
   return (
-    <div className=\"flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-white/90 backdrop-blur\">\n      {Icon && <Icon size={16} className=\"opacity-80\" />} {children}
+    <div className="flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-white/90 backdrop-blur">
+      {Icon && <Icon size={16} className="opacity-80" />} {children}
     </div>
   );
 }
 
 function Stat({ kpi, label }) {
   return (
-    <div className=\"rounded-2xl bg-white/5 p-4 border border-white/10 text-white\">\n      <div className=\"text-3xl font-bold\">{kpi}</div>
-      <div className=\"text-white/70 text-sm\">{label}</div>
+    <div className="rounded-2xl bg-white/5 p-4 border border-white/10 text-white">
+      <div className="text-3xl font-bold">{kpi}</div>
+      <div className="text-white/70 text-sm">{label}</div>
     </div>
   );
 }
 
-const WhatsAppButton = ({ className = \"\" }) => (
+const WhatsAppButton = ({ className = "" }) => (
   <a
-    href={\`https://wa.me/${BRAND.phoneIntl.replace(\"+\", \"\")}?text=${BRAND.whatsappPrefill}\`}
-    className={\`inline-flex items-center gap-2 rounded-xl px-4 py-3 font-semibold shadow-lg transition hover:scale-[1.02] focus:outline-none focus:ring-4 ${className}\`}
-    style={{ background: BRAND.colors.primary, color: \"#0B0B0C\" }}
+    href={`https://wa.me/${BRAND.phoneIntl.replace("+", "")}?text=${BRAND.whatsappPrefill}`}
+    className={`inline-flex items-center gap-2 rounded-xl px-4 py-3 font-semibold shadow-lg transition hover:scale-[1.02] focus:outline-none focus:ring-4 ${className}`}
+    style={{ background: BRAND.colors.primary, color: "#0B0B0C" }}
   >
     <MessageCircle size={20} /> Message us on WhatsApp
   </a>
 );
 
-const CallButton = ({ className = \"\" }) => (
+const CallButton = ({ className = "" }) => (
   <a
-    href={\`tel:${BRAND.phoneDisplay.replace(/\\s/g, \"\")}\`}
-    className={\`inline-flex items-center gap-2 rounded-xl px-4 py-3 font-semibold border transition hover:scale-[1.02] ${className}\`}
-    style={{ borderColor: BRAND.colors.primary, color: \"white\" }}
+    href={`tel:${BRAND.phoneDisplay.replace(/\s/g, "")}`}
+    className={`inline-flex items-center gap-2 rounded-xl px-4 py-3 font-semibold border transition hover:scale-[1.02] ${className}`}
+    style={{ borderColor: BRAND.colors.primary, color: "white" }}
   >
     <Phone size={20} /> Call {BRAND.phoneDisplay}
   </a>
@@ -89,18 +91,20 @@ const CallButton = ({ className = \"\" }) => (
 
 export default function App() {
   return (
-    <main className=\"min-h-screen w-full\" style={{ background: BRAND.colors.dark }}>
+    <main className="min-h-screen w-full" style={{ background: BRAND.colors.dark }}>
       {/* Announcement bar */}
-      <div className=\"w-full\" style={{ background: BRAND.colors.mid }}>
-        <Section className=\"py-2\">\n          <div className=\"flex items-center justify-center gap-3 text-white/90 text-sm\">\n            <Shield size={16} style={{ color: BRAND.colors.primary }} />
-            <span className=\"font-medium\">{CALLOUT_NOTE}</span>
+      <div className="w-full" style={{ background: BRAND.colors.mid }}>
+        <Section className="py-2">
+          <div className="flex items-center justify-center gap-3 text-white/90 text-sm">
+            <Shield size={16} style={{ color: BRAND.colors.primary }} />
+            <span className="font-medium">{CALLOUT_NOTE}</span>
           </div>
         </Section>
       </div>
 
       {/* Hero */}
       <div
-        className=\"relative\"
+        className="relative"
         style={{
           backgroundImage: `linear-gradient(180deg, rgba(11,11,12,0.65), rgba(11,11,12,0.85)), url(${heroBg})`,
           backgroundSize: "cover",
@@ -143,7 +147,7 @@ export default function App() {
       {/* Services */}
       <Section className="py-16">
         <h2 className="text-white text-3xl sm:text-4xl font-bold mb-2">Core services</h2>
-        <p className="text-white/70 mb-8">High-volume, fixed-price jobs so you always know the cost up front.</p>
+        <p className="text-white/70 mb-8">High‑volume, fixed-price jobs so you always know the cost up front.</p>
         <div className="grid md:grid-cols-3 gap-6">
           {[
             {
@@ -176,7 +180,7 @@ export default function App() {
             },
             {
               title: "Suspension / Coilovers",
-              desc: "Install & setup. (Pre-quoted)",
+              desc: "Install & setup. (Pre‑quoted)",
               price: "POA",
               icon: Settings2,
               img: coiloverImg,
@@ -186,12 +190,12 @@ export default function App() {
               <img src={s.img} alt={s.title} className="h-40 w-full object-cover" />
               <div className="p-5 text-white">
                 <div className="flex items-center gap-2 text-xl font-semibold">
-                  <s.icon size={20} style={{ color: "#FFB800" }} />
+                  <s.icon size={20} style={{ color: BRAND.colors.primary }} />
                   {s.title}
                 </div>
                 <p className="text-white/75 mt-2 text-sm">{s.desc}</p>
                 <div className="mt-4 flex items-center justify-between">
-                  <span className="text-lg font-bold" style={{ color: "#FFB800" }}>{s.price}</span>
+                  <span className="text-lg font-bold" style={{ color: BRAND.colors.primary }}>{s.price}</span>
                   <WhatsAppButton />
                 </div>
               </div>
@@ -226,7 +230,7 @@ export default function App() {
               icon: Clock,
             }].map((f, i) => (
               <div key={i} className="rounded-2xl p-6 border border-white/10 bg-white/5 text-white">
-                <f.icon size={28} style={{ color: "#FFB800" }} />
+                <f.icon size={28} style={{ color: BRAND.colors.primary }} />
                 <h3 className="text-xl font-bold mt-4">{f.title}</h3>
                 <p className="text-white/75 mt-2">{f.text}</p>
               </div>
@@ -262,7 +266,7 @@ export default function App() {
             text: "Booked over WhatsApp, super easy. Will use again for servicing.",
           }].map((r, i) => (
             <div key={i} className="rounded-2xl p-6 border border-white/10 bg-white/5 text-white">
-              <BadgeCheck size={20} style={{ color: "#FFB800" }} />
+              <BadgeCheck size={20} style={{ color: BRAND.colors.primary }} />
               <p className="mt-3 text-white/90">“{r.text}”</p>
               <div className="mt-3 text-white/60 text-sm">— {r.author}</div>
             </div>
