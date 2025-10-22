@@ -29,8 +29,7 @@ const BRAND = {
 const CALLOUT_NOTE = "Any callouts are £28 for a physical inspection. Rough quoting over the phone is free.";
 
 // Imagery
-const heroBg =
-  "https://images.unsplash.com/photo-1542367597-8849eb950fd8?q=80&w=1920&auto=format&fit=crop";
+const heroBg = "/images/hero.webp";
 const serviceImg =
   "https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?q=80&w=1600&auto=format&fit=crop";
 const brakesImg =
