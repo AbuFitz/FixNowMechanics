@@ -78,9 +78,9 @@ function Header() {
           Fix<span style={{ color: BRAND.colors.primary }}>Now</span> Mechanics
         </a>
         <div className="hidden sm:flex items-center gap-6 text-white/80">
-          <a href="#services" className="hover:text-white">Services</a>
-          <a href="#areas" className="hover:text-white">Areas</a>
-          <a href="#contact" className="hover:text-white">Contact</a>
+          <AnchorLink to="services" className="hover:text-white">Services</AnchorLink>
+          <AnchorLink to="areas" className="hover:text-white">Areas</AnchorLink>
+          <AnchorLink to="contact" className="hover:text-white">Contact</AnchorLink>
           <a
             href={`tel:${BRAND.phoneDisplay.replace(/\s/g, "")}`}
             className="inline-flex items-center gap-2 rounded-lg px-3 py-2 font-semibold border"
@@ -129,6 +129,23 @@ const CallButton = ({ className = "" }) => (
     <Phone size={20} /> Call {BRAND.phoneDisplay}
   </a>
 );
+
+// Smooth-scrolling anchor link with header offset
+function AnchorLink({ to, className = "", children }) {
+  const handleClick = (e) => {
+    e.preventDefault();
+    const el = document.getElementById(to);
+    if (!el) return;
+    const HEADER_OFFSET = 110; // sticky header + announcement bar
+    const y = el.getBoundingClientRect().top + window.pageYOffset - HEADER_OFFSET;
+    window.scrollTo({ top: y, behavior: "smooth" });
+  };
+  return (
+    <a href={`#${to}`} onClick={handleClick} className={className}>
+      {children}
+    </a>
+  );
+}
 
 export default function FixNowSite() {
   return (
