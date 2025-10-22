@@ -280,57 +280,47 @@ export default function FixNowSite() {
         </div>
       </Section>
 
-      {/* Book now / About Us section */}
-<Section className="py-12 sm:py-16">
-  <div className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-10 text-white">
-    <div className="grid md:grid-cols-2 gap-8 items-start">
-      {/* Left: About + Contact Info */}
+      {/* Book now / About section (clean + structured) */}
+<Section className="py-16">
+  <div className="rounded-3xl border border-white/10 bg-white/5 p-8 md:p-12 text-white">
+    <div className="grid md:grid-cols-2 gap-10 items-center">
+      
+      {/* Left: Info */}
       <div>
-        <h2 className="text-3xl font-bold">Book now / About us</h2>
-        <p className="text-white/80 mt-3 max-w-prose">
-          FixNow Mechanics is a mobile diagnostics and repair service. We come to your
-          home, workplace, or roadside and carry out the job on-site. No workshop visits,
-          no hidden markups, and you can{" "}
-          <span className="font-semibold">supply your own parts</span> if you prefer.
+        <h2 className="text-3xl font-bold mb-3">About FixNow</h2>
+        <p className="text-white/80 mb-6 max-w-prose leading-relaxed">
+          We’re a mobile mechanic service based in <strong>Hemel Hempstead</strong>,
+          covering Hertfordshire and surrounding areas. Our mission is simple —
+          bring workshop-quality repairs directly to your home or workplace with
+          full transparency and reliability.
         </p>
 
-        <div className="mt-6 flex flex-wrap gap-4">
+        <div className="space-y-3 text-white/85 text-sm">
+          <div className="flex items-center gap-2">
+            <Clock size={18} className="text-white/60" /> 
+            <span><strong>Hours:</strong> 8am – 10pm (7 days)</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <MapPin size={18} className="text-white/60" /> 
+            <span><strong>Base:</strong> Maylands Business Area, Hemel Hempstead (mobile service only)</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Shield size={18} className="text-white/60" /> 
+            <span><strong>Callout Fee:</strong> £28 — covers full inspection. Rough quoting by phone is free.</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Phone size={18} className="text-white/60" /> 
+            <span><strong>Contact:</strong> {BRAND.phoneDisplay}</span>
+          </div>
+        </div>
+
+        <div className="mt-8 flex flex-wrap gap-4">
           <WhatsAppButton className="w-full sm:w-auto" />
           <CallButton className="w-full sm:w-auto" />
         </div>
 
-        {/* Key Info */}
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 text-white/85">
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <Clock size={18} /> <span className="font-semibold">Hours:</span> 8am – 10pm, 7 days
-            </div>
-            <div className="flex items-center gap-2">
-              <Gauge size={18} /> <span className="font-semibold">Typical response:</span> under 60 minutes
-            </div>
-            <div className="flex items-center gap-2">
-              <Shield size={18} /> <span className="font-semibold">Callout policy:</span> Any callouts are £28 for a
-              physical inspection. Rough quoting over the phone is free.
-            </div>
-          </div>
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <MapPin size={18} /> <span className="font-semibold">Base:</span> {BRAND.baseArea}{" "}
-              <span className="text-white/60">(no public workshop)</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Wrench size={18} /> <span className="font-semibold">What we do:</span> diagnostics, brakes, battery,
-              oil service, suspension installs
-            </div>
-            <div className="flex items-center gap-2">
-              <Phone size={18} /> <span className="font-semibold">Phone:</span> {BRAND.phoneDisplay}
-            </div>
-          </div>
-        </div>
-
-        {/* Areas covered */}
-        <div className="mt-6">
-          <div className="text-white font-semibold mb-2">Service areas</div>
+        <div className="mt-8">
+          <h3 className="text-lg font-semibold mb-2">Areas we cover</h3>
           <div className="flex flex-wrap gap-2">
             {BRAND.serviceAreas.map((a) => (
               <span
@@ -345,16 +335,18 @@ export default function FixNowSite() {
       </div>
 
       {/* Right: Image */}
-      <div>
+      <div className="w-full">
         <img
           src={serviceImg}
           alt="Mechanic at work"
-          className="w-full rounded-2xl border border-white/10"
+          className="w-full rounded-2xl border border-white/10 shadow-lg"
         />
       </div>
+
     </div>
   </div>
 </Section>
+
 
 
 
