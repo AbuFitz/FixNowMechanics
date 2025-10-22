@@ -1,22 +1,24 @@
 # FixNow Mechanics — Website
 
-A lightweight Vite + React + Tailwind site for **FixNow Mechanics** (mobile car repair).
+Vite + React + Tailwind site for **FixNow Mechanics**.
 
-## Quick start
-
+## Local dev
 ```bash
 npm i
 npm run dev
 ```
 
-Build for production:
-
+## Build
 ```bash
 npm run build
 npm run preview
 ```
 
-## Customize
+## Deploy to Vercel
+- `vercel.json` is included. Push this repo and import into Vercel.
+- Output dir: `dist`
 
-- Phone number & WhatsApp text are configured at the top of `src/App.jsx` in the `BRAND` object.
-- Edit service areas, prices, and policy (`CALLOUT_NOTE`) in the same file.
+### Customize
+- Phone, WhatsApp text, service areas, prices: edit `src/App.jsx` (`BRAND` and `CALLOUT_NOTE`).
+- Colors: `src/index.css`.
+- Images: at top of `src/App.jsx`.

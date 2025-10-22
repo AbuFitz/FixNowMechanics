@@ -1,5 +1,4 @@
 {
-  "note": "Merge these fields into your existing package.json or replace it entirely.",
   "name": "fixnow-mechanics-site",
   "private": true,
   "version": "1.0.0",
