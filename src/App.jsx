@@ -193,7 +193,7 @@ export default function FixNowSite() {
               <div className="flex gap-2 flex-wrap mb-4">
                 <Pill icon={Wrench}>Mobile Mechanic</Pill>
                 <Pill icon={Clock}>8am – 10pm</Pill>
-                <Pill icon={MapPin}>Based in Maylands</Pill>
+                <Pill icon={MapPin}>Based in Hemel Hempstead</Pill>
                 <Pill icon={Shield}>Transparent Pricing</Pill>
               </div>
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
