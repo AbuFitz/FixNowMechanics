@@ -30,6 +30,12 @@ const CALLOUT_NOTE = "Any callouts are £28 for a physical inspection. Rough quo
 
 // Imagery
 const heroBg = "/images/hero.webp";
+const serviceImg = "/images/service.webp";
+const brakesImg = "/images/brakes.webp";
+const diagImg = "/images/diagnostics.webp";
+const batteryImg = "/images/battery.webp";
+const oilImg = "/images/oilchange.webp";
+const vanImg = "/images/van.webp";
 
 
 function Section({ children, className = "" }) {
