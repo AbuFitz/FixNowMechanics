@@ -78,9 +78,7 @@ function Header() {
           Fix<span style={{ color: BRAND.colors.primary }}>Now</span> Mechanics
         </a>
         <div className="hidden sm:flex items-center gap-6 text-white/80">
-          <AnchorLink to="services" className="hover:text-white">Services</AnchorLink>
-          <AnchorLink to="areas" className="hover:text-white">Areas</AnchorLink>
-          <AnchorLink to="contact" className="hover:text-white">Contact</AnchorLink>
+          <a href="#about" className="hover:text-white">About</a>
           <a
             href={`tel:${BRAND.phoneDisplay.replace(/\s/g, "")}`}
             className="inline-flex items-center gap-2 rounded-lg px-3 py-2 font-semibold border"
@@ -129,23 +127,6 @@ const CallButton = ({ className = "" }) => (
     <Phone size={20} /> Call {BRAND.phoneDisplay}
   </a>
 );
-
-// Smooth-scrolling anchor link with header offset
-function AnchorLink({ to, className = "", children }) {
-  const handleClick = (e) => {
-    e.preventDefault();
-    const el = document.getElementById(to);
-    if (!el) return;
-    const HEADER_OFFSET = 110; // sticky header + announcement bar
-    const y = el.getBoundingClientRect().top + window.pageYOffset - HEADER_OFFSET;
-    window.scrollTo({ top: y, behavior: "smooth" });
-  };
-  return (
-    <a href={`#${to}`} onClick={handleClick} className={className}>
-      {children}
-    </a>
-  );
-}
 
 export default function FixNowSite() {
   return (
@@ -204,99 +185,14 @@ export default function FixNowSite() {
         </Section>
       </div>
 
-      {/* Services */}
-      <Section id="services" className="py-16 scroll-mt-24">
-        <h2 className="text-white text-3xl sm:text-4xl font-bold mb-2">Core services</h2>
-        <p className="text-white/70 mb-8">High‑volume, fixed-price jobs so you always know the cost up front.</p>
-        <div className="grid md:grid-cols-3 gap-6">
-          {[{
-            title: "Full Diagnostics",
-            desc: "OBD scan + fault codes + action plan.",
-            price: "from £40",
-            icon: Gauge,
-            img: diagImg,
-          }, {
-            title: "Brake Pads/Discs",
-            desc: "Front/rear pads or discs & pads — fitted.",
-            price: "from £80",
-            icon: Wrench,
-            img: brakesImg,
-          }, {
-            title: "Battery Replace",
-            desc: "Supply & fit or you provide the battery.",
-            price: "from £60",
-            icon: BatteryCharging,
-            img: batteryImg,
-          }, {
-            title: "Oil & Filter",
-            desc: "Service at your location. Correct spec oil.",
-            price: "from £70",
-            icon: Droplet,
-            img: oilImg,
-          }, {
-            title: "Suspension / Coilovers",
-            desc: "Install & setup. (Pre‑quoted)",
-            price: "POA",
-            icon: Settings2,
-            img: coiloverImg,
-          }].map((s, i) => (
-            <div key={i} className="rounded-2xl overflow-hidden border border-white/10 bg-white/5">
-              <img src={s.img} alt={s.title} className="h-40 w-full object-cover" />
-              <div className="p-5 text-white">
-                <div className="flex items-center gap-2 text-xl font-semibold">
-                  <s.icon size={20} style={{ color: BRAND.colors.primary }} />
-                  {s.title}
-                </div>
-                <p className="text-white/75 mt-2 text-sm">{s.desc}</p>
-                <div className="mt-4 flex items-center justify-between">
-                  <span className="text-lg font-bold" style={{ color: BRAND.colors.primary }}>{s.price}</span>
-                  <WhatsAppButton />
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* Service areas */}
-      <Section id="areas" className="py-16 scroll-mt-24">
-        <h2 className="text-white text-3xl font-bold mb-2">Service areas</h2>
-        <p className="text-white/70 mb-6">We cover {BRAND.serviceAreas.join(", ")} and nearby.</p>
-        <div className="flex flex-wrap gap-3">
-          {BRAND.serviceAreas.map((a) => (
-            <span key={a} className="px-4 py-2 rounded-full border border-white/10 text-white/90 bg-white/5">{a}</span>
-          ))}
-        </div>
-      </Section>
-
-      {/* Contact */}
-      <Section id="contact" className="py-16 scroll-mt-24">
-        <div className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-10 text-white">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <h2 className="text-3xl font-bold">Book now</h2>
-              <p className="text-white/75 mt-2">Send us a WhatsApp with your car model, location and issue. We’ll reply with an exact quote.</p>
-
-              <div className="mt-6 flex flex-wrap gap-4">
-                <WhatsAppButton />
-                <CallButton />
-              </div>
-
-              <div className="mt-6 space-y-2 text-white/80">
-                <div className="flex items-center gap-2"><Phone size={18} /> {BRAND.phoneDisplay}</div>
-                <div className="flex items-center gap-2"><MapPin size={18} /> Service base: {BRAND.baseArea} <span className="text-white/60">(no public workshop)</span></div>
-                <div className="flex items-center gap-2"><Clock size={18} /> Open 8am – 10pm, 7 days</div>
-              </div>
-
-              <div className="mt-6 text-white/70 text-sm">
-                <strong>Callout policy:</strong> {CALLOUT_NOTE}
-              </div>
-            </div>
-            <div>
-              <img src={serviceImg} alt="Mechanic at work" className="w-full rounded-2xl border border-white/10" />
-            </div>
-          </div>
-        </div>
+      {/* About */}
+      <Section id="about" className="py-16">
+        <h2 className="text-white text-3xl sm:text-4xl font-bold mb-4">About FixNow Mechanics</h2>
+        <p className="text-white/75 max-w-3xl">
+          FixNow Mechanics is a mobile automotive repair and diagnostics service that brings the workshop to you.
+          Founded with a commitment to honest pricing, professional service, and convenience — we handle everything from brake replacements to full diagnostics directly at your location.
+          No inflated part prices, no unnecessary upselling. We value transparency, reliability, and customer trust.
+        </p>
       </Section>
 
       {/* Footer */}
