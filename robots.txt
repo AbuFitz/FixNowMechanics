@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Block internal build files & source directories
+Disallow: /src/
+Disallow: /node_modules/
+Disallow: /vite/
+Disallow: /_next/
+Disallow: /api/
+
+# Sitemap reference
+Sitemap: https://fixnowmechanics.co.uk/sitemap.xml
