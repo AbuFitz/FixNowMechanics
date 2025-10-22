@@ -157,7 +157,7 @@ export default function FixNowSite() {
               <div className="flex gap-2 flex-wrap mb-4">
                 <Pill icon={Wrench}>Mobile Mechanic</Pill>
                 <Pill icon={Clock}>8am – 10pm</Pill>
-                <Pill icon={MapPin}>Based in Hemel Hempstead</Pill>
+                <Pill icon={MapPin}>Based in Maylands</Pill>
                 <Pill icon={Shield}>Transparent Pricing</Pill>
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
@@ -321,4 +321,36 @@ export default function FixNowSite() {
                 <CallButton />
               </div>
 
-              <div className="mt-6 space-y-
+              <div className="mt-6 space-y-2 text-white/80">
+                <div className="flex items-center gap-2"><Phone size={18} /> {BRAND.phoneDisplay}</div>
+                <div className="flex items-center gap-2"><MapPin size={18} /> Service base: {BRAND.baseArea} <span className="text-white/60">(no public workshop)</span></div>
+                <div className="flex items-center gap-2"><Clock size={18} /> Open 8am – 10pm, 7 days</div>
+              </div>
+
+              <div className="mt-6 text-white/70 text-sm">
+                <strong>Callout policy:</strong> {CALLOUT_NOTE}
+              </div>
+            </div>
+            <div>
+              <img src={serviceImg} alt="Mechanic at work" className="w-full rounded-2xl border border-white/10" />
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      {/* Footer */}
+      <footer className="border-t border-white/10">
+        <Section className="py-10 text-white/70">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div>
+              <div className="text-white text-lg font-bold">{BRAND.name}</div>
+              <div className="text-sm mt-1">A division of ARF — Mobile diagnostics & repairs.</div>
+            </div>
+            <div className="text-sm">© {new Date().getFullYear()} {BRAND.name}. All rights reserved.</div>
+          </div>
+        </Section>
+      </footer>
+      <MobileBottomBar />
+    </main>
+  );
+}
