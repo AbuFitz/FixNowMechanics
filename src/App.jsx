@@ -351,21 +351,19 @@ export default function FixNowSite() {
 
 
       {/* Footer */}
-      <footer className="border-t border-white/10">
-        <Section className="py-10 text-white/70">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-            <div>
-              <div className="text-white text-lg font-bold">{BRAND.name}</div>
-              <div className="text-sm mt-1">
-                A division of ARF — Mobile diagnostics & repairs.
-              </div>
-            </div>
-            <div className="text-sm">
-              © {new Date().getFullYear()} {BRAND.name}. All rights reserved.
-            </div>
-          </div>
-        </Section>
-      </footer>
+
+      
+  <footer className="w-full bg-black/60 text-white text-center py-6 border-t border-white/10">
+    <div className="max-w-4xl mx-auto space-y-1 text-sm leading-relaxed">
+    <p className="font-semibold text-lg">FixNow Mechanics</p>
+    <p>Mobile mechanic — Diagnostics, brakes, servicing, oil changes & more.</p>
+    <p>Maylands Business Area, Hemel Hempstead, HP2 7DE</p>
+    <p>Open: 8am – 10pm, 7 days a week</p>
+    <p>Phone: <a href="tel:07930991598" className="text-amber-400 hover:underline">07930 991598</a></p>
+  </div>
+  <p className="text-xs text-white/40 mt-4">© {new Date().getFullYear()} FixNow Mechanics. All rights reserved.</p>
+   </footer>
+
 
       <MobileBottomBar />
     </main>
