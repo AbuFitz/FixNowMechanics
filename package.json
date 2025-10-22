@@ -1,4 +1,5 @@
 {
+  "note": "Merge these fields into your existing package.json or replace it entirely.",
   "name": "fixnow-mechanics-site",
   "private": true,
   "version": "1.0.0",
@@ -19,6 +20,7 @@
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.14",
-    "vite": "^5.4.10"
+    "vite": "^5.4.10",
+    "@vitejs/plugin-react": "^4.3.2"
   }
 }
