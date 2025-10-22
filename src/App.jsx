@@ -69,6 +69,43 @@ function Stat({ kpi, label }) {
   );
 }
 
+// Header (sticky)
+function Header() {
+  return (
+    <div className="sticky top-0 z-50 border-b border-white/10 backdrop-blur bg-black/40">
+      <Section className="py-3 flex items-center justify-between">
+        <a href="#top" className="text-white font-extrabold text-lg tracking-tight">
+          Fix<span style={{ color: BRAND.colors.primary }}>Now</span> Mechanics
+        </a>
+        <div className="hidden sm:flex items-center gap-6 text-white/80">
+          <a href="#services" className="hover:text-white">Services</a>
+          <a href="#areas" className="hover:text-white">Areas</a>
+          <a href="#contact" className="hover:text-white">Contact</a>
+          <a href={`tel:${BRAND.phoneDisplay.replace(/\s/g, "")}`} className="inline-flex items-center gap-2 rounded-lg px-3 py-2 font-semibold border" style={{ borderColor: BRAND.colors.primary }}>
+            <Phone size={18} /> {BRAND.phoneDisplay}
+          </a>
+        </div>
+      </Section>
+    </div>
+  );
+}
+
+// Mobile bottom bar (CTA)
+function MobileBottomBar() {
+  return (
+    <div className="fixed bottom-0 left-0 right-0 z-50 sm:hidden border-t border-white/10 bg-black/80 backdrop-blur p-3">
+      <div className="flex gap-3">
+        <a href={`tel:${BRAND.phoneDisplay.replace(/\s/g, "")}`} className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 font-semibold border" style={{ borderColor: BRAND.colors.primary, color: "white" }}>
+          <Phone size={18} /> Call
+        </a>
+        <a href={`https://wa.me/${BRAND.phoneIntl.replace("+", "")}?text=${BRAND.whatsappPrefill}`} className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 font-semibold" style={{ background: BRAND.colors.primary, color: "#0B0B0C" }}>
+          <MessageCircle size={18} /> WhatsApp
+        </a>
+      </div>
+    </div>
+  );
+}
+
 const WhatsAppButton = ({ className = "" }) => (
   <a
     href={`https://wa.me/${BRAND.phoneIntl.replace("+", "")}?text=${BRAND.whatsappPrefill}`}
@@ -91,7 +128,8 @@ const CallButton = ({ className = "" }) => (
 
 export default function App() {
   return (
-    <main className="min-h-screen w-full" style={{ background: BRAND.colors.dark }}>
+    <main id="top" className="min-h-screen w-full" style={{ background: BRAND.colors.dark }}>
+      <Header />
       {/* Announcement bar */}
       <div className="w-full" style={{ background: BRAND.colors.mid }}>
         <Section className="py-2">
@@ -111,7 +149,7 @@ export default function App() {
           backgroundPosition: "center",
         }}
       >
-        <Section className="py-20 sm:py-28">
+        <Section className="py-14 sm:py-20 lg:py-28">
           <div className="flex flex-col lg:flex-row items-start gap-10">
             <div className="flex-1 text-white">
               <div className="flex gap-2 flex-wrap mb-4">
@@ -120,24 +158,24 @@ export default function App() {
                 <Pill icon={MapPin}>Based in Maylands</Pill>
                 <Pill icon={Shield}>Transparent Pricing</Pill>
               </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
                 FixNow — We come to you.
               </h1>
-              <p className="mt-4 text-white/80 text-lg max-w-2xl">
+              <p className="mt-4 text-white/80 text-base sm:text-lg max-w-2xl">
                 Diagnostics, brakes, battery, oil service and more — done on your driveway or workplace. No workshop visits. No hidden markup. You can supply your own parts or we can source them.
               </p>
-              <div className="mt-8 flex flex-wrap gap-4">
-                <WhatsAppButton />
-                <CallButton />
+              <div className="mt-6 sm:mt-8 flex flex-wrap gap-4">
+                <WhatsAppButton className="w-full sm:w-auto" />
+                <CallButton className="w-full sm:w-auto" />
               </div>
               <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4">
-                <Stat kpi="< 60min" label="Typical response window" />
+                <Stat kpi="< 60min" label="Typical response" />
                 <Stat kpi="£0" label="Phone quote fee" />
-                <Stat kpi="6+" label="Service areas covered" />
+                <Stat kpi="6+" label="Service areas" />
                 <Stat kpi="5" label="Core services" />
               </div>
             </div>
-            <div className="flex-1">
+            <div className="flex-1 w-full">
               <img src={vanImg} alt="Mobile mechanic van" className="w-full rounded-3xl border border-white/10 shadow-2xl" />
             </div>
           </div>
@@ -145,10 +183,10 @@ export default function App() {
       </div>
 
       {/* Services */}
-      <Section className="py-16">
+      <Section id="services" className="py-12 sm:py-16">
         <h2 className="text-white text-3xl sm:text-4xl font-bold mb-2">Core services</h2>
         <p className="text-white/70 mb-8">High‑volume, fixed-price jobs so you always know the cost up front.</p>
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
             {
               title: "Full Diagnostics",
@@ -196,7 +234,7 @@ export default function App() {
                 <p className="text-white/75 mt-2 text-sm">{s.desc}</p>
                 <div className="mt-4 flex items-center justify-between">
                   <span className="text-lg font-bold" style={{ color: BRAND.colors.primary }}>{s.price}</span>
-                  <WhatsAppButton />
+                  <WhatsAppButton className="w-auto" />
                 </div>
               </div>
             </div>
@@ -214,8 +252,8 @@ export default function App() {
             backgroundPosition: "center",
           }}
         />
-        <Section className="py-16 relative">
-          <div className="grid lg:grid-cols-3 gap-6">
+        <Section className="py-12 sm:py-16 relative">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {[{
               title: "We come to you",
               text: "Home, roadside or workplace — zero towing.",
@@ -240,7 +278,7 @@ export default function App() {
       </div>
 
       {/* Service areas */}
-      <Section className="py-16">
+      <Section id="areas" className="py-12 sm:py-16">
         <h2 className="text-white text-3xl font-bold mb-2">Service areas</h2>
         <p className="text-white/70 mb-6">We cover {BRAND.serviceAreas.join(", ")} and nearby.</p>
         <div className="flex flex-wrap gap-3">
@@ -251,10 +289,10 @@ export default function App() {
       </Section>
 
       {/* Reviews */}
-      <Section className="py-16">
+      <Section className="py-12 sm:py-16">
         <h2 className="text-white text-3xl font-bold mb-2">What customers say</h2>
         <p className="text-white/70 mb-8">Short real-world feedback style. Add Google review widgets later.</p>
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[{
             author: "Adam K.",
             text: "Arrived the same afternoon, scanned the car and fixed my brake issue on my driveway. Honest pricing.",
@@ -275,7 +313,7 @@ export default function App() {
       </Section>
 
       {/* Contact */}
-      <Section className="py-16">
+      <Section id="contact" className="py-12 sm:py-16">
         <div className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-10 text-white">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
@@ -283,8 +321,8 @@ export default function App() {
               <p className="text-white/75 mt-2">Send us a WhatsApp with your car model, location and issue. We’ll reply with an exact quote.</p>
 
               <div className="mt-6 flex flex-wrap gap-4">
-                <WhatsAppButton />
-                <CallButton />
+                <WhatsAppButton className="w-full sm:w-auto" />
+                <CallButton className="w-full sm:w-auto" />
               </div>
 
               <div className="mt-6 space-y-2 text-white/80">
@@ -316,6 +354,8 @@ export default function App() {
           </div>
         </Section>
       </footer>
+
+      <MobileBottomBar />
     </main>
   );
 }
