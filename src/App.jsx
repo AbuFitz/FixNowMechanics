@@ -280,30 +280,82 @@ export default function FixNowSite() {
         </div>
       </Section>
 
-      {/* Book now (bottom target area) */}
-      <Section className="py-12 sm:py-16">
-        <div className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-10 text-white">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <h2 className="text-3xl font-bold">Book now</h2>
-              <p className="text-white/75 mt-2">
-                Send us a WhatsApp with your car model, location and issue.
-              </p>
-              <div className="mt-6 flex flex-wrap gap-4">
-                <WhatsAppButton className="w-full sm:w-auto" />
-                <CallButton className="w-full sm:w-auto" />
-              </div>
+      {/* Book now / About Us section */}
+<Section className="py-12 sm:py-16">
+  <div className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-10 text-white">
+    <div className="grid md:grid-cols-2 gap-8 items-start">
+      {/* Left: About + Contact Info */}
+      <div>
+        <h2 className="text-3xl font-bold">Book now / About us</h2>
+        <p className="text-white/80 mt-3 max-w-prose">
+          FixNow Mechanics is a mobile diagnostics and repair service. We come to your
+          home, workplace, or roadside and carry out the job on-site. No workshop visits,
+          no hidden markups, and you can{" "}
+          <span className="font-semibold">supply your own parts</span> if you prefer.
+        </p>
+
+        <div className="mt-6 flex flex-wrap gap-4">
+          <WhatsAppButton className="w-full sm:w-auto" />
+          <CallButton className="w-full sm:w-auto" />
+        </div>
+
+        {/* Key Info */}
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 text-white/85">
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <Clock size={18} /> <span className="font-semibold">Hours:</span> 8am – 10pm, 7 days
             </div>
-            <div>
-              <img
-                src={serviceImg}
-                alt="Mechanic at work"
-                className="w-full rounded-2xl border border-white/10"
-              />
+            <div className="flex items-center gap-2">
+              <Gauge size={18} /> <span className="font-semibold">Typical response:</span> under 60 minutes
+            </div>
+            <div className="flex items-center gap-2">
+              <Shield size={18} /> <span className="font-semibold">Callout policy:</span> Any callouts are £28 for a
+              physical inspection. Rough quoting over the phone is free.
+            </div>
+          </div>
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <MapPin size={18} /> <span className="font-semibold">Base:</span> {BRAND.baseArea}{" "}
+              <span className="text-white/60">(no public workshop)</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Wrench size={18} /> <span className="font-semibold">What we do:</span> diagnostics, brakes, battery,
+              oil service, suspension installs
+            </div>
+            <div className="flex items-center gap-2">
+              <Phone size={18} /> <span className="font-semibold">Phone:</span> {BRAND.phoneDisplay}
             </div>
           </div>
         </div>
-      </Section>
+
+        {/* Areas covered */}
+        <div className="mt-6">
+          <div className="text-white font-semibold mb-2">Service areas</div>
+          <div className="flex flex-wrap gap-2">
+            {BRAND.serviceAreas.map((a) => (
+              <span
+                key={a}
+                className="px-3 py-1 rounded-full border border-white/10 text-white/90 bg-white/5 text-sm"
+              >
+                {a}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Right: Image */}
+      <div>
+        <img
+          src={serviceImg}
+          alt="Mechanic at work"
+          className="w-full rounded-2xl border border-white/10"
+        />
+      </div>
+    </div>
+  </div>
+</Section>
+
 
       {/* Footer */}
       <footer className="border-t border-white/10">
