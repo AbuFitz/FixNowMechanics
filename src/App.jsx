@@ -1,5 +1,18 @@
 import React from "react";
-import { Wrench, Clock, MapPin, Shield, Phone, MessageCircle, Settings2, Gauge, BadgeCheck, Droplet, BatteryCharging, Truck } from "lucide-react";
+import {
+  Wrench,
+  Clock,
+  MapPin,
+  Shield,
+  Phone,
+  MessageCircle,
+  Settings2,
+  Gauge,
+  BadgeCheck,
+  Droplet,
+  BatteryCharging,
+  Truck,
+} from "lucide-react";
 
 // === Config ===
 const BRAND = {
@@ -16,26 +29,28 @@ const BRAND = {
     "St Albans",
     "Luton",
     "Aylesbury",
-    "North London"
+    "North London",
   ],
   colors: {
-    primary: "#FFB800", // amber/yellow accent
+    primary: "#FFB800",
     dark: "#0B0B0C",
     mid: "#151518",
     light: "#F5F7FA",
   },
 };
 
-const CALLOUT_NOTE = "Any callouts are £28 for a physical inspection. Rough quoting over the phone is free.";
+const CALLOUT_NOTE =
+  "Any callouts are £28 for a physical inspection. Rough quoting over the phone is free.";
 
-// Imagery
-const heroBg   = "/images/hero.webp";
+// === Imagery (served from /public/images) ===
+const heroBg     = "/images/hero.webp";
 const serviceImg = "/images/service.webp";
 const brakesImg  = "/images/brakes.webp";
 const diagImg    = "/images/diagnostics.webp";
 const batteryImg = "/images/battery.webp";
 const oilImg     = "/images/oilchange.webp";
 const vanImg     = "/images/van.webp";
+const coiloverImg= "/images/coilover.webp"; // <-- added (fixes blank screen)
 
 
 function Section({ children, className = "" }) {
