@@ -40,7 +40,7 @@ const BRAND = {
 };
 
 const CALLOUT_NOTE =
-  "Any callouts are £28 for a physical inspection. Rough quoting over the phone is free.";
+  "Any callouts are £28 for a physical inspection (refunded if repair is accepted). Rough quoting over the phone is free.";
 
 // === Imagery (served from /public/images) ===
 const heroBg     = "/images/hero.webp";
