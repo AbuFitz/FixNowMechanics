@@ -186,46 +186,48 @@ export default function FixNowSite() {
       </div>
 
       {/* Hero */}
-      <div
-        className="relative"
-        style={{
-          backgroundImage: `linear-gradient(180deg, rgba(11,11,12,0.65), rgba(11,11,12,0.85)), url(${heroBg})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <Section className="py-14 sm:py-20 lg:py-28">
-          <div className="flex flex-col lg:flex-row items-start gap-10">
-            <div className="flex-1 text-white">
-              <div className="flex gap-2 flex-wrap mb-4">
-                <Pill icon={Wrench}>Mobile Mechanic</Pill>
-                <Pill icon={Clock}>8am – 10pm</Pill>
-                <Pill icon={MapPin}>Based in Hemel Hempstead</Pill>
-                <Pill icon={Shield}>Transparent Pricing</Pill>
-              </div>
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
-                FixNow — We come to you.
-              </h1>
-              <p className="mt-4 text-white/80 text-base sm:text-lg max-w-2xl">
-                Diagnostics, brakes, battery, oil service and more — done on your
-                driveway or workplace. No workshop visits. No hidden markup. You
-                can supply your own parts or we can source them.
-              </p>
-              <div className="mt-6 sm:mt-8 flex flex-wrap gap-4">
-                <WhatsAppButton className="w-full sm:w-auto" />
-                <CallButton className="w-full sm:w-auto" />
-              </div>
-            </div>
-            <div className="flex-1 w-full">
-              <img
-                src={vanImg}
-                alt="Mobile mechanic van"
-                className="w-full rounded-3xl border border-white/10 shadow-2xl"
-              />
-            </div>
-          </div>
-        </Section>
+<div
+  className="relative"
+  style={{
+    backgroundColor: BRAND.colors.dark, // solid black background
+  }}
+>
+  <Section className="py-14 sm:py-20 lg:py-28">
+    <div className="flex flex-col lg:flex-row items-start gap-10">
+      {/* Left side: text */}
+      <div className="flex-1 text-white">
+        <div className="flex gap-2 flex-wrap mb-4">
+          <Pill icon={Wrench}>Mobile Mechanic</Pill>
+          <Pill icon={Clock}>8am – 10pm</Pill>
+          <Pill icon={MapPin}>Based in Hemel Hempstead</Pill>
+          <Pill icon={Shield}>Transparent Pricing</Pill>
+        </div>
+        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
+          FixNow — We come to you.
+        </h1>
+        <p className="mt-4 text-white/80 text-base sm:text-lg max-w-2xl">
+          Diagnostics, brakes, battery, oil service and more — done on your
+          driveway or workplace. No workshop visits. No hidden markup. You can
+          supply your own parts or we can source them.
+        </p>
+        <div className="mt-6 sm:mt-8 flex flex-wrap gap-4">
+          <WhatsAppButton className="w-full sm:w-auto" />
+          <CallButton className="w-full sm:w-auto" />
+        </div>
       </div>
+
+      {/* Right side: van image */}
+      <div className="flex-1 w-full">
+        <img
+          src={vanImg}
+          alt="Mobile mechanic van"
+          className="w-full rounded-3xl border border-white/10 shadow-2xl object-cover"
+        />
+      </div>
+    </div>
+  </Section>
+</div>
+
 
       {/* Services */}
       <Section className="py-12 sm:py-16">
