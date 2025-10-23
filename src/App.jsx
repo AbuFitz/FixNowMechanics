@@ -315,7 +315,9 @@ export default function FixNowSite() {
           </div>
           <div className="flex items-center gap-2">
             <Shield size={18} className="text-white/60" /> 
-            <span><strong>Callout Fee:</strong> £28 — callout fee. Rough quoting by phone is free.</span>
+            <span><strong>Callout Fee:</strong> Any callouts are £28 for a physical inspection (refunded if repair is accepted). Rough quoting over the phone is free.</span>
+            
+
           </div>
           <div className="flex items-center gap-2">
             <Phone size={18} className="text-white/60" /> 
@@ -363,15 +365,27 @@ export default function FixNowSite() {
 
       
   <footer className="w-full bg-black/60 text-white text-center py-6 border-t border-white/10">
-    <div className="max-w-4xl mx-auto space-y-1 text-sm leading-relaxed">
+  <div className="max-w-4xl mx-auto space-y-1 text-sm leading-relaxed">
     <p className="font-semibold text-lg">FixNow Mechanics</p>
     <p>Mobile mechanic — Diagnostics, brakes, servicing, oil changes & more.</p>
     <p>Maylands Business Area, Hemel Hempstead, HP2 7DE</p>
     <p>Open: 8am – 10pm, 7 days a week</p>
-    <p>Phone: <a href="tel:07930991598" className="text-amber-400 hover:underline">07930 991598</a></p>
+    <p>
+      Phone:{" "}
+      <a href="tel:07930991598" className="text-amber-400 hover:underline">
+        07930 991598
+      </a>
+    </p>
+    <p className="pt-2 text-white/60 text-xs">
+      FixNow Mechanics is proudly operated under the{" "}
+      <span className="font-semibold text-amber-400">ARF Automotive Group</span> — specialists in diagnostics, retrofits & vehicle enhancement.
+    </p>
   </div>
-  <p className="text-xs text-white/40 mt-4">© {new Date().getFullYear()} FixNow Mechanics. All rights reserved.</p>
-   </footer>
+  <p className="text-xs text-white/40 mt-4">
+    © {new Date().getFullYear()} FixNow Mechanics | Part of ARF Automotive Group. All rights reserved.
+  </p>
+</footer>
+
 
 
       <MobileBottomBar />
