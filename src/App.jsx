@@ -315,7 +315,7 @@ export default function FixNowSite() {
           </div>
           <div className="flex items-center gap-2">
             <Shield size={18} className="text-white/60" /> 
-            <span><strong>Callout Fee:</strong> £28 — covers full inspection. Rough quoting by phone is free.</span>
+            <span><strong>Callout Fee:</strong> £28 — callout fee. Rough quoting by phone is free.</span>
           </div>
           <div className="flex items-center gap-2">
             <Phone size={18} className="text-white/60" /> 
