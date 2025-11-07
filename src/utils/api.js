@@ -90,6 +90,70 @@ export async function lookupPostcode(postcode) {
 }
 
 /**
+ * Lookup addresses by postcode
+ * Using getAddress.io API (free tier: 20 requests/day)
+ * Alternative: ideal-postcodes.co.uk (100 requests/month free)
+ */
+export async function lookupAddresses(postcode) {
+  try {
+    const cleanPostcode = postcode.replace(/\s/g, '').toUpperCase();
+
+    // Option 1: getAddress.io (requires API key - sign up at getaddress.io)
+    // Uncomment and add your API key:
+    // const API_KEY = 'YOUR_GETADDRESS_API_KEY';
+    // const response = await fetch(`https://api.getAddress.io/find/${cleanPostcode}?api-key=${API_KEY}&expand=true`);
+
+    // Option 2: ideal-postcodes.co.uk (requires API key - sign up at ideal-postcodes.co.uk)
+    // const API_KEY = 'YOUR_IDEAL_POSTCODES_API_KEY';
+    // const response = await fetch(`https://api.ideal-postcodes.co.uk/v1/postcodes/${cleanPostcode}?api_key=${API_KEY}`);
+
+    // For development: Mock data showing the expected format
+    await new Promise(resolve => setTimeout(resolve, 800));
+
+    // Simulated response - replace with real API when you get a key
+    const mockAddresses = [
+      '1 High Street',
+      '2 High Street',
+      '3 High Street',
+      '4 High Street',
+      '5 High Street',
+      'Flat 1, 6 High Street',
+      'Flat 2, 6 High Street',
+      '7 High Street',
+      '8 High Street',
+      '9 High Street',
+      '10 High Street',
+      '11 High Street',
+      '12 High Street',
+    ];
+
+    return {
+      success: true,
+      addresses: mockAddresses,
+      postcode: cleanPostcode
+    };
+
+    /*
+    // Real implementation with getAddress.io would look like:
+    const data = await response.json();
+    return {
+      success: true,
+      addresses: data.addresses, // Array of address strings
+      postcode: cleanPostcode
+    };
+    */
+
+  } catch (error) {
+    console.error('Address lookup error:', error);
+    return {
+      success: false,
+      error: 'Unable to find addresses for this postcode',
+      addresses: []
+    };
+  }
+}
+
+/**
  * Calculate distance between two postcodes
  */
 export function calculateDistance(lat1, lon1, lat2, lon2) {

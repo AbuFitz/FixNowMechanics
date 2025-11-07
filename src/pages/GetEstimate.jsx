@@ -8,7 +8,7 @@ import { Section } from '../components/Layout';
 import { Card, CardBody } from '../components/Card';
 import { Input, TextArea, Select } from '../components/Input';
 import { Button } from '../components/Button';
-import { lookupVehicleByReg, lookupPostcode, calculateDistance } from '../utils/api';
+import { lookupVehicleByReg, lookupPostcode, lookupAddresses, calculateDistance } from '../utils/api';
 
 const STEPS = [
   { id: 1, title: 'Your Details', icon: User },
@@ -100,20 +100,24 @@ export default function GetEstimate() {
     }
 
     setLoading(true);
-    const result = await lookupPostcode(formData.postcode);
 
-    if (result.success) {
-      setPostcodeData(result.data);
+    // Lookup postcode for validation and location data
+    const postcodeResult = await lookupPostcode(formData.postcode);
+
+    if (postcodeResult.success) {
+      setPostcodeData(postcodeResult.data);
       setFormData(prev => ({
         ...prev,
-        city: result.data.district || result.data.region,
+        city: postcodeResult.data.district || postcodeResult.data.region,
       }));
-      // In a real app, you'd fetch address suggestions here
-      setAddressSuggestions([
-        'Suggestion: Use API like getaddress.io for real address lookup',
-      ]);
+
+      // Fetch address suggestions
+      const addressResult = await lookupAddresses(formData.postcode);
+      if (addressResult.success) {
+        setAddressSuggestions(addressResult.addresses);
+      }
     } else {
-      setErrors(prev => ({ ...prev, postcode: result.error }));
+      setErrors(prev => ({ ...prev, postcode: postcodeResult.error }));
     }
     setLoading(false);
   };
@@ -247,20 +251,71 @@ Estimated Total: £${estimate}
 Submitted: ${new Date().toLocaleString('en-GB')}
       `.trim();
 
-      // Send via Web3Forms (free email service)
+      // Send to business email via Web3Forms
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          access_key: '28e1bd82-b9c7-4e49-9c8b-2ee63b9c8e95', // You'll need to get your own from web3forms.com
+          access_key: '2682cfaa-cf56-45ba-b0b8-f9317e983777',
           subject: `New Estimate Request from ${formData.name}`,
           from_name: 'FixNow Mechanics Website',
-          to_email: BRAND.email,
+          replyto: formData.email,
+          email: BRAND.email,
           message: emailContent,
+          botcheck: '',
+        }),
+      });
+
+      // Send confirmation email to customer
+      const confirmationContent = `
+Hi ${formData.name},
+
+Thank you for your estimate request! We've received your information and will get back to you shortly.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📋 YOUR REQUEST SUMMARY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Service: ${service ? service.title : formData.serviceType}
+${basePrice > 0 ? `Estimated Cost: £${estimate}` : 'Price: To be quoted'}
+${travelCost > 0 ? `Includes £${travelCost} callout fee (outside Hemel Hempstead)` : 'No callout fee (within Hemel Hempstead)'}
+
+Location: ${formData.addressLine1}, ${formData.postcode}
+Urgency: ${formData.urgency}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+We'll review your request and contact you at:
+📞 ${formData.phone}
+📧 ${formData.email}
+
+Our availability:
+Mon-Fri: 7pm-10pm
+Saturday: 8am-10pm
+Sunday: 8am-8pm
+
+Questions? Call us: ${BRAND.phoneDisplay}
+
+Best regards,
+FixNow Mechanics Team
+${BRAND.tagline}
+      `.trim();
+
+      await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: '2682cfaa-cf56-45ba-b0b8-f9317e983777',
+          subject: 'Your FixNow Mechanics Estimate Request',
+          from_name: 'FixNow Mechanics',
+          replyto: BRAND.email,
           email: formData.email,
-          phone: formData.phone,
+          message: confirmationContent,
+          botcheck: '',
         }),
       });
 
@@ -288,43 +343,135 @@ Submitted: ${new Date().toLocaleString('en-GB')}
   if (success) {
     return (
       <Section className="py-16">
-        <Card className="max-w-2xl mx-auto text-center p-12">
-          <div
-            className="w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center"
-            style={{ backgroundColor: `${BRAND.colors.primary}20` }}
-          >
-            <CheckCircle2 size={48} style={{ color: BRAND.colors.primary }} />
+        <div className="max-w-3xl mx-auto">
+          {/* Artistic Success Card */}
+          <div className="relative">
+            {/* Animated background glow */}
+            <div
+              className="absolute inset-0 blur-3xl opacity-30 animate-pulse"
+              style={{ backgroundColor: BRAND.colors.primary }}
+            />
+
+            <Card className="relative overflow-hidden border-2" style={{ borderColor: BRAND.colors.primary }}>
+              {/* Decorative elements */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-yellow-500/20 to-transparent rounded-full blur-3xl" />
+              <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-yellow-500/10 to-transparent rounded-full blur-3xl" />
+
+              <CardBody className="p-12 relative z-10">
+                {/* Success Icon with animation */}
+                <div className="relative w-32 h-32 mx-auto mb-8">
+                  {/* Pulsing rings */}
+                  <div
+                    className="absolute inset-0 rounded-full animate-ping opacity-20"
+                    style={{ backgroundColor: BRAND.colors.primary }}
+                  />
+                  <div
+                    className="absolute inset-4 rounded-full animate-pulse opacity-30"
+                    style={{ backgroundColor: BRAND.colors.primary }}
+                  />
+                  {/* Main icon */}
+                  <div
+                    className="absolute inset-0 rounded-full flex items-center justify-center transform transition-all duration-500 hover:scale-110"
+                    style={{
+                      backgroundColor: BRAND.colors.primary,
+                      boxShadow: `0 0 60px ${BRAND.colors.primary}80`
+                    }}
+                  >
+                    <CheckCircle2 size={64} style={{ color: BRAND.colors.dark }} strokeWidth={2.5} />
+                  </div>
+                </div>
+
+                {/* Success Message */}
+                <div className="text-center space-y-6 mb-8">
+                  <div className="space-y-2">
+                    <h2
+                      className="text-4xl md:text-5xl font-extrabold tracking-tight"
+                      style={{ color: BRAND.colors.primary }}
+                    >
+                      All Set! 🎉
+                    </h2>
+                    <p className="text-white text-2xl font-semibold">
+                      Your estimate is on its way
+                    </p>
+                  </div>
+
+                  <div className="max-w-xl mx-auto space-y-4">
+                    <p className="text-white/90 text-lg leading-relaxed">
+                      Thanks <strong>{formData.name}</strong>! We've received your request and sent a confirmation to <strong className="text-yellow-400">{formData.email}</strong>
+                    </p>
+
+                    {/* What happens next */}
+                    <Card className="bg-white/5 border-white/10 p-6 text-left">
+                      <h3 className="text-white font-bold mb-3 flex items-center gap-2">
+                        <Wrench size={20} style={{ color: BRAND.colors.primary }} />
+                        What happens next?
+                      </h3>
+                      <ul className="space-y-2 text-white/80 text-sm">
+                        <li className="flex items-start gap-2">
+                          <span style={{ color: BRAND.colors.primary }}>1.</span>
+                          <span>We'll review your request within 2 hours</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span style={{ color: BRAND.colors.primary }}>2.</span>
+                          <span>Get a detailed quote via phone or WhatsApp</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span style={{ color: BRAND.colors.primary }}>3.</span>
+                          <span>Schedule a convenient time for service</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span style={{ color: BRAND.colors.primary }}>4.</span>
+                          <span>We come to you and fix it right!</span>
+                        </li>
+                      </ul>
+                    </Card>
+
+                    {/* Contact info */}
+                    <div className="text-white/70 text-sm">
+                      We'll contact you at: <strong className="text-white">{formData.phone}</strong>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Quick Actions */}
+                <div className="space-y-4">
+                  <p className="text-white/60 text-sm text-center">
+                    Need to speak with us right now?
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                    <a
+                      href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`}
+                      className="group relative overflow-hidden inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border-2 text-white font-semibold transition-all hover:scale-105"
+                      style={{ borderColor: BRAND.colors.primary }}
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/0 via-yellow-500/10 to-yellow-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                      <Phone size={20} />
+                      Call {BRAND.phoneDisplay}
+                    </a>
+                    <a
+                      href={`https://wa.me/${BRAND.phoneIntl.replace('+', '')}?text=${encodeURIComponent(`Hi FixNow! I just submitted an estimate request (${formData.name})`)}`}
+                      className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold transition-all hover:scale-105 hover:shadow-lg"
+                      style={{ backgroundColor: '#25D366', color: 'white' }}
+                    >
+                      <MessageCircle size={20} />
+                      Message on WhatsApp
+                    </a>
+                  </div>
+                </div>
+
+                {/* Return home link */}
+                <div className="mt-8 text-center">
+                  <a
+                    href="/"
+                    className="text-white/60 hover:text-white text-sm transition-colors inline-flex items-center gap-2"
+                  >
+                    ← Return to homepage
+                  </a>
+                </div>
+              </CardBody>
+            </Card>
           </div>
-          <h2 className="text-white text-3xl font-bold mb-4">
-            Estimate Request Sent!
-          </h2>
-          <p className="text-white/80 text-lg mb-6">
-            Thank you! We've received your request and will contact you shortly at {formData.phone}.
-          </p>
-          <div className="space-y-3">
-            <p className="text-white/70 text-sm">
-              Need immediate assistance?
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <a
-                href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border-2 text-white hover:bg-white/10 transition-colors"
-                style={{ borderColor: BRAND.colors.primary }}
-              >
-                <Phone size={20} />
-                Call Now
-              </a>
-              <a
-                href={`https://wa.me/${BRAND.phoneIntl.replace('+', '')}?text=${encodeURIComponent(`Hi, I just submitted estimate request for ${formData.name}`)}`}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold transition-colors hover:opacity-90"
-                style={{ backgroundColor: '#25D366', color: 'white' }}
-              >
-                <Mail size={20} />
-                WhatsApp
-              </a>
-            </div>
-          </div>
-        </Card>
+        </div>
       </Section>
     );
   }
@@ -538,15 +685,38 @@ Submitted: ${new Date().toLocaleString('en-GB')}
                   </Card>
                 )}
 
-                <Input
-                  label="Address Line 1 *"
-                  name="addressLine1"
-                  value={formData.addressLine1}
-                  onChange={handleChange}
-                  placeholder="123 High Street"
-                  icon={Home}
-                  error={errors.addressLine1}
-                />
+                {/* Address Selection Dropdown */}
+                {addressSuggestions.length > 0 && (
+                  <Select
+                    label="Select Your Address *"
+                    name="addressLine1"
+                    value={formData.addressLine1}
+                    onChange={handleChange}
+                    icon={Home}
+                    error={errors.addressLine1}
+                  >
+                    <option value="">Choose your address...</option>
+                    {addressSuggestions.map((address, index) => (
+                      <option key={index} value={address}>
+                        {address}
+                      </option>
+                    ))}
+                    <option value="__manual__">Enter address manually</option>
+                  </Select>
+                )}
+
+                {/* Manual Address Input (shown if no suggestions or manual selected) */}
+                {(addressSuggestions.length === 0 || formData.addressLine1 === '__manual__') && (
+                  <Input
+                    label="Address Line 1 *"
+                    name="addressLine1"
+                    value={formData.addressLine1 === '__manual__' ? '' : formData.addressLine1}
+                    onChange={handleChange}
+                    placeholder="123 High Street"
+                    icon={Home}
+                    error={errors.addressLine1}
+                  />
+                )}
                 <Input
                   label="Address Line 2"
                   name="addressLine2"

@@ -65,18 +65,13 @@ export function WhatsAppWidget() {
         {/* Main WhatsApp Button */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="group w-16 h-16 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95"
+          className="group w-16 h-16 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 relative"
           style={{ backgroundColor: '#25D366' }}
           aria-label="WhatsApp"
         >
           <MessageCircle
             size={32}
             className="text-white group-hover:rotate-12 transition-transform duration-300"
-          />
-          {/* Pulse effect */}
-          <span
-            className="absolute inset-0 rounded-full animate-ping opacity-75"
-            style={{ backgroundColor: '#25D366' }}
           />
         </button>
       </div>
