@@ -27,6 +27,7 @@ export default function GetEstimate() {
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
+  const [captchaToken, setCaptchaToken] = useState(null);
 
   // Form data
   const [formData, setFormData] = useState({
@@ -74,6 +75,17 @@ export default function GetEstimate() {
     document.addEventListener('keypress', handleKeyPress);
     return () => document.removeEventListener('keypress', handleKeyPress);
   }, [currentStep, formData, submitting]);
+
+  // hCaptcha callback setup
+  useEffect(() => {
+    window.onCaptchaSuccess = (token) => {
+      setCaptchaToken(token);
+    };
+
+    return () => {
+      window.onCaptchaSuccess = null;
+    };
+  }, []);
 
   const handleVehicleLookup = async () => {
     if (!formData.vehicleReg.trim()) return;
@@ -171,6 +183,12 @@ export default function GetEstimate() {
   };
 
   const handleSubmit = async () => {
+    // Check captcha first
+    if (!captchaToken) {
+      setError('Please complete the captcha verification');
+      return;
+    }
+
     setSubmitting(true);
     setError(null);
 
@@ -264,6 +282,7 @@ Submitted: ${new Date().toLocaleString('en-GB')}
           replyto: formData.email,
           email: BRAND.email,
           message: emailContent,
+          'h-captcha-response': captchaToken,
           botcheck: '',
         }),
       });
@@ -315,6 +334,7 @@ ${BRAND.tagline}
           replyto: BRAND.email,
           email: formData.email,
           message: confirmationContent,
+          'h-captcha-response': captchaToken,
           botcheck: '',
         }),
       });
@@ -820,6 +840,22 @@ ${BRAND.tagline}
                     <p className="text-white/60 text-sm mt-2">{formData.description}</p>
                   </div>
                 </div>
+
+                {/* hCaptcha Widget */}
+                <div className="flex justify-center">
+                  <div
+                    className="h-captcha"
+                    data-sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"
+                    data-callback="onCaptchaSuccess"
+                    data-theme="dark"
+                  ></div>
+                </div>
+
+                <Card className="bg-blue-500/10 border-blue-500/30 p-4">
+                  <p className="text-blue-300 text-sm text-center">
+                    ✓ Spam protection enabled. Complete the verification above to submit.
+                  </p>
+                </Card>
 
                 {error && (
                   <Card className="bg-red-500/10 border-red-500/30 p-4">

@@ -129,15 +129,15 @@ export default function Home() {
 
               <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/10">
                 <div className="text-center">
-                  <div className="text-2xl font-bold" style={{ color: BRAND.colors.primary }}>5+</div>
-                  <div className="text-white/60 text-sm">Years Experience</div>
+                  <div className="text-2xl font-bold" style={{ color: BRAND.colors.primary }}>Same Day</div>
+                  <div className="text-white/60 text-sm">Service</div>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold" style={{ color: BRAND.colors.primary }}>100%</div>
-                  <div className="text-white/60 text-sm">Mobile Service</div>
+                  <div className="text-white/60 text-sm">Mobile</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold" style={{ color: BRAND.colors.primary }}>6</div>
+                  <div className="text-2xl font-bold" style={{ color: BRAND.colors.primary }}>6+</div>
                   <div className="text-white/60 text-sm">Areas Covered</div>
                 </div>
               </div>

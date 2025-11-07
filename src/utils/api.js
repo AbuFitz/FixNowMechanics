@@ -110,21 +110,27 @@ export async function lookupAddresses(postcode) {
     // For development: Mock data showing the expected format
     await new Promise(resolve => setTimeout(resolve, 800));
 
-    // Simulated response - replace with real API when you get a key
+    // Generate more realistic addresses based on the postcode area
+    const postcodeArea = cleanPostcode.substring(0, 2);
+
+    // Sample street names based on common UK street names
+    const streetNames = ['High Street', 'Church Road', 'Station Road', 'Park Lane', 'Victoria Street', 'Queens Road'];
+    const randomStreet = streetNames[Math.floor(Math.random() * streetNames.length)];
+
     const mockAddresses = [
-      '1 High Street',
-      '2 High Street',
-      '3 High Street',
-      '4 High Street',
-      '5 High Street',
-      'Flat 1, 6 High Street',
-      'Flat 2, 6 High Street',
-      '7 High Street',
-      '8 High Street',
-      '9 High Street',
-      '10 High Street',
-      '11 High Street',
-      '12 High Street',
+      `1 ${randomStreet}, ${postcodeArea}`,
+      `2 ${randomStreet}, ${postcodeArea}`,
+      `3 ${randomStreet}, ${postcodeArea}`,
+      `4 ${randomStreet}, ${postcodeArea}`,
+      `5 ${randomStreet}, ${postcodeArea}`,
+      `Flat 1, 6 ${randomStreet}, ${postcodeArea}`,
+      `Flat 2, 6 ${randomStreet}, ${postcodeArea}`,
+      `7 ${randomStreet}, ${postcodeArea}`,
+      `8 ${randomStreet}, ${postcodeArea}`,
+      `9 ${randomStreet}, ${postcodeArea}`,
+      `10 ${randomStreet}, ${postcodeArea}`,
+      `11 ${randomStreet}, ${postcodeArea}`,
+      `12 ${randomStreet}, ${postcodeArea}`,
     ];
 
     return {
