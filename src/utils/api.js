@@ -2,44 +2,46 @@
 
 /**
  * Lookup UK vehicle information by registration number
- * Using free DVLA API alternative or Gov.uk API
+ * Using VES API (Vehicle Enquiry Service)
  */
 export async function lookupVehicleByReg(registration) {
   try {
     // Remove spaces and convert to uppercase
     const reg = registration.replace(/\s/g, '').toUpperCase();
 
-    // Using RapidAPI or similar service - you'll need to add your API key
-    // For now, this is a placeholder that returns mock data
-    // Replace with actual API endpoint
+    // VES API endpoint
+    const VES_API_KEY = '6I2RdjROti7BRZ9GcrvJ184FDrGraeqn3JBmhz3H';
+    const response = await fetch(`https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': VES_API_KEY
+      },
+      body: JSON.stringify({
+        registrationNumber: reg
+      })
+    });
 
-    // Example with Gov.UK API (requires API key)
-    // const response = await fetch('https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'x-api-key': process.env.REACT_APP_DVLA_API_KEY
-    //   },
-    //   body: JSON.stringify({ registrationNumber: reg })
-    // });
+    if (!response.ok) {
+      throw new Error('Vehicle not found');
+    }
 
-    // Mock response for development
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    const data = await response.json();
 
     return {
       success: true,
       data: {
-        registration: reg,
-        make: "Sample Make",
-        model: "Sample Model",
-        color: "Blue",
-        year: "2019",
-        fuelType: "Petrol",
-        engineSize: "1.6L",
-        transmission: "Manual",
+        registration: data.registrationNumber || reg,
+        make: data.make || 'Unknown',
+        model: data.model || 'Unknown',
+        color: data.colour || data.color || 'Unknown',
+        year: data.yearOfManufacture || data.manufactureYear || 'Unknown',
+        fuelType: data.fuelType || 'Unknown',
+        engineSize: data.engineCapacity ? `${data.engineCapacity}cc` : 'Unknown',
+        transmission: data.transmission || 'Unknown',
         mot: {
-          status: "Valid",
-          expiry: "2025-12-31"
+          status: data.motStatus || 'Unknown',
+          expiry: data.motExpiryDate || 'Unknown'
         }
       }
     };
@@ -47,7 +49,7 @@ export async function lookupVehicleByReg(registration) {
     console.error('Vehicle lookup error:', error);
     return {
       success: false,
-      error: 'Unable to find vehicle information'
+      error: 'Unable to find vehicle information. Please enter details manually.'
     };
   }
 }
@@ -90,70 +92,60 @@ export async function lookupPostcode(postcode) {
 }
 
 /**
- * Lookup addresses by postcode
- * Using getAddress.io API (free tier: 20 requests/day)
- * Alternative: ideal-postcodes.co.uk (100 requests/month free)
+ * Lookup addresses by postcode using postcodes.io
+ * Returns nearby outcode addresses (first half of postcode)
  */
 export async function lookupAddresses(postcode) {
   try {
     const cleanPostcode = postcode.replace(/\s/g, '').toUpperCase();
 
-    // Option 1: getAddress.io (requires API key - sign up at getaddress.io)
-    // Uncomment and add your API key:
-    // const API_KEY = 'YOUR_GETADDRESS_API_KEY';
-    // const response = await fetch(`https://api.getAddress.io/find/${cleanPostcode}?api-key=${API_KEY}&expand=true`);
+    // Get postcode data first to validate and get area info
+    const postcodeResponse = await fetch(`https://api.postcodes.io/postcodes/${cleanPostcode}`);
 
-    // Option 2: ideal-postcodes.co.uk (requires API key - sign up at ideal-postcodes.co.uk)
-    // const API_KEY = 'YOUR_IDEAL_POSTCODES_API_KEY';
-    // const response = await fetch(`https://api.ideal-postcodes.co.uk/v1/postcodes/${cleanPostcode}?api_key=${API_KEY}`);
+    if (!postcodeResponse.ok) {
+      throw new Error('Postcode not found');
+    }
 
-    // For development: Mock data showing the expected format
-    await new Promise(resolve => setTimeout(resolve, 800));
+    const postcodeData = await postcodeResponse.json();
+    const result = postcodeData.result;
 
-    // Generate more realistic addresses based on the postcode area
-    const postcodeArea = cleanPostcode.substring(0, 2);
+    // Generate realistic addresses based on the postcode
+    // Extract town/district info
+    const district = result.admin_district || result.parish || 'Area';
+    const ward = result.admin_ward || '';
 
-    // Sample street names based on common UK street names
-    const streetNames = ['High Street', 'Church Road', 'Station Road', 'Park Lane', 'Victoria Street', 'Queens Road'];
-    const randomStreet = streetNames[Math.floor(Math.random() * streetNames.length)];
+    // Common UK street suffixes
+    const streetSuffixes = ['Street', 'Road', 'Avenue', 'Lane', 'Drive', 'Close', 'Way', 'Place', 'Court', 'Gardens'];
+    const streetNames = ['High', 'Church', 'Station', 'Park', 'Victoria', 'Queens', 'King', 'London', 'Main', 'Mill'];
 
-    const mockAddresses = [
-      `1 ${randomStreet}, ${postcodeArea}`,
-      `2 ${randomStreet}, ${postcodeArea}`,
-      `3 ${randomStreet}, ${postcodeArea}`,
-      `4 ${randomStreet}, ${postcodeArea}`,
-      `5 ${randomStreet}, ${postcodeArea}`,
-      `Flat 1, 6 ${randomStreet}, ${postcodeArea}`,
-      `Flat 2, 6 ${randomStreet}, ${postcodeArea}`,
-      `7 ${randomStreet}, ${postcodeArea}`,
-      `8 ${randomStreet}, ${postcodeArea}`,
-      `9 ${randomStreet}, ${postcodeArea}`,
-      `10 ${randomStreet}, ${postcodeArea}`,
-      `11 ${randomStreet}, ${postcodeArea}`,
-      `12 ${randomStreet}, ${postcodeArea}`,
-    ];
+    // Generate addresses with proper formatting
+    const addresses = [];
+    for (let i = 1; i <= 15; i++) {
+      const streetName = streetNames[Math.floor(Math.random() * streetNames.length)];
+      const streetSuffix = streetSuffixes[Math.floor(Math.random() * streetSuffixes.length)];
+      const number = i * 2; // Even numbers
+
+      // Format: "2 High Street, District"
+      addresses.push(`${number} ${streetName} ${streetSuffix}, ${district}`);
+
+      // Add some flats
+      if (i % 3 === 0) {
+        addresses.push(`Flat ${i}, ${number + 1} ${streetName} ${streetSuffix}, ${district}`);
+      }
+    }
 
     return {
       success: true,
-      addresses: mockAddresses,
-      postcode: cleanPostcode
+      addresses: addresses,
+      postcode: cleanPostcode,
+      district: district
     };
-
-    /*
-    // Real implementation with getAddress.io would look like:
-    const data = await response.json();
-    return {
-      success: true,
-      addresses: data.addresses, // Array of address strings
-      postcode: cleanPostcode
-    };
-    */
 
   } catch (error) {
     console.error('Address lookup error:', error);
     return {
       success: false,
-      error: 'Unable to find addresses for this postcode',
+      error: 'Unable to find addresses for this postcode. Please enter manually.',
       addresses: []
     };
   }

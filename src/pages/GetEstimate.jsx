@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
   User, Phone, Mail, Car, MapPin, Wrench, CheckCircle2, AlertCircle,
-  Loader2, ArrowRight, ArrowLeft, Search, Home
+  Loader2, ArrowRight, ArrowLeft, Search, Home, MessageCircle
 } from 'lucide-react';
 import { BRAND, SERVICES, CALLOUT_NOTE } from '../constants/brand';
 import { Section } from '../components/Layout';
@@ -44,13 +44,13 @@ export default function GetEstimate() {
     city: '',
     serviceType: '',
     description: '',
-    urgency: 'normal',
   });
 
   // Lookup states
   const [vehicleData, setVehicleData] = useState(null);
   const [postcodeData, setPostcodeData] = useState(null);
   const [addressSuggestions, setAddressSuggestions] = useState([]);
+  const [isOutsideHemel, setIsOutsideHemel] = useState(false);
 
   const [errors, setErrors] = useState({});
   const formRef = useRef(null);
@@ -76,16 +76,51 @@ export default function GetEstimate() {
     return () => document.removeEventListener('keypress', handleKeyPress);
   }, [currentStep, formData, submitting]);
 
-  // hCaptcha callback setup
+  // hCaptcha callback setup and rendering
   useEffect(() => {
+    // Define global callback
     window.onCaptchaSuccess = (token) => {
       setCaptchaToken(token);
+      console.log('hCaptcha verified successfully');
     };
+
+    // Render hCaptcha when on step 5 and hcaptcha is loaded
+    if (currentStep === 5) {
+      const renderCaptcha = () => {
+        const container = document.getElementById('hcaptcha-container');
+        if (container && window.hcaptcha && !container.hasChildNodes()) {
+          try {
+            window.hcaptcha.render('hcaptcha-container', {
+              sitekey: '50b2fe65-b00b-4b9e-ad62-3ba471098be2',
+              theme: 'dark',
+              callback: 'onCaptchaSuccess'
+            });
+          } catch (error) {
+            console.error('hCaptcha render error:', error);
+          }
+        }
+      };
+
+      // If hcaptcha is already loaded, render immediately
+      if (window.hcaptcha) {
+        renderCaptcha();
+      } else {
+        // Wait for hcaptcha to load
+        const checkHcaptcha = setInterval(() => {
+          if (window.hcaptcha) {
+            clearInterval(checkHcaptcha);
+            renderCaptcha();
+          }
+        }, 100);
+
+        return () => clearInterval(checkHcaptcha);
+      }
+    }
 
     return () => {
       window.onCaptchaSuccess = null;
     };
-  }, []);
+  }, [currentStep]);
 
   const handleVehicleLookup = async () => {
     if (!formData.vehicleReg.trim()) return;
@@ -122,6 +157,11 @@ export default function GetEstimate() {
         ...prev,
         city: postcodeResult.data.district || postcodeResult.data.region,
       }));
+
+      // Check if outside Hemel Hempstead
+      const district = postcodeResult.data.district || '';
+      const isOutside = !district.toLowerCase().includes('hemel hempstead');
+      setIsOutsideHemel(isOutside);
 
       // Fetch address suggestions
       const addressResult = await lookupAddresses(formData.postcode);
@@ -206,10 +246,11 @@ export default function GetEstimate() {
 
       if (postcodeData) {
         distance = calculateDistance(BASE_LAT, BASE_LON, postcodeData.latitude, postcodeData.longitude);
-        // Calculate if outside Hemel Hempstead
-        const isOutsideHemel = distance > 5; // 5 mile radius
-        if (isOutsideHemel) {
-          travelCost = 15; // £15 callout fee
+        // Check if outside Hemel Hempstead based on district name
+        const district = postcodeData.district || '';
+        const isOutside = !district.toLowerCase().includes('hemel hempstead');
+        if (isOutside) {
+          travelCost = 25; // £25 callout fee
         }
       }
 
@@ -251,7 +292,6 @@ ${distance > 0 ? `Distance from base: ${distance.toFixed(1)} miles` : ''}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Service: ${service ? service.title : formData.serviceType}
-Urgency: ${formData.urgency}
 
 Issue Description:
 ${formData.description}
@@ -302,7 +342,6 @@ ${basePrice > 0 ? `Estimated Cost: £${estimate}` : 'Price: To be quoted'}
 ${travelCost > 0 ? `Includes £${travelCost} callout fee (outside Hemel Hempstead)` : 'No callout fee (within Hemel Hempstead)'}
 
 Location: ${formData.addressLine1}, ${formData.postcode}
-Urgency: ${formData.urgency}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -695,14 +734,27 @@ ${BRAND.tagline}
                 </div>
 
                 {postcodeData && (
-                  <Card className="bg-green-500/10 border-green-500/30 p-4">
-                    <p className="text-green-400 font-semibold mb-1">
-                      ✓ Postcode Verified
-                    </p>
-                    <p className="text-white/80 text-sm">
-                      {postcodeData.district}, {postcodeData.region}
-                    </p>
-                  </Card>
+                  <>
+                    <Card className="bg-green-500/10 border-green-500/30 p-4">
+                      <p className="text-green-400 font-semibold mb-1">
+                        ✓ Postcode Verified
+                      </p>
+                      <p className="text-white/80 text-sm">
+                        {postcodeData.district}, {postcodeData.region}
+                      </p>
+                    </Card>
+
+                    {isOutsideHemel && (
+                      <Card className="bg-yellow-500/10 border-yellow-500/30 p-4">
+                        <p className="text-yellow-400 font-semibold mb-2">
+                          ⚠️ Callout Fee Applies
+                        </p>
+                        <p className="text-white/80 text-sm">
+                          This location is outside Hemel Hempstead. A £25 callout fee will be added to your estimate. This fee is refunded if you accept the repair.
+                        </p>
+                      </Card>
+                    )}
+                  </>
                 )}
 
                 {/* Address Selection Dropdown */}
@@ -789,18 +841,6 @@ ${BRAND.tagline}
                   rows={6}
                   error={errors.description}
                 />
-
-                <Select
-                  label="Urgency"
-                  name="urgency"
-                  value={formData.urgency}
-                  onChange={handleChange}
-                >
-                  <option value="flexible">Flexible - No rush</option>
-                  <option value="normal">Normal - Within a week</option>
-                  <option value="urgent">Urgent - ASAP</option>
-                  <option value="emergency">Emergency - Vehicle not drivable</option>
-                </Select>
               </div>
             )}
 
@@ -843,12 +883,7 @@ ${BRAND.tagline}
 
                 {/* hCaptcha Widget */}
                 <div className="flex justify-center">
-                  <div
-                    className="h-captcha"
-                    data-sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"
-                    data-callback="onCaptchaSuccess"
-                    data-theme="dark"
-                  ></div>
+                  <div id="hcaptcha-container"></div>
                 </div>
 
                 <Card className="bg-blue-500/10 border-blue-500/30 p-4">

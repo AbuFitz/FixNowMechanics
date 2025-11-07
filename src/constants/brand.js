@@ -38,7 +38,7 @@ export const BRAND = {
 };
 
 export const CALLOUT_NOTE =
-  "£15 callout fee applies to areas outside Hemel Hempstead (refunded if repair is accepted)";
+  "£25 callout fee applies to areas outside Hemel Hempstead (refunded if repair is accepted)";
 
 export const SERVICES = [
   {
