@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Phone, MessageCircle, Menu, X } from 'lucide-react';
 import { BRAND } from '../constants/brand';
 import { LinkButton } from './Button';
+import { WhatsAppWidget } from './WhatsAppWidget';
 
 export function Section({ children, className = '' }) {
   return (
@@ -20,8 +21,7 @@ export function Header() {
 
   const navLinks = [
     { path: '/', label: 'Home' },
-    { path: '/quick-estimate', label: 'Quick Estimate' },
-    { path: '/quote', label: 'Get Quote' },
+    { path: '/estimate', label: 'Get Estimate' },
   ];
 
   const isActive = (path) => location.pathname === path;
@@ -156,13 +156,8 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/quick-estimate" className="hover:text-white transition-colors">
-                  Quick Estimate
-                </Link>
-              </li>
-              <li>
-                <Link to="/quote" className="hover:text-white transition-colors">
-                  Get Quote
+                <Link to="/estimate" className="hover:text-white transition-colors">
+                  Get Estimate
                 </Link>
               </li>
             </ul>
@@ -182,7 +177,7 @@ export function Footer() {
                 </a>
               </li>
               <li>{BRAND.baseArea}</li>
-              <li>{BRAND.hours}</li>
+              <li>{BRAND.hoursDisplay}</li>
             </ul>
           </div>
         </div>
@@ -215,6 +210,7 @@ export function PageLayout({ children }) {
       </main>
       <Footer />
       <MobileBottomBar />
+      <WhatsAppWidget />
     </div>
   );
 }

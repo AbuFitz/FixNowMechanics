@@ -2,13 +2,18 @@
 export const BRAND = {
   name: "FixNow Mechanics",
   tagline: "Reliable Repairs. Real Results.",
-  phoneDisplay: "07930 991598",
-  phoneIntl: "+447930991598",
-  email: "info@fixnowmechanics.co.uk",
+  phoneDisplay: "07354 915941",
+  phoneIntl: "+447354915941",
+  email: "Abukars@outlook.com",
   whatsappPrefill: encodeURIComponent(
-    "Hi FixNow, I need a mobile mechanic. Car model: ____. Location: ____. Issue: ____. Earliest time: ____."
+    "Hi FixNow, I need a mobile mechanic for my vehicle."
   ),
-  baseArea: "Maylands Business Area, Hemel Hempstead, HP2 7DE",
+  baseArea: "Hemel Hempstead, HP2 7DE",
+  baseCityCoords: {
+    lat: 51.7519,
+    lng: -0.4723,
+    city: "Hemel Hempstead"
+  },
   serviceAreas: [
     "Hemel Hempstead",
     "Watford",
@@ -24,11 +29,16 @@ export const BRAND = {
     light: "#F5F7FA",      // Light gray
     accent: "#FFB800",     // Amber variant
   },
-  hours: "8am – 10pm, 7 days a week",
+  hours: {
+    weekdays: "7pm – 10pm",
+    saturday: "8am – 10pm",
+    sunday: "8am – 8pm",
+  },
+  hoursDisplay: "Mon-Fri: 7pm-10pm | Sat: 8am-10pm | Sun: 8am-8pm",
 };
 
 export const CALLOUT_NOTE =
-  "£28 callout for physical inspection (refunded if repair accepted). Phone quotes are free.";
+  "£15 callout fee applies to areas outside Hemel Hempstead (refunded if repair is accepted)";
 
 export const SERVICES = [
   {

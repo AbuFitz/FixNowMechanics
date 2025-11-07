@@ -114,10 +114,12 @@ export function Select({
             transition-all duration-200
             disabled:opacity-50 disabled:cursor-not-allowed
             appearance-none
+            [&>option]:bg-gray-900 [&>option]:text-white
             ${Icon ? 'pl-11' : ''}
             ${error ? 'border-red-500 focus:ring-red-500' : 'focus:ring-yellow-500'}
             ${className}
           `}
+          style={{ colorScheme: 'dark' }}
           {...props}
         >
           {children}
