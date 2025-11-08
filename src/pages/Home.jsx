@@ -99,14 +99,14 @@ export default function Home() {
         className="relative overflow-hidden lg:bg-transparent"
         style={{ backgroundColor: BRAND.colors.dark }}
       >
-        {/* Mobile: Background Image - Transparent */}
+        {/* Mobile: Background Image - More Visible */}
         <div className="absolute inset-0 lg:hidden">
           <img
             src={CompanyVanImage}
             alt="FixNow Mechanics"
-            className="w-full h-full object-cover object-center opacity-30"
+            className="w-full h-full object-cover object-center opacity-40"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/65 to-black/85" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
         </div>
 
         <Section className="py-12 lg:py-32 relative z-10">
@@ -196,11 +196,21 @@ export default function Home() {
       <Section className="py-16">
         <div className="text-center mb-12">
           <h2 className="text-white text-4xl font-bold mb-3">
-            Core Services
+            Our Core Services
           </h2>
-          <p className="text-white/70 text-lg max-w-2xl mx-auto">
-            Fixed-price services with transparent pricing. Know the cost before we start.
+          <p className="text-white/70 text-lg max-w-3xl mx-auto mb-6">
+            Specializing in major mechanical repairs and diagnostics. Fixed-price services with transparent pricing.
           </p>
+
+          {/* BYO Policy Callout */}
+          <Card className="inline-block bg-white/5 border-white/20 p-4 max-w-2xl">
+            <div className="flex items-center justify-center gap-3 text-white/90">
+              <CheckCircle2 size={20} style={{ color: BRAND.colors.primary }} />
+              <p className="text-sm font-medium">
+                <span style={{ color: BRAND.colors.primary }}>BYO Parts Policy:</span> Bring your own parts and we'll fit them — labour charges apply
+              </p>
+            </div>
+          </Card>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -213,16 +223,33 @@ export default function Home() {
           ))}
         </div>
 
-        <div className="mt-12 text-center">
-          <Card className="inline-block p-6">
-            <p className="text-white/80 mb-4">
-              Need something else? We handle most mechanical repairs.
-            </p>
-            <Link to="/estimate">
-              <Button variant="primary" icon={Calculator}>
-                Request Quote
-              </Button>
-            </Link>
+        <div className="mt-12 space-y-4">
+          {/* Contact for Other Services */}
+          <Card className="p-6 bg-gradient-to-r from-white/5 to-white/10 border-white/20">
+            <div className="text-center space-y-3">
+              <h3 className="text-white text-xl font-bold">
+                Need a Different Repair?
+              </h3>
+              <p className="text-white/70 text-sm max-w-2xl mx-auto">
+                We focus on major mechanical work like diagnostics, braking systems, suspension, and engine servicing.
+                For other repairs not listed above, please reach out via WhatsApp or phone to discuss your specific needs.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
+                <LinkButton
+                  variant="ghost"
+                  icon={MessageCircle}
+                  href={`https://wa.me/${BRAND.phoneIntl.replace('+', '')}?text=${encodeURIComponent('Hi! I need help with a repair not listed on your website')}`}
+                  className="min-w-[180px]"
+                >
+                  WhatsApp Us
+                </LinkButton>
+                <Link to="/estimate">
+                  <Button variant="primary" icon={Calculator} className="w-full sm:w-auto min-w-[180px]">
+                    Request Quote
+                  </Button>
+                </Link>
+              </div>
+            </div>
           </Card>
         </div>
       </Section>
@@ -244,13 +271,19 @@ export default function Home() {
                 <div className="flex items-start gap-3">
                   <CheckCircle2 size={20} style={{ color: BRAND.colors.primary }} className="mt-1 flex-shrink-0" />
                   <div>
-                    <strong>Professional diagnostics</strong> using industry-grade tools
+                    <strong>Major mechanical repairs</strong> — diagnostics, brakes, suspension & engine work
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle2 size={20} style={{ color: BRAND.colors.primary }} className="mt-1 flex-shrink-0" />
                   <div>
-                    <strong>Transparent pricing</strong> with detailed breakdown
+                    <strong>BYO parts welcome</strong> — bring your own parts, we'll fit them
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 size={20} style={{ color: BRAND.colors.primary }} className="mt-1 flex-shrink-0" />
+                  <div>
+                    <strong>Transparent pricing</strong> with detailed breakdown before we start
                   </div>
                 </div>
                 <div className="flex items-start gap-3">

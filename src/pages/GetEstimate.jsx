@@ -774,6 +774,13 @@ ${BRAND.tagline}
             {/* Step 4: Service */}
             {currentStep === 4 && (
               <div className="space-y-4 animate-in fade-in slide-in-from-right-5 duration-300">
+                {/* Service Scope Info */}
+                <Card className="bg-blue-500/10 border-blue-500/30 p-4">
+                  <p className="text-blue-300 text-sm">
+                    <strong>Our Specialization:</strong> We focus on major mechanical repairs including diagnostics, braking systems, suspension, battery, and engine servicing. For other repairs, please describe below or contact us via WhatsApp.
+                  </p>
+                </Card>
+
                 <Select
                   label="Service Type *"
                   name="serviceType"
@@ -796,7 +803,7 @@ ${BRAND.tagline}
                   name="description"
                   value={formData.description}
                   onChange={handleChange}
-                  placeholder="Please provide details about the issue, symptoms, or services needed..."
+                  placeholder="Please provide details about the issue, symptoms, or services needed. If bringing your own parts, please mention that here."
                   rows={6}
                   error={errors.description}
                 />
