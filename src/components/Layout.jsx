@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Phone, MessageCircle, Menu, X } from 'lucide-react';
+import { Phone, MessageCircle, Menu, X, Calculator } from 'lucide-react';
 import { BRAND } from '../constants/brand';
 import { LinkButton } from './Button';
 import { WhatsAppWidget } from './WhatsAppWidget';
@@ -68,14 +68,23 @@ export function Header() {
             </LinkButton>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden text-white p-2"
-            aria-label="Toggle menu"
-          >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {/* Mobile Phone + Menu */}
+          <div className="lg:hidden flex items-center gap-3">
+            <a
+              href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`}
+              className="text-white/80 hover:text-white text-sm font-medium flex items-center gap-1"
+            >
+              <Phone size={16} />
+              <span className="hidden xs:inline">{BRAND.phoneDisplay}</span>
+            </a>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="text-white p-2"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Menu */}
@@ -104,25 +113,37 @@ export function Header() {
 }
 
 export function MobileBottomBar() {
+  const location = useLocation();
+  const isEstimatePage = location.pathname === '/estimate';
+
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden border-t border-white/10 bg-black/90 backdrop-blur-xl p-3">
-      <div className="flex gap-3">
-        <LinkButton
-          variant="secondary"
-          icon={Phone}
-          href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`}
-          className="flex-1"
-        >
-          Call
-        </LinkButton>
-        <LinkButton
-          variant="primary"
-          icon={MessageCircle}
-          href={`https://wa.me/${BRAND.phoneIntl.replace('+', '')}?text=${BRAND.whatsappPrefill}`}
-          className="flex-1"
-        >
-          WhatsApp
-        </LinkButton>
+    <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden border-t border-white/10 bg-black/95 backdrop-blur-xl">
+      <div className="px-4 py-3 pb-safe">
+        {isEstimatePage ? (
+          <a
+            href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`}
+            className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl font-semibold text-base transition-all active:scale-95"
+            style={{
+              backgroundColor: BRAND.colors.primary,
+              color: BRAND.colors.dark
+            }}
+          >
+            <Phone size={20} />
+            Call {BRAND.phoneDisplay}
+          </a>
+        ) : (
+          <Link
+            to="/estimate"
+            className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl font-semibold text-base transition-all active:scale-95"
+            style={{
+              backgroundColor: BRAND.colors.primary,
+              color: BRAND.colors.dark
+            }}
+          >
+            <Calculator size={20} />
+            Get Free Quote
+          </Link>
+        )}
       </div>
     </div>
   );
