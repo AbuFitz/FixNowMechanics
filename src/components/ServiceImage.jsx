@@ -55,14 +55,14 @@ export function ServiceImage({ service, className = '' }) {
   );
 }
 
-// Hero image with real photo from Unsplash (free to use)
+// Hero image with scenic car photo from Pexels (free to use)
 export function HeroImage({ className = '' }) {
   return (
     <div className={`relative overflow-hidden rounded-3xl ${className}`}>
-      {/* Real mechanic working under car - Photo by Malte Luk from Pexels */}
+      {/* Scenic car on road - Photo by Nout Gons from Pexels */}
       <img
-        src="https://images.pexels.com/photos/3807277/pexels-photo-3807277.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop"
-        alt="Mechanic inspecting vehicle underside"
+        src="https://images.pexels.com/photos/248159/pexels-photo-248159.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop"
+        alt="Car on scenic mountain road at sunset"
         className="absolute inset-0 w-full h-full object-cover"
         loading="eager"
       />

@@ -99,8 +99,8 @@ export default function Home() {
 
               <div className="space-y-4">
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
-                  Your Local Mobile{' '}
-                  <span style={{ color: BRAND.colors.primary }}>Mechanic</span>
+                  Expert Vehicle{' '}
+                  <span style={{ color: BRAND.colors.primary }}>Diagnostics & Repair</span>
                 </h1>
                 <p className="text-xl sm:text-2xl font-medium text-white/70">
                   {BRAND.tagline}
@@ -127,14 +127,18 @@ export default function Home() {
                 </LinkButton>
               </div>
 
-              <div className="grid grid-cols-2 gap-6 pt-6 border-t border-white/10">
+              <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/10">
                 <div className="text-center">
                   <div className="text-2xl font-bold" style={{ color: BRAND.colors.primary }}>100%</div>
                   <div className="text-white/60 text-sm">Mobile Service</div>
                 </div>
                 <div className="text-center">
+                  <div className="text-2xl font-bold" style={{ color: BRAND.colors.primary }}>Fair</div>
+                  <div className="text-white/60 text-sm">Pricing</div>
+                </div>
+                <div className="text-center">
                   <div className="text-2xl font-bold" style={{ color: BRAND.colors.primary }}>6+</div>
-                  <div className="text-white/60 text-sm">Areas Covered</div>
+                  <div className="text-white/60 text-sm">Areas</div>
                 </div>
               </div>
             </div>
