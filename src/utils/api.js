@@ -136,7 +136,7 @@ export async function lookupAddresses(postcode) {
 
     // getaddress.io API key - use environment variable or fallback to hardcoded
     // Set VITE_GETADDRESS_API_KEY in Vercel environment variables
-    const GETADDRESS_API_KEY = import.meta.env.VITE_GETADDRESS_API_KEY || 'mLWzInXqJEaw11YJzvjypw48613';
+    const GETADDRESS_API_KEY = import.meta.env.VITE_GETADDRESS_API_KEY || 'p1ZnXbH6PUa6KlvxsQQG7A48613';
 
     // Try getaddress.io first for real Royal Mail addresses
     if (GETADDRESS_API_KEY) {
