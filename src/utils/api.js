@@ -91,7 +91,7 @@ export async function lookupVehicleByReg(registration) {
 
 /**
  * Lookup UK postcode information
- * Using free postcodes.io API
+ * Using free postcodes.io API - no API key needed
  */
 export async function lookupPostcode(postcode) {
   try {
@@ -105,6 +105,26 @@ export async function lookupPostcode(postcode) {
 
     const data = await response.json();
 
+    // Hemel Hempstead coordinates
+    const hemelLat = 51.753;
+    const hemelLon = -0.472;
+
+    // Calculate distance from Hemel Hempstead
+    const distance = calculateDistance(
+      hemelLat,
+      hemelLon,
+      data.result.latitude,
+      data.result.longitude
+    );
+
+    // Convert miles to km
+    const distanceKm = distance * 1.60934;
+    const withinRadius = distanceKm <= 10;
+
+    console.log('📍 Postcode lookup:', cleanPostcode);
+    console.log('📏 Distance from Hemel Hempstead:', distanceKm.toFixed(2), 'km');
+    console.log('✅ Within 10km radius:', withinRadius);
+
     return {
       success: true,
       data: {
@@ -115,6 +135,9 @@ export async function lookupPostcode(postcode) {
         country: data.result.country,
         latitude: data.result.latitude,
         longitude: data.result.longitude,
+        distance: distanceKm,
+        withinRadius: withinRadius,
+        calloutFee: withinRadius ? 0 : 25
       }
     };
   } catch (error) {
@@ -126,110 +149,7 @@ export async function lookupPostcode(postcode) {
   }
 }
 
-/**
- * Lookup addresses by postcode using getaddress.io
- * Real UK addresses from Royal Mail database
- */
-export async function lookupAddresses(postcode) {
-  try {
-    const cleanPostcode = postcode.replace(/\s/g, '');
-
-    // getaddress.io API key - use environment variable or fallback to hardcoded
-    // Set VITE_GETADDRESS_API_KEY in Vercel environment variables
-    const GETADDRESS_API_KEY = import.meta.env.VITE_GETADDRESS_API_KEY || 'p1ZnXbH6PUa6KlvxsQQG7A48613';
-
-    // Try getaddress.io first for real Royal Mail addresses
-    if (GETADDRESS_API_KEY) {
-      try {
-        const apiUrl = `https://api.getaddress.io/find/${cleanPostcode}?api-key=${GETADDRESS_API_KEY}&expand=true`;
-        console.log('🔍 Attempting getaddress.io API call...');
-
-        const response = await fetch(apiUrl);
-        const responseText = await response.text();
-
-        console.log('📡 API Response Status:', response.status);
-        console.log('📡 API Response:', responseText);
-
-        if (response.ok) {
-          const data = JSON.parse(responseText);
-
-          // Format addresses from getaddress.io response
-          // Each address is a comma-separated string
-          const addresses = data.addresses.map(addr => {
-            // Split and clean the address
-            const parts = addr.split(',').map(p => p.trim()).filter(p => p);
-            // Return the first 2-3 parts (house number, street, area)
-            return parts.slice(0, 3).join(', ');
-          });
-
-          console.log('✅ getaddress.io SUCCESS - found', addresses.length, 'addresses');
-
-          return {
-            success: true,
-            addresses: addresses,
-            postcode: cleanPostcode.toUpperCase(),
-            source: 'getaddress.io'
-          };
-        } else {
-          console.error('❌ getaddress.io API error:', response.status, responseText);
-        }
-      } catch (apiError) {
-        console.error('❌ getaddress.io failed:', apiError);
-      }
-    }
-
-    console.log('⚠️ Using fallback addresses (getaddress.io API not available)');
-
-    // Fallback: Validate with postcodes.io and use area-specific streets
-    const postcodeResponse = await fetch(`https://api.postcodes.io/postcodes/${cleanPostcode}`);
-
-    if (!postcodeResponse.ok) {
-      throw new Error('Invalid postcode');
-    }
-
-    const postcodeData = await postcodeResponse.json();
-    const result = postcodeData.result;
-    const district = result.admin_district || 'Unknown';
-
-    // Generate fallback addresses with real street names
-    const postcodeArea = cleanPostcode.substring(0, 2).toUpperCase();
-    const streetPatterns = {
-      'HP2': ['Marlowes', 'Waterhouse Street', 'Bridge Street', 'Midland Road', 'St Johns Road', 'Alexandra Road'],
-      'HP1': ['High Street', 'London Road', 'Queensway', 'Hillfield Road', 'Wood Lane End'],
-      'HP3': ['St Albans Road', 'Bennetts End Road', 'Galley Hill', 'Chambersbury Lane'],
-      'WD': ['High Street', 'Station Road', 'Church Street', 'Watford Road', 'Queens Road'],
-      'AL': ['Victoria Street', 'Holywell Hill', 'St Peters Street', 'London Road', 'Hatfield Road'],
-      'LU': ['George Street', 'Park Street', 'High Town Road', 'Chapel Street', 'Manchester Street'],
-      'DEFAULT': ['High Street', 'Church Road', 'Station Road', 'Park Lane', 'Main Street', 'London Road']
-    };
-
-    const streets = streetPatterns[cleanPostcode.substring(0, 3)] || streetPatterns[postcodeArea] || streetPatterns['DEFAULT'];
-
-    const addresses = [];
-    streets.forEach((street, idx) => {
-      for (let i = 1; i <= 2; i++) {
-        const number = (idx * 8) + (i * 2);
-        addresses.push(`${number} ${street}, ${district}`);
-      }
-    });
-
-    return {
-      success: true,
-      addresses: addresses.slice(0, 15),
-      postcode: cleanPostcode.toUpperCase(),
-      isExample: true,
-      source: 'fallback'
-    };
-
-  } catch (error) {
-    console.error('Address lookup error:', error);
-    return {
-      success: false,
-      error: 'Unable to find addresses for this postcode. Please enter manually.',
-      addresses: []
-    };
-  }
-}
+// Address lookup removed - users will enter addresses manually after postcode validation
 
 /**
  * Calculate distance between two postcodes

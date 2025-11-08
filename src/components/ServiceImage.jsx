@@ -55,23 +55,23 @@ export function ServiceImage({ service, className = '' }) {
   );
 }
 
-// Hero image with scenic car photo from Pexels (free to use)
+// Hero image with company van photo
 export function HeroImage({ className = '' }) {
   return (
     <div className={`relative overflow-hidden rounded-3xl ${className}`}>
-      {/* Car on scenic mountain road - Photo by Garvin St. Villier from Pexels */}
+      {/* Company Van Photo */}
       <img
-        src="https://images.pexels.com/photos/3354648/pexels-photo-3354648.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop"
-        alt="Car driving through scenic mountain landscape"
-        className="absolute inset-0 w-full h-full object-cover"
+        src="/CompanyVan.png"
+        alt="FixNow Mechanics company van"
+        className="absolute inset-0 w-full h-full object-cover object-center"
         loading="eager"
       />
 
       {/* Gradient overlay for better text contrast */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/20" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
 
       {/* Brand accent overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/20 to-transparent" />
     </div>
   );
 }

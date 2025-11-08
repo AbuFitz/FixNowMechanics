@@ -8,7 +8,7 @@ import { Section } from '../components/Layout';
 import { Card, CardBody } from '../components/Card';
 import { Input, TextArea, Select } from '../components/Input';
 import { Button } from '../components/Button';
-import { lookupVehicleByReg, lookupPostcode, lookupAddresses, calculateDistance } from '../utils/api';
+import { lookupVehicleByReg, lookupPostcode } from '../utils/api';
 
 const STEPS = [
   { id: 1, title: 'Your Details', icon: User },
@@ -49,9 +49,6 @@ export default function GetEstimate() {
   // Lookup states
   const [vehicleData, setVehicleData] = useState(null);
   const [postcodeData, setPostcodeData] = useState(null);
-  const [addressSuggestions, setAddressSuggestions] = useState([]);
-  const [isOutsideHemel, setIsOutsideHemel] = useState(false);
-  const [isExampleAddresses, setIsExampleAddresses] = useState(false);
 
   const [errors, setErrors] = useState({});
   const formRef = useRef(null);
@@ -156,27 +153,16 @@ export default function GetEstimate() {
 
     setLoading(true);
 
-    // Lookup postcode for validation and location data
+    // Lookup postcode using free postcodes.io API
     const postcodeResult = await lookupPostcode(formData.postcode);
 
     if (postcodeResult.success) {
       setPostcodeData(postcodeResult.data);
+      // Auto-fill city from postcode data
       setFormData(prev => ({
         ...prev,
         city: postcodeResult.data.district || postcodeResult.data.region,
       }));
-
-      // Check if outside Hemel Hempstead
-      const district = postcodeResult.data.district || '';
-      const isOutside = !district.toLowerCase().includes('hemel hempstead');
-      setIsOutsideHemel(isOutside);
-
-      // Fetch address suggestions
-      const addressResult = await lookupAddresses(formData.postcode);
-      if (addressResult.success) {
-        setAddressSuggestions(addressResult.addresses);
-        setIsExampleAddresses(addressResult.isExample || false);
-      }
     } else {
       setErrors(prev => ({ ...prev, postcode: postcodeResult.error }));
     }
@@ -700,63 +686,41 @@ ${BRAND.tagline}
                       <p className="text-white/80 text-sm">
                         {postcodeData.district}, {postcodeData.region}
                       </p>
+                      <p className="text-white/60 text-xs mt-1">
+                        Distance from Hemel Hempstead: {postcodeData.distance.toFixed(1)} km
+                      </p>
                     </Card>
 
-                    {isOutsideHemel && (
-                      <Card className="bg-yellow-500/10 border-yellow-500/30 p-4">
-                        <p className="text-yellow-400 font-semibold mb-2">
-                          ⚠️ Callout Fee Applies
+                    {postcodeData.withinRadius ? (
+                      <Card className="bg-blue-500/10 border-blue-500/30 p-4">
+                        <p className="text-blue-300 text-sm">
+                          <CheckCircle2 size={16} className="inline mr-2" />
+                          <strong>Within our local service area</strong> — no call-out charge applies
                         </p>
-                        <p className="text-white/80 text-sm">
-                          This location is outside Hemel Hempstead. A £25 callout fee will be added to your estimate. This fee is refunded if you accept the repair.
+                      </Card>
+                    ) : (
+                      <Card className="bg-white/5 border-white/10 p-4">
+                        <p className="text-white/90 text-sm">
+                          <MapPin size={16} className="inline mr-2" style={{ color: BRAND.colors.primary }} />
+                          <strong>Service available in your area</strong>
+                        </p>
+                        <p className="text-white/70 text-xs mt-2">
+                          A £{postcodeData.calloutFee} call-out fee applies for locations outside our core area. This fee is fully refunded when you proceed with the repair.
                         </p>
                       </Card>
                     )}
                   </>
                 )}
 
-                {/* Address Selection Dropdown */}
-                {addressSuggestions.length > 0 && (
-                  <>
-                    <Select
-                      label="Select Your Address *"
-                      name="addressLine1"
-                      value={formData.addressLine1}
-                      onChange={handleChange}
-                      icon={Home}
-                      error={errors.addressLine1}
-                    >
-                      <option value="">Choose your address...</option>
-                      {addressSuggestions.map((address, index) => (
-                        <option key={index} value={address}>
-                          {address}
-                        </option>
-                      ))}
-                      <option value="__manual__">Enter address manually</option>
-                    </Select>
-
-                    {isExampleAddresses && (
-                      <Card className="bg-orange-500/10 border-orange-500/30 p-3">
-                        <p className="text-orange-300 text-xs">
-                          ℹ️ Showing sample addresses. For real address lookup, configure getaddress.io API key in the code.
-                        </p>
-                      </Card>
-                    )}
-                  </>
-                )}
-
-                {/* Manual Address Input (shown if no suggestions or manual selected) */}
-                {(addressSuggestions.length === 0 || formData.addressLine1 === '__manual__') && (
-                  <Input
-                    label="Address Line 1 *"
-                    name="addressLine1"
-                    value={formData.addressLine1 === '__manual__' ? '' : formData.addressLine1}
-                    onChange={handleChange}
-                    placeholder="123 High Street"
-                    icon={Home}
-                    error={errors.addressLine1}
-                  />
-                )}
+                <Input
+                  label="Address Line 1 *"
+                  name="addressLine1"
+                  value={formData.addressLine1}
+                  onChange={handleChange}
+                  placeholder="123 High Street"
+                  icon={Home}
+                  error={errors.addressLine1}
+                />
                 <Input
                   label="Address Line 2"
                   name="addressLine2"
@@ -765,18 +729,14 @@ ${BRAND.tagline}
                   placeholder="Apartment, suite, etc. (optional)"
                 />
                 <Input
-                  label="City"
+                  label="City *"
                   name="city"
                   value={formData.city}
                   onChange={handleChange}
                   placeholder="Hemel Hempstead"
+                  icon={MapPin}
+                  error={errors.city}
                 />
-
-                <Card className="bg-blue-500/10 border-blue-500/30 p-4">
-                  <p className="text-blue-300 text-sm">
-                    <strong>Note:</strong> {CALLOUT_NOTE}
-                  </p>
-                </Card>
               </div>
             )}
 
