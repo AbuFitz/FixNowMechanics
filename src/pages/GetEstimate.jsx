@@ -404,134 +404,83 @@ ${BRAND.tagline}
   if (success) {
     return (
       <Section className="py-16">
-        <div className="max-w-3xl mx-auto">
-          {/* Artistic Success Card */}
-          <div className="relative">
-            {/* Animated background glow */}
-            <div
-              className="absolute inset-0 blur-3xl opacity-30 animate-pulse"
-              style={{ backgroundColor: BRAND.colors.primary }}
-            />
+        <div className="max-w-2xl mx-auto">
+          <Card className="border-2" style={{ borderColor: BRAND.colors.primary }}>
+            <CardBody className="p-12">
+              {/* Simple Success Icon */}
+              <div className="flex justify-center mb-6">
+                <div
+                  className="w-20 h-20 rounded-full flex items-center justify-center"
+                  style={{ backgroundColor: BRAND.colors.primary }}
+                >
+                  <CheckCircle2 size={48} style={{ color: BRAND.colors.dark }} strokeWidth={2.5} />
+                </div>
+              </div>
 
-            <Card className="relative overflow-hidden border-2" style={{ borderColor: BRAND.colors.primary }}>
-              {/* Decorative elements */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-yellow-500/20 to-transparent rounded-full blur-3xl" />
-              <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-yellow-500/10 to-transparent rounded-full blur-3xl" />
+              {/* Success Message */}
+              <div className="text-center space-y-6">
+                <h2
+                  className="text-3xl font-bold"
+                  style={{ color: BRAND.colors.primary }}
+                >
+                  Thank You, {formData.name}
+                </h2>
 
-              <CardBody className="p-12 relative z-10">
-                {/* Success Icon with animation */}
-                <div className="relative w-32 h-32 mx-auto mb-8">
-                  {/* Pulsing rings */}
-                  <div
-                    className="absolute inset-0 rounded-full animate-ping opacity-20"
-                    style={{ backgroundColor: BRAND.colors.primary }}
-                  />
-                  <div
-                    className="absolute inset-4 rounded-full animate-pulse opacity-30"
-                    style={{ backgroundColor: BRAND.colors.primary }}
-                  />
-                  {/* Main icon */}
-                  <div
-                    className="absolute inset-0 rounded-full flex items-center justify-center transform transition-all duration-500 hover:scale-110"
-                    style={{
-                      backgroundColor: BRAND.colors.primary,
-                      boxShadow: `0 0 60px ${BRAND.colors.primary}80`
-                    }}
-                  >
-                    <CheckCircle2 size={64} style={{ color: BRAND.colors.dark }} strokeWidth={2.5} />
-                  </div>
+                <p className="text-white/90 text-lg">
+                  Your estimate request has been received successfully.
+                </p>
+
+                <div className="bg-white/5 border border-white/10 rounded-lg p-6 text-left space-y-3">
+                  <p className="text-white/80 text-sm">
+                    <strong className="text-white">Confirmation sent to:</strong> {formData.email}
+                  </p>
+                  <p className="text-white/80 text-sm">
+                    <strong className="text-white">We'll contact you at:</strong> {formData.phone}
+                  </p>
+                  <p className="text-white/80 text-sm">
+                    <strong className="text-white">Response time:</strong> Within 2 hours
+                  </p>
                 </div>
 
-                {/* Success Message */}
-                <div className="text-center space-y-6 mb-8">
-                  <div className="space-y-2">
-                    <h2
-                      className="text-4xl md:text-5xl font-extrabold tracking-tight"
-                      style={{ color: BRAND.colors.primary }}
-                    >
-                      All Set! 🎉
-                    </h2>
-                    <p className="text-white text-2xl font-semibold">
-                      Your estimate is on its way
-                    </p>
-                  </div>
-
-                  <div className="max-w-xl mx-auto space-y-4">
-                    <p className="text-white/90 text-lg leading-relaxed">
-                      Thanks <strong>{formData.name}</strong>! We've received your request and sent a confirmation to <strong className="text-yellow-400">{formData.email}</strong>
-                    </p>
-
-                    {/* What happens next */}
-                    <Card className="bg-white/5 border-white/10 p-6 text-left">
-                      <h3 className="text-white font-bold mb-3 flex items-center gap-2">
-                        <Wrench size={20} style={{ color: BRAND.colors.primary }} />
-                        What happens next?
-                      </h3>
-                      <ul className="space-y-2 text-white/80 text-sm">
-                        <li className="flex items-start gap-2">
-                          <span style={{ color: BRAND.colors.primary }}>1.</span>
-                          <span>We'll review your request within 2 hours</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span style={{ color: BRAND.colors.primary }}>2.</span>
-                          <span>Get a detailed quote via phone or WhatsApp</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span style={{ color: BRAND.colors.primary }}>3.</span>
-                          <span>Schedule a convenient time for service</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span style={{ color: BRAND.colors.primary }}>4.</span>
-                          <span>We come to you and fix it right!</span>
-                        </li>
-                      </ul>
-                    </Card>
-
-                    {/* Contact info */}
-                    <div className="text-white/70 text-sm">
-                      We'll contact you at: <strong className="text-white">{formData.phone}</strong>
-                    </div>
-                  </div>
-                </div>
+                <p className="text-white/70 text-sm">
+                  We'll review your request and get back to you with a detailed quote via phone or WhatsApp.
+                </p>
 
                 {/* Quick Actions */}
-                <div className="space-y-4">
-                  <p className="text-white/60 text-sm text-center">
-                    Need to speak with us right now?
-                  </p>
+                <div className="pt-4 space-y-3">
+                  <p className="text-white/60 text-sm">Need immediate assistance?</p>
                   <div className="flex flex-col sm:flex-row gap-3 justify-center">
                     <a
                       href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`}
-                      className="group relative overflow-hidden inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border-2 text-white font-semibold transition-all hover:scale-105"
+                      className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg border-2 text-white font-medium transition-all hover:bg-white/5"
                       style={{ borderColor: BRAND.colors.primary }}
                     >
-                      <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/0 via-yellow-500/10 to-yellow-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-                      <Phone size={20} />
+                      <Phone size={18} />
                       Call {BRAND.phoneDisplay}
                     </a>
                     <a
                       href={`https://wa.me/${BRAND.phoneIntl.replace('+', '')}?text=${encodeURIComponent(`Hi FixNow! I just submitted an estimate request (${formData.name})`)}`}
-                      className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold transition-all hover:scale-105 hover:shadow-lg"
+                      className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-medium transition-all hover:opacity-90"
                       style={{ backgroundColor: '#25D366', color: 'white' }}
                     >
-                      <MessageCircle size={20} />
-                      Message on WhatsApp
+                      <MessageCircle size={18} />
+                      WhatsApp Us
                     </a>
                   </div>
                 </div>
 
-                {/* Return home link */}
-                <div className="mt-8 text-center">
+                {/* Return home */}
+                <div className="pt-6 border-t border-white/10">
                   <a
                     href="/"
-                    className="text-white/60 hover:text-white text-sm transition-colors inline-flex items-center gap-2"
+                    className="text-white/60 hover:text-white text-sm transition-colors"
                   >
                     ← Return to homepage
                   </a>
                 </div>
-              </CardBody>
-            </Card>
-          </div>
+              </div>
+            </CardBody>
+          </Card>
         </div>
       </Section>
     );
