@@ -1,6 +1,7 @@
 import React from 'react';
 import {  Gauge, Wrench, BatteryCharging, Droplet, Settings2 } from 'lucide-react';
 import { BRAND } from '../constants/brand';
+import CompanyVanImage from './CompanyVan.png';
 
 // Service placeholder images as SVG components
 export function ServiceImage({ service, className = '' }) {
@@ -61,7 +62,7 @@ export function HeroImage({ className = '' }) {
     <div className={`relative overflow-hidden rounded-3xl ${className}`}>
       {/* Company Van Photo */}
       <img
-        src="/CompanyVan.png"
+        src={CompanyVanImage}
         alt="FixNow Mechanics company van"
         className="absolute inset-0 w-full h-full object-cover object-center"
         loading="eager"
