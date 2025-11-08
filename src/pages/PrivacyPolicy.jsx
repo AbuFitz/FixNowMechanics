@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BRAND } from '../constants/brand';
 import { Section } from '../components/Layout';
 import { Card, CardBody } from '../components/Card';
 
 export default function PrivacyPolicy() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <Section className="py-16">
       <div className="max-w-4xl mx-auto">

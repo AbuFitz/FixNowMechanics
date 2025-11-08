@@ -4,7 +4,7 @@ export const BRAND = {
   tagline: "Reliable Repairs. Real Results.",
   phoneDisplay: "07354 915941",
   phoneIntl: "+447354915941",
-  email: "Abukars@outlook.com",
+  email: "fixnowmechanics@outlook.com",
   whatsappPrefill: encodeURIComponent(
     "Hi FixNow, I need a mobile mechanic for my vehicle."
   ),
