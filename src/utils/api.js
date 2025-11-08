@@ -139,7 +139,7 @@ export async function lookupAddresses(postcode) {
     const GETADDRESS_API_KEY = import.meta.env.VITE_GETADDRESS_API_KEY || 'mLWzInXqJEaw11YJzvjypw48613';
 
     // Try getaddress.io first for real Royal Mail addresses
-    if (GETADDRESS_API_KEY && GETADDRESS_API_KEY !== 'mLWzInXqJEaw11YJzvjypw48613') {
+    if (GETADDRESS_API_KEY) {
       try {
         const response = await fetch(
           `https://api.getAddress.io/find/${cleanPostcode}?api-key=${GETADDRESS_API_KEY}&expand=true`
