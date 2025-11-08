@@ -9,8 +9,8 @@ export function WhatsAppWidget() {
 
   return (
     <>
-      {/* Floating Button */}
-      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+      {/* Floating Button - Hidden on mobile where MobileBottomBar is shown */}
+      <div className="hidden lg:flex fixed bottom-6 right-6 z-50 flex-col items-end gap-3">
         {/* Popup Message */}
         {isOpen && (
           <div className="animate-in slide-in-from-bottom-5 fade-in duration-300">
