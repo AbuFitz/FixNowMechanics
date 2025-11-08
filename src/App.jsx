@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { PageLayout } from './components/Layout';
 import Home from './pages/Home';
 import GetEstimate from './pages/GetEstimate';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsConditions from './pages/TermsConditions';
 
 export default function App() {
   return (
@@ -11,6 +13,8 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/estimate" element={<GetEstimate />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<TermsConditions />} />
         </Routes>
       </PageLayout>
     </Router>

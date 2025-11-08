@@ -43,46 +43,42 @@ The code supports multiple vehicle lookup providers:
 
 ---
 
-## 🏠 Address Lookup API (Optional - For Real Addresses)
-
-### Location
-**File:** `src/utils/api.js`
-**Line:** 140
-
-### Current Code
-```javascript
-const GETADDRESS_API_KEY = 'YOUR_GETADDRESS_API_KEY_HERE'; // Replace with your API key
-```
+## 🏠 Address Lookup API (Free & Open Source - No Key Required!)
 
 ### Current Status
-- **Currently showing:** Sample addresses based on postcode area
-- **To get real addresses:** Configure getaddress.io API key (free tier available)
+✅ **Using OpenStreetMap Nominatim - Completely FREE**
 
-### How to Update
-1. Open `src/utils/api.js`
-2. Find line 140 (search for `GETADDRESS_API_KEY`)
-3. Replace `'YOUR_GETADDRESS_API_KEY_HERE'` with your actual API key
+### How It Works
+**File:** `src/utils/api.js` - Lines 134-234
 
-### Example
-```javascript
-// Replace this:
-const GETADDRESS_API_KEY = 'YOUR_GETADDRESS_API_KEY_HERE';
+The system uses TWO free APIs:
+1. **postcodes.io** - Validates postcodes and gets location data
+2. **OpenStreetMap Nominatim** - Provides real address suggestions
 
-// With your key:
-const GETADDRESS_API_KEY = 'ak_abc123xyz456';
-```
+**No API keys required!** Both are completely free and open source.
 
-**To get a getaddress.io API key:**
-1. Visit: https://getaddress.io/
-2. Sign up for a FREE account
-3. Free tier includes: **20 address lookups per day**
-4. Copy your API key from the dashboard
-5. Paste it at line 140 in `src/utils/api.js`
+### Features
+- Real addresses from OpenStreetMap database
+- Automatic fallback to area-specific street names if OSM unavailable
+- No daily limits (fair use policy: 1 request per second)
+- GDPR compliant
 
-**Alternative Address APIs:**
-If you prefer a different provider:
-- **ideal-postcodes.co.uk** - 100 requests/month free
-- **postcodes.io** - Free but limited address data (currently used for validation)
+### Fallback System
+If Nominatim is unavailable, the system shows real street names for your area:
+- **HP1 (Hemel):** High Street, London Road, Queensway
+- **HP2 (Hemel):** Marlowes, Waterhouse Street, Bridge Street
+- **HP3 (Hemel):** St Albans Road, Bennetts End Road, Galley Hill
+- **WD (Watford):** High Street, Station Road, Church Street
+- **AL (St Albans):** Victoria Street, Holywell Hill, St Peters Street
+- **LU (Luton):** George Street, Park Street, High Town Road
+
+### Testing
+To verify it's working:
+1. Go to `/estimate`
+2. Enter postcode `HP2 7DE`
+3. Click "Lookup"
+4. You should see real addresses in the dropdown
+5. If orange warning appears, fallback addresses are being used (still functional)
 
 ---
 

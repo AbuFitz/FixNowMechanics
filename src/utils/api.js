@@ -127,46 +127,15 @@ export async function lookupPostcode(postcode) {
 }
 
 /**
- * Lookup addresses by postcode using getaddress.io
- * Free tier: 20 lookups per day
- * Sign up at: https://getaddress.io/
+ * Lookup addresses by postcode using OpenStreetMap Nominatim (Free & Open Source)
+ * Completely free with no API key required
+ * Fair use policy: Max 1 request per second
  */
 export async function lookupAddresses(postcode) {
   try {
-    const cleanPostcode = postcode.replace(/\s/g, '');
+    const cleanPostcode = postcode.replace(/\s/g, '').toUpperCase();
 
-    // getaddress.io API - You need to sign up for a free API key at https://getaddress.io/
-    // Free tier gives you 20 requests per day
-    const GETADDRESS_API_KEY = 'YOUR_GETADDRESS_API_KEY_HERE'; // Replace with your API key
-
-    // Try getaddress.io first (if API key is configured)
-    if (GETADDRESS_API_KEY !== 'YOUR_GETADDRESS_API_KEY_HERE') {
-      try {
-        const response = await fetch(`https://api.getaddress.io/find/${cleanPostcode}?api-key=${GETADDRESS_API_KEY}&expand=true`);
-
-        if (response.ok) {
-          const data = await response.json();
-
-          // Format addresses from getaddress.io response
-          const addresses = data.addresses.map(addr => {
-            // addr is an array: [line1, line2, line3, town, county, postcode]
-            const parts = addr.split(',').map(p => p.trim()).filter(p => p);
-            // Return formatted address (first 2-3 parts)
-            return parts.slice(0, 3).join(', ');
-          });
-
-          return {
-            success: true,
-            addresses: addresses,
-            postcode: cleanPostcode
-          };
-        }
-      } catch (error) {
-        console.warn('getaddress.io failed, trying alternative:', error);
-      }
-    }
-
-    // Fallback: Use postcodes.io for validation and generate sample addresses
+    // First validate postcode using postcodes.io
     const postcodeResponse = await fetch(`https://api.postcodes.io/postcodes/${cleanPostcode}`);
 
     if (!postcodeResponse.ok) {
@@ -175,40 +144,83 @@ export async function lookupAddresses(postcode) {
 
     const postcodeData = await postcodeResponse.json();
     const result = postcodeData.result;
-
-    // Extract location info
     const district = result.admin_district || 'Unknown';
-    const ward = result.admin_ward || '';
 
-    // Common UK street patterns by postcode area
+    // Use OpenStreetMap Nominatim for address lookup (completely free)
+    // This is more accurate than generating fake addresses
+    try {
+      const nominatimResponse = await fetch(
+        `https://nominatim.openstreetmap.org/search?postalcode=${cleanPostcode}&country=GB&format=json&limit=15&addressdetails=1`,
+        {
+          headers: {
+            'User-Agent': 'FixNowMechanics/1.0' // Required by Nominatim
+          }
+        }
+      );
+
+      if (nominatimResponse.ok) {
+        const nominatimData = await nominatimResponse.json();
+
+        if (nominatimData && nominatimData.length > 0) {
+          // Format addresses from Nominatim response
+          const addresses = nominatimData
+            .map(item => {
+              const addr = item.address;
+              // Build address from components
+              const parts = [];
+
+              if (addr.house_number) parts.push(addr.house_number);
+              if (addr.road) parts.push(addr.road);
+              if (addr.suburb || addr.neighbourhood) parts.push(addr.suburb || addr.neighbourhood);
+
+              return parts.length > 0 ? parts.join(' ') : null;
+            })
+            .filter(addr => addr !== null)
+            .slice(0, 15);
+
+          if (addresses.length > 0) {
+            return {
+              success: true,
+              addresses: addresses,
+              postcode: cleanPostcode,
+              source: 'openstreetmap'
+            };
+          }
+        }
+      }
+    } catch (nominatimError) {
+      console.warn('Nominatim lookup failed, using fallback:', nominatimError);
+    }
+
+    // Fallback: Generate sample addresses based on real street names for the area
+    // This is better than nothing and uses real street names
     const postcodeArea = cleanPostcode.substring(0, 2).toUpperCase();
     const streetPatterns = {
-      'HP': ['Marlowes', 'High Street', 'London Road', 'St Albans Road', 'Waterhouse Street'],
-      'WD': ['High Street', 'Station Road', 'Church Street', 'Watford Road'],
-      'AL': ['Victoria Street', 'Holywell Hill', 'St Peters Street', 'London Road'],
-      'LU': ['George Street', 'Park Street', 'High Town Road', 'Chapel Street'],
-      'DEFAULT': ['High Street', 'Church Road', 'Station Road', 'Park Lane', 'Main Street']
+      'HP2': ['Marlowes', 'Waterhouse Street', 'Bridge Street', 'Midland Road', 'St Johns Road', 'Alexandra Road'],
+      'HP1': ['High Street', 'London Road', 'Queensway', 'Hillfield Road', 'Wood Lane End'],
+      'HP3': ['St Albans Road', 'Bennetts End Road', 'Galley Hill', 'Chambersbury Lane'],
+      'WD': ['High Street', 'Station Road', 'Church Street', 'Watford Road', 'Queens Road'],
+      'AL': ['Victoria Street', 'Holywell Hill', 'St Peters Street', 'London Road', 'Hatfield Road'],
+      'LU': ['George Street', 'Park Street', 'High Town Road', 'Chapel Street', 'Manchester Street'],
+      'DEFAULT': ['High Street', 'Church Road', 'Station Road', 'Park Lane', 'Main Street', 'London Road']
     };
 
-    const streets = streetPatterns[postcodeArea] || streetPatterns['DEFAULT'];
+    const streets = streetPatterns[cleanPostcode.substring(0, 3)] || streetPatterns[postcodeArea] || streetPatterns['DEFAULT'];
 
-    // Generate addresses based on actual area
     const addresses = [];
     streets.forEach((street, idx) => {
-      for (let i = 1; i <= 3; i++) {
-        const number = (idx * 10) + (i * 2);
-        addresses.push(`${number} ${street}, ${district}`);
+      for (let i = 1; i <= 2; i++) {
+        const number = (idx * 8) + (i * 2);
+        addresses.push(`${number} ${street}`);
       }
     });
-
-    // Add a note that these are examples
-    console.warn('Using sample addresses. For real addresses, configure getaddress.io API key');
 
     return {
       success: true,
       addresses: addresses.slice(0, 15),
       postcode: cleanPostcode,
-      isExample: true // Flag to indicate these are sample addresses
+      isExample: true,
+      source: 'fallback'
     };
 
   } catch (error) {

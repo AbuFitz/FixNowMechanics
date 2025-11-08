@@ -132,7 +132,7 @@ export function Footer() {
   return (
     <footer className="w-full bg-black/60 text-white border-t border-white/10 mt-20">
       <Section className="py-12">
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div>
             <h3 className="font-bold text-xl mb-3">
@@ -163,6 +163,23 @@ export function Footer() {
             </ul>
           </div>
 
+          {/* Legal */}
+          <div>
+            <h4 className="font-semibold mb-3">Legal</h4>
+            <ul className="space-y-2 text-sm text-white/70">
+              <li>
+                <Link to="/privacy" className="hover:text-white transition-colors">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link to="/terms" className="hover:text-white transition-colors">
+                  Terms &amp; Conditions
+                </Link>
+              </li>
+            </ul>
+          </div>
+
           {/* Contact */}
           <div>
             <h4 className="font-semibold mb-3">Contact</h4>
@@ -174,6 +191,14 @@ export function Footer() {
                   style={{ color: BRAND.colors.primary }}
                 >
                   {BRAND.phoneDisplay}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`mailto:${BRAND.email}`}
+                  className="hover:text-white transition-colors"
+                >
+                  {BRAND.email}
                 </a>
               </li>
               <li>{BRAND.baseArea}</li>
@@ -189,8 +214,13 @@ export function Footer() {
               ARF Automotive Group
             </span>
           </p>
-          <p>
+          <p className="mb-2">
             © {new Date().getFullYear()} FixNow Mechanics | Part of ARF Automotive Group. All rights reserved.
+          </p>
+          <p className="text-xs">
+            <Link to="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            {" | "}
+            <Link to="/terms" className="hover:text-white transition-colors">Terms & Conditions</Link>
           </p>
         </div>
       </Section>
