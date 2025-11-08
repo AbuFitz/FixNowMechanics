@@ -127,15 +127,46 @@ export async function lookupPostcode(postcode) {
 }
 
 /**
- * Lookup addresses by postcode using OpenStreetMap Nominatim (Free & Open Source)
- * Completely free with no API key required
- * Fair use policy: Max 1 request per second
+ * Lookup addresses by postcode using getaddress.io
+ * Real UK addresses from Royal Mail database
  */
 export async function lookupAddresses(postcode) {
   try {
-    const cleanPostcode = postcode.replace(/\s/g, '').toUpperCase();
+    const cleanPostcode = postcode.replace(/\s/g, '');
 
-    // First validate postcode using postcodes.io
+    // getaddress.io API key
+    const GETADDRESS_API_KEY = 'mLWzInXqJEaw11YJzvjypw48613';
+
+    // Try getaddress.io first for real Royal Mail addresses
+    try {
+      const response = await fetch(
+        `https://api.getAddress.io/find/${cleanPostcode}?api-key=${GETADDRESS_API_KEY}&expand=true`
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+
+        // Format addresses from getaddress.io response
+        // Each address is a comma-separated string
+        const addresses = data.addresses.map(addr => {
+          // Split and clean the address
+          const parts = addr.split(',').map(p => p.trim()).filter(p => p);
+          // Return the first 2-3 parts (house number, street, area)
+          return parts.slice(0, 3).join(', ');
+        });
+
+        return {
+          success: true,
+          addresses: addresses,
+          postcode: cleanPostcode.toUpperCase(),
+          source: 'getaddress.io'
+        };
+      }
+    } catch (apiError) {
+      console.warn('getaddress.io failed, trying fallback:', apiError);
+    }
+
+    // Fallback: Validate with postcodes.io and use area-specific streets
     const postcodeResponse = await fetch(`https://api.postcodes.io/postcodes/${cleanPostcode}`);
 
     if (!postcodeResponse.ok) {
@@ -146,54 +177,7 @@ export async function lookupAddresses(postcode) {
     const result = postcodeData.result;
     const district = result.admin_district || 'Unknown';
 
-    // Use OpenStreetMap Nominatim for address lookup (completely free)
-    // This is more accurate than generating fake addresses
-    try {
-      const nominatimResponse = await fetch(
-        `https://nominatim.openstreetmap.org/search?postalcode=${cleanPostcode}&country=GB&format=json&limit=15&addressdetails=1`,
-        {
-          headers: {
-            'User-Agent': 'FixNowMechanics/1.0' // Required by Nominatim
-          }
-        }
-      );
-
-      if (nominatimResponse.ok) {
-        const nominatimData = await nominatimResponse.json();
-
-        if (nominatimData && nominatimData.length > 0) {
-          // Format addresses from Nominatim response
-          const addresses = nominatimData
-            .map(item => {
-              const addr = item.address;
-              // Build address from components
-              const parts = [];
-
-              if (addr.house_number) parts.push(addr.house_number);
-              if (addr.road) parts.push(addr.road);
-              if (addr.suburb || addr.neighbourhood) parts.push(addr.suburb || addr.neighbourhood);
-
-              return parts.length > 0 ? parts.join(' ') : null;
-            })
-            .filter(addr => addr !== null)
-            .slice(0, 15);
-
-          if (addresses.length > 0) {
-            return {
-              success: true,
-              addresses: addresses,
-              postcode: cleanPostcode,
-              source: 'openstreetmap'
-            };
-          }
-        }
-      }
-    } catch (nominatimError) {
-      console.warn('Nominatim lookup failed, using fallback:', nominatimError);
-    }
-
-    // Fallback: Generate sample addresses based on real street names for the area
-    // This is better than nothing and uses real street names
+    // Generate fallback addresses with real street names
     const postcodeArea = cleanPostcode.substring(0, 2).toUpperCase();
     const streetPatterns = {
       'HP2': ['Marlowes', 'Waterhouse Street', 'Bridge Street', 'Midland Road', 'St Johns Road', 'Alexandra Road'],
@@ -211,14 +195,14 @@ export async function lookupAddresses(postcode) {
     streets.forEach((street, idx) => {
       for (let i = 1; i <= 2; i++) {
         const number = (idx * 8) + (i * 2);
-        addresses.push(`${number} ${street}`);
+        addresses.push(`${number} ${street}, ${district}`);
       }
     });
 
     return {
       success: true,
       addresses: addresses.slice(0, 15),
-      postcode: cleanPostcode,
+      postcode: cleanPostcode.toUpperCase(),
       isExample: true,
       source: 'fallback'
     };

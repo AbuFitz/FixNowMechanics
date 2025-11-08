@@ -67,7 +67,7 @@ export default function Home() {
     { icon: Shield, title: 'Transparent Pricing', desc: 'No hidden fees or markups' },
     { icon: Clock, title: 'Flexible Hours', desc: BRAND.hoursDisplay },
     { icon: MapPin, title: 'We Come To You', desc: 'Service at your location' },
-    { icon: BadgeCheck, title: 'Quality Work', desc: 'Professional service guaranteed' },
+    { icon: BadgeCheck, title: 'Quality Work', desc: 'Careful attention to every repair' },
   ];
 
   return (
@@ -99,7 +99,7 @@ export default function Home() {
 
               <div className="space-y-4">
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
-                  Professional Mobile{' '}
+                  Your Local Mobile{' '}
                   <span style={{ color: BRAND.colors.primary }}>Mechanic</span>
                 </h1>
                 <p className="text-xl sm:text-2xl font-medium text-white/70">
@@ -107,7 +107,7 @@ export default function Home() {
                 </p>
                 <p className="text-white/80 text-lg max-w-2xl leading-relaxed">
                   Diagnostics, repairs, and servicing — done at your driveway or workplace.
-                  No workshop visits. No hidden markup. Professional service you can trust.
+                  No workshop visits. No hidden markup. Honest service at fair prices.
                 </p>
               </div>
 
@@ -127,14 +127,10 @@ export default function Home() {
                 </LinkButton>
               </div>
 
-              <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/10">
-                <div className="text-center">
-                  <div className="text-2xl font-bold" style={{ color: BRAND.colors.primary }}>Same Day</div>
-                  <div className="text-white/60 text-sm">Service</div>
-                </div>
+              <div className="grid grid-cols-2 gap-6 pt-6 border-t border-white/10">
                 <div className="text-center">
                   <div className="text-2xl font-bold" style={{ color: BRAND.colors.primary }}>100%</div>
-                  <div className="text-white/60 text-sm">Mobile</div>
+                  <div className="text-white/60 text-sm">Mobile Service</div>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold" style={{ color: BRAND.colors.primary }}>6+</div>

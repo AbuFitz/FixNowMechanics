@@ -55,14 +55,14 @@ export function ServiceImage({ service, className = '' }) {
   );
 }
 
-// Hero image with real photo from Pexels (free to use)
+// Hero image with real photo from Unsplash (free to use)
 export function HeroImage({ className = '' }) {
   return (
     <div className={`relative overflow-hidden rounded-3xl ${className}`}>
-      {/* Real mechanic image from Pexels - Photo by Artem Podrez */}
+      {/* Real mechanic working under car - Photo by Malte Luk from Pexels */}
       <img
-        src="https://images.pexels.com/photos/8985707/pexels-photo-8985707.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop"
-        alt="Professional mobile mechanic working on car"
+        src="https://images.pexels.com/photos/3807277/pexels-photo-3807277.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop"
+        alt="Mechanic inspecting vehicle underside"
         className="absolute inset-0 w-full h-full object-cover"
         loading="eager"
       />

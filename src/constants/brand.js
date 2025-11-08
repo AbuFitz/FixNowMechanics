@@ -1,7 +1,7 @@
 // === Brand Configuration ===
 export const BRAND = {
   name: "FixNow Mechanics",
-  tagline: "Reliable Repairs. Real Results.",
+  tagline: "Quality Repairs. Fair Pricing.",
   phoneDisplay: "07354 915941",
   phoneIntl: "+447354915941",
   email: "fixnowmechanics@outlook.com",
