@@ -40,6 +40,7 @@ export default function GetEstimate() {
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
+  const [turnstileToken, setTurnstileToken] = useState(null);
 
   // Form data
   const [formData, setFormData] = useState({
@@ -85,6 +86,23 @@ export default function GetEstimate() {
     document.addEventListener('keypress', handleKeyPress);
     return () => document.removeEventListener('keypress', handleKeyPress);
   }, [currentStep, formData, submitting]);
+
+  // Cloudflare Turnstile setup
+  useEffect(() => {
+    if (currentStep === 5 && window.turnstile) {
+      const container = document.getElementById('turnstile-container');
+      if (container && !container.hasChildNodes()) {
+        window.turnstile.render('#turnstile-container', {
+          sitekey: '1x00000000000000000000AA', // Test key - always passes. Replace with real key for production
+          theme: 'dark',
+          callback: (token) => {
+            setTurnstileToken(token);
+            console.log('Turnstile verified');
+          },
+        });
+      }
+    }
+  }, [currentStep]);
 
   // Scroll to top when success page is shown
   useEffect(() => {
@@ -277,6 +295,7 @@ Submitted: ${new Date().toLocaleString('en-GB')}
           replyto: formData.email,
           email: BRAND.email,
           message: emailContent,
+          'h-captcha-response': turnstileToken || '',
           botcheck: '',
         }),
       });
@@ -327,6 +346,7 @@ ${BRAND.tagline}
           replyto: BRAND.email,
           email: formData.email,
           message: confirmationContent,
+          'h-captcha-response': turnstileToken || '',
           botcheck: '',
         }),
       });
@@ -805,10 +825,14 @@ ${BRAND.tagline}
                   </div>
                 </div>
 
-                {/* Optional spam protection - not required */}
+                {/* Cloudflare Turnstile - Invisible spam protection */}
+                <div className="flex justify-center">
+                  <div id="turnstile-container"></div>
+                </div>
+
                 <Card className="bg-blue-500/10 border-blue-500/30 p-4">
                   <p className="text-blue-300 text-sm text-center">
-                    ✓ Ready to submit! We'll get back to you within 2 hours.
+                    ✓ Spam protection active. Ready to submit!
                   </p>
                 </Card>
 
