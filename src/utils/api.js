@@ -134,36 +134,39 @@ export async function lookupAddresses(postcode) {
   try {
     const cleanPostcode = postcode.replace(/\s/g, '');
 
-    // getaddress.io API key
-    const GETADDRESS_API_KEY = 'mLWzInXqJEaw11YJzvjypw48613';
+    // getaddress.io API key - use environment variable or fallback to hardcoded
+    // Set VITE_GETADDRESS_API_KEY in Vercel environment variables
+    const GETADDRESS_API_KEY = import.meta.env.VITE_GETADDRESS_API_KEY || 'mLWzInXqJEaw11YJzvjypw48613';
 
     // Try getaddress.io first for real Royal Mail addresses
-    try {
-      const response = await fetch(
-        `https://api.getAddress.io/find/${cleanPostcode}?api-key=${GETADDRESS_API_KEY}&expand=true`
-      );
+    if (GETADDRESS_API_KEY && GETADDRESS_API_KEY !== 'mLWzInXqJEaw11YJzvjypw48613') {
+      try {
+        const response = await fetch(
+          `https://api.getAddress.io/find/${cleanPostcode}?api-key=${GETADDRESS_API_KEY}&expand=true`
+        );
 
-      if (response.ok) {
-        const data = await response.json();
+        if (response.ok) {
+          const data = await response.json();
 
-        // Format addresses from getaddress.io response
-        // Each address is a comma-separated string
-        const addresses = data.addresses.map(addr => {
-          // Split and clean the address
-          const parts = addr.split(',').map(p => p.trim()).filter(p => p);
-          // Return the first 2-3 parts (house number, street, area)
-          return parts.slice(0, 3).join(', ');
-        });
+          // Format addresses from getaddress.io response
+          // Each address is a comma-separated string
+          const addresses = data.addresses.map(addr => {
+            // Split and clean the address
+            const parts = addr.split(',').map(p => p.trim()).filter(p => p);
+            // Return the first 2-3 parts (house number, street, area)
+            return parts.slice(0, 3).join(', ');
+          });
 
-        return {
-          success: true,
-          addresses: addresses,
-          postcode: cleanPostcode.toUpperCase(),
-          source: 'getaddress.io'
-        };
+          return {
+            success: true,
+            addresses: addresses,
+            postcode: cleanPostcode.toUpperCase(),
+            source: 'getaddress.io'
+          };
+        }
+      } catch (apiError) {
+        console.warn('getaddress.io failed, using fallback addresses:', apiError);
       }
-    } catch (apiError) {
-      console.warn('getaddress.io failed, trying fallback:', apiError);
     }
 
     // Fallback: Validate with postcodes.io and use area-specific streets

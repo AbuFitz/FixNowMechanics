@@ -59,10 +59,10 @@ export function ServiceImage({ service, className = '' }) {
 export function HeroImage({ className = '' }) {
   return (
     <div className={`relative overflow-hidden rounded-3xl ${className}`}>
-      {/* Scenic car on road - Photo by Nout Gons from Pexels */}
+      {/* Car on scenic mountain road - Photo by Garvin St. Villier from Pexels */}
       <img
-        src="https://images.pexels.com/photos/248159/pexels-photo-248159.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop"
-        alt="Car on scenic mountain road at sunset"
+        src="https://images.pexels.com/photos/3354648/pexels-photo-3354648.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop"
+        alt="Car driving through scenic mountain landscape"
         className="absolute inset-0 w-full h-full object-cover"
         loading="eager"
       />

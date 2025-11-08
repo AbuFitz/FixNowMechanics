@@ -123,6 +123,13 @@ export default function GetEstimate() {
     };
   }, [currentStep]);
 
+  // Scroll to top when success page is shown
+  useEffect(() => {
+    if (success) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [success]);
+
   const handleVehicleLookup = async () => {
     if (!formData.vehicleReg.trim()) return;
 
