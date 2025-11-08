@@ -51,6 +51,7 @@ export default function GetEstimate() {
   const [postcodeData, setPostcodeData] = useState(null);
   const [addressSuggestions, setAddressSuggestions] = useState([]);
   const [isOutsideHemel, setIsOutsideHemel] = useState(false);
+  const [isExampleAddresses, setIsExampleAddresses] = useState(false);
 
   const [errors, setErrors] = useState({});
   const formRef = useRef(null);
@@ -167,6 +168,7 @@ export default function GetEstimate() {
       const addressResult = await lookupAddresses(formData.postcode);
       if (addressResult.success) {
         setAddressSuggestions(addressResult.addresses);
+        setIsExampleAddresses(addressResult.isExample || false);
       }
     } else {
       setErrors(prev => ({ ...prev, postcode: postcodeResult.error }));
@@ -759,22 +761,32 @@ ${BRAND.tagline}
 
                 {/* Address Selection Dropdown */}
                 {addressSuggestions.length > 0 && (
-                  <Select
-                    label="Select Your Address *"
-                    name="addressLine1"
-                    value={formData.addressLine1}
-                    onChange={handleChange}
-                    icon={Home}
-                    error={errors.addressLine1}
-                  >
-                    <option value="">Choose your address...</option>
-                    {addressSuggestions.map((address, index) => (
-                      <option key={index} value={address}>
-                        {address}
-                      </option>
-                    ))}
-                    <option value="__manual__">Enter address manually</option>
-                  </Select>
+                  <>
+                    <Select
+                      label="Select Your Address *"
+                      name="addressLine1"
+                      value={formData.addressLine1}
+                      onChange={handleChange}
+                      icon={Home}
+                      error={errors.addressLine1}
+                    >
+                      <option value="">Choose your address...</option>
+                      {addressSuggestions.map((address, index) => (
+                        <option key={index} value={address}>
+                          {address}
+                        </option>
+                      ))}
+                      <option value="__manual__">Enter address manually</option>
+                    </Select>
+
+                    {isExampleAddresses && (
+                      <Card className="bg-orange-500/10 border-orange-500/30 p-3">
+                        <p className="text-orange-300 text-xs">
+                          ℹ️ Showing sample addresses. For real address lookup, configure getaddress.io API key in the code.
+                        </p>
+                      </Card>
+                    )}
+                  </>
                 )}
 
                 {/* Manual Address Input (shown if no suggestions or manual selected) */}

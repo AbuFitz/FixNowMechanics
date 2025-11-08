@@ -2,49 +2,84 @@
 
 /**
  * Lookup UK vehicle information by registration number
- * Using VES API (Vehicle Enquiry Service)
+ * Using UK Vehicle Data API (free alternative to DVLA VES)
  */
 export async function lookupVehicleByReg(registration) {
   try {
     // Remove spaces and convert to uppercase
     const reg = registration.replace(/\s/g, '').toUpperCase();
 
-    // VES API endpoint
-    const VES_API_KEY = '6I2RdjROti7BRZ9GcrvJ184FDrGraeqn3JBmhz3H';
-    const response = await fetch(`https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': VES_API_KEY
-      },
-      body: JSON.stringify({
-        registrationNumber: reg
-      })
+    // Try UK Vehicle Data API (free API)
+    // Alternative: https://ukvehicledata.co.uk/
+    const API_KEY = '6I2RdjROti7BRZ9GcrvJ184FDrGraeqn3JBmhz3H';
+
+    // Try with ukvehicledata.co.uk format
+    const response = await fetch(`https://uk1.ukvehicledata.co.uk/api/datapackage/VehicleData?v=2&api_nullitems=1&auth_apikey=${API_KEY}&key_VRM=${reg}`, {
+      method: 'GET',
     });
 
     if (!response.ok) {
-      throw new Error('Vehicle not found');
+      // If that fails, try with DVLA format
+      const dvlaResponse = await fetch(`https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': API_KEY
+        },
+        body: JSON.stringify({
+          registrationNumber: reg
+        })
+      });
+
+      if (!dvlaResponse.ok) {
+        throw new Error('Vehicle not found');
+      }
+
+      const dvlaData = await dvlaResponse.json();
+      return {
+        success: true,
+        data: {
+          registration: dvlaData.registrationNumber || reg,
+          make: dvlaData.make || 'Unknown',
+          model: dvlaData.model || 'Unknown',
+          color: dvlaData.colour || 'Unknown',
+          year: dvlaData.yearOfManufacture || 'Unknown',
+          fuelType: dvlaData.fuelType || 'Unknown',
+          engineSize: dvlaData.engineCapacity ? `${dvlaData.engineCapacity}cc` : 'Unknown',
+          transmission: 'Unknown',
+          mot: {
+            status: dvlaData.motStatus || 'Unknown',
+            expiry: dvlaData.motExpiryDate || 'Unknown'
+          }
+        }
+      };
     }
 
     const data = await response.json();
 
-    return {
-      success: true,
-      data: {
-        registration: data.registrationNumber || reg,
-        make: data.make || 'Unknown',
-        model: data.model || 'Unknown',
-        color: data.colour || data.color || 'Unknown',
-        year: data.yearOfManufacture || data.manufactureYear || 'Unknown',
-        fuelType: data.fuelType || 'Unknown',
-        engineSize: data.engineCapacity ? `${data.engineCapacity}cc` : 'Unknown',
-        transmission: data.transmission || 'Unknown',
-        mot: {
-          status: data.motStatus || 'Unknown',
-          expiry: data.motExpiryDate || 'Unknown'
+    if (data.Response && data.Response.StatusCode === 'Success') {
+      const vehicleData = data.Response.DataItems.VehicleRegistration;
+      return {
+        success: true,
+        data: {
+          registration: vehicleData.Vrm || reg,
+          make: vehicleData.Make || 'Unknown',
+          model: vehicleData.Model || 'Unknown',
+          color: vehicleData.Colour || 'Unknown',
+          year: vehicleData.YearOfManufacture || 'Unknown',
+          fuelType: vehicleData.FuelType || 'Unknown',
+          engineSize: vehicleData.EngineCapacity || 'Unknown',
+          transmission: vehicleData.Transmission || 'Unknown',
+          mot: {
+            status: vehicleData.MotStatus || 'Unknown',
+            expiry: vehicleData.MotExpiryDate || 'Unknown'
+          }
         }
-      }
-    };
+      };
+    }
+
+    throw new Error('Vehicle not found');
+
   } catch (error) {
     console.error('Vehicle lookup error:', error);
     return {
@@ -92,53 +127,88 @@ export async function lookupPostcode(postcode) {
 }
 
 /**
- * Lookup addresses by postcode using postcodes.io
- * Returns nearby outcode addresses (first half of postcode)
+ * Lookup addresses by postcode using getaddress.io
+ * Free tier: 20 lookups per day
+ * Sign up at: https://getaddress.io/
  */
 export async function lookupAddresses(postcode) {
   try {
-    const cleanPostcode = postcode.replace(/\s/g, '').toUpperCase();
+    const cleanPostcode = postcode.replace(/\s/g, '');
 
-    // Get postcode data first to validate and get area info
+    // getaddress.io API - You need to sign up for a free API key at https://getaddress.io/
+    // Free tier gives you 20 requests per day
+    const GETADDRESS_API_KEY = 'YOUR_GETADDRESS_API_KEY_HERE'; // Replace with your API key
+
+    // Try getaddress.io first (if API key is configured)
+    if (GETADDRESS_API_KEY !== 'YOUR_GETADDRESS_API_KEY_HERE') {
+      try {
+        const response = await fetch(`https://api.getaddress.io/find/${cleanPostcode}?api-key=${GETADDRESS_API_KEY}&expand=true`);
+
+        if (response.ok) {
+          const data = await response.json();
+
+          // Format addresses from getaddress.io response
+          const addresses = data.addresses.map(addr => {
+            // addr is an array: [line1, line2, line3, town, county, postcode]
+            const parts = addr.split(',').map(p => p.trim()).filter(p => p);
+            // Return formatted address (first 2-3 parts)
+            return parts.slice(0, 3).join(', ');
+          });
+
+          return {
+            success: true,
+            addresses: addresses,
+            postcode: cleanPostcode
+          };
+        }
+      } catch (error) {
+        console.warn('getaddress.io failed, trying alternative:', error);
+      }
+    }
+
+    // Fallback: Use postcodes.io for validation and generate sample addresses
     const postcodeResponse = await fetch(`https://api.postcodes.io/postcodes/${cleanPostcode}`);
 
     if (!postcodeResponse.ok) {
-      throw new Error('Postcode not found');
+      throw new Error('Invalid postcode');
     }
 
     const postcodeData = await postcodeResponse.json();
     const result = postcodeData.result;
 
-    // Generate realistic addresses based on the postcode
-    // Extract town/district info
-    const district = result.admin_district || result.parish || 'Area';
+    // Extract location info
+    const district = result.admin_district || 'Unknown';
     const ward = result.admin_ward || '';
 
-    // Common UK street suffixes
-    const streetSuffixes = ['Street', 'Road', 'Avenue', 'Lane', 'Drive', 'Close', 'Way', 'Place', 'Court', 'Gardens'];
-    const streetNames = ['High', 'Church', 'Station', 'Park', 'Victoria', 'Queens', 'King', 'London', 'Main', 'Mill'];
+    // Common UK street patterns by postcode area
+    const postcodeArea = cleanPostcode.substring(0, 2).toUpperCase();
+    const streetPatterns = {
+      'HP': ['Marlowes', 'High Street', 'London Road', 'St Albans Road', 'Waterhouse Street'],
+      'WD': ['High Street', 'Station Road', 'Church Street', 'Watford Road'],
+      'AL': ['Victoria Street', 'Holywell Hill', 'St Peters Street', 'London Road'],
+      'LU': ['George Street', 'Park Street', 'High Town Road', 'Chapel Street'],
+      'DEFAULT': ['High Street', 'Church Road', 'Station Road', 'Park Lane', 'Main Street']
+    };
 
-    // Generate addresses with proper formatting
+    const streets = streetPatterns[postcodeArea] || streetPatterns['DEFAULT'];
+
+    // Generate addresses based on actual area
     const addresses = [];
-    for (let i = 1; i <= 15; i++) {
-      const streetName = streetNames[Math.floor(Math.random() * streetNames.length)];
-      const streetSuffix = streetSuffixes[Math.floor(Math.random() * streetSuffixes.length)];
-      const number = i * 2; // Even numbers
-
-      // Format: "2 High Street, District"
-      addresses.push(`${number} ${streetName} ${streetSuffix}, ${district}`);
-
-      // Add some flats
-      if (i % 3 === 0) {
-        addresses.push(`Flat ${i}, ${number + 1} ${streetName} ${streetSuffix}, ${district}`);
+    streets.forEach((street, idx) => {
+      for (let i = 1; i <= 3; i++) {
+        const number = (idx * 10) + (i * 2);
+        addresses.push(`${number} ${street}, ${district}`);
       }
-    }
+    });
+
+    // Add a note that these are examples
+    console.warn('Using sample addresses. For real addresses, configure getaddress.io API key');
 
     return {
       success: true,
-      addresses: addresses,
+      addresses: addresses.slice(0, 15),
       postcode: cleanPostcode,
-      district: district
+      isExample: true // Flag to indicate these are sample addresses
     };
 
   } catch (error) {
