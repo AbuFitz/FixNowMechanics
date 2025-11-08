@@ -40,7 +40,6 @@ export default function GetEstimate() {
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
-  const [captchaToken, setCaptchaToken] = useState(null);
 
   // Form data
   const [formData, setFormData] = useState({
@@ -86,53 +85,6 @@ export default function GetEstimate() {
     document.addEventListener('keypress', handleKeyPress);
     return () => document.removeEventListener('keypress', handleKeyPress);
   }, [currentStep, formData, submitting]);
-
-  // hCaptcha callback setup and rendering
-  useEffect(() => {
-    // Define global callback
-    window.onCaptchaSuccess = (token) => {
-      setCaptchaToken(token);
-      console.log('hCaptcha verified successfully');
-    };
-
-    // Render hCaptcha when on step 5 and hcaptcha is loaded
-    if (currentStep === 5) {
-      const renderCaptcha = () => {
-        const container = document.getElementById('hcaptcha-container');
-        if (container && window.hcaptcha && !container.hasChildNodes()) {
-          try {
-            window.hcaptcha.render('hcaptcha-container', {
-              sitekey: '50b2fe65-b00b-4b9e-ad62-3ba471098be2',
-              theme: 'dark',
-              size: 'compact',
-              callback: 'onCaptchaSuccess'
-            });
-          } catch (error) {
-            console.error('hCaptcha render error:', error);
-          }
-        }
-      };
-
-      // If hcaptcha is already loaded, render immediately
-      if (window.hcaptcha) {
-        renderCaptcha();
-      } else {
-        // Wait for hcaptcha to load
-        const checkHcaptcha = setInterval(() => {
-          if (window.hcaptcha) {
-            clearInterval(checkHcaptcha);
-            renderCaptcha();
-          }
-        }, 100);
-
-        return () => clearInterval(checkHcaptcha);
-      }
-    }
-
-    return () => {
-      window.onCaptchaSuccess = null;
-    };
-  }, [currentStep]);
 
   // Scroll to top when success page is shown
   useEffect(() => {
@@ -313,27 +265,20 @@ Submitted: ${new Date().toLocaleString('en-GB')}
       `.trim();
 
       // Send to business email via Web3Forms
-      const payload = {
-        access_key: '2682cfaa-cf56-45ba-b0b8-f9317e983777',
-        subject: `New Quote Request from ${formData.name}`,
-        from_name: 'FixNow Mechanics Website',
-        replyto: formData.email,
-        email: BRAND.email,
-        message: emailContent,
-        botcheck: '',
-      };
-
-      // Add captcha token if available (optional)
-      if (captchaToken) {
-        payload['h-captcha-response'] = captchaToken;
-      }
-
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          access_key: '2682cfaa-cf56-45ba-b0b8-f9317e983777',
+          subject: `New Quote Request from ${formData.name}`,
+          from_name: 'FixNow Mechanics Website',
+          replyto: formData.email,
+          email: BRAND.email,
+          message: emailContent,
+          botcheck: '',
+        }),
       });
 
       // Send confirmation email to customer
@@ -370,27 +315,20 @@ FixNow Mechanics Team
 ${BRAND.tagline}
       `.trim();
 
-      const confirmPayload = {
-        access_key: '2682cfaa-cf56-45ba-b0b8-f9317e983777',
-        subject: 'Your FixNow Mechanics Quote Request',
-        from_name: 'FixNow Mechanics',
-        replyto: BRAND.email,
-        email: formData.email,
-        message: confirmationContent,
-        botcheck: '',
-      };
-
-      // Add captcha token if available (optional)
-      if (captchaToken) {
-        confirmPayload['h-captcha-response'] = captchaToken;
-      }
-
       await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(confirmPayload),
+        body: JSON.stringify({
+          access_key: '2682cfaa-cf56-45ba-b0b8-f9317e983777',
+          subject: 'Your FixNow Mechanics Quote Request',
+          from_name: 'FixNow Mechanics',
+          replyto: BRAND.email,
+          email: formData.email,
+          message: confirmationContent,
+          botcheck: '',
+        }),
       });
 
       const result = await response.json();
