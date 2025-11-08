@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Phone, MessageCircle, Menu, X, Calculator, Instagram } from 'lucide-react';
+import { Phone, MessageCircle, Calculator, Instagram, Home } from 'lucide-react';
 import { BRAND } from '../constants/brand';
 import { LinkButton } from './Button';
 import { WhatsAppWidget } from './WhatsAppWidget';
@@ -16,12 +16,18 @@ export function Section({ children, className = '' }) {
 }
 
 export function Header() {
-  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const location = useLocation();
 
   const navLinks = [
     { path: '/', label: 'Home' },
     { path: '/estimate', label: 'Get Estimate' },
+  ];
+
+  const mobileMenuLinks = [
+    { path: '/', label: 'Home' },
+    { path: '/estimate', label: 'Get Estimate' },
+    { path: '/privacy', label: 'Privacy Policy' },
+    { path: '/terms', label: 'Terms & Conditions' },
   ];
 
   const isActive = (path) => location.pathname === path;
@@ -35,8 +41,7 @@ export function Header() {
             to="/"
             className="text-white font-extrabold text-xl tracking-tight hover:opacity-80 transition-opacity"
           >
-            Fix<span style={{ color: BRAND.colors.primary }}>Now</span>
-            <span className="hidden sm:inline"> Mechanics</span>
+            Fix<span style={{ color: BRAND.colors.primary }}>Now</span> Mechanics
           </Link>
 
           {/* Desktop Navigation */}
@@ -68,8 +73,8 @@ export function Header() {
             </LinkButton>
           </div>
 
-          {/* Mobile Get Estimate + Menu */}
-          <div className="lg:hidden flex items-center gap-2">
+          {/* Mobile Get Estimate */}
+          <div className="lg:hidden">
             <Link
               to="/estimate"
               className="text-sm font-semibold px-3 py-1.5 rounded-lg transition-all"
@@ -80,36 +85,26 @@ export function Header() {
             >
               Get Estimate
             </Link>
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="text-white p-2"
-              aria-label="Toggle menu"
-            >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
           </div>
         </div>
 
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden mt-4 pb-4 space-y-3 border-t border-white/10 pt-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`block py-2 font-medium transition-colors ${
-                  isActive(link.path)
-                    ? 'text-white'
-                    : 'text-white/70'
-                }`}
-                style={isActive(link.path) ? { color: BRAND.colors.primary } : {}}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
-        )}
+        {/* Mobile Menu - Always visible */}
+        <div className="lg:hidden mt-4 pb-2 space-y-1.5 border-t border-white/10 pt-3">
+          {mobileMenuLinks.map((link) => (
+            <Link
+              key={link.path}
+              to={link.path}
+              className={`block py-1.5 px-2 text-sm font-medium transition-colors rounded ${
+                isActive(link.path)
+                  ? 'bg-white/5'
+                  : ''
+              }`}
+              style={isActive(link.path) ? { color: BRAND.colors.primary } : { color: 'rgba(255,255,255,0.6)' }}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
       </Section>
     </div>
   );

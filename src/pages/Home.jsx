@@ -99,14 +99,14 @@ export default function Home() {
         className="relative overflow-hidden lg:bg-transparent"
         style={{ backgroundColor: BRAND.colors.dark }}
       >
-        {/* Mobile: Background Image */}
+        {/* Mobile: Background Image - Blurred */}
         <div className="absolute inset-0 lg:hidden">
           <img
             src={CompanyVanImage}
             alt="FixNow Mechanics"
-            className="w-full h-full object-cover object-center opacity-20"
+            className="w-full h-full object-cover object-center opacity-40 blur-sm"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/80 to-black/95" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
         </div>
 
         <Section className="py-12 lg:py-32 relative z-10">
@@ -121,14 +121,14 @@ export default function Home() {
               </div>
 
               <div className="space-y-3 lg:space-y-4">
-                <h1 className="text-3xl sm:text-4xl lg:text-6xl font-extrabold leading-tight">
+                <h1 className="text-3xl sm:text-4xl lg:text-6xl font-extrabold leading-tight drop-shadow-lg">
                   Expert Vehicle{' '}
                   <span style={{ color: BRAND.colors.primary }}>Diagnostics & Repair</span>
                 </h1>
-                <p className="text-lg sm:text-xl lg:text-2xl font-medium text-white/80 lg:text-white/70">
+                <p className="text-lg sm:text-xl lg:text-2xl font-medium text-white/90 lg:text-white/70 drop-shadow">
                   {BRAND.tagline}
                 </p>
-                <p className="text-white/70 lg:text-white/80 text-base lg:text-lg max-w-2xl leading-relaxed">
+                <p className="text-white/80 lg:text-white/80 text-base lg:text-lg max-w-2xl leading-relaxed drop-shadow">
                   Diagnostics, repairs, and servicing — done at your driveway or workplace.
                   No workshop visits. No hidden markup. Honest service at fair prices.
                 </p>
@@ -150,18 +150,18 @@ export default function Home() {
                 </LinkButton>
               </div>
 
-              <div className="grid grid-cols-3 gap-3 lg:gap-4 pt-4 lg:pt-6 border-t border-white/10">
+              <div className="grid grid-cols-3 gap-3 lg:gap-4 pt-4 lg:pt-6 border-t border-white/20 backdrop-blur-sm bg-white/5 rounded-lg p-3 lg:p-4 lg:bg-transparent lg:backdrop-blur-none lg:border-white/10">
                 <div className="text-center">
-                  <div className="text-xl lg:text-2xl font-bold" style={{ color: BRAND.colors.primary }}>100%</div>
-                  <div className="text-white/60 text-xs lg:text-sm">Mobile Service</div>
+                  <div className="text-xl lg:text-2xl font-bold drop-shadow" style={{ color: BRAND.colors.primary }}>100%</div>
+                  <div className="text-white/70 text-xs lg:text-sm">Mobile Service</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-xl lg:text-2xl font-bold" style={{ color: BRAND.colors.primary }}>Fair</div>
-                  <div className="text-white/60 text-xs lg:text-sm">Pricing</div>
+                  <div className="text-xl lg:text-2xl font-bold drop-shadow" style={{ color: BRAND.colors.primary }}>Fair</div>
+                  <div className="text-white/70 text-xs lg:text-sm">Pricing</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-xl lg:text-2xl font-bold" style={{ color: BRAND.colors.primary }}>6+</div>
-                  <div className="text-white/60 text-xs lg:text-sm">Areas</div>
+                  <div className="text-xl lg:text-2xl font-bold drop-shadow" style={{ color: BRAND.colors.primary }}>6+</div>
+                  <div className="text-white/70 text-xs lg:text-sm">Areas</div>
                 </div>
               </div>
             </div>
