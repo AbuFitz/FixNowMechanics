@@ -53,7 +53,7 @@ function ServiceCard({ service, icon: Icon }) {
             icon={MessageCircle}
             className="w-full"
           >
-            Get Estimate
+            Request Quote
           </Button>
         </Link>
       </CardBody>
@@ -99,14 +99,14 @@ export default function Home() {
         className="relative overflow-hidden lg:bg-transparent"
         style={{ backgroundColor: BRAND.colors.dark }}
       >
-        {/* Mobile: Background Image - Blurred */}
+        {/* Mobile: Background Image - Transparent */}
         <div className="absolute inset-0 lg:hidden">
           <img
             src={CompanyVanImage}
             alt="FixNow Mechanics"
-            className="w-full h-full object-cover object-center opacity-40 blur-sm"
+            className="w-full h-full object-cover object-center opacity-30"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/65 to-black/85" />
         </div>
 
         <Section className="py-12 lg:py-32 relative z-10">
@@ -137,7 +137,7 @@ export default function Home() {
               <div className="hidden lg:flex flex-col sm:flex-row gap-4 pt-4">
                 <Link to="/estimate" className="flex-1 sm:flex-initial">
                   <Button variant="primary" className="w-full" icon={Calculator}>
-                    Get Estimate
+                    Get Quote
                   </Button>
                 </Link>
                 <LinkButton
@@ -220,7 +220,7 @@ export default function Home() {
             </p>
             <Link to="/estimate">
               <Button variant="primary" icon={Calculator}>
-                Request Estimate
+                Request Quote
               </Button>
             </Link>
           </Card>
@@ -343,12 +343,12 @@ export default function Home() {
             Ready to Get Started?
           </h2>
           <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
-            Get an instant estimate or call us directly. We're here to help!
+            Get your free quote or call us directly. We're here to help!
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/estimate">
               <Button variant="primary" icon={Calculator} className="w-full sm:w-auto min-w-[200px]">
-                Get Estimate
+                Get Quote
               </Button>
             </Link>
             <LinkButton

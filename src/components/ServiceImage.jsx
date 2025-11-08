@@ -59,7 +59,7 @@ export function ServiceImage({ service, className = '' }) {
 // Hero image with company van photo
 export function HeroImage({ className = '' }) {
   return (
-    <div className={`relative overflow-hidden ${className}`}>
+    <div className={`relative overflow-hidden rounded-2xl ${className}`}>
       {/* Company Van Photo */}
       <img
         src={CompanyVanImage}

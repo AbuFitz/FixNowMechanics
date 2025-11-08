@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Phone, MessageCircle, Calculator, Instagram, Home } from 'lucide-react';
+import { Phone, MessageCircle, Calculator, Instagram, Home, Menu, X } from 'lucide-react';
 import { BRAND } from '../constants/brand';
 import { LinkButton } from './Button';
 import { WhatsAppWidget } from './WhatsAppWidget';
+import { CookieConsent } from './CookieConsent';
 
 export function Section({ children, className = '' }) {
   return (
@@ -16,16 +17,16 @@ export function Section({ children, className = '' }) {
 }
 
 export function Header() {
+  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const location = useLocation();
 
   const navLinks = [
     { path: '/', label: 'Home' },
-    { path: '/estimate', label: 'Get Estimate' },
+    { path: '/estimate', label: 'Get Quote' },
   ];
 
-  const mobileMenuLinks = [
+  const mobileDropdownLinks = [
     { path: '/', label: 'Home' },
-    { path: '/estimate', label: 'Get Estimate' },
     { path: '/privacy', label: 'Privacy Policy' },
     { path: '/terms', label: 'Terms & Conditions' },
   ];
@@ -73,8 +74,8 @@ export function Header() {
             </LinkButton>
           </div>
 
-          {/* Mobile Get Estimate */}
-          <div className="lg:hidden">
+          {/* Mobile Get Quote + Menu */}
+          <div className="lg:hidden flex items-center gap-2">
             <Link
               to="/estimate"
               className="text-sm font-semibold px-3 py-1.5 rounded-lg transition-all"
@@ -83,28 +84,38 @@ export function Header() {
                 color: BRAND.colors.dark
               }}
             >
-              Get Estimate
+              Get Quote
             </Link>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="text-white p-2"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
           </div>
         </div>
 
-        {/* Mobile Menu - Always visible */}
-        <div className="lg:hidden mt-4 pb-2 space-y-1.5 border-t border-white/10 pt-3">
-          {mobileMenuLinks.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              className={`block py-1.5 px-2 text-sm font-medium transition-colors rounded ${
-                isActive(link.path)
-                  ? 'bg-white/5'
-                  : ''
-              }`}
-              style={isActive(link.path) ? { color: BRAND.colors.primary } : { color: 'rgba(255,255,255,0.6)' }}
-            >
-              {link.label}
-            </Link>
-          ))}
-        </div>
+        {/* Mobile Dropdown Menu */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden mt-4 pb-4 space-y-3 border-t border-white/10 pt-4">
+            {mobileDropdownLinks.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`block py-2 font-medium transition-colors ${
+                  isActive(link.path)
+                    ? 'text-white'
+                    : 'text-white/70'
+                }`}
+                style={isActive(link.path) ? { color: BRAND.colors.primary } : {}}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+        )}
       </Section>
     </div>
   );
@@ -308,6 +319,7 @@ export function PageLayout({ children }) {
       <MobileBottomBar />
       <MobileWhatsAppFloat />
       <WhatsAppWidget />
+      <CookieConsent />
     </div>
   );
 }

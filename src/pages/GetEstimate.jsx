@@ -254,7 +254,7 @@ export default function GetEstimate() {
 
       // Prepare email content
       const emailContent = `
-NEW ESTIMATE REQUEST - FixNow Mechanics
+NEW QUOTE REQUEST - FixNow Mechanics
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 👤 CUSTOMER INFORMATION
@@ -293,12 +293,12 @@ Issue Description:
 ${formData.description}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-💰 ESTIMATE
+💰 QUOTE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Base Price: £${basePrice}
 ${travelCost > 0 ? `Callout Fee (outside Hemel): £${travelCost}` : 'Callout Fee: £0 (within Hemel Hempstead)'}
-Estimated Total: £${estimate}
+Quote Total: £${estimate}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -313,7 +313,7 @@ Submitted: ${new Date().toLocaleString('en-GB')}
         },
         body: JSON.stringify({
           access_key: '2682cfaa-cf56-45ba-b0b8-f9317e983777',
-          subject: `New Estimate Request from ${formData.name}`,
+          subject: `New Quote Request from ${formData.name}`,
           from_name: 'FixNow Mechanics Website',
           replyto: formData.email,
           email: BRAND.email,
@@ -327,14 +327,14 @@ Submitted: ${new Date().toLocaleString('en-GB')}
       const confirmationContent = `
 Hi ${formData.name},
 
-Thank you for your estimate request! We've received your information and will get back to you shortly.
+Thank you for your quote request! We've received your information and will get back to you shortly.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📋 YOUR REQUEST SUMMARY
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Service: ${service ? service.title : formData.serviceType}
-${basePrice > 0 ? `Estimated Cost: £${estimate}` : 'Price: To be quoted'}
+${basePrice > 0 ? `Quote: £${estimate}` : 'Price: To be quoted'}
 ${travelCost > 0 ? `Includes £${travelCost} callout fee (outside Hemel Hempstead)` : 'No callout fee (within Hemel Hempstead)'}
 
 Location: ${formData.addressLine1}, ${formData.postcode}
@@ -364,7 +364,7 @@ ${BRAND.tagline}
         },
         body: JSON.stringify({
           access_key: '2682cfaa-cf56-45ba-b0b8-f9317e983777',
-          subject: 'Your FixNow Mechanics Estimate Request',
+          subject: 'Your FixNow Mechanics Quote Request',
           from_name: 'FixNow Mechanics',
           replyto: BRAND.email,
           email: formData.email,
@@ -381,8 +381,8 @@ ${BRAND.tagline}
         // Also prepare WhatsApp link as backup
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
-          'event': 'estimate_submitted',
-          'estimate_value': estimate
+          'event': 'quote_submitted',
+          'quote_value': estimate
         });
       } else {
         throw new Error('Failed to send email');
@@ -421,7 +421,7 @@ ${BRAND.tagline}
                 </h2>
 
                 <p className="text-white/90 text-lg">
-                  Your estimate request has been received successfully.
+                  Your quote request has been received successfully.
                 </p>
 
                 <div className="bg-white/5 border border-white/10 rounded-lg p-6 text-left space-y-3">
@@ -437,7 +437,7 @@ ${BRAND.tagline}
                 </div>
 
                 <p className="text-white/70 text-sm">
-                  We'll review your request and get back to you with a detailed quote via phone or WhatsApp.
+                  We'll review your request and provide a detailed quote via phone or WhatsApp.
                 </p>
 
                 {/* Quick Actions */}
@@ -453,7 +453,7 @@ ${BRAND.tagline}
                       Call {BRAND.phoneDisplay}
                     </a>
                     <a
-                      href={`https://wa.me/${BRAND.phoneIntl.replace('+', '')}?text=${encodeURIComponent(`Hi FixNow! I just submitted an estimate request (${formData.name})`)}`}
+                      href={`https://wa.me/${BRAND.phoneIntl.replace('+', '')}?text=${encodeURIComponent(`Hi FixNow! I just submitted a quote request (${formData.name})`)}`}
                       className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-medium transition-all hover:opacity-90"
                       style={{ backgroundColor: '#25D366', color: 'white' }}
                     >
@@ -488,10 +488,10 @@ ${BRAND.tagline}
         {/* Header */}
         <div className="text-center mb-6 lg:mb-8">
           <h1 className="text-white text-2xl lg:text-4xl font-bold mb-2 lg:mb-3">
-            Get Your Estimate
+            Get Your Free Quote
           </h1>
           <p className="text-white/70 text-sm lg:text-lg">
-            Complete the form below and we'll send you a detailed estimate
+            Complete the form below and we'll send you a detailed quote
           </p>
         </div>
 
