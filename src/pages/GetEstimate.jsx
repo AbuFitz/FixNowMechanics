@@ -219,12 +219,6 @@ export default function GetEstimate() {
   };
 
   const handleSubmit = async () => {
-    // Check captcha first
-    if (!captchaToken) {
-      setError('Please complete the captcha verification');
-      return;
-    }
-
     setSubmitting(true);
     setError(null);
 
@@ -306,21 +300,27 @@ Submitted: ${new Date().toLocaleString('en-GB')}
       `.trim();
 
       // Send to business email via Web3Forms
+      const payload = {
+        access_key: '2682cfaa-cf56-45ba-b0b8-f9317e983777',
+        subject: `New Quote Request from ${formData.name}`,
+        from_name: 'FixNow Mechanics Website',
+        replyto: formData.email,
+        email: BRAND.email,
+        message: emailContent,
+        botcheck: '',
+      };
+
+      // Add captcha token if available (optional)
+      if (captchaToken) {
+        payload['h-captcha-response'] = captchaToken;
+      }
+
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          access_key: '2682cfaa-cf56-45ba-b0b8-f9317e983777',
-          subject: `New Quote Request from ${formData.name}`,
-          from_name: 'FixNow Mechanics Website',
-          replyto: formData.email,
-          email: BRAND.email,
-          message: emailContent,
-          'h-captcha-response': captchaToken,
-          botcheck: '',
-        }),
+        body: JSON.stringify(payload),
       });
 
       // Send confirmation email to customer
@@ -357,21 +357,27 @@ FixNow Mechanics Team
 ${BRAND.tagline}
       `.trim();
 
+      const confirmPayload = {
+        access_key: '2682cfaa-cf56-45ba-b0b8-f9317e983777',
+        subject: 'Your FixNow Mechanics Quote Request',
+        from_name: 'FixNow Mechanics',
+        replyto: BRAND.email,
+        email: formData.email,
+        message: confirmationContent,
+        botcheck: '',
+      };
+
+      // Add captcha token if available (optional)
+      if (captchaToken) {
+        confirmPayload['h-captcha-response'] = captchaToken;
+      }
+
       await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          access_key: '2682cfaa-cf56-45ba-b0b8-f9317e983777',
-          subject: 'Your FixNow Mechanics Quote Request',
-          from_name: 'FixNow Mechanics',
-          replyto: BRAND.email,
-          email: formData.email,
-          message: confirmationContent,
-          'h-captcha-response': captchaToken,
-          botcheck: '',
-        }),
+        body: JSON.stringify(confirmPayload),
       });
 
       const result = await response.json();
@@ -847,14 +853,10 @@ ${BRAND.tagline}
                   </div>
                 </div>
 
-                {/* hCaptcha Widget */}
-                <div className="flex justify-center">
-                  <div id="hcaptcha-container"></div>
-                </div>
-
+                {/* Optional spam protection - not required */}
                 <Card className="bg-blue-500/10 border-blue-500/30 p-4">
                   <p className="text-blue-300 text-sm text-center">
-                    ✓ Spam protection enabled. Complete the verification above to submit.
+                    ✓ Ready to submit! We'll get back to you within 2 hours.
                   </p>
                 </Card>
 
