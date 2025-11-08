@@ -59,17 +59,14 @@ export function ServiceImage({ service, className = '' }) {
 // Hero image with company van photo
 export function HeroImage({ className = '' }) {
   return (
-    <div className={`relative overflow-hidden rounded-3xl ${className}`}>
-      {/* Company Van Photo - Zoomed out perspective */}
+    <div className={`relative overflow-hidden ${className}`}>
+      {/* Company Van Photo */}
       <img
         src={CompanyVanImage}
         alt="FixNow Mechanics company van"
-        className="absolute inset-0 w-full h-full object-contain object-center"
-        style={{ transform: 'scale(0.85)' }}
+        className="absolute inset-0 w-full h-full object-cover object-center"
         loading="eager"
       />
-      {/* Subtle background to fill gaps */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-gray-900 via-black to-gray-900" />
     </div>
   );
 }

@@ -81,9 +81,15 @@ export default function Home() {
       {/* Announcement Bar */}
       <div className="w-full" style={{ background: BRAND.colors.mid }}>
         <Section className="py-3">
-          <div className="flex items-center justify-center gap-3 text-white/90 text-sm text-center px-4">
+          {/* Desktop */}
+          <div className="hidden lg:flex items-center justify-center gap-3 text-white/90 text-sm text-center px-4">
             <Shield size={16} style={{ color: BRAND.colors.primary }} className="flex-shrink-0" />
             <span className="font-medium">{CALLOUT_NOTE}</span>
+          </div>
+          {/* Mobile - Compact */}
+          <div className="lg:hidden flex items-center justify-center gap-2 text-white/90 text-xs px-3">
+            <Shield size={14} style={{ color: BRAND.colors.primary }} className="flex-shrink-0" />
+            <span className="font-medium">Callout fee applies outside 10km</span>
           </div>
         </Section>
       </div>
@@ -98,30 +104,31 @@ export default function Home() {
           <img
             src={CompanyVanImage}
             alt="FixNow Mechanics"
-            className="w-full h-full object-cover object-center opacity-15"
+            className="w-full h-full object-cover object-center opacity-20"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/75 to-black" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/80 to-black/95" />
         </div>
 
-        <Section className="py-16 sm:py-24 lg:py-32 relative z-10">
+        <Section className="py-12 lg:py-32 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left: Content */}
-            <div className="text-white space-y-6">
-              <div className="flex gap-2 flex-wrap">
+            <div className="text-white space-y-6 lg:space-y-6">
+              {/* Pills - Desktop Only */}
+              <div className="hidden lg:flex gap-2 flex-wrap">
                 <Pill icon={Wrench}>Mobile Mechanic</Pill>
                 <Pill icon={Clock}>Flexible Hours</Pill>
                 <Pill icon={MapPin}>{BRAND.baseCityCoords.city}</Pill>
               </div>
 
-              <div className="space-y-4">
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
+              <div className="space-y-3 lg:space-y-4">
+                <h1 className="text-3xl sm:text-4xl lg:text-6xl font-extrabold leading-tight">
                   Expert Vehicle{' '}
                   <span style={{ color: BRAND.colors.primary }}>Diagnostics & Repair</span>
                 </h1>
-                <p className="text-xl sm:text-2xl font-medium text-white/70">
+                <p className="text-lg sm:text-xl lg:text-2xl font-medium text-white/80 lg:text-white/70">
                   {BRAND.tagline}
                 </p>
-                <p className="text-white/80 text-lg max-w-2xl leading-relaxed">
+                <p className="text-white/70 lg:text-white/80 text-base lg:text-lg max-w-2xl leading-relaxed">
                   Diagnostics, repairs, and servicing — done at your driveway or workplace.
                   No workshop visits. No hidden markup. Honest service at fair prices.
                 </p>
@@ -143,18 +150,18 @@ export default function Home() {
                 </LinkButton>
               </div>
 
-              <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/10">
+              <div className="grid grid-cols-3 gap-3 lg:gap-4 pt-4 lg:pt-6 border-t border-white/10">
                 <div className="text-center">
-                  <div className="text-2xl font-bold" style={{ color: BRAND.colors.primary }}>100%</div>
-                  <div className="text-white/60 text-sm">Mobile Service</div>
+                  <div className="text-xl lg:text-2xl font-bold" style={{ color: BRAND.colors.primary }}>100%</div>
+                  <div className="text-white/60 text-xs lg:text-sm">Mobile Service</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold" style={{ color: BRAND.colors.primary }}>Fair</div>
-                  <div className="text-white/60 text-sm">Pricing</div>
+                  <div className="text-xl lg:text-2xl font-bold" style={{ color: BRAND.colors.primary }}>Fair</div>
+                  <div className="text-white/60 text-xs lg:text-sm">Pricing</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold" style={{ color: BRAND.colors.primary }}>6+</div>
-                  <div className="text-white/60 text-sm">Areas</div>
+                  <div className="text-xl lg:text-2xl font-bold" style={{ color: BRAND.colors.primary }}>6+</div>
+                  <div className="text-white/60 text-xs lg:text-sm">Areas</div>
                 </div>
               </div>
             </div>

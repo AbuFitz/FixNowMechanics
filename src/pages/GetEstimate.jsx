@@ -483,39 +483,39 @@ ${BRAND.tagline}
   const StepIcon = STEPS[currentStep - 1].icon;
 
   return (
-    <Section className="py-16">
+    <Section className="py-6 lg:py-16">
       <div className="max-w-3xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-white text-4xl font-bold mb-3">
+        <div className="text-center mb-6 lg:mb-8">
+          <h1 className="text-white text-2xl lg:text-4xl font-bold mb-2 lg:mb-3">
             Get Your Estimate
           </h1>
-          <p className="text-white/70 text-lg">
+          <p className="text-white/70 text-sm lg:text-lg">
             Complete the form below and we'll send you a detailed estimate
           </p>
         </div>
 
         {/* Step Indicator */}
-        <div className="mb-8">
+        <div className="mb-6 lg:mb-8">
           {/* Mobile: Simplified Step Indicator */}
-          <div className="lg:hidden mb-6">
-            <div className="flex items-center justify-center gap-3 mb-3">
+          <div className="lg:hidden mb-4">
+            <div className="flex items-center justify-center gap-3 mb-2">
               <div
-                className="w-14 h-14 rounded-full flex items-center justify-center"
+                className="w-12 h-12 rounded-full flex items-center justify-center"
                 style={{
                   backgroundColor: BRAND.colors.primary,
                   color: BRAND.colors.dark
                 }}
               >
-                <StepIcon size={24} />
+                <StepIcon size={20} />
               </div>
             </div>
             <div className="text-center">
               <p className="text-white/60 text-xs mb-1">Step {currentStep} of {STEPS.length}</p>
-              <p className="text-white font-semibold text-lg">{STEPS[currentStep - 1].title}</p>
+              <p className="text-white font-semibold text-base">{STEPS[currentStep - 1].title}</p>
             </div>
             {/* Progress bar */}
-            <div className="mt-4 w-full h-2 bg-white/10 rounded-full overflow-hidden">
+            <div className="mt-3 w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
               <div
                 className="h-full rounded-full transition-all duration-500"
                 style={{
@@ -565,22 +565,22 @@ ${BRAND.tagline}
         </div>
 
         {/* Form Card */}
-        <Card className="p-4 sm:p-6 lg:p-8">
-          <div className="mb-6">
-            <div className="flex items-center gap-3 mb-2">
+        <Card className="p-3 sm:p-6 lg:p-8">
+          <div className="mb-4 lg:mb-6">
+            <div className="flex items-center gap-2 lg:gap-3 mb-2">
               <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center"
+                className="w-8 h-8 lg:w-10 lg:h-10 rounded-xl flex items-center justify-center"
                 style={{ backgroundColor: `${BRAND.colors.primary}20` }}
               >
-                <StepIcon size={20} style={{ color: BRAND.colors.primary }} />
+                <StepIcon size={18} style={{ color: BRAND.colors.primary }} className="lg:w-5 lg:h-5" />
               </div>
-              <h2 className="text-white text-2xl font-bold">
+              <h2 className="text-white text-lg lg:text-2xl font-bold">
                 {STEPS[currentStep - 1].title}
               </h2>
             </div>
           </div>
 
-          <form ref={formRef} className="space-y-6">
+          <form ref={formRef} className="space-y-4 lg:space-y-6">
             {/* Step 1: Your Details */}
             {currentStep === 1 && (
               <div className="space-y-4 animate-in fade-in slide-in-from-right-5 duration-300">
