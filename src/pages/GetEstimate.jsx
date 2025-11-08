@@ -497,7 +497,37 @@ ${BRAND.tagline}
 
         {/* Step Indicator */}
         <div className="mb-8">
-          <div className="flex items-center justify-between mb-2">
+          {/* Mobile: Simplified Step Indicator */}
+          <div className="lg:hidden mb-6">
+            <div className="flex items-center justify-center gap-3 mb-3">
+              <div
+                className="w-14 h-14 rounded-full flex items-center justify-center"
+                style={{
+                  backgroundColor: BRAND.colors.primary,
+                  color: BRAND.colors.dark
+                }}
+              >
+                <StepIcon size={24} />
+              </div>
+            </div>
+            <div className="text-center">
+              <p className="text-white/60 text-xs mb-1">Step {currentStep} of {STEPS.length}</p>
+              <p className="text-white font-semibold text-lg">{STEPS[currentStep - 1].title}</p>
+            </div>
+            {/* Progress bar */}
+            <div className="mt-4 w-full h-2 bg-white/10 rounded-full overflow-hidden">
+              <div
+                className="h-full rounded-full transition-all duration-500"
+                style={{
+                  width: `${(currentStep / STEPS.length) * 100}%`,
+                  backgroundColor: BRAND.colors.primary
+                }}
+              />
+            </div>
+          </div>
+
+          {/* Desktop: Full Step Indicator */}
+          <div className="hidden lg:flex items-center justify-between mb-2">
             {STEPS.map((step, index) => (
               <React.Fragment key={step.id}>
                 <div className="flex flex-col items-center flex-1">
@@ -535,7 +565,7 @@ ${BRAND.tagline}
         </div>
 
         {/* Form Card */}
-        <Card className="p-8">
+        <Card className="p-4 sm:p-6 lg:p-8">
           <div className="mb-6">
             <div className="flex items-center gap-3 mb-2">
               <div

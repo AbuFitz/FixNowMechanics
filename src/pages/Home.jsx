@@ -11,6 +11,7 @@ import { LinkButton, Button } from '../components/Button';
 import { Card, CardBody } from '../components/Card';
 import { Logo } from '../components/Logo';
 import { ServiceImage, HeroImage } from '../components/ServiceImage';
+import CompanyVanImage from '../components/CompanyVan.png';
 
 function Pill({ icon: Icon, children }) {
   return (
@@ -89,10 +90,20 @@ export default function Home() {
 
       {/* Hero Section */}
       <div
-        className="relative overflow-hidden"
+        className="relative overflow-hidden lg:bg-transparent"
         style={{ backgroundColor: BRAND.colors.dark }}
       >
-        <Section className="py-16 sm:py-24 lg:py-32">
+        {/* Mobile: Background Image */}
+        <div className="absolute inset-0 lg:hidden">
+          <img
+            src={CompanyVanImage}
+            alt="FixNow Mechanics"
+            className="w-full h-full object-cover object-center opacity-15"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/75 to-black" />
+        </div>
+
+        <Section className="py-16 sm:py-24 lg:py-32 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left: Content */}
             <div className="text-white space-y-6">
@@ -148,8 +159,8 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right: Hero Visual */}
-            <div className="relative flex items-center justify-center">
+            {/* Right: Hero Visual - Desktop Only */}
+            <div className="relative hidden lg:flex items-center justify-center">
               <HeroImage className="min-h-[400px] w-full" />
             </div>
           </div>

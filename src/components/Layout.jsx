@@ -116,6 +116,14 @@ export function Header() {
 }
 
 export function MobileBottomBar() {
+  const location = useLocation();
+  const isEstimatePage = location.pathname === '/estimate';
+
+  // Hide bottom bar on estimate page
+  if (isEstimatePage) {
+    return null;
+  }
+
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden border-t border-white/10 bg-black/95 backdrop-blur-xl">
       <div className="px-3 py-2.5 pb-safe">
@@ -147,6 +155,32 @@ export function MobileBottomBar() {
         </div>
       </div>
     </div>
+  );
+}
+
+// Mobile WhatsApp floating button for estimate page
+export function MobileWhatsAppFloat() {
+  const location = useLocation();
+  const isEstimatePage = location.pathname === '/estimate';
+
+  if (!isEstimatePage) {
+    return null;
+  }
+
+  return (
+    <a
+      href={`https://wa.me/${BRAND.phoneIntl.replace('+', '')}?text=${BRAND.whatsappPrefill}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="fixed bottom-6 right-6 z-50 lg:hidden w-14 h-14 rounded-full shadow-2xl flex items-center justify-center transition-all active:scale-95 hover:scale-110"
+      style={{
+        backgroundColor: '#25D366',
+        boxShadow: '0 4px 20px rgba(37, 211, 102, 0.4)'
+      }}
+      aria-label="WhatsApp"
+    >
+      <MessageCircle size={24} color="white" />
+    </a>
   );
 }
 
@@ -231,8 +265,8 @@ export function Footer() {
                   className="hover:text-white transition-colors flex items-center gap-2"
                   style={{ color: BRAND.colors.primary }}
                 >
-                  <Instagram size={16} />
-                  @fixnowmechanics
+                  <Instagram size={20} className="lg:w-4 lg:h-4" />
+                  <span className="hidden lg:inline">@fixnowmechanics</span>
                 </a>
               </li>
               <li>{BRAND.baseArea}</li>
@@ -263,17 +297,21 @@ export function Footer() {
 }
 
 export function PageLayout({ children }) {
+  const location = useLocation();
+  const isEstimatePage = location.pathname === '/estimate';
+
   return (
     <div
       className="min-h-screen w-full flex flex-col"
       style={{ background: BRAND.colors.dark }}
     >
       <Header />
-      <main className="flex-1 pb-24 lg:pb-8">
+      <main className={`flex-1 ${isEstimatePage ? 'pb-8' : 'pb-24 lg:pb-8'}`}>
         {children}
       </main>
       <Footer />
       <MobileBottomBar />
+      <MobileWhatsAppFloat />
       <WhatsAppWidget />
     </div>
   );
