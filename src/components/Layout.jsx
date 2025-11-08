@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Phone, MessageCircle, Menu, X, Calculator } from 'lucide-react';
+import { Phone, MessageCircle, Menu, X, Calculator, Instagram } from 'lucide-react';
 import { BRAND } from '../constants/brand';
 import { LinkButton } from './Button';
 import { WhatsAppWidget } from './WhatsAppWidget';
@@ -68,15 +68,18 @@ export function Header() {
             </LinkButton>
           </div>
 
-          {/* Mobile Phone + Menu */}
-          <div className="lg:hidden flex items-center gap-3">
-            <a
-              href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`}
-              className="text-white/80 hover:text-white text-sm font-medium flex items-center gap-1"
+          {/* Mobile Get Estimate + Menu */}
+          <div className="lg:hidden flex items-center gap-2">
+            <Link
+              to="/estimate"
+              className="text-sm font-semibold px-3 py-1.5 rounded-lg transition-all"
+              style={{
+                backgroundColor: BRAND.colors.primary,
+                color: BRAND.colors.dark
+              }}
             >
-              <Phone size={16} />
-              <span className="hidden xs:inline">{BRAND.phoneDisplay}</span>
-            </a>
+              Get Estimate
+            </Link>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="text-white p-2"
@@ -113,37 +116,35 @@ export function Header() {
 }
 
 export function MobileBottomBar() {
-  const location = useLocation();
-  const isEstimatePage = location.pathname === '/estimate';
-
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden border-t border-white/10 bg-black/95 backdrop-blur-xl">
-      <div className="px-4 py-3 pb-safe">
-        {isEstimatePage ? (
+      <div className="px-3 py-2.5 pb-safe">
+        <div className="grid grid-cols-2 gap-2">
           <a
             href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`}
-            className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl font-semibold text-base transition-all active:scale-95"
+            className="flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-sm transition-all active:scale-95"
             style={{
               backgroundColor: BRAND.colors.primary,
               color: BRAND.colors.dark
             }}
           >
-            <Phone size={20} />
-            Call {BRAND.phoneDisplay}
+            <Phone size={18} />
+            Call Us
           </a>
-        ) : (
-          <Link
-            to="/estimate"
-            className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl font-semibold text-base transition-all active:scale-95"
+          <a
+            href={`https://wa.me/${BRAND.phoneIntl.replace('+', '')}?text=${BRAND.whatsappPrefill}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-sm transition-all active:scale-95"
             style={{
-              backgroundColor: BRAND.colors.primary,
-              color: BRAND.colors.dark
+              backgroundColor: '#25D366',
+              color: 'white'
             }}
           >
-            <Calculator size={20} />
-            Get Free Quote
-          </Link>
-        )}
+            <MessageCircle size={18} />
+            WhatsApp
+          </a>
+        </div>
       </div>
     </div>
   );
@@ -220,6 +221,18 @@ export function Footer() {
                   className="hover:text-white transition-colors"
                 >
                   {BRAND.email}
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://instagram.com/fixnowmechanics"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors flex items-center gap-2"
+                  style={{ color: BRAND.colors.primary }}
+                >
+                  <Instagram size={16} />
+                  @fixnowmechanics
                 </a>
               </li>
               <li>{BRAND.baseArea}</li>

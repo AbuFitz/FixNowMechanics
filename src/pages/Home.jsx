@@ -116,7 +116,7 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <div className="hidden lg:flex flex-col sm:flex-row gap-4 pt-4">
                 <Link to="/estimate" className="flex-1 sm:flex-initial">
                   <Button variant="primary" className="w-full" icon={Calculator}>
                     Get Estimate
