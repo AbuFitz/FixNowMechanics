@@ -67,12 +67,6 @@ export function HeroImage({ className = '' }) {
         className="absolute inset-0 w-full h-full object-cover object-center"
         loading="eager"
       />
-
-      {/* Gradient overlay for better text contrast */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
-
-      {/* Brand accent overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/20 to-transparent" />
     </div>
   );
 }
