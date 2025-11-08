@@ -141,12 +141,17 @@ export async function lookupAddresses(postcode) {
     // Try getaddress.io first for real Royal Mail addresses
     if (GETADDRESS_API_KEY) {
       try {
-        const response = await fetch(
-          `https://api.getAddress.io/find/${cleanPostcode}?api-key=${GETADDRESS_API_KEY}&expand=true`
-        );
+        const apiUrl = `https://api.getaddress.io/find/${cleanPostcode}?api-key=${GETADDRESS_API_KEY}&expand=true`;
+        console.log('🔍 Attempting getaddress.io API call...');
+
+        const response = await fetch(apiUrl);
+        const responseText = await response.text();
+
+        console.log('📡 API Response Status:', response.status);
+        console.log('📡 API Response:', responseText);
 
         if (response.ok) {
-          const data = await response.json();
+          const data = JSON.parse(responseText);
 
           // Format addresses from getaddress.io response
           // Each address is a comma-separated string
@@ -157,17 +162,23 @@ export async function lookupAddresses(postcode) {
             return parts.slice(0, 3).join(', ');
           });
 
+          console.log('✅ getaddress.io SUCCESS - found', addresses.length, 'addresses');
+
           return {
             success: true,
             addresses: addresses,
             postcode: cleanPostcode.toUpperCase(),
             source: 'getaddress.io'
           };
+        } else {
+          console.error('❌ getaddress.io API error:', response.status, responseText);
         }
       } catch (apiError) {
-        console.warn('getaddress.io failed, using fallback addresses:', apiError);
+        console.error('❌ getaddress.io failed:', apiError);
       }
     }
+
+    console.log('⚠️ Using fallback addresses (getaddress.io API not available)');
 
     // Fallback: Validate with postcodes.io and use area-specific streets
     const postcodeResponse = await fetch(`https://api.postcodes.io/postcodes/${cleanPostcode}`);
