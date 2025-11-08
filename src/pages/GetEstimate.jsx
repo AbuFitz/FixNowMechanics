@@ -21,6 +21,19 @@ const STEPS = [
 const BASE_LAT = BRAND.baseCityCoords.lat;
 const BASE_LON = BRAND.baseCityCoords.lng;
 
+// Calculate distance between two coordinates using Haversine formula
+function calculateDistance(lat1, lon1, lat2, lon2) {
+  const R = 3959; // Earth's radius in miles
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
+}
+
 export default function GetEstimate() {
   const [currentStep, setCurrentStep] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -391,11 +404,12 @@ ${BRAND.tagline}
           'quote_value': estimate
         });
       } else {
-        throw new Error('Failed to send email');
+        console.error('API returned error:', result);
+        throw new Error(result.message || 'Failed to send email');
       }
     } catch (err) {
       console.error('Submission error:', err);
-      setError('Failed to submit. Please try WhatsApp or call us directly.');
+      setError(`Failed to submit: ${err.message}. Please try WhatsApp or call us directly.`);
     } finally {
       setSubmitting(false);
     }
