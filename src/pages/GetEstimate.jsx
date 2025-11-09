@@ -93,7 +93,7 @@ export default function GetEstimate() {
       const container = document.getElementById('turnstile-container');
       if (container && !container.hasChildNodes()) {
         window.turnstile.render('#turnstile-container', {
-          sitekey: '1x00000000000000000000AA', // Test key - always passes. Replace with real key for production
+          sitekey: '0x4AAAAAAB_5sfSOLoB_T_T4',
           theme: 'dark',
           callback: (token) => {
             setTurnstileToken(token);
@@ -295,7 +295,6 @@ Submitted: ${new Date().toLocaleString('en-GB')}
           replyto: formData.email,
           email: BRAND.email,
           message: emailContent,
-          'h-captcha-response': turnstileToken || '',
           botcheck: '',
         }),
       });
@@ -346,7 +345,6 @@ ${BRAND.tagline}
           replyto: BRAND.email,
           email: formData.email,
           message: confirmationContent,
-          'h-captcha-response': turnstileToken || '',
           botcheck: '',
         }),
       });
