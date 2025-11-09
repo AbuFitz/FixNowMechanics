@@ -187,7 +187,10 @@ export default function GetEstimate() {
     if (validateStep(currentStep)) {
       if (currentStep < STEPS.length) {
         setCurrentStep(currentStep + 1);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Delay scroll to prevent keyboard issues on mobile
+        setTimeout(() => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 100);
       } else {
         handleSubmit();
       }
@@ -197,7 +200,10 @@ export default function GetEstimate() {
   const handlePrevious = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Delay scroll to prevent keyboard issues on mobile
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 100);
     }
   };
 
@@ -568,7 +574,6 @@ ${BRAND.tagline}
                   placeholder="John Smith"
                   icon={User}
                   error={errors.name}
-                  autoFocus
                 />
                 <Input
                   label="Phone Number *"
@@ -827,12 +832,6 @@ ${BRAND.tagline}
                 <div className="flex justify-center">
                   <div id="turnstile-container"></div>
                 </div>
-
-                <Card className="bg-blue-500/10 border-blue-500/30 p-4">
-                  <p className="text-blue-300 text-sm text-center">
-                    ✓ Spam protection active. Ready to submit!
-                  </p>
-                </Card>
 
                 {error && (
                   <Card className="bg-red-500/10 border-red-500/30 p-4">
