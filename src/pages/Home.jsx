@@ -25,9 +25,9 @@ function Pill({ icon: Icon, children }) {
 function BrandLogo({ name, logo, size = "medium", invert = false }) {
   // Different sizes for different logos to account for design variations
   const sizeClasses = {
-    small: "h-6",      // 24px - Brembo
-    medium: "h-10",    // 40px - Liqui Moly, Mann, Mobil
-    large: "h-14",     // 56px - Castrol, Pagid, Textar, Valvoline, Bilstein, Bosch, Eibach
+    small: "h-6",       // 24px - Brembo
+    medium: "h-9",      // 36px - Liqui Moly, Mann, Mobil, Valvoline
+    large: "h-16",      // 64px - Castrol, Pagid, Textar, Bilstein, Bosch, Eibach
   };
   
   return (
@@ -330,7 +330,7 @@ export default function Home() {
               <BrandLogo name="Mobil" logo="/logos/mobil.svg" size="medium" />
               <BrandLogo name="Pagid" logo="/logos/pagid.svg" size="large" invert={true} />
               <BrandLogo name="Textar" logo="/logos/textar.svg" size="large" />
-              <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" size="large" />
+              <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" size="medium" />
               <BrandLogo name="Bilstein" logo="/logos/bilstein.svg" size="large" invert={true} />
               <BrandLogo name="Bosch" logo="/logos/bosch.svg" size="large" invert={true} />
               <BrandLogo name="Eibach" logo="/logos/eibach.svg" size="large" />
@@ -343,7 +343,7 @@ export default function Home() {
               <BrandLogo name="Mobil" logo="/logos/mobil.svg" size="medium" />
               <BrandLogo name="Pagid" logo="/logos/pagid.svg" size="large" invert={true} />
               <BrandLogo name="Textar" logo="/logos/textar.svg" size="large" />
-              <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" size="large" />
+              <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" size="medium" />
               <BrandLogo name="Bilstein" logo="/logos/bilstein.svg" size="large" invert={true} />
               <BrandLogo name="Bosch" logo="/logos/bosch.svg" size="large" invert={true} />
               <BrandLogo name="Eibach" logo="/logos/eibach.svg" size="large" />
@@ -356,7 +356,7 @@ export default function Home() {
               <BrandLogo name="Mobil" logo="/logos/mobil.svg" size="medium" />
               <BrandLogo name="Pagid" logo="/logos/pagid.svg" size="large" invert={true} />
               <BrandLogo name="Textar" logo="/logos/textar.svg" size="large" />
-              <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" size="large" />
+              <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" size="medium" />
               <BrandLogo name="Bilstein" logo="/logos/bilstein.svg" size="large" invert={true} />
               <BrandLogo name="Bosch" logo="/logos/bosch.svg" size="large" invert={true} />
               <BrandLogo name="Eibach" logo="/logos/eibach.svg" size="large" />
@@ -369,7 +369,7 @@ export default function Home() {
               <BrandLogo name="Mobil" logo="/logos/mobil.svg" size="medium" />
               <BrandLogo name="Pagid" logo="/logos/pagid.svg" size="large" invert={true} />
               <BrandLogo name="Textar" logo="/logos/textar.svg" size="large" />
-              <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" size="large" />
+              <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" size="medium" />
               <BrandLogo name="Bilstein" logo="/logos/bilstein.svg" size="large" invert={true} />
               <BrandLogo name="Bosch" logo="/logos/bosch.svg" size="large" invert={true} />
               <BrandLogo name="Eibach" logo="/logos/eibach.svg" size="large" />
