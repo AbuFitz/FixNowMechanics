@@ -223,6 +223,60 @@ export default function Home() {
         </div>
       </Section>
 
+      {/* Trusted Brands & Parts */}
+      <Section className="py-12" style={{ backgroundColor: BRAND.colors.mid }}>
+        <div className="text-center mb-8">
+          <h2 className="text-white text-2xl font-bold mb-2">
+            Quality Parts & Trusted Brands
+          </h2>
+          <p className="text-white/60 text-sm max-w-2xl mx-auto">
+            We work with premium and budget-friendly brands to suit your needs. From OEM quality to value options — you choose your budget, we recommend the best.
+          </p>
+        </div>
+        
+        {/* Infinite Scrolling Brands */}
+        <div className="relative overflow-hidden">
+          <div className="flex animate-scroll-slow whitespace-nowrap">
+            {/* First set */}
+            <div className="flex items-center gap-12 px-6">
+              <span className="text-white/80 font-semibold text-lg">Castrol</span>
+              <span className="text-white/80 font-semibold text-lg">Mobil 1</span>
+              <span className="text-white/80 font-semibold text-lg">Shell Helix</span>
+              <span className="text-white/80 font-semibold text-lg">Bosch</span>
+              <span className="text-white/80 font-semibold text-lg">Mann Filter</span>
+              <span className="text-white/80 font-semibold text-lg">Brembo</span>
+              <span className="text-white/80 font-semibold text-lg">Textar</span>
+              <span className="text-white/80 font-semibold text-lg">Pagid</span>
+              <span className="text-white/80 font-semibold text-lg">Bilstein</span>
+              <span className="text-white/80 font-semibold text-lg">Eibach</span>
+              <span className="text-white/80 font-semibold text-lg">NGK</span>
+              <span className="text-white/80 font-semibold text-lg">Denso</span>
+            </div>
+            {/* Duplicate for seamless loop */}
+            <div className="flex items-center gap-12 px-6">
+              <span className="text-white/80 font-semibold text-lg">Castrol</span>
+              <span className="text-white/80 font-semibold text-lg">Mobil 1</span>
+              <span className="text-white/80 font-semibold text-lg">Shell Helix</span>
+              <span className="text-white/80 font-semibold text-lg">Bosch</span>
+              <span className="text-white/80 font-semibold text-lg">Mann Filter</span>
+              <span className="text-white/80 font-semibold text-lg">Brembo</span>
+              <span className="text-white/80 font-semibold text-lg">Textar</span>
+              <span className="text-white/80 font-semibold text-lg">Pagid</span>
+              <span className="text-white/80 font-semibold text-lg">Bilstein</span>
+              <span className="text-white/80 font-semibold text-lg">Eibach</span>
+              <span className="text-white/80 font-semibold text-lg">NGK</span>
+              <span className="text-white/80 font-semibold text-lg">Denso</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="text-center mt-6">
+          <p className="text-white/50 text-xs">
+            We recommend oils and parts based on your vehicle type, usage, and budget. Premium performance or cost-effective quality — your choice.
+          </p>
+        </div>
+      </Section>
+
       {/* Services */}
       <Section className="py-16">
         <div className="text-center mb-12">
@@ -289,110 +343,6 @@ export default function Home() {
                   </Button>
                 </Link>
               </div>
-            </div>
-          </Card>
-        </div>
-      </Section>
-
-      {/* Why Choose Us Section */}
-      <Section className="py-16" style={{ backgroundColor: BRAND.colors.mid }}>
-        <div className="text-center mb-12">
-          <h2 className="text-white text-4xl font-bold mb-3">
-            Why Choose FixNow Mechanics?
-          </h2>
-          <p className="text-white/70 text-lg">
-            Professional mobile mechanic service you can trust
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <Card className="p-6 hover:scale-[1.02] transition-transform">
-            <div className="mb-4">
-              <div 
-                className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
-                style={{ backgroundColor: `${BRAND.colors.primary}20` }}
-              >
-                <Shield size={24} style={{ color: BRAND.colors.primary }} />
-              </div>
-              <h3 className="text-white font-bold text-lg mb-2">Transparent Pricing</h3>
-              <p className="text-white/70 text-sm">
-                Clear diagnostic fees based on distance. No hidden charges. £10 deducted from labour if repair proceeds.
-              </p>
-            </div>
-          </Card>
-
-          <Card className="p-6 hover:scale-[1.02] transition-transform">
-            <div className="mb-4">
-              <div 
-                className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
-                style={{ backgroundColor: `${BRAND.colors.primary}20` }}
-              >
-                <Clock size={24} style={{ color: BRAND.colors.primary }} />
-              </div>
-              <h3 className="text-white font-bold text-lg mb-2">Flexible Availability</h3>
-              <p className="text-white/70 text-sm">
-                Evening and weekend slots available. We work around your schedule, not the other way around.
-              </p>
-            </div>
-          </Card>
-
-          <Card className="p-6 hover:scale-[1.02] transition-transform">
-            <div className="mb-4">
-              <div 
-                className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
-                style={{ backgroundColor: `${BRAND.colors.primary}20` }}
-              >
-                <MapPin size={24} style={{ color: BRAND.colors.primary }} />
-              </div>
-              <h3 className="text-white font-bold text-lg mb-2">True Mobile Service</h3>
-              <p className="text-white/70 text-sm">
-                We come to your home, workplace, or anywhere within 45 miles of Hemel Hempstead. No towing needed.
-              </p>
-            </div>
-          </Card>
-
-          <Card className="p-6 hover:scale-[1.02] transition-transform">
-            <div className="mb-4">
-              <div 
-                className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
-                style={{ backgroundColor: `${BRAND.colors.primary}20` }}
-              >
-                <BadgeCheck size={24} style={{ color: BRAND.colors.primary }} />
-              </div>
-              <h3 className="text-white font-bold text-lg mb-2">Bring Your Own Parts</h3>
-              <p className="text-white/70 text-sm">
-                Happy to fit parts you've sourced yourself. Just pay labour - no markup on parts you supply.
-              </p>
-            </div>
-          </Card>
-
-          <Card className="p-6 hover:scale-[1.02] transition-transform">
-            <div className="mb-4">
-              <div 
-                className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
-                style={{ backgroundColor: `${BRAND.colors.primary}20` }}
-              >
-                <Wrench size={24} style={{ color: BRAND.colors.primary }} />
-              </div>
-              <h3 className="text-white font-bold text-lg mb-2">Professional Equipment</h3>
-              <p className="text-white/70 text-sm">
-                Full diagnostic tools and professional equipment. Same quality work as a garage, at your location.
-              </p>
-            </div>
-          </Card>
-
-          <Card className="p-6 hover:scale-[1.02] transition-transform">
-            <div className="mb-4">
-              <div 
-                className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
-                style={{ backgroundColor: `${BRAND.colors.primary}20` }}
-              >
-                <MessageCircle size={24} style={{ color: BRAND.colors.primary }} />
-              </div>
-              <h3 className="text-white font-bold text-lg mb-2">Quick Response</h3>
-              <p className="text-white/70 text-sm">
-                Fast quote turnaround and booking. Contact via phone, WhatsApp, or quote form - we respond quickly.
-              </p>
             </div>
           </Card>
         </div>
