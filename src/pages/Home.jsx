@@ -350,17 +350,17 @@ export default function Home() {
       </Section>
 
       {/* Services */}
-      <Section className="py-4 lg:py-16">
-        <div className="text-center mb-3 lg:mb-12">
-          <h2 className="text-white text-base lg:text-4xl font-bold mb-1 lg:mb-3">
+      <Section className="py-3 lg:py-16">
+        <div className="text-center mb-2 lg:mb-12">
+          <h2 className="text-white text-sm lg:text-4xl font-bold mb-1 lg:mb-3">
             Our Core Services
           </h2>
           <p className="hidden lg:block text-white/70 text-sm lg:text-lg max-w-3xl mx-auto mb-4 lg:mb-6">
             Specializing in major mechanical repairs and diagnostics. Fixed-price services with transparent pricing.
           </p>
 
-          {/* BYO Policy Callout */}
-          <Card className="inline-block bg-white/5 border-white/20 p-2 lg:p-4 max-w-2xl mx-4 lg:mx-0">
+          {/* BYO Policy Callout - Desktop Only */}
+          <Card className="hidden lg:inline-block bg-white/5 border-white/20 p-2 lg:p-4 max-w-2xl">
             <div className="flex items-center justify-center gap-2 text-white/90">
               <CheckCircle2 size={14} className="lg:w-5 lg:h-5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
               <p className="text-[10px] lg:text-sm font-medium">
@@ -370,8 +370,23 @@ export default function Home() {
           </Card>
         </div>
 
-        {/* Mobile: Compact single column layout */}
-        <div className="lg:hidden space-y-2">
+        {/* Mobile: Ultra-compact 2-column grid with minimal info */}
+        <div className="lg:hidden grid grid-cols-2 gap-2">
+          {SERVICES.map((service, i) => (
+            <Card key={service.slug} className="p-2">
+              <div className="text-center">
+                <div
+                  className="w-8 h-8 rounded-lg flex items-center justify-center mx-auto mb-1"
+                  style={{ backgroundColor: `${BRAND.colors.primary}20` }}
+                >
+                  {React.createElement(serviceIcons[i], { size: 16, style: { color: BRAND.colors.primary } })}
+                </div>
+                <h3 className="text-white font-bold text-[10px] mb-0.5 leading-tight">{service.name}</h3>
+                <p className="text-white/90 font-semibold text-[9px]" style={{ color: BRAND.colors.primary }}>from {service.price}</p>
+              </div>
+            </Card>
+          ))}
+        </div>
           {SERVICES.map((service, i) => (
             <ServiceCard
               key={service.slug}
@@ -392,8 +407,8 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Pricing Disclaimer - Mobile optimized */}
-        <div className="mt-3 lg:mt-8 text-center px-4 lg:px-0">
+        {/* Pricing Disclaimer - Hidden on mobile, desktop only */}
+        <div className="hidden lg:block mt-3 lg:mt-8 text-center px-4 lg:px-0">
           <Card className="inline-block bg-white/5 border-white/10 p-2 lg:p-4 max-w-3xl">
             <p className="text-white/60 text-[10px] lg:text-sm">
               *All prices are "from" and depend on your vehicle and distance from Hemel Hempstead. Exact pricing is confirmed in the booking form after you enter your postcode.
@@ -401,29 +416,29 @@ export default function Home() {
           </Card>
         </div>
 
-        <div className="mt-4 lg:mt-12 space-y-3 lg:space-y-4">
-          {/* Contact for Other Services */}
-          <Card className="p-3 lg:p-6 bg-gradient-to-r from-white/5 to-white/10 border-white/20 mx-4 lg:mx-0">
-            <div className="text-center space-y-2 lg:space-y-3">
-              <h3 className="text-white text-sm lg:text-xl font-bold">
+        {/* Contact for Other Services - More compact on mobile */}
+        <div className="mt-2 lg:mt-12">
+          <Card className="p-2 lg:p-6 bg-gradient-to-r from-white/5 to-white/10 border-white/20 mx-4 lg:mx-0">
+            <div className="text-center space-y-1 lg:space-y-3">
+              <h3 className="text-white text-xs lg:text-xl font-bold">
                 Need a Different Repair?
               </h3>
-              <p className="text-white/70 text-xs lg:text-sm max-w-2xl mx-auto leading-relaxed">
+              <p className="hidden lg:block text-white/70 text-xs lg:text-sm max-w-2xl mx-auto leading-relaxed">
                 We focus on major mechanical work like diagnostics, braking systems, suspension, and engine servicing.
                 For other repairs not listed above, please reach out via WhatsApp or phone to discuss your specific needs.
               </p>
-              <div className="flex flex-col sm:flex-row gap-2 lg:gap-3 justify-center pt-1 lg:pt-2">
+              <div className="flex gap-2 lg:gap-3 justify-center pt-0 lg:pt-2">
                 <LinkButton
                   variant="ghost"
                   icon={MessageCircle}
                   href={`https://wa.me/${BRAND.phoneIntl.replace('+', '')}?text=${encodeURIComponent('Hi! I need help with a repair not listed on your website')}`}
-                  className="min-w-[140px] lg:min-w-[180px] text-xs lg:text-sm py-2 lg:py-3"
+                  className="flex-1 lg:flex-initial lg:min-w-[180px] text-[10px] lg:text-sm py-1.5 lg:py-3"
                 >
-                  WhatsApp Us
+                  WhatsApp
                 </LinkButton>
-                <Link to="/estimate">
-                  <Button variant="primary" icon={Calculator} className="w-full sm:w-auto min-w-[140px] lg:min-w-[180px] text-xs lg:text-sm py-2 lg:py-3">
-                    Request Quote
+                <Link to="/estimate" className="flex-1 lg:flex-initial">
+                  <Button variant="primary" icon={Calculator} className="w-full lg:min-w-[180px] text-[10px] lg:text-sm py-1.5 lg:py-3">
+                    Get Quote
                   </Button>
                 </Link>
               </div>
@@ -547,8 +562,8 @@ export default function Home() {
         </Card>
       </Section>
 
-      {/* FAQ Section */}
-      <Section className="py-4 lg:py-16">
+      {/* FAQ Section - Desktop Only */}
+      <Section className="hidden lg:block py-4 lg:py-16">
         <div className="max-w-3xl mx-auto px-4 lg:px-0">
           <div className="text-center mb-3 lg:mb-12">
             <h2 className="text-white text-base lg:text-4xl font-bold mb-1 lg:mb-3">
@@ -624,44 +639,44 @@ export default function Home() {
       </Section>
 
       {/* CTA Section */}
-      <Section className="py-6 lg:py-16">
-        <Card className="p-6 lg:p-12 text-center bg-gradient-to-br from-white/10 to-white/5 border-2" style={{ borderColor: `${BRAND.colors.primary}40` }}>
+      <Section className="py-3 lg:py-16">
+        <Card className="p-4 lg:p-12 text-center bg-gradient-to-br from-white/10 to-white/5 border-2" style={{ borderColor: `${BRAND.colors.primary}40` }}>
           <div className="max-w-2xl mx-auto">
-            <h2 className="text-white text-xl lg:text-4xl font-bold mb-2 lg:mb-4">
+            <h2 className="text-white text-base lg:text-4xl font-bold mb-1 lg:mb-4">
               Need a Mobile Mechanic Today?
             </h2>
-            <p className="text-white/80 text-sm lg:text-lg mb-1 lg:mb-2">
+            <p className="hidden lg:block text-white/80 text-sm lg:text-lg mb-1 lg:mb-2">
               Get your free quote in under 2 minutes
             </p>
-            <p className="text-white/60 text-xs lg:text-sm mb-4 lg:mb-8">
+            <p className="text-white/60 text-[10px] lg:text-sm mb-2 lg:mb-8">
               ✅ No obligation • ✅ Instant confirmation • ✅ Professional service
             </p>
-            <div className="flex flex-col sm:flex-row gap-2 lg:gap-4 justify-center">
+            <div className="flex flex-col gap-1.5 lg:gap-4 justify-center">
               <Link to="/estimate">
-                <Button variant="primary" icon={Calculator} className="w-full sm:w-auto min-w-[160px] lg:min-w-[220px] text-sm lg:text-lg py-3 lg:py-6">
+                <Button variant="primary" icon={Calculator} className="w-full text-xs lg:text-lg py-2 lg:py-6">
                   Get Free Quote Now
                 </Button>
               </Link>
-              <div className="flex gap-2 lg:gap-3">
+              <div className="flex gap-1.5 lg:gap-3">
                 <LinkButton
                   variant="secondary"
                   icon={Phone}
                   href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`}
-                  className="flex-1 sm:flex-initial min-w-[100px] lg:min-w-[140px] text-xs lg:text-base py-3"
+                  className="flex-1 text-[10px] lg:text-base py-2 lg:py-3"
                 >
-                  {BRAND.phoneDisplay}
+                  Call
                 </LinkButton>
                 <LinkButton
                   variant="ghost"
                   icon={MessageCircle}
                   href={`https://wa.me/${BRAND.phoneIntl.replace('+', '')}?text=${BRAND.whatsappPrefill}`}
-                  className="flex-1 sm:flex-initial min-w-[100px] lg:min-w-[140px] text-xs lg:text-base py-3"
+                  className="flex-1 text-[10px] lg:text-base py-2 lg:py-3"
                 >
                   WhatsApp
                 </LinkButton>
               </div>
             </div>
-            <p className="text-white/40 text-[10px] lg:text-xs mt-3 lg:mt-6">
+            <p className="hidden lg:block text-white/40 text-[10px] lg:text-xs mt-3 lg:mt-6">
               New service launching in Hemel Hempstead • Available {BRAND.hoursDisplay}
             </p>
           </div>
