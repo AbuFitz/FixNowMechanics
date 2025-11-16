@@ -350,9 +350,9 @@ export default function Home() {
       </Section>
 
       {/* Services */}
-      <Section className="py-3 lg:py-16">
-        <div className="text-center mb-2 lg:mb-12">
-          <h2 className="text-white text-sm lg:text-4xl font-bold mb-1 lg:mb-3">
+      <Section className="py-4 lg:py-16">
+        <div className="text-center mb-3 lg:mb-12">
+          <h2 className="text-white text-lg lg:text-4xl font-bold mb-1 lg:mb-3">
             Our Core Services
           </h2>
           <p className="hidden lg:block text-white/70 text-sm lg:text-lg max-w-3xl mx-auto mb-4 lg:mb-6">
@@ -370,19 +370,39 @@ export default function Home() {
           </Card>
         </div>
 
-        {/* Mobile: Ultra-compact 2-column grid with minimal info */}
-        <div className="lg:hidden grid grid-cols-2 gap-2">
+        {/* Mobile: Clean single-column cards with proper spacing */}
+        <div className="lg:hidden space-y-3 px-4">
           {SERVICES.map((service, i) => (
-            <Card key={service.slug} className="p-2">
-              <div className="text-center">
+            <Card 
+              key={service.slug} 
+              className="overflow-hidden hover:border-yellow-500/40 transition-all"
+            >
+              <div className="flex items-start gap-3 p-3">
+                {/* Icon */}
                 <div
-                  className="w-8 h-8 rounded-lg flex items-center justify-center mx-auto mb-1"
+                  className="rounded-lg p-2 flex-shrink-0"
                   style={{ backgroundColor: `${BRAND.colors.primary}20` }}
                 >
-                  {React.createElement(serviceIcons[i], { size: 16, style: { color: BRAND.colors.primary } })}
+                  {React.createElement(serviceIcons[i], { size: 20, style: { color: BRAND.colors.primary } })}
                 </div>
-                <h3 className="text-white font-bold text-[10px] mb-0.5 leading-tight">{service.name}</h3>
-                <p className="text-white/90 font-semibold text-[9px]" style={{ color: BRAND.colors.primary }}>from {service.price}</p>
+                
+                {/* Content */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-start justify-between gap-2 mb-1">
+                    <h3 className="text-white font-bold text-sm leading-tight">
+                      {service.title}
+                    </h3>
+                    <span 
+                      className="text-sm font-bold flex-shrink-0"
+                      style={{ color: BRAND.colors.primary }}
+                    >
+                      {service.price}
+                    </span>
+                  </div>
+                  <p className="text-white/70 text-xs leading-relaxed">
+                    {service.desc}
+                  </p>
+                </div>
               </div>
             </Card>
           ))}
@@ -409,27 +429,27 @@ export default function Home() {
         </div>
 
         {/* Contact for Other Services - More compact on mobile */}
-        <div className="mt-2 lg:mt-12">
-          <Card className="p-2 lg:p-6 bg-gradient-to-r from-white/5 to-white/10 border-white/20 mx-4 lg:mx-0">
-            <div className="text-center space-y-1 lg:space-y-3">
-              <h3 className="text-white text-xs lg:text-xl font-bold">
+        <div className="mt-4 lg:mt-12 px-4 lg:px-0">
+          <Card className="p-3 lg:p-6 bg-gradient-to-r from-white/5 to-white/10 border-white/20">
+            <div className="text-center space-y-2 lg:space-y-3">
+              <h3 className="text-white text-sm lg:text-xl font-bold">
                 Need a Different Repair?
               </h3>
               <p className="hidden lg:block text-white/70 text-xs lg:text-sm max-w-2xl mx-auto leading-relaxed">
                 We focus on major mechanical work like diagnostics, braking systems, suspension, and engine servicing.
                 For other repairs not listed above, please reach out via WhatsApp or phone to discuss your specific needs.
               </p>
-              <div className="flex gap-2 lg:gap-3 justify-center pt-0 lg:pt-2">
+              <div className="flex gap-2 lg:gap-3 justify-center pt-1 lg:pt-2">
                 <LinkButton
                   variant="ghost"
                   icon={MessageCircle}
                   href={`https://wa.me/${BRAND.phoneIntl.replace('+', '')}?text=${encodeURIComponent('Hi! I need help with a repair not listed on your website')}`}
-                  className="flex-1 lg:flex-initial lg:min-w-[180px] text-[10px] lg:text-sm py-1.5 lg:py-3"
+                  className="flex-1 lg:flex-initial lg:min-w-[180px] text-xs lg:text-sm py-2 lg:py-3"
                 >
                   WhatsApp
                 </LinkButton>
                 <Link to="/estimate" className="flex-1 lg:flex-initial">
-                  <Button variant="primary" icon={Calculator} className="w-full lg:min-w-[180px] text-[10px] lg:text-sm py-1.5 lg:py-3">
+                  <Button variant="primary" icon={Calculator} className="w-full lg:min-w-[180px] text-xs lg:text-sm py-2 lg:py-3">
                     Get Quote
                   </Button>
                 </Link>
