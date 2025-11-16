@@ -387,14 +387,6 @@ export default function Home() {
             </Card>
           ))}
         </div>
-          {SERVICES.map((service, i) => (
-            <ServiceCard
-              key={service.slug}
-              service={service}
-              icon={serviceIcons[i]}
-            />
-          ))}
-        </div>
 
         {/* Desktop: Grid layout */}
         <div className="hidden lg:grid md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">

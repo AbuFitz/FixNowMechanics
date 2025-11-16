@@ -828,7 +828,7 @@ ${BRAND.tagline}
                   name="description"
                   value={formData.description}
                   onChange={handleChange}
-                  placeholder="Please describe: What symptoms are you experiencing? Any warning lights? Strange noises? When did it start? Any recent work done on the vehicle? If you have your own parts, mention that here."
+                  placeholder=""
                   rows={7}
                   error={errors.description}
                 />
