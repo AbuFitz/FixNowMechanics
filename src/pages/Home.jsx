@@ -24,11 +24,12 @@ function Pill({ icon: Icon, children }) {
 
 function BrandLogo({ name, logo, className = "" }) {
   return (
-    <div className={`flex items-center justify-center px-6 py-3 ${className}`}>
+    <div className={`flex items-center justify-center px-8 py-4 ${className}`}>
       <img 
         src={logo} 
         alt={name}
-        className="h-10 w-auto object-contain"
+        className="h-12 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
+        style={{ minWidth: '80px' }}
       />
     </div>
   );
@@ -247,7 +248,7 @@ export default function Home() {
         </div>
         
         {/* Infinite Scrolling Brands */}
-        <div className="relative overflow-hidden">
+        <div className="relative overflow-hidden py-4">
           <div className="flex animate-scroll-slow whitespace-nowrap">
             {/* First set */}
             <div className="flex items-center gap-12 px-4">
