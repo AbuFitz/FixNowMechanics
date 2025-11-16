@@ -20,6 +20,19 @@ body { background: var(--brand-dark); }
   }
 }
 
+@keyframes scroll-mobile {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 .animate-scroll-slow {
   animation: scroll-slow 30s linear infinite;
+}
+
+.animate-scroll-mobile {
+  animation: scroll-mobile 15s linear infinite;
 }

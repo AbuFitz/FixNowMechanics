@@ -23,14 +23,23 @@ function Pill({ icon: Icon, children }) {
 }
 
 function BrandLogo({ name, logo, className = "" }) {
+  const [imageError, setImageError] = React.useState(false);
+  
   return (
-    <div className={`flex items-center justify-center px-8 py-4 ${className}`}>
-      <img 
-        src={logo} 
-        alt={name}
-        className="h-12 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
-        style={{ minWidth: '80px' }}
-      />
+    <div className={`flex items-center justify-center px-4 sm:px-6 ${className}`}>
+      {!imageError && logo ? (
+        <img 
+          src={logo} 
+          alt={name}
+          className="h-8 sm:h-10 w-auto object-contain brightness-0 invert opacity-90"
+          style={{ minWidth: '60px', maxWidth: '140px' }}
+          onError={() => setImageError(true)}
+        />
+      ) : (
+        <span className="text-white/90 font-bold text-sm sm:text-base tracking-wider whitespace-nowrap">
+          {name}
+        </span>
+      )}
     </div>
   );
 }
@@ -248,10 +257,10 @@ export default function Home() {
         </div>
         
         {/* Infinite Scrolling Brands */}
-        <div className="relative overflow-hidden py-4">
-          <div className="flex animate-scroll-slow whitespace-nowrap">
+        <div className="relative overflow-hidden py-6">
+          <div className="flex animate-scroll-mobile sm:animate-scroll-slow whitespace-nowrap">
             {/* First set */}
-            <div className="flex items-center gap-12 px-4">
+            <div className="flex items-center gap-6 sm:gap-10 px-2">
               <BrandLogo name="Castrol" logo="/logos/castrol.svg" />
               <BrandLogo name="Mobil 1" logo="/logos/mobil.svg" />
               <BrandLogo name="Shell" logo="/logos/shell.svg" />
@@ -268,7 +277,7 @@ export default function Home() {
               <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" />
             </div>
             {/* Duplicate for seamless loop */}
-            <div className="flex items-center gap-12 px-4">
+            <div className="flex items-center gap-6 sm:gap-10 px-2">
               <BrandLogo name="Castrol" logo="/logos/castrol.svg" />
               <BrandLogo name="Mobil 1" logo="/logos/mobil.svg" />
               <BrandLogo name="Shell" logo="/logos/shell.svg" />
