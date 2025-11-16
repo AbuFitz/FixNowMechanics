@@ -22,6 +22,16 @@ function Pill({ icon: Icon, children }) {
   );
 }
 
+function BrandLogo({ name, className = "" }) {
+  return (
+    <div className={`flex items-center justify-center px-6 py-3 bg-white/5 rounded-lg border border-white/10 hover:border-white/20 transition-colors ${className}`}>
+      <span className="text-white/90 font-bold text-base tracking-wide whitespace-nowrap">
+        {name}
+      </span>
+    </div>
+  );
+}
+
 function ServiceCard({ service, icon: Icon }) {
   return (
     <Card className="group hover:scale-[1.02] transition-all duration-300 hover:border-yellow-500/30 overflow-hidden h-full">
@@ -238,34 +248,38 @@ export default function Home() {
         <div className="relative overflow-hidden">
           <div className="flex animate-scroll-slow whitespace-nowrap">
             {/* First set */}
-            <div className="flex items-center gap-12 px-6">
-              <span className="text-white/80 font-semibold text-lg">Castrol</span>
-              <span className="text-white/80 font-semibold text-lg">Mobil 1</span>
-              <span className="text-white/80 font-semibold text-lg">Shell Helix</span>
-              <span className="text-white/80 font-semibold text-lg">Bosch</span>
-              <span className="text-white/80 font-semibold text-lg">Mann Filter</span>
-              <span className="text-white/80 font-semibold text-lg">Brembo</span>
-              <span className="text-white/80 font-semibold text-lg">Textar</span>
-              <span className="text-white/80 font-semibold text-lg">Pagid</span>
-              <span className="text-white/80 font-semibold text-lg">Bilstein</span>
-              <span className="text-white/80 font-semibold text-lg">Eibach</span>
-              <span className="text-white/80 font-semibold text-lg">NGK</span>
-              <span className="text-white/80 font-semibold text-lg">Denso</span>
+            <div className="flex items-center gap-8 px-4">
+              <BrandLogo name="CASTROL" />
+              <BrandLogo name="MOBIL 1" />
+              <BrandLogo name="SHELL" />
+              <BrandLogo name="BOSCH" />
+              <BrandLogo name="MANN-FILTER" />
+              <BrandLogo name="BREMBO" />
+              <BrandLogo name="TEXTAR" />
+              <BrandLogo name="PAGID" />
+              <BrandLogo name="BILSTEIN" />
+              <BrandLogo name="EIBACH" />
+              <BrandLogo name="NGK" />
+              <BrandLogo name="DENSO" />
+              <BrandLogo name="LIQUI MOLY" />
+              <BrandLogo name="VALVOLINE" />
             </div>
             {/* Duplicate for seamless loop */}
-            <div className="flex items-center gap-12 px-6">
-              <span className="text-white/80 font-semibold text-lg">Castrol</span>
-              <span className="text-white/80 font-semibold text-lg">Mobil 1</span>
-              <span className="text-white/80 font-semibold text-lg">Shell Helix</span>
-              <span className="text-white/80 font-semibold text-lg">Bosch</span>
-              <span className="text-white/80 font-semibold text-lg">Mann Filter</span>
-              <span className="text-white/80 font-semibold text-lg">Brembo</span>
-              <span className="text-white/80 font-semibold text-lg">Textar</span>
-              <span className="text-white/80 font-semibold text-lg">Pagid</span>
-              <span className="text-white/80 font-semibold text-lg">Bilstein</span>
-              <span className="text-white/80 font-semibold text-lg">Eibach</span>
-              <span className="text-white/80 font-semibold text-lg">NGK</span>
-              <span className="text-white/80 font-semibold text-lg">Denso</span>
+            <div className="flex items-center gap-8 px-4">
+              <BrandLogo name="CASTROL" />
+              <BrandLogo name="MOBIL 1" />
+              <BrandLogo name="SHELL" />
+              <BrandLogo name="BOSCH" />
+              <BrandLogo name="MANN-FILTER" />
+              <BrandLogo name="BREMBO" />
+              <BrandLogo name="TEXTAR" />
+              <BrandLogo name="PAGID" />
+              <BrandLogo name="BILSTEIN" />
+              <BrandLogo name="EIBACH" />
+              <BrandLogo name="NGK" />
+              <BrandLogo name="DENSO" />
+              <BrandLogo name="LIQUI MOLY" />
+              <BrandLogo name="VALVOLINE" />
             </div>
           </div>
         </div>
