@@ -428,7 +428,7 @@ ${BRAND.tagline}
                     <strong className="text-white">✓ We'll contact you at:</strong> {formData.phone}
                   </p>
                   <p className="text-white/80 text-sm">
-                    <strong className="text-white">✓ Expected response:</strong> Within 2 hours (usually faster!)
+                    <strong className="text-white">✓ Expected response:</strong> Usually within a few hours
                   </p>
                   <p className="text-white/80 text-sm">
                     <strong className="text-white">✓ Service for:</strong> {formData.vehicleMake} {formData.vehicleModel}

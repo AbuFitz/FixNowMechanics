@@ -293,91 +293,107 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* Testimonials Section */}
+      {/* Why Choose Us Section */}
       <Section className="py-16" style={{ backgroundColor: BRAND.colors.mid }}>
         <div className="text-center mb-12">
           <h2 className="text-white text-4xl font-bold mb-3">
-            What Our Customers Say
+            Why Choose FixNow Mechanics?
           </h2>
           <p className="text-white/70 text-lg">
-            Real feedback from real customers across Hertfordshire
+            Professional mobile mechanic service you can trust
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          {/* Testimonial 1 */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           <Card className="p-6 hover:scale-[1.02] transition-transform">
             <div className="mb-4">
-              <div className="flex gap-1 mb-3">
-                {[...Array(5)].map((_, i) => (
-                  <span key={i} style={{ color: BRAND.colors.primary }}>★</span>
-                ))}
+              <div 
+                className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
+                style={{ backgroundColor: `${BRAND.colors.primary}20` }}
+              >
+                <Shield size={24} style={{ color: BRAND.colors.primary }} />
               </div>
-              <p className="text-white/80 text-sm italic mb-4">
-                "Brilliant service! Came to my work car park and fixed my brakes same day. Really transparent with pricing and showed me exactly what needed doing. Will definitely use again."
+              <h3 className="text-white font-bold text-lg mb-2">Transparent Pricing</h3>
+              <p className="text-white/70 text-sm">
+                Clear diagnostic fees based on distance. No hidden charges. £10 deducted from labour if repair proceeds.
               </p>
-            </div>
-            <div className="border-t border-white/10 pt-4">
-              <p className="text-white font-semibold text-sm">Sarah M.</p>
-              <p className="text-white/60 text-xs">Hemel Hempstead</p>
             </div>
           </Card>
 
-          {/* Testimonial 2 */}
           <Card className="p-6 hover:scale-[1.02] transition-transform">
             <div className="mb-4">
-              <div className="flex gap-1 mb-3">
-                {[...Array(5)].map((_, i) => (
-                  <span key={i} style={{ color: BRAND.colors.primary }}>★</span>
-                ))}
+              <div 
+                className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
+                style={{ backgroundColor: `${BRAND.colors.primary}20` }}
+              >
+                <Clock size={24} style={{ color: BRAND.colors.primary }} />
               </div>
-              <p className="text-white/80 text-sm italic mb-4">
-                "Had my car diagnosed at my house - fault found within 20 minutes. Much cheaper than the main dealer wanted to charge. Professional and knowledgeable mechanic."
+              <h3 className="text-white font-bold text-lg mb-2">Flexible Availability</h3>
+              <p className="text-white/70 text-sm">
+                Evening and weekend slots available. We work around your schedule, not the other way around.
               </p>
-            </div>
-            <div className="border-t border-white/10 pt-4">
-              <p className="text-white font-semibold text-sm">James R.</p>
-              <p className="text-white/60 text-xs">St Albans</p>
             </div>
           </Card>
 
-          {/* Testimonial 3 */}
           <Card className="p-6 hover:scale-[1.02] transition-transform">
             <div className="mb-4">
-              <div className="flex gap-1 mb-3">
-                {[...Array(5)].map((_, i) => (
-                  <span key={i} style={{ color: BRAND.colors.primary }}>★</span>
-                ))}
+              <div 
+                className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
+                style={{ backgroundColor: `${BRAND.colors.primary}20` }}
+              >
+                <MapPin size={24} style={{ color: BRAND.colors.primary }} />
               </div>
-              <p className="text-white/80 text-sm italic mb-4">
-                "Absolutely fantastic! Battery died on Sunday morning and they came out within 2 hours. New battery fitted and car running perfectly. Saved my weekend!"
+              <h3 className="text-white font-bold text-lg mb-2">True Mobile Service</h3>
+              <p className="text-white/70 text-sm">
+                We come to your home, workplace, or anywhere within 45 miles of Hemel Hempstead. No towing needed.
               </p>
             </div>
-            <div className="border-t border-white/10 pt-4">
-              <p className="text-white font-semibold text-sm">David K.</p>
-              <p className="text-white/60 text-xs">Luton</p>
+          </Card>
+
+          <Card className="p-6 hover:scale-[1.02] transition-transform">
+            <div className="mb-4">
+              <div 
+                className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
+                style={{ backgroundColor: `${BRAND.colors.primary}20` }}
+              >
+                <BadgeCheck size={24} style={{ color: BRAND.colors.primary }} />
+              </div>
+              <h3 className="text-white font-bold text-lg mb-2">Bring Your Own Parts</h3>
+              <p className="text-white/70 text-sm">
+                Happy to fit parts you've sourced yourself. Just pay labour - no markup on parts you supply.
+              </p>
             </div>
           </Card>
-        </div>
 
-        {/* Trust Badges */}
-        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-          <div>
-            <div className="text-3xl font-bold mb-1" style={{ color: BRAND.colors.primary }}>500+</div>
-            <div className="text-white/70 text-sm">Jobs Completed</div>
-          </div>
-          <div>
-            <div className="text-3xl font-bold mb-1" style={{ color: BRAND.colors.primary }}>4.9/5</div>
-            <div className="text-white/70 text-sm">Average Rating</div>
-          </div>
-          <div>
-            <div className="text-3xl font-bold mb-1" style={{ color: BRAND.colors.primary }}>2hr</div>
-            <div className="text-white/70 text-sm">Avg Response Time</div>
-          </div>
-          <div>
-            <div className="text-3xl font-bold mb-1" style={{ color: BRAND.colors.primary }}>100%</div>
-            <div className="text-white/70 text-sm">Mobile Service</div>
-          </div>
+          <Card className="p-6 hover:scale-[1.02] transition-transform">
+            <div className="mb-4">
+              <div 
+                className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
+                style={{ backgroundColor: `${BRAND.colors.primary}20` }}
+              >
+                <Wrench size={24} style={{ color: BRAND.colors.primary }} />
+              </div>
+              <h3 className="text-white font-bold text-lg mb-2">Professional Equipment</h3>
+              <p className="text-white/70 text-sm">
+                Full diagnostic tools and professional equipment. Same quality work as a garage, at your location.
+              </p>
+            </div>
+          </Card>
+
+          <Card className="p-6 hover:scale-[1.02] transition-transform">
+            <div className="mb-4">
+              <div 
+                className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
+                style={{ backgroundColor: `${BRAND.colors.primary}20` }}
+              >
+                <MessageCircle size={24} style={{ color: BRAND.colors.primary }} />
+              </div>
+              <h3 className="text-white font-bold text-lg mb-2">Quick Response</h3>
+              <p className="text-white/70 text-sm">
+                Fast quote turnaround and booking. Contact via phone, WhatsApp, or quote form - we respond quickly.
+              </p>
+            </div>
+          </Card>
         </div>
       </Section>
 
@@ -583,7 +599,7 @@ export default function Home() {
               Get your free quote in under 2 minutes
             </p>
             <p className="text-white/60 text-sm mb-8">
-              ✅ No obligation • ✅ Instant confirmation • ✅ Same-day service available
+              ✅ No obligation • ✅ Instant confirmation • ✅ Professional service
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/estimate">
@@ -611,7 +627,7 @@ export default function Home() {
               </div>
             </div>
             <p className="text-white/40 text-xs mt-6">
-              Average response time: 2 hours • Available {BRAND.hoursDisplay}
+              New service launching in Hemel Hempstead • Available {BRAND.hoursDisplay}
             </p>
           </div>
         </Card>
