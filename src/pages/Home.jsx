@@ -89,7 +89,7 @@ export default function Home() {
           {/* Mobile - Compact */}
           <div className="lg:hidden flex items-center justify-center gap-2 text-white/90 text-xs px-3">
             <Shield size={14} style={{ color: BRAND.colors.primary }} className="flex-shrink-0" />
-            <span className="font-medium">Callout fee applies outside 10km</span>
+            <span className="font-medium">Diagnostic visit £15-£25 based on distance</span>
           </div>
         </Section>
       </div>
@@ -137,7 +137,34 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="hidden lg:flex flex-col sm:flex-row gap-4 pt-4">
+              {/* Mobile CTA Buttons */}
+              <div className="lg:hidden flex flex-col gap-3 pt-4">
+                <Link to="/estimate" className="w-full">
+                  <Button variant="primary" className="w-full" icon={Calculator}>
+                    Get Free Quote
+                  </Button>
+                </Link>
+                <div className="flex gap-3">
+                  <LinkButton
+                    variant="secondary"
+                    icon={Phone}
+                    href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`}
+                    className="flex-1"
+                  >
+                    Call Now
+                  </LinkButton>
+                  <LinkButton
+                    variant="ghost"
+                    icon={MessageCircle}
+                    href={`https://wa.me/${BRAND.phoneIntl.replace('+', '')}?text=${BRAND.whatsappPrefill}`}
+                    className="flex-1"
+                  >
+                    WhatsApp
+                  </LinkButton>
+                </div>
+              </div>
+
+              {/* Desktop CTA Buttons */}
                 <Link to="/estimate" className="flex-1 sm:flex-initial">
                   <Button variant="primary" className="w-full" icon={Calculator}>
                     Get Quote
@@ -266,6 +293,94 @@ export default function Home() {
         </div>
       </Section>
 
+      {/* Testimonials Section */}
+      <Section className="py-16" style={{ backgroundColor: BRAND.colors.mid }}>
+        <div className="text-center mb-12">
+          <h2 className="text-white text-4xl font-bold mb-3">
+            What Our Customers Say
+          </h2>
+          <p className="text-white/70 text-lg">
+            Real feedback from real customers across Hertfordshire
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-6">
+          {/* Testimonial 1 */}
+          <Card className="p-6 hover:scale-[1.02] transition-transform">
+            <div className="mb-4">
+              <div className="flex gap-1 mb-3">
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} style={{ color: BRAND.colors.primary }}>★</span>
+                ))}
+              </div>
+              <p className="text-white/80 text-sm italic mb-4">
+                "Brilliant service! Came to my work car park and fixed my brakes same day. Really transparent with pricing and showed me exactly what needed doing. Will definitely use again."
+              </p>
+            </div>
+            <div className="border-t border-white/10 pt-4">
+              <p className="text-white font-semibold text-sm">Sarah M.</p>
+              <p className="text-white/60 text-xs">Hemel Hempstead</p>
+            </div>
+          </Card>
+
+          {/* Testimonial 2 */}
+          <Card className="p-6 hover:scale-[1.02] transition-transform">
+            <div className="mb-4">
+              <div className="flex gap-1 mb-3">
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} style={{ color: BRAND.colors.primary }}>★</span>
+                ))}
+              </div>
+              <p className="text-white/80 text-sm italic mb-4">
+                "Had my car diagnosed at my house - fault found within 20 minutes. Much cheaper than the main dealer wanted to charge. Professional and knowledgeable mechanic."
+              </p>
+            </div>
+            <div className="border-t border-white/10 pt-4">
+              <p className="text-white font-semibold text-sm">James R.</p>
+              <p className="text-white/60 text-xs">St Albans</p>
+            </div>
+          </Card>
+
+          {/* Testimonial 3 */}
+          <Card className="p-6 hover:scale-[1.02] transition-transform">
+            <div className="mb-4">
+              <div className="flex gap-1 mb-3">
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} style={{ color: BRAND.colors.primary }}>★</span>
+                ))}
+              </div>
+              <p className="text-white/80 text-sm italic mb-4">
+                "Absolutely fantastic! Battery died on Sunday morning and they came out within 2 hours. New battery fitted and car running perfectly. Saved my weekend!"
+              </p>
+            </div>
+            <div className="border-t border-white/10 pt-4">
+              <p className="text-white font-semibold text-sm">David K.</p>
+              <p className="text-white/60 text-xs">Luton</p>
+            </div>
+          </Card>
+        </div>
+
+        {/* Trust Badges */}
+        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          <div>
+            <div className="text-3xl font-bold mb-1" style={{ color: BRAND.colors.primary }}>500+</div>
+            <div className="text-white/70 text-sm">Jobs Completed</div>
+          </div>
+          <div>
+            <div className="text-3xl font-bold mb-1" style={{ color: BRAND.colors.primary }}>4.9/5</div>
+            <div className="text-white/70 text-sm">Average Rating</div>
+          </div>
+          <div>
+            <div className="text-3xl font-bold mb-1" style={{ color: BRAND.colors.primary }}>2hr</div>
+            <div className="text-white/70 text-sm">Avg Response Time</div>
+          </div>
+          <div>
+            <div className="text-3xl font-bold mb-1" style={{ color: BRAND.colors.primary }}>100%</div>
+            <div className="text-white/70 text-sm">Mobile Service</div>
+          </div>
+        </div>
+      </Section>
+
       {/* About Section with Map */}
       <Section className="py-16">
         <Card className="p-8 md:p-12">
@@ -381,37 +496,123 @@ export default function Home() {
         </Card>
       </Section>
 
+      {/* FAQ Section */}
+      <Section className="py-16">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-white text-4xl font-bold mb-3">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-white/70 text-lg">
+              Quick answers to common questions
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            <Card className="p-6">
+              <h3 className="text-white font-bold mb-2 flex items-center gap-2">
+                <span style={{ color: BRAND.colors.primary }}>Q:</span>
+                How much is your diagnostic visit?
+              </h3>
+              <p className="text-white/80 text-sm pl-6">
+                Our diagnostic visit costs £15–£25 depending on your distance from Hemel Hempstead. This includes travel, OBD scan, and initial fault checks. The exact price is confirmed when you enter your postcode.
+              </p>
+            </Card>
+
+            <Card className="p-6">
+              <h3 className="text-white font-bold mb-2 flex items-center gap-2">
+                <span style={{ color: BRAND.colors.primary }}>Q:</span>
+                Do you charge extra if you fix my car?
+              </h3>
+              <p className="text-white/80 text-sm pl-6">
+                No! If we carry out paid repair work during the same visit, £10 of your diagnostic fee is deducted from the labour, so you're not paying twice.
+              </p>
+            </Card>
+
+            <Card className="p-6">
+              <h3 className="text-white font-bold mb-2 flex items-center gap-2">
+                <span style={{ color: BRAND.colors.primary }}>Q:</span>
+                Can I supply my own parts?
+              </h3>
+              <p className="text-white/80 text-sm pl-6">
+                Absolutely! We're happy to fit parts you provide. Just mention it when you get your quote, and we'll confirm the labour cost.
+              </p>
+            </Card>
+
+            <Card className="p-6">
+              <h3 className="text-white font-bold mb-2 flex items-center gap-2">
+                <span style={{ color: BRAND.colors.primary }}>Q:</span>
+                What areas do you cover?
+              </h3>
+              <p className="text-white/80 text-sm pl-6">
+                We cover up to 45 miles from Hemel Hempstead, including St Albans, Watford, Luton, Aylesbury, and North London. Enter your postcode in the quote form to check if we cover your area.
+              </p>
+            </Card>
+
+            <Card className="p-6">
+              <h3 className="text-white font-bold mb-2 flex items-center gap-2">
+                <span style={{ color: BRAND.colors.primary }}>Q:</span>
+                How quickly can you come out?
+              </h3>
+              <p className="text-white/80 text-sm pl-6">
+                We typically respond within 2 hours and can often attend same day or next day depending on our schedule and your urgency.
+              </p>
+            </Card>
+
+            <Card className="p-6">
+              <h3 className="text-white font-bold mb-2 flex items-center gap-2">
+                <span style={{ color: BRAND.colors.primary }}>Q:</span>
+                What types of repairs can you do at my location?
+              </h3>
+              <p className="text-white/80 text-sm pl-6">
+                We specialize in diagnostics, brakes, batteries, oil services, and suspension work. Some complex jobs requiring specialist equipment may need a workshop, but we'll let you know upfront.
+              </p>
+            </Card>
+          </div>
+        </div>
+      </Section>
+
       {/* CTA Section */}
       <Section className="py-16">
-        <Card className="p-12 text-center bg-gradient-to-br from-white/10 to-white/5">
-          <h2 className="text-white text-3xl font-bold mb-4">
-            Ready to Get Started?
-          </h2>
-          <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
-            Get your free quote or call us directly. We're here to help!
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/estimate">
-              <Button variant="primary" icon={Calculator} className="w-full sm:w-auto min-w-[200px]">
-                Get Quote
-              </Button>
-            </Link>
-            <LinkButton
-              variant="secondary"
-              icon={Phone}
-              href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`}
-              className="w-full sm:w-auto min-w-[200px]"
-            >
-              {BRAND.phoneDisplay}
-            </LinkButton>
-            <LinkButton
-              variant="ghost"
-              icon={MessageCircle}
-              href={`https://wa.me/${BRAND.phoneIntl.replace('+', '')}?text=${BRAND.whatsappPrefill}`}
-              className="w-full sm:w-auto min-w-[200px]"
-            >
-              WhatsApp
-            </LinkButton>
+        <Card className="p-12 text-center bg-gradient-to-br from-white/10 to-white/5 border-2" style={{ borderColor: `${BRAND.colors.primary}40` }}>
+          <div className="max-w-2xl mx-auto">
+            <h2 className="text-white text-3xl lg:text-4xl font-bold mb-4">
+              Need a Mobile Mechanic Today?
+            </h2>
+            <p className="text-white/80 text-lg mb-2">
+              Get your free quote in under 2 minutes
+            </p>
+            <p className="text-white/60 text-sm mb-8">
+              ✅ No obligation • ✅ Instant confirmation • ✅ Same-day service available
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to="/estimate">
+                <Button variant="primary" icon={Calculator} className="w-full sm:w-auto min-w-[220px] text-lg py-6">
+                  Get Free Quote Now
+                </Button>
+              </Link>
+              <div className="flex gap-3">
+                <LinkButton
+                  variant="secondary"
+                  icon={Phone}
+                  href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`}
+                  className="flex-1 sm:flex-initial min-w-[140px]"
+                >
+                  {BRAND.phoneDisplay}
+                </LinkButton>
+                <LinkButton
+                  variant="ghost"
+                  icon={MessageCircle}
+                  href={`https://wa.me/${BRAND.phoneIntl.replace('+', '')}?text=${BRAND.whatsappPrefill}`}
+                  className="flex-1 sm:flex-initial min-w-[140px]"
+                >
+                  WhatsApp
+                </LinkButton>
+              </div>
+            </div>
+            <p className="text-white/40 text-xs mt-6">
+              Average response time: 2 hours • Available {BRAND.hoursDisplay}
+            </p>
           </div>
         </Card>
       </Section>

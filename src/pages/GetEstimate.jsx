@@ -171,11 +171,14 @@ export default function GetEstimate() {
         }
         break;
       case 2:
-        // Vehicle info is optional
+        // Make and model required for accurate quotes
+        if (!formData.vehicleMake.trim()) newErrors.vehicleMake = 'Make is required for accurate quotes';
+        if (!formData.vehicleModel.trim()) newErrors.vehicleModel = 'Model is required for accurate quotes';
         break;
       case 3:
         if (!formData.postcode.trim()) newErrors.postcode = 'Postcode is required';
         if (!formData.addressLine1.trim()) newErrors.addressLine1 = 'Address is required';
+        if (!formData.city.trim()) newErrors.city = 'City/Town is required';
         break;
       case 4:
         if (!formData.serviceType) newErrors.serviceType = 'Please select a service';
@@ -259,10 +262,10 @@ Email: ${formData.email}
 🚗 VEHICLE INFORMATION
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-${formData.vehicleReg ? `Registration: ${formData.vehicleReg}` : ''}
-Make: ${formData.vehicleMake || 'Not provided'}
-Model: ${formData.vehicleModel || 'Not provided'}
-Year: ${formData.vehicleYear || 'Not provided'}
+Make: ${formData.vehicleMake}
+Model: ${formData.vehicleModel}
+${formData.vehicleYear ? `Year: ${formData.vehicleYear}` : ''}
+${formData.vehicleReg ? `Registration: ${formData.vehicleReg}` : 'Registration: Not provided'}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📍 LOCATION
@@ -410,28 +413,33 @@ ${BRAND.tagline}
                   className="text-3xl font-bold"
                   style={{ color: BRAND.colors.primary }}
                 >
-                  Thank You, {formData.name}
+                  Quote Request Received!
                 </h2>
 
                 <p className="text-white/90 text-lg">
-                  Your quote request has been received successfully.
+                  Thank you, {formData.name}! We'll get back to you shortly.
                 </p>
 
                 <div className="bg-white/5 border border-white/10 rounded-lg p-6 text-left space-y-3">
                   <p className="text-white/80 text-sm">
-                    <strong className="text-white">Confirmation sent to:</strong> {formData.email}
+                    <strong className="text-white">✓ Confirmation sent to:</strong> {formData.email}
                   </p>
                   <p className="text-white/80 text-sm">
-                    <strong className="text-white">We'll contact you at:</strong> {formData.phone}
+                    <strong className="text-white">✓ We'll contact you at:</strong> {formData.phone}
                   </p>
                   <p className="text-white/80 text-sm">
-                    <strong className="text-white">Response time:</strong> Within 2 hours
+                    <strong className="text-white">✓ Expected response:</strong> Within 2 hours (usually faster!)
+                  </p>
+                  <p className="text-white/80 text-sm">
+                    <strong className="text-white">✓ Service for:</strong> {formData.vehicleMake} {formData.vehicleModel}
                   </p>
                 </div>
 
-                <p className="text-white/70 text-sm">
-                  We'll review your request and provide a detailed quote via phone or WhatsApp.
-                </p>
+                <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4">
+                  <p className="text-blue-300 text-sm">
+                    <strong>What happens next?</strong> We'll review your request and send you a detailed quote via phone or WhatsApp. If you need urgent assistance, call us directly!
+                  </p>
+                </div>
 
                 {/* Quick Actions */}
                 <div className="pt-4 space-y-3">
@@ -615,44 +623,48 @@ ${BRAND.tagline}
                 {/* Info message */}
                 <Card className="bg-blue-500/10 border-blue-500/30 p-4">
                   <p className="text-blue-300 text-sm">
-                    <strong>Note:</strong> Please enter your vehicle details below. Registration number is optional but helps us prepare better.
+                    <strong>Vehicle Details:</strong> Make and model help us prepare the right tools and parts. Registration is optional but helpful for our records.
                   </p>
                 </Card>
 
-                <Input
-                  label="Registration Number (Optional)"
-                  name="vehicleReg"
-                  value={formData.vehicleReg}
-                  onChange={handleChange}
-                  placeholder="AB12 CDE"
-                  icon={Car}
-                  className="uppercase"
-                />
-
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid sm:grid-cols-2 gap-4">
                   <Input
-                    label="Make"
+                    label="Make *"
                     name="vehicleMake"
                     value={formData.vehicleMake}
                     onChange={handleChange}
-                    placeholder="Ford"
+                    placeholder="e.g. Ford, BMW, Vauxhall"
+                    icon={Car}
+                    error={errors.vehicleMake}
                   />
                   <Input
-                    label="Model"
+                    label="Model *"
                     name="vehicleModel"
                     value={formData.vehicleModel}
                     onChange={handleChange}
-                    placeholder="Focus"
+                    placeholder="e.g. Focus, 320i, Astra"
+                    error={errors.vehicleModel}
                   />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
                   <Input
-                    label="Year"
+                    label="Year (Optional)"
                     name="vehicleYear"
                     type="number"
                     value={formData.vehicleYear}
                     onChange={handleChange}
-                    placeholder="2019"
+                    placeholder="e.g. 2019"
                     min="1980"
                     max={new Date().getFullYear() + 1}
+                  />
+                  <Input
+                    label="Registration (Optional)"
+                    name="vehicleReg"
+                    value={formData.vehicleReg}
+                    onChange={handleChange}
+                    placeholder="AB12 CDE"
+                    className="uppercase"
                   />
                 </div>
               </div>
@@ -756,11 +768,11 @@ ${BRAND.tagline}
                   placeholder="Apartment, suite, etc. (optional)"
                 />
                 <Input
-                  label="City *"
+                  label="City/Town *"
                   name="city"
                   value={formData.city}
                   onChange={handleChange}
-                  placeholder="Hemel Hempstead"
+                  placeholder="e.g. Hemel Hempstead"
                   icon={MapPin}
                   error={errors.city}
                 />
@@ -816,10 +828,16 @@ ${BRAND.tagline}
                   name="description"
                   value={formData.description}
                   onChange={handleChange}
-                  placeholder="Please provide details about the issue, symptoms, or services needed. If bringing your own parts, please mention that here."
-                  rows={6}
+                  placeholder="Please describe: What symptoms are you experiencing? Any warning lights? Strange noises? When did it start? Any recent work done on the vehicle? If you have your own parts, mention that here."
+                  rows={7}
                   error={errors.description}
                 />
+
+                <Card className="bg-white/5 border-white/10 p-3">
+                  <p className="text-white/60 text-xs">
+                    💡 <strong>Tip:</strong> The more detail you provide, the better we can prepare and give you an accurate quote!
+                  </p>
+                </Card>
               </div>
             )}
 
