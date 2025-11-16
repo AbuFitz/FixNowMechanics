@@ -22,18 +22,30 @@ function Pill({ icon: Icon, children }) {
   );
 }
 
-function BrandLogo({ name, logo, className = "" }) {
+function BrandLogo({ name, className = "" }) {
+  // Simple colored badges with brand-appropriate styling
+  const brandStyles = {
+    'CASTROL': 'bg-green-600/20 border-green-500/30 text-green-100',
+    'MOBIL 1': 'bg-blue-600/20 border-blue-500/30 text-blue-100',
+    'SHELL': 'bg-yellow-600/20 border-yellow-500/30 text-yellow-100',
+    'BOSCH': 'bg-blue-600/20 border-blue-500/30 text-blue-100',
+    'MANN-FILTER': 'bg-red-600/20 border-red-500/30 text-red-100',
+    'BREMBO': 'bg-red-600/20 border-red-500/30 text-red-100',
+    'TEXTAR': 'bg-gray-600/20 border-gray-500/30 text-gray-100',
+    'PAGID': 'bg-orange-600/20 border-orange-500/30 text-orange-100',
+    'BILSTEIN': 'bg-yellow-600/20 border-yellow-500/30 text-yellow-100',
+    'EIBACH': 'bg-red-600/20 border-red-500/30 text-red-100',
+    'NGK': 'bg-blue-600/20 border-blue-500/30 text-blue-100',
+    'DENSO': 'bg-red-600/20 border-red-500/30 text-red-100',
+    'LIQUI MOLY': 'bg-red-600/20 border-red-500/30 text-red-100',
+    'VALVOLINE': 'bg-blue-600/20 border-blue-500/30 text-blue-100',
+  };
+
+  const colorClass = brandStyles[name] || 'bg-white/5 border-white/10 text-white/90';
+
   return (
-    <div className={`flex items-center justify-center gap-3 px-6 py-3 bg-white/5 rounded-lg border border-white/10 hover:border-white/20 transition-colors min-w-[140px] ${className}`}>
-      {logo && (
-        <img 
-          src={logo} 
-          alt={name}
-          className="h-8 w-auto object-contain brightness-0 invert opacity-90"
-          onError={(e) => { e.target.style.display = 'none'; }}
-        />
-      )}
-      <span className="text-white/90 font-bold text-sm tracking-wide whitespace-nowrap">
+    <div className={`flex items-center justify-center gap-3 px-8 py-4 rounded-lg border-2 hover:scale-105 transition-all min-w-[160px] ${colorClass} ${className}`}>
+      <span className="font-black text-base tracking-wider whitespace-nowrap drop-shadow-lg">
         {name}
       </span>
     </div>
@@ -256,38 +268,38 @@ export default function Home() {
         <div className="relative overflow-hidden">
           <div className="flex animate-scroll-slow whitespace-nowrap">
             {/* First set */}
-            <div className="flex items-center gap-8 px-4">
-              <BrandLogo name="CASTROL" logo="https://logo.clearbit.com/castrol.com" />
-              <BrandLogo name="MOBIL 1" logo="https://logo.clearbit.com/mobil.com" />
-              <BrandLogo name="SHELL" logo="https://logo.clearbit.com/shell.com" />
-              <BrandLogo name="BOSCH" logo="https://logo.clearbit.com/bosch.com" />
-              <BrandLogo name="MANN-FILTER" logo="https://logo.clearbit.com/mann-hummel.com" />
-              <BrandLogo name="BREMBO" logo="https://logo.clearbit.com/brembo.com" />
+            <div className="flex items-center gap-6 px-4">
+              <BrandLogo name="CASTROL" />
+              <BrandLogo name="MOBIL 1" />
+              <BrandLogo name="SHELL" />
+              <BrandLogo name="BOSCH" />
+              <BrandLogo name="MANN-FILTER" />
+              <BrandLogo name="BREMBO" />
               <BrandLogo name="TEXTAR" />
               <BrandLogo name="PAGID" />
               <BrandLogo name="BILSTEIN" />
-              <BrandLogo name="EIBACH" logo="https://logo.clearbit.com/eibach.com" />
-              <BrandLogo name="NGK" logo="https://logo.clearbit.com/ngkntk.co.jp" />
-              <BrandLogo name="DENSO" logo="https://logo.clearbit.com/denso.com" />
-              <BrandLogo name="LIQUI MOLY" logo="https://logo.clearbit.com/liqui-moly.com" />
-              <BrandLogo name="VALVOLINE" logo="https://logo.clearbit.com/valvoline.com" />
+              <BrandLogo name="EIBACH" />
+              <BrandLogo name="NGK" />
+              <BrandLogo name="DENSO" />
+              <BrandLogo name="LIQUI MOLY" />
+              <BrandLogo name="VALVOLINE" />
             </div>
             {/* Duplicate for seamless loop */}
-            <div className="flex items-center gap-8 px-4">
-              <BrandLogo name="CASTROL" logo="https://logo.clearbit.com/castrol.com" />
-              <BrandLogo name="MOBIL 1" logo="https://logo.clearbit.com/mobil.com" />
-              <BrandLogo name="SHELL" logo="https://logo.clearbit.com/shell.com" />
-              <BrandLogo name="BOSCH" logo="https://logo.clearbit.com/bosch.com" />
-              <BrandLogo name="MANN-FILTER" logo="https://logo.clearbit.com/mann-hummel.com" />
-              <BrandLogo name="BREMBO" logo="https://logo.clearbit.com/brembo.com" />
+            <div className="flex items-center gap-6 px-4">
+              <BrandLogo name="CASTROL" />
+              <BrandLogo name="MOBIL 1" />
+              <BrandLogo name="SHELL" />
+              <BrandLogo name="BOSCH" />
+              <BrandLogo name="MANN-FILTER" />
+              <BrandLogo name="BREMBO" />
               <BrandLogo name="TEXTAR" />
               <BrandLogo name="PAGID" />
               <BrandLogo name="BILSTEIN" />
-              <BrandLogo name="EIBACH" logo="https://logo.clearbit.com/eibach.com" />
-              <BrandLogo name="NGK" logo="https://logo.clearbit.com/ngkntk.co.jp" />
-              <BrandLogo name="DENSO" logo="https://logo.clearbit.com/denso.com" />
-              <BrandLogo name="LIQUI MOLY" logo="https://logo.clearbit.com/liqui-moly.com" />
-              <BrandLogo name="VALVOLINE" logo="https://logo.clearbit.com/valvoline.com" />
+              <BrandLogo name="EIBACH" />
+              <BrandLogo name="NGK" />
+              <BrandLogo name="DENSO" />
+              <BrandLogo name="LIQUI MOLY" />
+              <BrandLogo name="VALVOLINE" />
             </div>
           </div>
         </div>
