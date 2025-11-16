@@ -10,8 +10,8 @@ export const BRAND = {
   ),
   baseArea: "Hemel Hempstead, HP2 7DE",
   baseCityCoords: {
-    lat: 51.7519,
-    lng: -0.4723,
+    lat: 51.762313,
+    lng: -0.439382,
     city: "Hemel Hempstead"
   },
   serviceAreas: [

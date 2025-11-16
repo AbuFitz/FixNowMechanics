@@ -80,9 +80,9 @@ export async function lookupPostcode(postcode) {
 
     const data = await response.json();
 
-    // Hemel Hempstead coordinates (HP1/HP2/HP3 area)
-    const hemelLat = 51.7519;
-    const hemelLon = -0.4723;
+    // Hemel Hempstead coordinates (HP2 7DE - exact base location)
+    const hemelLat = 51.762313;
+    const hemelLon = -0.439382;
 
     // Calculate distance from Hemel Hempstead in miles
     const distanceMiles = calculateDistance(

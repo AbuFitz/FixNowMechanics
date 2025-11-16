@@ -18,8 +18,8 @@ const STEPS = [
   { id: 5, title: 'Review & Submit', icon: CheckCircle2 },
 ];
 
-const BASE_LAT = BRAND.baseCityCoords.lat;
-const BASE_LON = BRAND.baseCityCoords.lng;
+const BASE_LAT = 51.762313; // HP2 7DE exact coordinates
+const BASE_LON = -0.439382;
 
 // Calculate distance between two coordinates using Haversine formula
 function calculateDistance(lat1, lon1, lat2, lon2) {
@@ -65,6 +65,11 @@ export default function GetEstimate() {
 
   const [errors, setErrors] = useState({});
   const formRef = useRef(null);
+
+  // Scroll to top on initial mount
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

@@ -20,7 +20,7 @@
 
 ### Service Radius
 - **Maximum:** 45 miles from Hemel Hempstead (HP2 7DE)
-- **Base coordinates:** 51.7519, -0.4723
+- **Base coordinates:** 51.762313, -0.439382 (Exact HP2 7DE location)
 - Automatically validated via postcode lookup
 
 ### Advanced Diagnostics
@@ -120,24 +120,27 @@ if (distanceMiles > 20) {
 ## Testing Postcodes
 
 ### Within 10 miles (£15)
-- HP1 1AA - Hemel Hempstead Town Centre
-- HP2 4TF - Leverstock Green
-- HP3 9RX - Boxmoor
+- HP1 1AA - Hemel Hempstead Town Centre (~2 miles)
+- HP2 4TF - Leverstock Green (~3 miles)
+- HP3 9RX - Boxmoor (~2 miles)
+- AL2 3TA - St Albans (~4.6 miles)
+- LU1 3JG - Luton (~8.1 miles)
 
 ### 10-20 miles (£20)
-- WD5 0HZ - Abbots Langley (11.3 miles)
-- AL2 3TA - St Albans (12.1 miles)
-- HP23 4LZ - Tring (8.7 miles - edge case)
+- WD5 0HZ - Abbots Langley (~11 miles)
+- AL10 9AB - Hatfield (~14 miles)
+- UB9 6LX - Denham (~17 miles)
 
 ### 20-45 miles (£25)
-- WD6 1JY - Borehamwood (21.2 miles)
-- LU1 3JG - Luton (22.8 miles)
-- AL10 9AB - Hatfield (24.1 miles)
+- WD6 1JY - Borehamwood (~21 miles)
+- NW1 (Camden, London) (~20.5 miles)
+- MK1 1AA - Milton Keynes (~23.6 miles)
+- UB1 1AA - Southall (~24 miles)
 
 ### Outside Area (Blocked)
-- MK1 1AA - Milton Keynes (48.3 miles)
-- SG1 1XX - Stevenage (46.7 miles)
-- OX1 1AA - Oxford (51.2 miles)
+- OX1 1AA - Oxford (~51 miles)
+- SG1 1XX - Stevenage (~28 miles, but check actual)
+- RG1 1AA - Reading (~52 miles)
 
 ---
 

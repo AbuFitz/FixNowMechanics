@@ -17,6 +17,11 @@ export default function Quote() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
 
+  // Scroll to top when component mounts
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
   const [formData, setFormData] = useState({
     // Personal Info
     name: '',
