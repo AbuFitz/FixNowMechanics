@@ -445,43 +445,55 @@ export default function Home() {
           <div className="flex animate-scroll-mobile sm:animate-scroll-slow">
             <div className="flex items-center gap-0 flex-shrink-0">
               <BrandLogo name="Brembo" logo="/logos/brembo.png" />
-              <BrandLogo name="Castrol" logo="/logos/castrol.png" />
+              <BrandLogo name="Castrol" logo="/logos/castrol.svg" />
               <BrandLogo name="Liqui Moly" logo="/logos/liquimoly.png" />
               <BrandLogo name="Mann" logo="/logos/mann.svg" />
               <BrandLogo name="Mobil" logo="/logos/mobil.svg" />
               <BrandLogo name="Pagid" logo="/logos/pagid.svg" />
               <BrandLogo name="Textar" logo="/logos/textar.svg" />
               <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" />
+              <BrandLogo name="Bilstein" logo="/logos/bilstein.svg" />
+              <BrandLogo name="Bosch" logo="/logos/bosch.svg" />
+              <BrandLogo name="Eibach" logo="/logos/eibach.svg" />
             </div>
             <div className="flex items-center gap-0 flex-shrink-0">
               <BrandLogo name="Brembo" logo="/logos/brembo.png" />
-              <BrandLogo name="Castrol" logo="/logos/castrol.png" />
+              <BrandLogo name="Castrol" logo="/logos/castrol.svg" />
               <BrandLogo name="Liqui Moly" logo="/logos/liquimoly.png" />
               <BrandLogo name="Mann" logo="/logos/mann.svg" />
               <BrandLogo name="Mobil" logo="/logos/mobil.svg" />
               <BrandLogo name="Pagid" logo="/logos/pagid.svg" />
               <BrandLogo name="Textar" logo="/logos/textar.svg" />
               <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" />
+              <BrandLogo name="Bilstein" logo="/logos/bilstein.svg" />
+              <BrandLogo name="Bosch" logo="/logos/bosch.svg" />
+              <BrandLogo name="Eibach" logo="/logos/eibach.svg" />
             </div>
             <div className="flex items-center gap-0 flex-shrink-0">
               <BrandLogo name="Brembo" logo="/logos/brembo.png" />
-              <BrandLogo name="Castrol" logo="/logos/castrol.png" />
+              <BrandLogo name="Castrol" logo="/logos/castrol.svg" />
               <BrandLogo name="Liqui Moly" logo="/logos/liquimoly.png" />
               <BrandLogo name="Mann" logo="/logos/mann.svg" />
               <BrandLogo name="Mobil" logo="/logos/mobil.svg" />
               <BrandLogo name="Pagid" logo="/logos/pagid.svg" />
               <BrandLogo name="Textar" logo="/logos/textar.svg" />
               <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" />
+              <BrandLogo name="Bilstein" logo="/logos/bilstein.svg" />
+              <BrandLogo name="Bosch" logo="/logos/bosch.svg" />
+              <BrandLogo name="Eibach" logo="/logos/eibach.svg" />
             </div>
             <div className="flex items-center gap-0 flex-shrink-0">
               <BrandLogo name="Brembo" logo="/logos/brembo.png" />
-              <BrandLogo name="Castrol" logo="/logos/castrol.png" />
+              <BrandLogo name="Castrol" logo="/logos/castrol.svg" />
               <BrandLogo name="Liqui Moly" logo="/logos/liquimoly.png" />
               <BrandLogo name="Mann" logo="/logos/mann.svg" />
               <BrandLogo name="Mobil" logo="/logos/mobil.svg" />
               <BrandLogo name="Pagid" logo="/logos/pagid.svg" />
               <BrandLogo name="Textar" logo="/logos/textar.svg" />
               <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" />
+              <BrandLogo name="Bilstein" logo="/logos/bilstein.svg" />
+              <BrandLogo name="Bosch" logo="/logos/bosch.svg" />
+              <BrandLogo name="Eibach" logo="/logos/eibach.svg" />
             </div>
           </div>
         </div>
