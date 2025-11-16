@@ -256,43 +256,49 @@ export default function Home() {
           </p>
         </div>
         
-        {/* Infinite Scrolling Brands */}
-        <div className="relative overflow-hidden py-6">
-          <div className="flex animate-scroll-mobile sm:animate-scroll-slow whitespace-nowrap">
-            {/* First set */}
-            <div className="flex items-center gap-6 sm:gap-10 px-2">
-              <BrandLogo name="Castrol" logo="/logos/castrol.svg" />
-              <BrandLogo name="Mobil 1" logo="/logos/mobil.svg" />
-              <BrandLogo name="Shell" logo="/logos/shell.svg" />
-              <BrandLogo name="Bosch" logo="/logos/bosch.svg" />
-              <BrandLogo name="Mann Filter" logo="/logos/mann.svg" />
-              <BrandLogo name="Brembo" logo="/logos/brembo.svg" />
-              <BrandLogo name="Textar" logo="/logos/textar.svg" />
-              <BrandLogo name="Pagid" logo="/logos/pagid.svg" />
-              <BrandLogo name="Bilstein" logo="/logos/bilstein.svg" />
-              <BrandLogo name="Eibach" logo="/logos/eibach.svg" />
-              <BrandLogo name="NGK" logo="/logos/ngk.svg" />
-              <BrandLogo name="Denso" logo="/logos/denso.svg" />
-              <BrandLogo name="Liqui Moly" logo="/logos/liquimoly.svg" />
-              <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" />
-            </div>
-            {/* Duplicate for seamless loop */}
-            <div className="flex items-center gap-6 sm:gap-10 px-2">
-              <BrandLogo name="Castrol" logo="/logos/castrol.svg" />
-              <BrandLogo name="Mobil 1" logo="/logos/mobil.svg" />
-              <BrandLogo name="Shell" logo="/logos/shell.svg" />
-              <BrandLogo name="Bosch" logo="/logos/bosch.svg" />
-              <BrandLogo name="Mann Filter" logo="/logos/mann.svg" />
-              <BrandLogo name="Brembo" logo="/logos/brembo.svg" />
-              <BrandLogo name="Textar" logo="/logos/textar.svg" />
-              <BrandLogo name="Pagid" logo="/logos/pagid.svg" />
-              <BrandLogo name="Bilstein" logo="/logos/bilstein.svg" />
-              <BrandLogo name="Eibach" logo="/logos/eibach.svg" />
-              <BrandLogo name="NGK" logo="/logos/ngk.svg" />
-              <BrandLogo name="Denso" logo="/logos/denso.svg" />
-              <BrandLogo name="Liqui Moly" logo="/logos/liquimoly.svg" />
-              <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" />
-            </div>
+        {/* Brand Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-6 max-w-6xl mx-auto">
+          <div className="flex items-center justify-center p-4 bg-white/5 rounded-lg border border-white/10 hover:border-white/20 transition-colors">
+            <span className="text-white font-bold text-lg">CASTROL</span>
+          </div>
+          <div className="flex items-center justify-center p-4 bg-white/5 rounded-lg border border-white/10 hover:border-white/20 transition-colors">
+            <span className="text-white font-bold text-lg">MOBIL 1</span>
+          </div>
+          <div className="flex items-center justify-center p-4 bg-white/5 rounded-lg border border-white/10 hover:border-white/20 transition-colors">
+            <span className="text-white font-bold text-lg">SHELL</span>
+          </div>
+          <div className="flex items-center justify-center p-4 bg-white/5 rounded-lg border border-white/10 hover:border-white/20 transition-colors">
+            <span className="text-white font-bold text-lg">BOSCH</span>
+          </div>
+          <div className="flex items-center justify-center p-4 bg-white/5 rounded-lg border border-white/10 hover:border-white/20 transition-colors">
+            <span className="text-white font-bold text-sm">MANN-FILTER</span>
+          </div>
+          <div className="flex items-center justify-center p-4 bg-white/5 rounded-lg border border-white/10 hover:border-white/20 transition-colors">
+            <span className="text-white font-bold text-lg">BREMBO</span>
+          </div>
+          <div className="flex items-center justify-center p-4 bg-white/5 rounded-lg border border-white/10 hover:border-white/20 transition-colors">
+            <span className="text-white font-bold text-lg">TEXTAR</span>
+          </div>
+          <div className="flex items-center justify-center p-4 bg-white/5 rounded-lg border border-white/10 hover:border-white/20 transition-colors">
+            <span className="text-white font-bold text-lg">BILSTEIN</span>
+          </div>
+          <div className="flex items-center justify-center p-4 bg-white/5 rounded-lg border border-white/10 hover:border-white/20 transition-colors">
+            <span className="text-white font-bold text-lg">EIBACH</span>
+          </div>
+          <div className="flex items-center justify-center p-4 bg-white/5 rounded-lg border border-white/10 hover:border-white/20 transition-colors">
+            <span className="text-white font-bold text-lg">NGK</span>
+          </div>
+          <div className="flex items-center justify-center p-4 bg-white/5 rounded-lg border border-white/10 hover:border-white/20 transition-colors">
+            <span className="text-white font-bold text-lg">DENSO</span>
+          </div>
+          <div className="flex items-center justify-center p-4 bg-white/5 rounded-lg border border-white/10 hover:border-white/20 transition-colors">
+            <span className="text-white font-bold text-sm">LIQUI MOLY</span>
+          </div>
+          <div className="flex items-center justify-center p-4 bg-white/5 rounded-lg border border-white/10 hover:border-white/20 transition-colors">
+            <span className="text-white font-bold text-lg">VALVOLINE</span>
+          </div>
+          <div className="flex items-center justify-center p-4 bg-white/5 rounded-lg border border-white/10 hover:border-white/20 transition-colors">
+            <span className="text-white font-bold text-lg">PAGID</span>
           </div>
         </div>
 
