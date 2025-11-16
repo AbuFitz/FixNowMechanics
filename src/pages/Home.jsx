@@ -25,9 +25,9 @@ function Pill({ icon: Icon, children }) {
 function BrandLogo({ name, logo, size = "medium", invert = false }) {
   // Different sizes for different logos to account for design variations
   const sizeClasses = {
-    small: "h-8",      // 32px - Brembo, Liqui Moly
-    medium: "h-12",    // 48px - Castrol, Pagid, Textar, Valvoline, Bilstein, Bosch, Eibach
-    large: "h-14",     // 56px - Mobil, Mann
+    small: "h-6",      // 24px - Brembo
+    medium: "h-10",    // 40px - Liqui Moly, Mann, Mobil
+    large: "h-14",     // 56px - Castrol, Pagid, Textar, Valvoline, Bilstein, Bosch, Eibach
   };
   
   return (
@@ -324,55 +324,55 @@ export default function Home() {
           <div className="flex animate-scroll-mobile sm:animate-scroll-slow">
             <div className="flex items-center gap-0 flex-shrink-0">
               <BrandLogo name="Brembo" logo="/logos/brembo.png" size="small" />
-              <BrandLogo name="Castrol" logo="/logos/castrol.svg" size="medium" />
-              <BrandLogo name="Liqui Moly" logo="/logos/liquimoly.png" size="small" />
-              <BrandLogo name="Mann" logo="/logos/mann.svg" size="large" invert={true} />
-              <BrandLogo name="Mobil" logo="/logos/mobil.svg" size="large" />
-              <BrandLogo name="Pagid" logo="/logos/pagid.svg" size="medium" invert={true} />
-              <BrandLogo name="Textar" logo="/logos/textar.svg" size="medium" />
-              <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" size="medium" />
-              <BrandLogo name="Bilstein" logo="/logos/bilstein.svg" size="medium" invert={true} />
-              <BrandLogo name="Bosch" logo="/logos/bosch.svg" size="medium" invert={true} />
-              <BrandLogo name="Eibach" logo="/logos/eibach.svg" size="medium" />
+              <BrandLogo name="Castrol" logo="/logos/castrol.svg" size="large" />
+              <BrandLogo name="Liqui Moly" logo="/logos/liquimoly.png" size="medium" />
+              <BrandLogo name="Mann" logo="/logos/mann.svg" size="medium" invert={true} />
+              <BrandLogo name="Mobil" logo="/logos/mobil.svg" size="medium" />
+              <BrandLogo name="Pagid" logo="/logos/pagid.svg" size="large" invert={true} />
+              <BrandLogo name="Textar" logo="/logos/textar.svg" size="large" />
+              <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" size="large" />
+              <BrandLogo name="Bilstein" logo="/logos/bilstein.svg" size="large" invert={true} />
+              <BrandLogo name="Bosch" logo="/logos/bosch.svg" size="large" invert={true} />
+              <BrandLogo name="Eibach" logo="/logos/eibach.svg" size="large" />
             </div>
             <div className="flex items-center gap-0 flex-shrink-0">
               <BrandLogo name="Brembo" logo="/logos/brembo.png" size="small" />
-              <BrandLogo name="Castrol" logo="/logos/castrol.svg" size="medium" />
-              <BrandLogo name="Liqui Moly" logo="/logos/liquimoly.png" size="small" />
-              <BrandLogo name="Mann" logo="/logos/mann.svg" size="large" invert={true} />
-              <BrandLogo name="Mobil" logo="/logos/mobil.svg" size="large" />
-              <BrandLogo name="Pagid" logo="/logos/pagid.svg" size="medium" invert={true} />
-              <BrandLogo name="Textar" logo="/logos/textar.svg" size="medium" />
-              <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" size="medium" />
-              <BrandLogo name="Bilstein" logo="/logos/bilstein.svg" size="medium" invert={true} />
-              <BrandLogo name="Bosch" logo="/logos/bosch.svg" size="medium" invert={true} />
-              <BrandLogo name="Eibach" logo="/logos/eibach.svg" size="medium" />
+              <BrandLogo name="Castrol" logo="/logos/castrol.svg" size="large" />
+              <BrandLogo name="Liqui Moly" logo="/logos/liquimoly.png" size="medium" />
+              <BrandLogo name="Mann" logo="/logos/mann.svg" size="medium" invert={true} />
+              <BrandLogo name="Mobil" logo="/logos/mobil.svg" size="medium" />
+              <BrandLogo name="Pagid" logo="/logos/pagid.svg" size="large" invert={true} />
+              <BrandLogo name="Textar" logo="/logos/textar.svg" size="large" />
+              <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" size="large" />
+              <BrandLogo name="Bilstein" logo="/logos/bilstein.svg" size="large" invert={true} />
+              <BrandLogo name="Bosch" logo="/logos/bosch.svg" size="large" invert={true} />
+              <BrandLogo name="Eibach" logo="/logos/eibach.svg" size="large" />
             </div>
             <div className="flex items-center gap-0 flex-shrink-0">
               <BrandLogo name="Brembo" logo="/logos/brembo.png" size="small" />
-              <BrandLogo name="Castrol" logo="/logos/castrol.svg" size="medium" />
-              <BrandLogo name="Liqui Moly" logo="/logos/liquimoly.png" size="small" />
-              <BrandLogo name="Mann" logo="/logos/mann.svg" size="large" invert={true} />
-              <BrandLogo name="Mobil" logo="/logos/mobil.svg" size="large" />
-              <BrandLogo name="Pagid" logo="/logos/pagid.svg" size="medium" invert={true} />
-              <BrandLogo name="Textar" logo="/logos/textar.svg" size="medium" />
-              <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" size="medium" />
-              <BrandLogo name="Bilstein" logo="/logos/bilstein.svg" size="medium" invert={true} />
-              <BrandLogo name="Bosch" logo="/logos/bosch.svg" size="medium" invert={true} />
-              <BrandLogo name="Eibach" logo="/logos/eibach.svg" size="medium" />
+              <BrandLogo name="Castrol" logo="/logos/castrol.svg" size="large" />
+              <BrandLogo name="Liqui Moly" logo="/logos/liquimoly.png" size="medium" />
+              <BrandLogo name="Mann" logo="/logos/mann.svg" size="medium" invert={true} />
+              <BrandLogo name="Mobil" logo="/logos/mobil.svg" size="medium" />
+              <BrandLogo name="Pagid" logo="/logos/pagid.svg" size="large" invert={true} />
+              <BrandLogo name="Textar" logo="/logos/textar.svg" size="large" />
+              <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" size="large" />
+              <BrandLogo name="Bilstein" logo="/logos/bilstein.svg" size="large" invert={true} />
+              <BrandLogo name="Bosch" logo="/logos/bosch.svg" size="large" invert={true} />
+              <BrandLogo name="Eibach" logo="/logos/eibach.svg" size="large" />
             </div>
             <div className="flex items-center gap-0 flex-shrink-0">
               <BrandLogo name="Brembo" logo="/logos/brembo.png" size="small" />
-              <BrandLogo name="Castrol" logo="/logos/castrol.svg" size="medium" />
-              <BrandLogo name="Liqui Moly" logo="/logos/liquimoly.png" size="small" />
-              <BrandLogo name="Mann" logo="/logos/mann.svg" size="large" invert={true} />
-              <BrandLogo name="Mobil" logo="/logos/mobil.svg" size="large" />
-              <BrandLogo name="Pagid" logo="/logos/pagid.svg" size="medium" invert={true} />
-              <BrandLogo name="Textar" logo="/logos/textar.svg" size="medium" />
-              <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" size="medium" />
-              <BrandLogo name="Bilstein" logo="/logos/bilstein.svg" size="medium" invert={true} />
-              <BrandLogo name="Bosch" logo="/logos/bosch.svg" size="medium" invert={true} />
-              <BrandLogo name="Eibach" logo="/logos/eibach.svg" size="medium" />
+              <BrandLogo name="Castrol" logo="/logos/castrol.svg" size="large" />
+              <BrandLogo name="Liqui Moly" logo="/logos/liquimoly.png" size="medium" />
+              <BrandLogo name="Mann" logo="/logos/mann.svg" size="medium" invert={true} />
+              <BrandLogo name="Mobil" logo="/logos/mobil.svg" size="medium" />
+              <BrandLogo name="Pagid" logo="/logos/pagid.svg" size="large" invert={true} />
+              <BrandLogo name="Textar" logo="/logos/textar.svg" size="large" />
+              <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" size="large" />
+              <BrandLogo name="Bilstein" logo="/logos/bilstein.svg" size="large" invert={true} />
+              <BrandLogo name="Bosch" logo="/logos/bosch.svg" size="large" invert={true} />
+              <BrandLogo name="Eibach" logo="/logos/eibach.svg" size="large" />
             </div>
           </div>
         </div>
