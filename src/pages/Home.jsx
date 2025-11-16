@@ -22,10 +22,18 @@ function Pill({ icon: Icon, children }) {
   );
 }
 
-function BrandLogo({ name, className = "" }) {
+function BrandLogo({ name, logo, className = "" }) {
   return (
-    <div className={`flex items-center justify-center px-6 py-3 bg-white/5 rounded-lg border border-white/10 hover:border-white/20 transition-colors ${className}`}>
-      <span className="text-white/90 font-bold text-base tracking-wide whitespace-nowrap">
+    <div className={`flex items-center justify-center gap-3 px-6 py-3 bg-white/5 rounded-lg border border-white/10 hover:border-white/20 transition-colors min-w-[140px] ${className}`}>
+      {logo && (
+        <img 
+          src={logo} 
+          alt={name}
+          className="h-8 w-auto object-contain brightness-0 invert opacity-90"
+          onError={(e) => { e.target.style.display = 'none'; }}
+        />
+      )}
+      <span className="text-white/90 font-bold text-sm tracking-wide whitespace-nowrap">
         {name}
       </span>
     </div>
@@ -249,37 +257,37 @@ export default function Home() {
           <div className="flex animate-scroll-slow whitespace-nowrap">
             {/* First set */}
             <div className="flex items-center gap-8 px-4">
-              <BrandLogo name="CASTROL" />
-              <BrandLogo name="MOBIL 1" />
-              <BrandLogo name="SHELL" />
-              <BrandLogo name="BOSCH" />
-              <BrandLogo name="MANN-FILTER" />
-              <BrandLogo name="BREMBO" />
+              <BrandLogo name="CASTROL" logo="https://logo.clearbit.com/castrol.com" />
+              <BrandLogo name="MOBIL 1" logo="https://logo.clearbit.com/mobil.com" />
+              <BrandLogo name="SHELL" logo="https://logo.clearbit.com/shell.com" />
+              <BrandLogo name="BOSCH" logo="https://logo.clearbit.com/bosch.com" />
+              <BrandLogo name="MANN-FILTER" logo="https://logo.clearbit.com/mann-hummel.com" />
+              <BrandLogo name="BREMBO" logo="https://logo.clearbit.com/brembo.com" />
               <BrandLogo name="TEXTAR" />
               <BrandLogo name="PAGID" />
               <BrandLogo name="BILSTEIN" />
-              <BrandLogo name="EIBACH" />
-              <BrandLogo name="NGK" />
-              <BrandLogo name="DENSO" />
-              <BrandLogo name="LIQUI MOLY" />
-              <BrandLogo name="VALVOLINE" />
+              <BrandLogo name="EIBACH" logo="https://logo.clearbit.com/eibach.com" />
+              <BrandLogo name="NGK" logo="https://logo.clearbit.com/ngkntk.co.jp" />
+              <BrandLogo name="DENSO" logo="https://logo.clearbit.com/denso.com" />
+              <BrandLogo name="LIQUI MOLY" logo="https://logo.clearbit.com/liqui-moly.com" />
+              <BrandLogo name="VALVOLINE" logo="https://logo.clearbit.com/valvoline.com" />
             </div>
             {/* Duplicate for seamless loop */}
             <div className="flex items-center gap-8 px-4">
-              <BrandLogo name="CASTROL" />
-              <BrandLogo name="MOBIL 1" />
-              <BrandLogo name="SHELL" />
-              <BrandLogo name="BOSCH" />
-              <BrandLogo name="MANN-FILTER" />
-              <BrandLogo name="BREMBO" />
+              <BrandLogo name="CASTROL" logo="https://logo.clearbit.com/castrol.com" />
+              <BrandLogo name="MOBIL 1" logo="https://logo.clearbit.com/mobil.com" />
+              <BrandLogo name="SHELL" logo="https://logo.clearbit.com/shell.com" />
+              <BrandLogo name="BOSCH" logo="https://logo.clearbit.com/bosch.com" />
+              <BrandLogo name="MANN-FILTER" logo="https://logo.clearbit.com/mann-hummel.com" />
+              <BrandLogo name="BREMBO" logo="https://logo.clearbit.com/brembo.com" />
               <BrandLogo name="TEXTAR" />
               <BrandLogo name="PAGID" />
               <BrandLogo name="BILSTEIN" />
-              <BrandLogo name="EIBACH" />
-              <BrandLogo name="NGK" />
-              <BrandLogo name="DENSO" />
-              <BrandLogo name="LIQUI MOLY" />
-              <BrandLogo name="VALVOLINE" />
+              <BrandLogo name="EIBACH" logo="https://logo.clearbit.com/eibach.com" />
+              <BrandLogo name="NGK" logo="https://logo.clearbit.com/ngkntk.co.jp" />
+              <BrandLogo name="DENSO" logo="https://logo.clearbit.com/denso.com" />
+              <BrandLogo name="LIQUI MOLY" logo="https://logo.clearbit.com/liqui-moly.com" />
+              <BrandLogo name="VALVOLINE" logo="https://logo.clearbit.com/valvoline.com" />
             </div>
           </div>
         </div>
