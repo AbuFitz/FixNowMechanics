@@ -28,8 +28,8 @@ function BrandLogo({ name, logo, className = "" }) {
       <img 
         src={logo} 
         alt={name}
-        className="h-12 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
-        style={{ maxHeight: '48px', width: 'auto' }}
+        className="h-8 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
+        style={{ maxHeight: '32px', width: 'auto' }}
       />
     </div>
   );
