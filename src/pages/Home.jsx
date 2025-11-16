@@ -31,8 +31,8 @@ function BrandLogo({ name, logo, className = "" }) {
         <img 
           src={logo} 
           alt={name}
-          className="h-8 sm:h-10 w-auto object-contain brightness-0 invert opacity-90"
-          style={{ minWidth: '60px', maxWidth: '140px' }}
+          className="h-8 sm:h-10 w-auto object-contain"
+          style={{ minWidth: '80px', maxWidth: '160px' }}
           onError={() => setImageError(true)}
         />
       ) : (
