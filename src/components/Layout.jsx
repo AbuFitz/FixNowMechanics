@@ -192,9 +192,42 @@ export function MobileWhatsAppFloat() {
 
 export function Footer() {
   return (
-    <footer className="w-full bg-black/60 text-white border-t border-white/10 mt-12 lg:mt-20">
-      <Section className="py-8 lg:py-12">
-        <div className="grid md:grid-cols-4 gap-6 lg:gap-8">
+    <footer className="w-full bg-black/60 text-white border-t border-white/10 mt-6 lg:mt-20">
+      <Section className="py-4 lg:py-12">
+        {/* Mobile: Ultra compact single column */}
+        <div className="lg:hidden space-y-3">
+          <div className="text-center">
+            <h3 className="font-bold text-base mb-1">
+              Fix<span style={{ color: BRAND.colors.primary }}>Now</span> Mechanics
+            </h3>
+            <p className="text-white/70 text-xs">
+              Mobile mechanic service covering Hertfordshire
+            </p>
+          </div>
+          
+          <div className="flex justify-center gap-6 text-xs text-white/70">
+            <Link to="/" className="hover:text-white">Home</Link>
+            <Link to="/estimate" className="hover:text-white">Get Quote</Link>
+            <Link to="/privacy" className="hover:text-white">Privacy</Link>
+            <Link to="/terms" className="hover:text-white">Terms</Link>
+          </div>
+          
+          <div className="text-center text-xs text-white/70 space-y-1">
+            <p>
+              <a href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`} className="hover:text-white" style={{ color: BRAND.colors.primary }}>
+                {BRAND.phoneDisplay}
+              </a>
+            </p>
+            <p>{BRAND.baseArea}</p>
+          </div>
+          
+          <div className="text-center pt-2 border-t border-white/10 text-[10px] text-white/50">
+            <p>© {new Date().getFullYear()} FixNow Mechanics | Part of ARF Automotive Group</p>
+          </div>
+        </div>
+
+        {/* Desktop: Full layout */}
+        <div className="hidden lg:grid md:grid-cols-4 gap-6 lg:gap-8">
           {/* Company Info */}
           <div>
             <h3 className="font-bold text-xl mb-3">
@@ -281,7 +314,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-6 lg:mt-8 pt-6 lg:pt-8 border-t border-white/10 text-center text-sm text-white/60">
+        <div className="hidden lg:block mt-6 lg:mt-8 pt-6 lg:pt-8 border-t border-white/10 text-center text-sm text-white/60">
           <p className="mb-2">
             FixNow Mechanics is proudly operated under the{" "}
             <span className="font-semibold" style={{ color: BRAND.colors.primary }}>

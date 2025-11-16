@@ -25,5 +25,5 @@ body { background: var(--brand-dark); }
 }
 
 .animate-scroll-mobile {
-  animation: scroll 25s linear infinite;
+  animation: scroll 15s linear infinite;
 }
