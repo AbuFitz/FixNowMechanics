@@ -10,3 +10,20 @@
 
 html, body, #root { height: 100%; }
 body { background: var(--brand-dark); }
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-scroll-slow {
+  animation: scroll 50s linear infinite;
+}
+
+.animate-scroll-mobile {
+  animation: scroll 25s linear infinite;
+}

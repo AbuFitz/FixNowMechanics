@@ -2,59 +2,39 @@
 
 /**
  * Lookup UK vehicle information by registration number
- * Using free DVLA API alternative or Gov.uk API
+ * Note: DVLA API requires a valid government API key.
+ * This is a graceful fallback that allows manual entry.
  */
 export async function lookupVehicleByReg(registration) {
   try {
     // Remove spaces and convert to uppercase
     const reg = registration.replace(/\s/g, '').toUpperCase();
 
-    // Using RapidAPI or similar service - you'll need to add your API key
-    // For now, this is a placeholder that returns mock data
-    // Replace with actual API endpoint
+    console.log('🔍 Looking up vehicle:', reg);
 
-    // Example with Gov.UK API (requires API key)
-    // const response = await fetch('https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'x-api-key': process.env.REACT_APP_DVLA_API_KEY
-    //   },
-    //   body: JSON.stringify({ registrationNumber: reg })
-    // });
-
-    // Mock response for development
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
+    // For now, return a friendly message encouraging manual entry
+    // The DVLA API requires official government API access which has strict requirements
+    // Most users can simply type in their vehicle details
+    
     return {
-      success: true,
-      data: {
-        registration: reg,
-        make: "Sample Make",
-        model: "Sample Model",
-        color: "Blue",
-        year: "2019",
-        fuelType: "Petrol",
-        engineSize: "1.6L",
-        transmission: "Manual",
-        mot: {
-          status: "Valid",
-          expiry: "2025-12-31"
-        }
-      }
+      success: false,
+      error: 'Vehicle lookup is currently unavailable. Please enter your vehicle details manually below.',
+      registration: reg
     };
+
   } catch (error) {
     console.error('Vehicle lookup error:', error);
     return {
       success: false,
-      error: 'Unable to find vehicle information'
+      error: 'Please enter your vehicle details manually.',
+      registration: registration
     };
   }
 }
 
 /**
  * Lookup UK postcode information
- * Using free postcodes.io API
+ * Using free postcodes.io API - no API key needed
  */
 export async function lookupPostcode(postcode) {
   try {
@@ -68,6 +48,39 @@ export async function lookupPostcode(postcode) {
 
     const data = await response.json();
 
+    // Hemel Hempstead coordinates (HP2 7DE - exact base location)
+    const hemelLat = 51.762313;
+    const hemelLon = -0.439382;
+
+    // Calculate distance from Hemel Hempstead in miles
+    const distanceMiles = calculateDistance(
+      hemelLat,
+      hemelLon,
+      data.result.latitude,
+      data.result.longitude
+    );
+
+    // Pricing bands based on distance
+    let diagnosticVisitFee = 15; // Default: within 10 miles
+    let priceRange = '£15';
+    
+    if (distanceMiles > 20) {
+      diagnosticVisitFee = 25;
+      priceRange = 'from £25';
+    } else if (distanceMiles > 10) {
+      diagnosticVisitFee = 20;
+      priceRange = '£20';
+    }
+
+    // Check if outside service area (45 miles maximum)
+    const MAX_SERVICE_RADIUS = 45;
+    const withinServiceArea = distanceMiles <= MAX_SERVICE_RADIUS;
+
+    console.log('📍 Postcode lookup:', cleanPostcode);
+    console.log('📏 Distance from Hemel Hempstead:', distanceMiles.toFixed(1), 'miles');
+    console.log('💰 Diagnostic visit fee:', `£${diagnosticVisitFee}`);
+    console.log('✅ Within service area:', withinServiceArea);
+
     return {
       success: true,
       data: {
@@ -78,6 +91,14 @@ export async function lookupPostcode(postcode) {
         country: data.result.country,
         latitude: data.result.latitude,
         longitude: data.result.longitude,
+        distanceMiles: distanceMiles,
+        diagnosticVisitFee: diagnosticVisitFee,
+        priceRange: priceRange,
+        withinServiceArea: withinServiceArea,
+        // Legacy support
+        distance: distanceMiles * 1.60934, // km for backwards compatibility
+        withinRadius: distanceMiles <= 10,
+        calloutFee: distanceMiles <= 10 ? 0 : 25
       }
     };
   } catch (error) {
@@ -88,6 +109,8 @@ export async function lookupPostcode(postcode) {
     };
   }
 }
+
+// Address lookup removed - users will enter addresses manually after postcode validation
 
 /**
  * Calculate distance between two postcodes

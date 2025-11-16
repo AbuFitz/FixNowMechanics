@@ -1,14 +1,19 @@
 // === Brand Configuration ===
 export const BRAND = {
   name: "FixNow Mechanics",
-  tagline: "Reliable Repairs. Real Results.",
-  phoneDisplay: "07930 991598",
-  phoneIntl: "+447930991598",
-  email: "info@fixnowmechanics.co.uk",
+  tagline: "Mobile Diagnostic & Repair Service",
+  phoneDisplay: "07354 915941",
+  phoneIntl: "+447354915941",
+  email: "fixnowmechanics@outlook.com",
   whatsappPrefill: encodeURIComponent(
-    "Hi FixNow, I need a mobile mechanic. Car model: ____. Location: ____. Issue: ____. Earliest time: ____."
+    "Hi FixNow, I need a mobile mechanic for my vehicle."
   ),
-  baseArea: "Maylands Business Area, Hemel Hempstead, HP2 7DE",
+  baseArea: "Hemel Hempstead, HP2 7DE",
+  baseCityCoords: {
+    lat: 51.762313,
+    lng: -0.439382,
+    city: "Hemel Hempstead"
+  },
   serviceAreas: [
     "Hemel Hempstead",
     "Watford",
@@ -24,40 +29,54 @@ export const BRAND = {
     light: "#F5F7FA",      // Light gray
     accent: "#FFB800",     // Amber variant
   },
-  hours: "8am – 10pm, 7 days a week",
+  hours: {
+    weekdays: "7pm – 10pm",
+    saturday: "8am – 10pm",
+    sunday: "8am – 8pm",
+  },
+  hoursDisplay: "Mon-Fri: 7pm-10pm | Sat: 8am-10pm | Sun: 8am-8pm",
 };
 
 export const CALLOUT_NOTE =
-  "£28 callout for physical inspection (refunded if repair accepted). Phone quotes are free.";
+  "Diagnostic visit fee: £15–£25 depending on distance (£10 deducted from labour if repair proceeds)";
+
+// Diagnostic Visit Pricing Constants
+export const DIAGNOSTIC_PRICING = {
+  within10Miles: 15,
+  within20Miles: 20,
+  over20Miles: 25,
+  labourDeduction: 10, // Amount deducted from labour if repair goes ahead
+  maxServiceRadius: 45, // Maximum service radius in miles
+};
 
 export const SERVICES = [
   {
-    title: "Full Diagnostics",
-    desc: "OBD scan + fault codes + detailed action plan",
-    price: "from £40",
+    title: "Diagnostic Visit & Fault Scan",
+    desc: "Local call-out, OBD scan and initial fault checks. Final price depends on distance and is confirmed after you enter your postcode. Deeper electrical or multi-system diagnostics are quoted separately if needed (usually from £40).",
+    price: "£15–£25*",
     slug: "diagnostics",
   },
   {
     title: "Brake Pads/Discs",
-    desc: "Front/rear pads or discs & pads — professionally fitted",
+    desc: "Front or rear pads/discs – professional mobile fitting. Labour from £80, parts priced separately. Final quote is confirmed from your registration and postcode.",
     price: "from £80",
     slug: "brakes",
   },
   {
     title: "Battery Replacement",
-    desc: "Supply & fit or fit your own battery",
+    desc: "Mobile battery testing and replacement. Labour from £60 – battery cost varies by vehicle. We can supply & fit, or fit a battery you provide.",
     price: "from £60",
     slug: "battery",
   },
   {
     title: "Oil & Filter Service",
-    desc: "Full service at your location with correct spec oil",
+    desc: "Mobile oil & filter change using the correct spec oil for your car. Final price depends on oil type and engine size – confirmed in your quote.",
     price: "from £70",
     slug: "oil-service",
   },
   {
     title: "Suspension / Coilovers",
-    desc: "Professional installation & setup (pre-quoted)",
+    desc: "Coilover and suspension setup supplied and fitted. Fully quoted in advance based on your vehicle, parts and location.",
     price: "POA",
     slug: "suspension",
   },
