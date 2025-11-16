@@ -16,7 +16,7 @@ body { background: var(--brand-dark); }
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translateX(-33.33%);
   }
 }
 
@@ -25,7 +25,7 @@ body { background: var(--brand-dark); }
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translateX(-33.33%);
   }
 }
 

@@ -267,7 +267,24 @@ export default function Home() {
               <BrandLogo name="Liqui Moly" logo="/logos/liquimoly.png" />
               <BrandLogo name="Valvoline" logo="/logos/valvoline.png" />
             </div>
-            {/* Duplicate for seamless loop */}
+            {/* Second set */}
+            <div className="flex items-center gap-8 sm:gap-12 px-4">
+              <BrandLogo name="Castrol" logo="/logos/castrol.png" />
+              <BrandLogo name="Mobil 1" logo="/logos/mobil.png" />
+              <BrandLogo name="Shell" logo="/logos/shell.svg" />
+              <BrandLogo name="Bosch" logo="/logos/bosch.svg" />
+              <BrandLogo name="Mann Filter" logo="/logos/mann.png" />
+              <BrandLogo name="Brembo" logo="/logos/brembo.png" />
+              <BrandLogo name="Textar" logo="/logos/textar.png" />
+              <BrandLogo name="Pagid" logo="/logos/pagid.png" />
+              <BrandLogo name="Bilstein" logo="/logos/bilstein.svg" />
+              <BrandLogo name="Eibach" logo="/logos/eibach.svg" />
+              <BrandLogo name="NGK" logo="/logos/ngk.svg" />
+              <BrandLogo name="Denso" logo="/logos/denso.svg" />
+              <BrandLogo name="Liqui Moly" logo="/logos/liquimoly.png" />
+              <BrandLogo name="Valvoline" logo="/logos/valvoline.png" />
+            </div>
+            {/* Third set */}
             <div className="flex items-center gap-8 sm:gap-12 px-4">
               <BrandLogo name="Castrol" logo="/logos/castrol.png" />
               <BrandLogo name="Mobil 1" logo="/logos/mobil.png" />
