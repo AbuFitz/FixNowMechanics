@@ -2,64 +2,32 @@
 
 /**
  * Lookup UK vehicle information by registration number
- * Using DVLA VES API
+ * Note: DVLA API requires a valid government API key.
+ * This is a graceful fallback that allows manual entry.
  */
 export async function lookupVehicleByReg(registration) {
   try {
     // Remove spaces and convert to uppercase
     const reg = registration.replace(/\s/g, '').toUpperCase();
 
-    // Get DVLA API key from environment variable
-    const DVLA_API_KEY = import.meta.env.VITE_DVLA_API_KEY;
-    
-    if (!DVLA_API_KEY) {
-      console.error('DVLA API key not configured');
-      throw new Error('API configuration missing');
-    }
+    console.log('🔍 Looking up vehicle:', reg);
 
-    // Call DVLA VES API
-    const dvlaResponse = await fetch(`https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': DVLA_API_KEY
-      },
-      body: JSON.stringify({
-        registrationNumber: reg
-      })
-    });
-
-    if (!dvlaResponse.ok) {
-      const errorData = await dvlaResponse.json().catch(() => ({}));
-      console.error('DVLA API error:', errorData);
-      throw new Error('Vehicle not found');
-    }
-
-    const dvlaData = await dvlaResponse.json();
+    // For now, return a friendly message encouraging manual entry
+    // The DVLA API requires official government API access which has strict requirements
+    // Most users can simply type in their vehicle details
     
     return {
-      success: true,
-      data: {
-        registration: dvlaData.registrationNumber || reg,
-        make: dvlaData.make || 'Unknown',
-        model: dvlaData.model || 'Unknown',
-        color: dvlaData.colour || 'Unknown',
-        year: dvlaData.yearOfManufacture || 'Unknown',
-        fuelType: dvlaData.fuelType || 'Unknown',
-        engineSize: dvlaData.engineCapacity ? `${dvlaData.engineCapacity}cc` : 'Unknown',
-        transmission: 'Unknown',
-        mot: {
-          status: dvlaData.motStatus || 'Unknown',
-          expiry: dvlaData.motExpiryDate || 'Unknown'
-        }
-      }
+      success: false,
+      error: 'Vehicle lookup is currently unavailable. Please enter your vehicle details manually below.',
+      registration: reg
     };
 
   } catch (error) {
     console.error('Vehicle lookup error:', error);
     return {
       success: false,
-      error: 'Unable to find vehicle information. Please enter details manually.'
+      error: 'Please enter your vehicle details manually.',
+      registration: registration
     };
   }
 }

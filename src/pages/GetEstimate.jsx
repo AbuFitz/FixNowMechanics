@@ -8,7 +8,7 @@ import { Section } from '../components/Layout';
 import { Card, CardBody } from '../components/Card';
 import { Input, TextArea, Select } from '../components/Input';
 import { Button } from '../components/Button';
-import { lookupVehicleByReg, lookupPostcode } from '../utils/api';
+import { lookupPostcode } from '../utils/api';
 
 const STEPS = [
   { id: 1, title: 'Your Details', icon: User },
@@ -60,7 +60,6 @@ export default function GetEstimate() {
   });
 
   // Lookup states
-  const [vehicleData, setVehicleData] = useState(null);
   const [postcodeData, setPostcodeData] = useState(null);
 
   const [errors, setErrors] = useState({});
@@ -613,37 +612,22 @@ ${BRAND.tagline}
             {/* Step 2: Vehicle Info */}
             {currentStep === 2 && (
               <div className="space-y-4 animate-in fade-in slide-in-from-right-5 duration-300">
-                <div className="flex gap-3">
-                  <Input
-                    label="Registration Number (Optional)"
-                    name="vehicleReg"
-                    value={formData.vehicleReg}
-                    onChange={handleChange}
-                    placeholder="AB12 CDE"
-                    icon={Car}
-                    className="uppercase"
-                    containerClassName="flex-1"
-                  />
-                  <div className="flex items-end">
-                    <Button
-                      type="button"
-                      onClick={handleVehicleLookup}
-                      disabled={loading || !formData.vehicleReg.trim()}
-                      icon={loading ? Loader2 : Search}
-                    >
-                      Lookup
-                    </Button>
-                  </div>
-                </div>
+                {/* Info message */}
+                <Card className="bg-blue-500/10 border-blue-500/30 p-4">
+                  <p className="text-blue-300 text-sm">
+                    <strong>Note:</strong> Please enter your vehicle details below. Registration number is optional but helps us prepare better.
+                  </p>
+                </Card>
 
-                {vehicleData && (
-                  <Card className="bg-white/10 border-white/20 p-4">
-                    <p className="text-white/60 text-sm mb-2">Vehicle Found:</p>
-                    <p className="text-white font-semibold">
-                      {vehicleData.make} {vehicleData.model} ({vehicleData.year})
-                    </p>
-                  </Card>
-                )}
+                <Input
+                  label="Registration Number (Optional)"
+                  name="vehicleReg"
+                  value={formData.vehicleReg}
+                  onChange={handleChange}
+                  placeholder="AB12 CDE"
+                  icon={Car}
+                  className="uppercase"
+                />
 
                 <div className="grid grid-cols-3 gap-4">
                   <Input
