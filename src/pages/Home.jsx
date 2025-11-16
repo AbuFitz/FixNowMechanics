@@ -24,12 +24,12 @@ function Pill({ icon: Icon, children }) {
 
 function BrandLogo({ name, logo, className = "" }) {
   return (
-    <div className={`flex items-center justify-center px-4 sm:px-8 py-3 ${className}`}>
+    <div className={`flex items-center justify-center px-6 sm:px-8 ${className}`}>
       <img 
         src={logo} 
         alt={name}
-        className="h-10 sm:h-12 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
-        style={{ maxWidth: '140px' }}
+        className="h-12 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
+        style={{ maxHeight: '48px', width: 'auto' }}
       />
     </div>
   );
@@ -39,28 +39,28 @@ function ServiceCard({ service, icon: Icon }) {
   return (
     <Card className="group hover:scale-[1.02] transition-all duration-300 hover:border-yellow-500/30 overflow-hidden h-full">
       {/* Service Image */}
-      <ServiceImage service={service.slug} className="h-48 w-full" />
+      <ServiceImage service={service.slug} className="h-36 lg:h-48 w-full" />
 
-      <CardBody className="space-y-4">
+      <CardBody className="space-y-3 lg:space-y-4 p-4 lg:p-6">
         <div className="flex items-start justify-between">
           <div
-            className="rounded-xl p-3 inline-flex"
+            className="rounded-xl p-2 lg:p-3 inline-flex"
             style={{ backgroundColor: `${BRAND.colors.primary}20` }}
           >
-            <Icon size={28} style={{ color: BRAND.colors.primary }} />
+            <Icon size={24} className="lg:w-7 lg:h-7" style={{ color: BRAND.colors.primary }} />
           </div>
           <span
-            className="text-xl font-bold"
+            className="text-lg lg:text-xl font-bold"
             style={{ color: BRAND.colors.primary }}
           >
             {service.price}
           </span>
         </div>
         <div>
-          <h3 className="text-xl font-bold text-white mb-2">{service.title}</h3>
-          <p className="text-white/70 text-sm leading-relaxed">{service.desc}</p>
+          <h3 className="text-lg lg:text-xl font-bold text-white mb-1 lg:mb-2">{service.title}</h3>
+          <p className="text-white/70 text-xs lg:text-sm leading-relaxed">{service.desc}</p>
         </div>
-        <Link to="/estimate" className="block mt-4">
+        <Link to="/estimate" className="block mt-3 lg:mt-4">
           <Button
             variant="ghost"
             icon={MessageCircle}
@@ -122,7 +122,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60" />
         </div>
 
-        <Section className="py-12 lg:py-32 relative z-10">
+      <Section className="py-8 lg:py-32 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left: Content */}
             <div className="text-white space-y-6 lg:space-y-6">
@@ -219,26 +219,26 @@ export default function Home() {
       </div>
 
       {/* Features */}
-      <Section className="py-16">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <Section className="py-8 lg:py-16">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
           {features.map((feature, i) => (
-            <Card key={i} className="p-6 text-center hover:scale-[1.02] transition-transform">
+            <Card key={i} className="p-4 lg:p-6 text-center hover:scale-[1.02] transition-transform">
               <div
-                className="w-16 h-16 rounded-2xl mx-auto mb-4 flex items-center justify-center"
+                className="w-12 h-12 lg:w-16 lg:h-16 rounded-2xl mx-auto mb-3 lg:mb-4 flex items-center justify-center"
                 style={{ backgroundColor: `${BRAND.colors.primary}20` }}
               >
-                <feature.icon size={32} style={{ color: BRAND.colors.primary }} />
+                <feature.icon size={24} className="lg:w-8 lg:h-8" style={{ color: BRAND.colors.primary }} />
               </div>
-              <h3 className="text-white font-bold text-lg mb-2">{feature.title}</h3>
-              <p className="text-white/70 text-sm">{feature.desc}</p>
+              <h3 className="text-white font-bold text-base lg:text-lg mb-1 lg:mb-2">{feature.title}</h3>
+              <p className="text-white/70 text-xs lg:text-sm">{feature.desc}</p>
             </Card>
           ))}
         </div>
       </Section>
 
       {/* Trusted Brands & Parts */}
-      <Section className="py-12" style={{ backgroundColor: BRAND.colors.mid }}>
-        <div className="text-center mb-8">
+      <Section className="py-6 lg:py-12" style={{ backgroundColor: BRAND.colors.mid }}>
+        <div className="text-center mb-4 lg:mb-8">
           <h2 className="text-white text-2xl font-bold mb-2">
             Quality Parts & Trusted Brands
           </h2>
@@ -248,40 +248,26 @@ export default function Home() {
         </div>
         
         {/* Infinite Scrolling Brands */}
-        <div className="relative overflow-hidden py-4">
+        <div className="relative overflow-hidden py-3">
           <div className="flex animate-scroll-mobile sm:animate-scroll-slow">
-            {/* First set */}
-            <div className="flex items-center gap-8 sm:gap-12 px-4 flex-shrink-0">
-              <BrandLogo name="Castrol" logo="/logos/castrol.png" />
-              <BrandLogo name="Mobil" logo="/logos/mobil.svg" />
-              <BrandLogo name="Shell" logo="/logos/shell.svg" />
-              <BrandLogo name="Bosch" logo="/logos/bosch.svg" />
-              <BrandLogo name="Mann Filter" logo="/logos/mann.svg" />
+            <div className="flex items-center gap-0 flex-shrink-0">
               <BrandLogo name="Brembo" logo="/logos/brembo.png" />
-              <BrandLogo name="Textar" logo="/logos/textar.svg" />
-              <BrandLogo name="Pagid" logo="/logos/pagid.svg" />
-              <BrandLogo name="Bilstein" logo="/logos/bilstein.svg" />
-              <BrandLogo name="Eibach" logo="/logos/eibach.svg" />
-              <BrandLogo name="NGK" logo="/logos/ngk.svg" />
-              <BrandLogo name="Denso" logo="/logos/denso.svg" />
+              <BrandLogo name="Castrol" logo="/logos/castrol.png" />
               <BrandLogo name="Liqui Moly" logo="/logos/liquimoly.png" />
+              <BrandLogo name="Mann" logo="/logos/mann.svg" />
+              <BrandLogo name="Mobil" logo="/logos/mobil.svg" />
+              <BrandLogo name="Pagid" logo="/logos/pagid.svg" />
+              <BrandLogo name="Textar" logo="/logos/textar.svg" />
               <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" />
             </div>
-            {/* Duplicate set for seamless loop */}
-            <div className="flex items-center gap-8 sm:gap-12 px-4 flex-shrink-0">
-              <BrandLogo name="Castrol" logo="/logos/castrol.png" />
-              <BrandLogo name="Mobil" logo="/logos/mobil.svg" />
-              <BrandLogo name="Shell" logo="/logos/shell.svg" />
-              <BrandLogo name="Bosch" logo="/logos/bosch.svg" />
-              <BrandLogo name="Mann Filter" logo="/logos/mann.svg" />
+            <div className="flex items-center gap-0 flex-shrink-0">
               <BrandLogo name="Brembo" logo="/logos/brembo.png" />
-              <BrandLogo name="Textar" logo="/logos/textar.svg" />
-              <BrandLogo name="Pagid" logo="/logos/pagid.svg" />
-              <BrandLogo name="Bilstein" logo="/logos/bilstein.svg" />
-              <BrandLogo name="Eibach" logo="/logos/eibach.svg" />
-              <BrandLogo name="NGK" logo="/logos/ngk.svg" />
-              <BrandLogo name="Denso" logo="/logos/denso.svg" />
+              <BrandLogo name="Castrol" logo="/logos/castrol.png" />
               <BrandLogo name="Liqui Moly" logo="/logos/liquimoly.png" />
+              <BrandLogo name="Mann" logo="/logos/mann.svg" />
+              <BrandLogo name="Mobil" logo="/logos/mobil.svg" />
+              <BrandLogo name="Pagid" logo="/logos/pagid.svg" />
+              <BrandLogo name="Textar" logo="/logos/textar.svg" />
               <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" />
             </div>
           </div>
@@ -295,8 +281,8 @@ export default function Home() {
       </Section>
 
       {/* Services */}
-      <Section className="py-16">
-        <div className="text-center mb-12">
+      <Section className="py-8 lg:py-16">
+        <div className="text-center mb-6 lg:mb-12">
           <h2 className="text-white text-4xl font-bold mb-3">
             Our Core Services
           </h2>
@@ -315,7 +301,7 @@ export default function Home() {
           </Card>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
           {SERVICES.map((service, i) => (
             <ServiceCard
               key={service.slug}
@@ -366,21 +352,21 @@ export default function Home() {
       </Section>
 
       {/* About Section with Map */}
-      <Section className="py-16">
-        <Card className="p-8 md:p-12">
-          <div className="grid md:grid-cols-2 gap-10">
-            <div className="text-white space-y-6">
-              <h2 className="text-3xl font-bold">About FixNow Mechanics</h2>
-              <p className="text-white/80 leading-relaxed">
+      <Section className="py-8 lg:py-16">
+        <Card className="p-6 lg:p-8 xl:p-12">
+          <div className="grid md:grid-cols-2 gap-6 lg:gap-10">
+            <div className="text-white space-y-4 lg:space-y-6">
+              <h2 className="text-2xl lg:text-3xl font-bold">About FixNow Mechanics</h2>
+              <p className="text-white/80 leading-relaxed text-sm lg:text-base">
                 We're a mobile mechanic service based in <strong>{BRAND.baseCityCoords.city}</strong>,
                 covering Hertfordshire and surrounding areas. Our mission is simple — bring
                 workshop-quality repairs directly to your home or workplace with full
                 transparency and reliability.
               </p>
 
-              <div className="space-y-3 text-white/85">
+              <div className="space-y-3 text-white/85 text-sm lg:text-base">
                 <div className="flex items-start gap-3">
-                  <CheckCircle2 size={20} style={{ color: BRAND.colors.primary }} className="mt-1 flex-shrink-0" />
+                  <CheckCircle2 size={18} className="lg:w-5 lg:h-5" style={{ color: BRAND.colors.primary }} className="mt-1 flex-shrink-0" />
                   <div>
                     <strong>Major mechanical repairs</strong> — diagnostics, brakes, suspension & engine work
                   </div>
@@ -412,12 +398,12 @@ export default function Home() {
               </div>
 
               <div>
-                <h3 className="text-white font-semibold mb-3 text-lg">Service Areas</h3>
+                <h3 className="text-white font-semibold mb-2 lg:mb-3 text-base lg:text-lg">Service Areas</h3>
                 <div className="flex flex-wrap gap-2">
                   {BRAND.serviceAreas.map((area) => (
                     <span
                       key={area}
-                      className="px-4 py-2 rounded-full border border-white/10 text-white/90 bg-white/5 text-sm"
+                      className="px-3 lg:px-4 py-1.5 lg:py-2 rounded-full border border-white/10 text-white/90 bg-white/5 text-xs lg:text-sm">
                     >
                       {area}
                     </span>
@@ -427,11 +413,11 @@ export default function Home() {
             </div>
 
             {/* Map Section */}
-            <div className="space-y-4">
-              <h3 className="text-white font-semibold text-lg">Our Location</h3>
+            <div className="space-y-3 lg:space-y-4">
+              <h3 className="text-white font-semibold text-base lg:text-lg">Our Location</h3>
 
               {/* Interactive Map */}
-              <div className="rounded-2xl overflow-hidden border border-white/10 h-96">
+              <div className="rounded-2xl overflow-hidden border border-white/10 h-64 lg:h-96">
                 <iframe
                   title="FixNow Mechanics Location"
                   width="100%"
@@ -443,16 +429,16 @@ export default function Home() {
                 />
               </div>
 
-              <div className="bg-white/5 rounded-xl p-4 border border-white/10">
-                <div className="flex items-start gap-3 mb-3">
-                  <MapPin size={20} style={{ color: BRAND.colors.primary }} className="mt-1" />
+              <div className="bg-white/5 rounded-xl p-3 lg:p-4 border border-white/10 text-sm lg:text-base">
+                <div className="flex items-start gap-3 mb-2 lg:mb-3">
+                  <MapPin size={18} className="lg:w-5 lg:h-5" style={{ color: BRAND.colors.primary }} className="mt-1" />
                   <div>
                     <p className="text-white font-semibold">Base Location</p>
                     <p className="text-white/70 text-sm">{BRAND.baseArea}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <Phone size={20} style={{ color: BRAND.colors.primary }} className="mt-1" />
+                  <Phone size={18} className="lg:w-5 lg:h-5" style={{ color: BRAND.colors.primary }} className="mt-1" />
                   <div>
                     <p className="text-white font-semibold">Contact</p>
                     <a
@@ -481,70 +467,70 @@ export default function Home() {
       </Section>
 
       {/* FAQ Section */}
-      <Section className="py-16">
+      <Section className="py-8 lg:py-16">
         <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-white text-4xl font-bold mb-3">
+          <div className="text-center mb-6 lg:mb-12">
+            <h2 className="text-white text-2xl lg:text-4xl font-bold mb-2 lg:mb-3">
               Frequently Asked Questions
             </h2>
-            <p className="text-white/70 text-lg">
+            <p className="text-white/70 text-base lg:text-lg">
               Quick answers to common questions
             </p>
           </div>
 
-          <div className="space-y-4">
-            <Card className="p-6">
-              <h3 className="text-white font-bold mb-2 flex items-center gap-2">
+          <div className="space-y-3 lg:space-y-4">
+            <Card className="p-4 lg:p-6">
+              <h3 className="text-white font-bold mb-2 flex items-center gap-2 text-sm lg:text-base">
                 <span style={{ color: BRAND.colors.primary }}>Q:</span>
                 How much is your diagnostic visit?
               </h3>
-              <p className="text-white/80 text-sm pl-6">
+              <p className="text-white/80 text-xs lg:text-sm pl-6">
                 Our diagnostic visit costs £15–£25 depending on your distance from Hemel Hempstead. This includes travel, OBD scan, and initial fault checks. The exact price is confirmed when you enter your postcode.
               </p>
             </Card>
 
-            <Card className="p-6">
-              <h3 className="text-white font-bold mb-2 flex items-center gap-2">
+            <Card className="p-4 lg:p-6">
+              <h3 className="text-white font-bold mb-2 flex items-center gap-2 text-sm lg:text-base">
                 <span style={{ color: BRAND.colors.primary }}>Q:</span>
                 Do you charge extra if you fix my car?
               </h3>
-              <p className="text-white/80 text-sm pl-6">
+              <p className="text-white/80 text-xs lg:text-sm pl-6">
                 No! If we carry out paid repair work during the same visit, £10 of your diagnostic fee is deducted from the labour, so you're not paying twice.
               </p>
             </Card>
 
-            <Card className="p-6">
-              <h3 className="text-white font-bold mb-2 flex items-center gap-2">
+            <Card className="p-4 lg:p-6">
+              <h3 className="text-white font-bold mb-2 flex items-center gap-2 text-sm lg:text-base">
                 <span style={{ color: BRAND.colors.primary }}>Q:</span>
                 Can I supply my own parts?
               </h3>
-              <p className="text-white/80 text-sm pl-6">
+              <p className="text-white/80 text-xs lg:text-sm pl-6">
                 Absolutely! We're happy to fit parts you provide. Just mention it when you get your quote, and we'll confirm the labour cost.
               </p>
             </Card>
 
-            <Card className="p-6">
-              <h3 className="text-white font-bold mb-2 flex items-center gap-2">
+            <Card className="p-4 lg:p-6">
+              <h3 className="text-white font-bold mb-2 flex items-center gap-2 text-sm lg:text-base">
                 <span style={{ color: BRAND.colors.primary }}>Q:</span>
                 What areas do you cover?
               </h3>
-              <p className="text-white/80 text-sm pl-6">
+              <p className="text-white/80 text-xs lg:text-sm pl-6">
                 We cover up to 45 miles from Hemel Hempstead, including St Albans, Watford, Luton, Aylesbury, and North London. Enter your postcode in the quote form to check if we cover your area.
               </p>
             </Card>
 
-            <Card className="p-6">
-              <h3 className="text-white font-bold mb-2 flex items-center gap-2">
+            <Card className="p-4 lg:p-6">
+              <h3 className="text-white font-bold mb-2 flex items-center gap-2 text-sm lg:text-base">
                 <span style={{ color: BRAND.colors.primary }}>Q:</span>
                 How quickly can you come out?
               </h3>
-              <p className="text-white/80 text-sm pl-6">
+              <p className="text-white/80 text-xs lg:text-sm pl-6">
                 We typically respond within 2 hours and can often attend same day or next day depending on our schedule and your urgency.
               </p>
             </Card>
 
-            <Card className="p-6">
-              <h3 className="text-white font-bold mb-2 flex items-center gap-2">
+            <Card className="p-4 lg:p-6">
+              <h3 className="text-white font-bold mb-2 flex items-center gap-2 text-sm lg:text-base">
                 <span style={{ color: BRAND.colors.primary }}>Q:</span>
                 What types of repairs can you do at my location?
               </h3>

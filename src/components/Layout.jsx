@@ -192,9 +192,9 @@ export function MobileWhatsAppFloat() {
 
 export function Footer() {
   return (
-    <footer className="w-full bg-black/60 text-white border-t border-white/10 mt-20">
-      <Section className="py-12">
-        <div className="grid md:grid-cols-4 gap-8">
+    <footer className="w-full bg-black/60 text-white border-t border-white/10 mt-12 lg:mt-20">
+      <Section className="py-8 lg:py-12">
+        <div className="grid md:grid-cols-4 gap-6 lg:gap-8">
           {/* Company Info */}
           <div>
             <h3 className="font-bold text-xl mb-3">
@@ -281,7 +281,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-white/10 text-center text-sm text-white/60">
+        <div className="mt-6 lg:mt-8 pt-6 lg:pt-8 border-t border-white/10 text-center text-sm text-white/60">
           <p className="mb-2">
             FixNow Mechanics is proudly operated under the{" "}
             <span className="font-semibold" style={{ color: BRAND.colors.primary }}>
