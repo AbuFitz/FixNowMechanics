@@ -2,83 +2,58 @@
 
 /**
  * Lookup UK vehicle information by registration number
- * Using UK Vehicle Data API (free alternative to DVLA VES)
+ * Using DVLA VES API
  */
 export async function lookupVehicleByReg(registration) {
   try {
     // Remove spaces and convert to uppercase
     const reg = registration.replace(/\s/g, '').toUpperCase();
 
-    // Try UK Vehicle Data API (free API)
-    // Alternative: https://ukvehicledata.co.uk/
-    const API_KEY = '6I2RdjROti7BRZ9GcrvJ184FDrGraeqn3JBmhz3H';
+    // Get DVLA API key from environment variable
+    const DVLA_API_KEY = import.meta.env.VITE_DVLA_API_KEY;
+    
+    if (!DVLA_API_KEY) {
+      console.error('DVLA API key not configured');
+      throw new Error('API configuration missing');
+    }
 
-    // Try with ukvehicledata.co.uk format
-    const response = await fetch(`https://uk1.ukvehicledata.co.uk/api/datapackage/VehicleData?v=2&api_nullitems=1&auth_apikey=${API_KEY}&key_VRM=${reg}`, {
-      method: 'GET',
+    // Call DVLA VES API
+    const dvlaResponse = await fetch(`https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': DVLA_API_KEY
+      },
+      body: JSON.stringify({
+        registrationNumber: reg
+      })
     });
 
-    if (!response.ok) {
-      // If that fails, try with DVLA format
-      const dvlaResponse = await fetch(`https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': API_KEY
-        },
-        body: JSON.stringify({
-          registrationNumber: reg
-        })
-      });
+    if (!dvlaResponse.ok) {
+      const errorData = await dvlaResponse.json().catch(() => ({}));
+      console.error('DVLA API error:', errorData);
+      throw new Error('Vehicle not found');
+    }
 
-      if (!dvlaResponse.ok) {
-        throw new Error('Vehicle not found');
+    const dvlaData = await dvlaResponse.json();
+    
+    return {
+      success: true,
+      data: {
+        registration: dvlaData.registrationNumber || reg,
+        make: dvlaData.make || 'Unknown',
+        model: dvlaData.model || 'Unknown',
+        color: dvlaData.colour || 'Unknown',
+        year: dvlaData.yearOfManufacture || 'Unknown',
+        fuelType: dvlaData.fuelType || 'Unknown',
+        engineSize: dvlaData.engineCapacity ? `${dvlaData.engineCapacity}cc` : 'Unknown',
+        transmission: 'Unknown',
+        mot: {
+          status: dvlaData.motStatus || 'Unknown',
+          expiry: dvlaData.motExpiryDate || 'Unknown'
+        }
       }
-
-      const dvlaData = await dvlaResponse.json();
-      return {
-        success: true,
-        data: {
-          registration: dvlaData.registrationNumber || reg,
-          make: dvlaData.make || 'Unknown',
-          model: dvlaData.model || 'Unknown',
-          color: dvlaData.colour || 'Unknown',
-          year: dvlaData.yearOfManufacture || 'Unknown',
-          fuelType: dvlaData.fuelType || 'Unknown',
-          engineSize: dvlaData.engineCapacity ? `${dvlaData.engineCapacity}cc` : 'Unknown',
-          transmission: 'Unknown',
-          mot: {
-            status: dvlaData.motStatus || 'Unknown',
-            expiry: dvlaData.motExpiryDate || 'Unknown'
-          }
-        }
-      };
-    }
-
-    const data = await response.json();
-
-    if (data.Response && data.Response.StatusCode === 'Success') {
-      const vehicleData = data.Response.DataItems.VehicleRegistration;
-      return {
-        success: true,
-        data: {
-          registration: vehicleData.Vrm || reg,
-          make: vehicleData.Make || 'Unknown',
-          model: vehicleData.Model || 'Unknown',
-          color: vehicleData.Colour || 'Unknown',
-          year: vehicleData.YearOfManufacture || 'Unknown',
-          fuelType: vehicleData.FuelType || 'Unknown',
-          engineSize: vehicleData.EngineCapacity || 'Unknown',
-          transmission: vehicleData.Transmission || 'Unknown',
-          mot: {
-            status: vehicleData.MotStatus || 'Unknown',
-            expiry: vehicleData.MotExpiryDate || 'Unknown'
-          }
-        }
-      };
-    }
-
-    throw new Error('Vehicle not found');
+    };
 
   } catch (error) {
     console.error('Vehicle lookup error:', error);
@@ -105,25 +80,38 @@ export async function lookupPostcode(postcode) {
 
     const data = await response.json();
 
-    // Hemel Hempstead coordinates
-    const hemelLat = 51.753;
-    const hemelLon = -0.472;
+    // Hemel Hempstead coordinates (HP1/HP2/HP3 area)
+    const hemelLat = 51.7519;
+    const hemelLon = -0.4723;
 
-    // Calculate distance from Hemel Hempstead
-    const distance = calculateDistance(
+    // Calculate distance from Hemel Hempstead in miles
+    const distanceMiles = calculateDistance(
       hemelLat,
       hemelLon,
       data.result.latitude,
       data.result.longitude
     );
 
-    // Convert miles to km
-    const distanceKm = distance * 1.60934;
-    const withinRadius = distanceKm <= 10;
+    // Pricing bands based on distance
+    let diagnosticVisitFee = 15; // Default: within 10 miles
+    let priceRange = '£15';
+    
+    if (distanceMiles > 20) {
+      diagnosticVisitFee = 25;
+      priceRange = 'from £25';
+    } else if (distanceMiles > 10) {
+      diagnosticVisitFee = 20;
+      priceRange = '£20';
+    }
+
+    // Check if outside service area (45 miles maximum)
+    const MAX_SERVICE_RADIUS = 45;
+    const withinServiceArea = distanceMiles <= MAX_SERVICE_RADIUS;
 
     console.log('📍 Postcode lookup:', cleanPostcode);
-    console.log('📏 Distance from Hemel Hempstead:', distanceKm.toFixed(2), 'km');
-    console.log('✅ Within 10km radius:', withinRadius);
+    console.log('📏 Distance from Hemel Hempstead:', distanceMiles.toFixed(1), 'miles');
+    console.log('💰 Diagnostic visit fee:', `£${diagnosticVisitFee}`);
+    console.log('✅ Within service area:', withinServiceArea);
 
     return {
       success: true,
@@ -135,9 +123,14 @@ export async function lookupPostcode(postcode) {
         country: data.result.country,
         latitude: data.result.latitude,
         longitude: data.result.longitude,
-        distance: distanceKm,
-        withinRadius: withinRadius,
-        calloutFee: withinRadius ? 0 : 25
+        distanceMiles: distanceMiles,
+        diagnosticVisitFee: diagnosticVisitFee,
+        priceRange: priceRange,
+        withinServiceArea: withinServiceArea,
+        // Legacy support
+        distance: distanceMiles * 1.60934, // km for backwards compatibility
+        withinRadius: distanceMiles <= 10,
+        calloutFee: distanceMiles <= 10 ? 0 : 25
       }
     };
   } catch (error) {

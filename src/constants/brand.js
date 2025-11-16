@@ -38,36 +38,45 @@ export const BRAND = {
 };
 
 export const CALLOUT_NOTE =
-  "£25 callout fee applies to areas outside Hemel Hempstead (refunded if repair is accepted)";
+  "Diagnostic visit fee: £15–£25 depending on distance (£10 deducted from labour if repair proceeds)";
+
+// Diagnostic Visit Pricing Constants
+export const DIAGNOSTIC_PRICING = {
+  within10Miles: 15,
+  within20Miles: 20,
+  over20Miles: 25,
+  labourDeduction: 10, // Amount deducted from labour if repair goes ahead
+  maxServiceRadius: 45, // Maximum service radius in miles
+};
 
 export const SERVICES = [
   {
-    title: "Full Diagnostics",
-    desc: "OBD scan + fault codes + detailed action plan",
-    price: "from £40",
+    title: "Diagnostic Visit & Fault Scan",
+    desc: "Local call-out, OBD scan and initial fault checks. Final price depends on distance and is confirmed after you enter your postcode. Deeper electrical or multi-system diagnostics are quoted separately if needed (usually from £40).",
+    price: "£15–£25*",
     slug: "diagnostics",
   },
   {
     title: "Brake Pads/Discs",
-    desc: "Front/rear pads or discs & pads — professionally fitted",
+    desc: "Front or rear pads/discs – professional mobile fitting. Labour from £80, parts priced separately. Final quote is confirmed from your registration and postcode.",
     price: "from £80",
     slug: "brakes",
   },
   {
     title: "Battery Replacement",
-    desc: "Supply & fit or fit your own battery",
+    desc: "Mobile battery testing and replacement. Labour from £60 – battery cost varies by vehicle. We can supply & fit, or fit a battery you provide.",
     price: "from £60",
     slug: "battery",
   },
   {
     title: "Oil & Filter Service",
-    desc: "Full service at your location with correct spec oil",
+    desc: "Mobile oil & filter change using the correct spec oil for your car. Final price depends on oil type and engine size – confirmed in your quote.",
     price: "from £70",
     slug: "oil-service",
   },
   {
     title: "Suspension / Coilovers",
-    desc: "Professional installation & setup (pre-quoted)",
+    desc: "Coilover and suspension setup supplied and fitted. Fully quoted in advance based on your vehicle, parts and location.",
     price: "POA",
     slug: "suspension",
   },

@@ -3,7 +3,7 @@ import {
   User, Phone, Mail, Car, MapPin, Wrench, CheckCircle2, AlertCircle,
   Loader2, ArrowRight, ArrowLeft, Search, Home, MessageCircle
 } from 'lucide-react';
-import { BRAND, SERVICES, CALLOUT_NOTE } from '../constants/brand';
+import { BRAND, SERVICES, CALLOUT_NOTE, DIAGNOSTIC_PRICING } from '../constants/brand';
 import { Section } from '../components/Layout';
 import { Card, CardBody } from '../components/Card';
 import { Input, TextArea, Select } from '../components/Input';
@@ -185,6 +185,15 @@ export default function GetEstimate() {
 
   const handleNext = () => {
     if (validateStep(currentStep)) {
+      // Check if postcode is outside service area before allowing to proceed from step 3
+      if (currentStep === 3 && postcodeData && !postcodeData.withinServiceArea) {
+        setErrors(prev => ({ 
+          ...prev, 
+          postcode: `This postcode is ${postcodeData.distanceMiles.toFixed(1)} miles away. We only cover up to ${DIAGNOSTIC_PRICING.maxServiceRadius} miles from Hemel Hempstead. Please contact us to discuss.` 
+        }));
+        return;
+      }
+
       if (currentStep < STEPS.length) {
         setCurrentStep(currentStep + 1);
         // Delay scroll to prevent keyboard issues on mobile
@@ -214,7 +223,7 @@ export default function GetEstimate() {
     try {
       // Calculate estimate
       let distance = 0;
-      let travelCost = 0;
+      let diagnosticVisitFee = 0;
       let basePrice = 0;
       const service = SERVICES.find(s => s.slug === formData.serviceType);
 
@@ -224,16 +233,11 @@ export default function GetEstimate() {
       }
 
       if (postcodeData) {
-        distance = calculateDistance(BASE_LAT, BASE_LON, postcodeData.latitude, postcodeData.longitude);
-        // Check if outside Hemel Hempstead based on district name
-        const district = postcodeData.district || '';
-        const isOutside = !district.toLowerCase().includes('hemel hempstead');
-        if (isOutside) {
-          travelCost = 25; // £25 callout fee
-        }
+        distance = postcodeData.distanceMiles;
+        diagnosticVisitFee = postcodeData.diagnosticVisitFee;
       }
 
-      const estimate = basePrice + travelCost;
+      const estimate = basePrice + diagnosticVisitFee;
 
       // Prepare email content
       const emailContent = `
@@ -280,7 +284,8 @@ ${formData.description}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Base Price: £${basePrice}
-${travelCost > 0 ? `Callout Fee (outside Hemel): £${travelCost}` : 'Callout Fee: £0 (within Hemel Hempstead)'}
+${diagnosticVisitFee > 0 ? `Diagnostic Visit Fee: £${diagnosticVisitFee} (${postcodeData.priceRange})` : 'Diagnostic Visit Fee: £0'}
+${diagnosticVisitFee > 0 ? `Note: £${DIAGNOSTIC_PRICING.labourDeduction} of diagnostic fee deducted from labour if repair proceeds` : ''}
 Quote Total: £${estimate}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -316,10 +321,12 @@ Thank you for your quote request! We've received your information and will get b
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Service: ${service ? service.title : formData.serviceType}
-${basePrice > 0 ? `Quote: £${estimate}` : 'Price: To be quoted'}
-${travelCost > 0 ? `Includes £${travelCost} callout fee (outside Hemel Hempstead)` : 'No callout fee (within Hemel Hempstead)'}
+${basePrice > 0 ? `Estimated Quote: £${estimate}` : 'Price: To be quoted'}
+${diagnosticVisitFee > 0 ? `Includes £${diagnosticVisitFee} diagnostic visit fee (${postcodeData.priceRange})` : 'Diagnostic visit fee applies based on distance'}
+${diagnosticVisitFee > 0 ? `Note: £${DIAGNOSTIC_PRICING.labourDeduction} deducted from labour if repair proceeds` : ''}
 
 Location: ${formData.addressLine1}, ${formData.postcode}
+${distance > 0 ? `Distance: ${distance.toFixed(1)} miles from our base` : ''}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -691,33 +698,52 @@ ${BRAND.tagline}
 
                 {postcodeData && (
                   <>
-                    <Card className="bg-green-500/10 border-green-500/30 p-4">
-                      <p className="text-green-400 font-semibold mb-1">
-                        ✓ Postcode Verified
-                      </p>
-                      <p className="text-white/80 text-sm">
-                        {postcodeData.district}, {postcodeData.region}
-                      </p>
-                      <p className="text-white/60 text-xs mt-1">
-                        Distance from Hemel Hempstead: {postcodeData.distance.toFixed(1)} km
-                      </p>
-                    </Card>
+                    {postcodeData.withinServiceArea ? (
+                      <>
+                        <Card className="bg-green-500/10 border-green-500/30 p-4">
+                          <p className="text-green-400 font-semibold mb-1">
+                            ✓ Postcode Verified
+                          </p>
+                          <p className="text-white/80 text-sm">
+                            {postcodeData.district}, {postcodeData.region}
+                          </p>
+                          <p className="text-white/60 text-xs mt-1">
+                            Distance from Hemel Hempstead: {postcodeData.distanceMiles.toFixed(1)} miles
+                          </p>
+                        </Card>
 
-                    {postcodeData.withinRadius ? (
-                      <Card className="bg-blue-500/10 border-blue-500/30 p-4">
-                        <p className="text-blue-300 text-sm">
-                          <CheckCircle2 size={16} className="inline mr-2" />
-                          <strong>Within our local service area</strong> — no call-out charge applies
-                        </p>
-                      </Card>
+                        <Card className="bg-blue-500/10 border-blue-500/30 p-4">
+                          <p className="text-blue-300 text-sm mb-2">
+                            <CheckCircle2 size={16} className="inline mr-2" />
+                            <strong>Diagnostic Visit Fee: {postcodeData.priceRange}</strong>
+                          </p>
+                          <p className="text-white/70 text-xs">
+                            {postcodeData.distanceMiles <= 10 ? (
+                              "Within 10 miles of Hemel Hempstead"
+                            ) : postcodeData.distanceMiles <= 20 ? (
+                              "10–20 miles from Hemel Hempstead"
+                            ) : (
+                              "Over 20 miles from Hemel Hempstead"
+                            )}
+                          </p>
+                          <p className="text-white/60 text-xs mt-2">
+                            If we carry out paid repair work during the visit, £{DIAGNOSTIC_PRICING.labourDeduction} of your diagnostic fee is deducted from the labour.
+                          </p>
+                        </Card>
+                      </>
                     ) : (
-                      <Card className="bg-white/5 border-white/10 p-4">
-                        <p className="text-white/90 text-sm">
-                          <MapPin size={16} className="inline mr-2" style={{ color: BRAND.colors.primary }} />
-                          <strong>Service available in your area</strong>
+                      <Card className="bg-red-500/10 border-red-500/30 p-4">
+                        <p className="text-red-400 font-semibold mb-2">
+                          ⚠ Outside Service Area
                         </p>
-                        <p className="text-white/70 text-xs mt-2">
-                          A £{postcodeData.calloutFee} call-out fee applies for locations outside our core area. This fee is fully refunded when you proceed with the repair.
+                        <p className="text-white/80 text-sm mb-2">
+                          {postcodeData.district}, {postcodeData.region}
+                        </p>
+                        <p className="text-white/70 text-xs mb-2">
+                          Distance: {postcodeData.distanceMiles.toFixed(1)} miles (we cover up to {DIAGNOSTIC_PRICING.maxServiceRadius} miles from Hemel Hempstead)
+                        </p>
+                        <p className="text-red-300 text-sm font-medium">
+                          Unfortunately, this location is outside our {DIAGNOSTIC_PRICING.maxServiceRadius}-mile service radius. Please contact us to discuss alternatives.
                         </p>
                       </Card>
                     )}
@@ -755,9 +781,26 @@ ${BRAND.tagline}
             {/* Step 4: Service */}
             {currentStep === 4 && (
               <div className="space-y-4 animate-in fade-in slide-in-from-right-5 duration-300">
-                {/* Service Scope Info */}
+                {/* Diagnostic Visit Info */}
                 <Card className="bg-blue-500/10 border-blue-500/30 p-4">
-                  <p className="text-blue-300 text-sm">
+                  <p className="text-blue-300 text-sm mb-2">
+                    <strong>About Our Diagnostic Visit:</strong>
+                  </p>
+                  <p className="text-white/80 text-xs mb-2">
+                    {postcodeData ? (
+                      <>Your diagnostic visit fee is <strong>{postcodeData.priceRange}</strong> based on your location ({postcodeData.distanceMiles.toFixed(1)} miles from Hemel Hempstead).</>
+                    ) : (
+                      <>Diagnostic visit typically costs £15–£25 depending on your distance from Hemel Hempstead.</>
+                    )}
+                  </p>
+                  <p className="text-white/70 text-xs">
+                    This covers travel, initial checks, and professional advice. If we carry out paid repair work during the same visit, £{DIAGNOSTIC_PRICING.labourDeduction} of your diagnostic fee is deducted from the labour.
+                  </p>
+                </Card>
+
+                {/* Service Scope Info */}
+                <Card className="bg-white/5 border-white/10 p-4">
+                  <p className="text-white/80 text-sm">
                     <strong>Our Specialization:</strong> We focus on major mechanical repairs including diagnostics, braking systems, suspension, battery, and engine servicing. For other repairs, please describe below or contact us via WhatsApp.
                   </p>
                 </Card>

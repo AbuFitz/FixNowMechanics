@@ -62,12 +62,25 @@ export default function TermsConditions() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-white mb-3">4. Callout Fees</h2>
+              <h2 className="text-2xl font-bold text-white mb-3">4. Diagnostic Visit Fees</h2>
+              <p className="mb-3">
+                We operate a distance-based diagnostic visit pricing model:
+              </p>
               <ul className="list-disc list-inside space-y-2 ml-4">
-                <li><strong>Hemel Hempstead:</strong> No callout fee for locations within Hemel Hempstead</li>
-                <li><strong>Outside Hemel Hempstead:</strong> £25 callout fee applies</li>
-                <li><strong>Refund policy:</strong> The callout fee is fully refunded if you proceed with the quoted repair</li>
-                <li><strong>Non-refundable if declined:</strong> If you decline the quote, the callout fee covers our time and travel</li>
+                <li><strong>Within 10 miles of Hemel Hempstead:</strong> £15 diagnostic visit fee</li>
+                <li><strong>10–20 miles from Hemel Hempstead:</strong> £20 diagnostic visit fee</li>
+                <li><strong>Over 20 miles from Hemel Hempstead:</strong> from £25 diagnostic visit fee</li>
+                <li><strong>Maximum service radius:</strong> 45 miles from Hemel Hempstead</li>
+              </ul>
+              <p className="mt-3">
+                <strong>Important notes about the diagnostic visit fee:</strong>
+              </p>
+              <ul className="list-disc list-inside space-y-2 ml-4 mt-2">
+                <li>The diagnostic visit fee covers travel, initial checks, OBD scan, and professional advice</li>
+                <li>If we carry out paid repair work during the same visit, £10 of your diagnostic fee is deducted from the labour</li>
+                <li>If no repair is carried out (customer declines quote, job not suitable for mobile work, etc.), the diagnostic visit fee still applies to cover time and travel</li>
+                <li>The diagnostic visit fee is never refunded as cash</li>
+                <li>Deeper electrical or multi-system diagnostics are quoted separately if needed (usually from £40)</li>
               </ul>
             </section>
 
@@ -87,8 +100,8 @@ export default function TermsConditions() {
               <h3 className="text-xl font-semibold text-white mt-4 mb-2">Customer Cancellations</h3>
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li><strong>24+ hours notice:</strong> Free cancellation or rescheduling</li>
-                <li><strong>Less than 24 hours:</strong> Callout fee may apply</li>
-                <li><strong>No-show:</strong> Full callout fee applies</li>
+                <li><strong>Less than 24 hours:</strong> Diagnostic visit fee may apply</li>
+                <li><strong>No-show:</strong> Full diagnostic visit fee applies</li>
               </ul>
 
               <h3 className="text-xl font-semibold text-white mt-4 mb-2">Our Cancellations</h3>
@@ -158,7 +171,7 @@ export default function TermsConditions() {
             <section>
               <h2 className="text-2xl font-bold text-white mb-3">12. Service Area</h2>
               <p>
-                Our primary service area is Hemel Hempstead and surrounding regions. We may serve other areas at our discretion. Callout fees apply outside Hemel Hempstead.
+                Our primary service area is Hemel Hempstead and surrounding regions within a 45-mile radius. We may serve other areas at our discretion. Diagnostic visit fees are calculated based on distance from our Hemel Hempstead base (HP2 7DE).
               </p>
             </section>
 

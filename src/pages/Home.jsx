@@ -5,7 +5,7 @@ import {
   Gauge, BadgeCheck, BatteryCharging, Droplet, Settings2,
   CheckCircle2, Calculator
 } from 'lucide-react';
-import { BRAND, CALLOUT_NOTE, SERVICES } from '../constants/brand';
+import { BRAND, SERVICES, CALLOUT_NOTE, DIAGNOSTIC_PRICING } from '../constants/brand';
 import { Section } from '../components/Layout';
 import { LinkButton, Button } from '../components/Button';
 import { Card, CardBody } from '../components/Card';
@@ -132,6 +132,9 @@ export default function Home() {
                   Diagnostics, repairs, and servicing — done at your driveway or workplace.
                   No workshop visits. No hidden markup. Honest service at fair prices.
                 </p>
+                <p className="text-white/90 lg:text-white/90 text-sm lg:text-base max-w-2xl font-medium drop-shadow">
+                  Mobile mechanic covering Hemel Hempstead and surrounding areas – diagnostic visits from £15, with final price confirmed from your postcode.
+                </p>
               </div>
 
               <div className="hidden lg:flex flex-col sm:flex-row gap-4 pt-4">
@@ -221,6 +224,15 @@ export default function Home() {
               icon={serviceIcons[i]}
             />
           ))}
+        </div>
+
+        {/* Pricing Disclaimer */}
+        <div className="mt-8 text-center">
+          <Card className="inline-block bg-white/5 border-white/10 p-4 max-w-3xl">
+            <p className="text-white/60 text-sm">
+              *All prices are "from" and depend on your vehicle and distance from Hemel Hempstead. Exact pricing is confirmed in the booking form after you enter your postcode.
+            </p>
+          </Card>
         </div>
 
         <div className="mt-12 space-y-4">
