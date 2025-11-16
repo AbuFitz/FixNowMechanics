@@ -165,6 +165,7 @@ export default function Home() {
               </div>
 
               {/* Desktop CTA Buttons */}
+              <div className="hidden lg:flex gap-4">
                 <Link to="/estimate" className="flex-1 sm:flex-initial">
                   <Button variant="primary" className="w-full" icon={Calculator}>
                     Get Quote
