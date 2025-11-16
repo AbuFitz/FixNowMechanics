@@ -26,9 +26,9 @@ function BrandLogo({ name, logo, size = "medium", invert = false }) {
   // Different sizes for different logos to account for design variations
   const sizeClasses = {
     small: "h-8",       // 32px - Brembo
-    medium: "h-10",     // 40px - Liqui Moly, Mann, Mobil
-    large: "h-20",      // 80px - Castrol, Pagid, Textar, Valvoline
-    xlarge: "h-24",     // 96px - Bilstein, Bosch, Eibach
+    medium: "h-10",     // 40px - Liqui Moly, Mann
+    large: "h-24",      // 96px - Mobil, Castrol, Pagid, Textar, Valvoline, Bosch
+    xlarge: "h-24",     // 96px - Bilstein, Eibach
   };
   
   return (
@@ -328,12 +328,12 @@ export default function Home() {
               <BrandLogo name="Castrol" logo="/logos/castrol.svg" size="large" />
               <BrandLogo name="Liqui Moly" logo="/logos/liquimoly.png" size="medium" />
               <BrandLogo name="Mann" logo="/logos/mann.svg" size="medium" invert={true} />
-              <BrandLogo name="Mobil" logo="/logos/mobil.svg" size="medium" />
+              <BrandLogo name="Mobil" logo="/logos/mobil.svg" size="large" />
               <BrandLogo name="Pagid" logo="/logos/pagid.svg" size="large" invert={true} />
               <BrandLogo name="Textar" logo="/logos/textar.svg" size="large" />
               <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" size="large" />
               <BrandLogo name="Bilstein" logo="/logos/bilstein.svg" size="xlarge" invert={true} />
-              <BrandLogo name="Bosch" logo="/logos/bosch.svg" size="xlarge" invert={true} />
+              <BrandLogo name="Bosch" logo="/logos/bosch.svg" size="large" invert={true} />
               <BrandLogo name="Eibach" logo="/logos/eibach.svg" size="xlarge" />
             </div>
             <div className="flex items-center gap-0 flex-shrink-0">
@@ -341,12 +341,12 @@ export default function Home() {
               <BrandLogo name="Castrol" logo="/logos/castrol.svg" size="large" />
               <BrandLogo name="Liqui Moly" logo="/logos/liquimoly.png" size="medium" />
               <BrandLogo name="Mann" logo="/logos/mann.svg" size="medium" invert={true} />
-              <BrandLogo name="Mobil" logo="/logos/mobil.svg" size="medium" />
+              <BrandLogo name="Mobil" logo="/logos/mobil.svg" size="large" />
               <BrandLogo name="Pagid" logo="/logos/pagid.svg" size="large" invert={true} />
               <BrandLogo name="Textar" logo="/logos/textar.svg" size="large" />
               <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" size="large" />
               <BrandLogo name="Bilstein" logo="/logos/bilstein.svg" size="xlarge" invert={true} />
-              <BrandLogo name="Bosch" logo="/logos/bosch.svg" size="xlarge" invert={true} />
+              <BrandLogo name="Bosch" logo="/logos/bosch.svg" size="large" invert={true} />
               <BrandLogo name="Eibach" logo="/logos/eibach.svg" size="xlarge" />
             </div>
             <div className="flex items-center gap-0 flex-shrink-0">
@@ -354,12 +354,12 @@ export default function Home() {
               <BrandLogo name="Castrol" logo="/logos/castrol.svg" size="large" />
               <BrandLogo name="Liqui Moly" logo="/logos/liquimoly.png" size="medium" />
               <BrandLogo name="Mann" logo="/logos/mann.svg" size="medium" invert={true} />
-              <BrandLogo name="Mobil" logo="/logos/mobil.svg" size="medium" />
+              <BrandLogo name="Mobil" logo="/logos/mobil.svg" size="large" />
               <BrandLogo name="Pagid" logo="/logos/pagid.svg" size="large" invert={true} />
               <BrandLogo name="Textar" logo="/logos/textar.svg" size="large" />
               <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" size="large" />
               <BrandLogo name="Bilstein" logo="/logos/bilstein.svg" size="xlarge" invert={true} />
-              <BrandLogo name="Bosch" logo="/logos/bosch.svg" size="xlarge" invert={true} />
+              <BrandLogo name="Bosch" logo="/logos/bosch.svg" size="large" invert={true} />
               <BrandLogo name="Eibach" logo="/logos/eibach.svg" size="xlarge" />
             </div>
             <div className="flex items-center gap-0 flex-shrink-0">
@@ -367,12 +367,12 @@ export default function Home() {
               <BrandLogo name="Castrol" logo="/logos/castrol.svg" size="large" />
               <BrandLogo name="Liqui Moly" logo="/logos/liquimoly.png" size="medium" />
               <BrandLogo name="Mann" logo="/logos/mann.svg" size="medium" invert={true} />
-              <BrandLogo name="Mobil" logo="/logos/mobil.svg" size="medium" />
+              <BrandLogo name="Mobil" logo="/logos/mobil.svg" size="large" />
               <BrandLogo name="Pagid" logo="/logos/pagid.svg" size="large" invert={true} />
               <BrandLogo name="Textar" logo="/logos/textar.svg" size="large" />
               <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" size="large" />
               <BrandLogo name="Bilstein" logo="/logos/bilstein.svg" size="xlarge" invert={true} />
-              <BrandLogo name="Bosch" logo="/logos/bosch.svg" size="xlarge" invert={true} />
+              <BrandLogo name="Bosch" logo="/logos/bosch.svg" size="large" invert={true} />
               <BrandLogo name="Eibach" logo="/logos/eibach.svg" size="xlarge" />
             </div>
           </div>
