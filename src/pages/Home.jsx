@@ -25,9 +25,9 @@ function Pill({ icon: Icon, children }) {
 function BrandLogo({ name, logo, size = "medium", invert = false }) {
   // Different sizes for different logos to account for design variations
   const sizeClasses = {
-    small: "h-6",      // 24px - Brembo, Liqui Moly
-    medium: "h-8",     // 32px - Castrol, Pagid, Textar, Valvoline, Bilstein, Bosch, Eibach
-    large: "h-10",     // 40px - Mobil, Mann
+    small: "h-8",      // 32px - Brembo, Liqui Moly
+    medium: "h-12",    // 48px - Castrol, Pagid, Textar, Valvoline, Bilstein, Bosch, Eibach
+    large: "h-14",     // 56px - Mobil, Mann
   };
   
   return (
