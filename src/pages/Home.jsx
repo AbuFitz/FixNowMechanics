@@ -249,57 +249,40 @@ export default function Home() {
         
         {/* Infinite Scrolling Brands */}
         <div className="relative overflow-hidden py-4">
-          <div className="flex animate-scroll-mobile sm:animate-scroll-slow whitespace-nowrap">
+          <div className="flex animate-scroll-mobile sm:animate-scroll-slow">
             {/* First set */}
-            <div className="flex items-center gap-8 sm:gap-12 px-4">
+            <div className="flex items-center gap-8 sm:gap-12 px-4 flex-shrink-0">
               <BrandLogo name="Castrol" logo="/logos/castrol.png" />
-              <BrandLogo name="Mobil 1" logo="/logos/mobil.png" />
+              <BrandLogo name="Mobil" logo="/logos/mobil.svg" />
               <BrandLogo name="Shell" logo="/logos/shell.svg" />
               <BrandLogo name="Bosch" logo="/logos/bosch.svg" />
-              <BrandLogo name="Mann Filter" logo="/logos/mann.png" />
+              <BrandLogo name="Mann Filter" logo="/logos/mann.svg" />
               <BrandLogo name="Brembo" logo="/logos/brembo.png" />
-              <BrandLogo name="Textar" logo="/logos/textar.png" />
-              <BrandLogo name="Pagid" logo="/logos/pagid.png" />
+              <BrandLogo name="Textar" logo="/logos/textar.svg" />
+              <BrandLogo name="Pagid" logo="/logos/pagid.svg" />
               <BrandLogo name="Bilstein" logo="/logos/bilstein.svg" />
               <BrandLogo name="Eibach" logo="/logos/eibach.svg" />
               <BrandLogo name="NGK" logo="/logos/ngk.svg" />
               <BrandLogo name="Denso" logo="/logos/denso.svg" />
               <BrandLogo name="Liqui Moly" logo="/logos/liquimoly.png" />
-              <BrandLogo name="Valvoline" logo="/logos/valvoline.png" />
+              <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" />
             </div>
-            {/* Second set */}
-            <div className="flex items-center gap-8 sm:gap-12 px-4">
+            {/* Duplicate set for seamless loop */}
+            <div className="flex items-center gap-8 sm:gap-12 px-4 flex-shrink-0">
               <BrandLogo name="Castrol" logo="/logos/castrol.png" />
-              <BrandLogo name="Mobil 1" logo="/logos/mobil.png" />
+              <BrandLogo name="Mobil" logo="/logos/mobil.svg" />
               <BrandLogo name="Shell" logo="/logos/shell.svg" />
               <BrandLogo name="Bosch" logo="/logos/bosch.svg" />
-              <BrandLogo name="Mann Filter" logo="/logos/mann.png" />
+              <BrandLogo name="Mann Filter" logo="/logos/mann.svg" />
               <BrandLogo name="Brembo" logo="/logos/brembo.png" />
-              <BrandLogo name="Textar" logo="/logos/textar.png" />
-              <BrandLogo name="Pagid" logo="/logos/pagid.png" />
+              <BrandLogo name="Textar" logo="/logos/textar.svg" />
+              <BrandLogo name="Pagid" logo="/logos/pagid.svg" />
               <BrandLogo name="Bilstein" logo="/logos/bilstein.svg" />
               <BrandLogo name="Eibach" logo="/logos/eibach.svg" />
               <BrandLogo name="NGK" logo="/logos/ngk.svg" />
               <BrandLogo name="Denso" logo="/logos/denso.svg" />
               <BrandLogo name="Liqui Moly" logo="/logos/liquimoly.png" />
-              <BrandLogo name="Valvoline" logo="/logos/valvoline.png" />
-            </div>
-            {/* Third set */}
-            <div className="flex items-center gap-8 sm:gap-12 px-4">
-              <BrandLogo name="Castrol" logo="/logos/castrol.png" />
-              <BrandLogo name="Mobil 1" logo="/logos/mobil.png" />
-              <BrandLogo name="Shell" logo="/logos/shell.svg" />
-              <BrandLogo name="Bosch" logo="/logos/bosch.svg" />
-              <BrandLogo name="Mann Filter" logo="/logos/mann.png" />
-              <BrandLogo name="Brembo" logo="/logos/brembo.png" />
-              <BrandLogo name="Textar" logo="/logos/textar.png" />
-              <BrandLogo name="Pagid" logo="/logos/pagid.png" />
-              <BrandLogo name="Bilstein" logo="/logos/bilstein.svg" />
-              <BrandLogo name="Eibach" logo="/logos/eibach.svg" />
-              <BrandLogo name="NGK" logo="/logos/ngk.svg" />
-              <BrandLogo name="Denso" logo="/logos/denso.svg" />
-              <BrandLogo name="Liqui Moly" logo="/logos/liquimoly.png" />
-              <BrandLogo name="Valvoline" logo="/logos/valvoline.png" />
+              <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" />
             </div>
           </div>
         </div>
