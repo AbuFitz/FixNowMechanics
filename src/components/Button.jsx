@@ -8,12 +8,12 @@ export function Button({
   icon: Icon,
   ...props
 }) {
-  const baseStyles = "inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 font-semibold transition-all duration-200 hover:scale-[1.02] focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-offset-black disabled:opacity-50 disabled:cursor-not-allowed";
+  const baseStyles = "inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 font-semibold transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-offset-black disabled:opacity-50 disabled:cursor-not-allowed";
 
   const variants = {
-    primary: `${baseStyles} text-black shadow-lg`,
-    secondary: `${baseStyles} border-2 text-white hover:bg-white/10`,
-    ghost: `${baseStyles} text-white hover:bg-white/5`,
+    primary: `${baseStyles} text-black shadow-lg hover:shadow-xl`,
+    secondary: `${baseStyles} border-2 text-white hover:bg-white/10 hover:border-yellow-400/60`,
+    ghost: `${baseStyles} text-white hover:bg-white/10 border border-transparent`,
   };
 
   const style = variant === 'primary'
@@ -42,12 +42,12 @@ export function LinkButton({
   href,
   ...props
 }) {
-  const baseStyles = "inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 font-semibold transition-all duration-200 hover:scale-[1.02] focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-offset-black";
+  const baseStyles = "inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 font-semibold transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-offset-black";
 
   const variants = {
-    primary: `${baseStyles} text-black shadow-lg`,
-    secondary: `${baseStyles} border-2 text-white hover:bg-white/10`,
-    ghost: `${baseStyles} text-white hover:bg-white/5`,
+    primary: `${baseStyles} text-black shadow-lg hover:shadow-xl`,
+    secondary: `${baseStyles} border-2 text-white hover:bg-white/10 hover:border-yellow-400/60`,
+    ghost: `${baseStyles} text-white hover:bg-white/10 border border-transparent`,
   };
 
   const style = variant === 'primary'

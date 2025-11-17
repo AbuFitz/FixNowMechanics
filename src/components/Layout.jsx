@@ -34,13 +34,13 @@ export function Header() {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <div className="sticky top-0 z-50 border-b border-white/10 backdrop-blur-xl bg-black/60">
-      <Section className="py-4">
+    <div className="sticky top-0 z-50 border-b border-white/10 backdrop-blur-xl bg-black/70 shadow-lg shadow-black/50">
+      <Section className="py-3 lg:py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link
             to="/"
-            className="text-white font-extrabold text-xl tracking-tight hover:opacity-80 transition-opacity"
+            className="text-white font-extrabold text-lg lg:text-xl tracking-tight hover:opacity-80 transition-all duration-300 hover:scale-105"
           >
             Fix<span style={{ color: BRAND.colors.primary }}>Now</span> Mechanics
           </Link>
@@ -78,7 +78,7 @@ export function Header() {
           <div className="lg:hidden flex items-center gap-2">
             <Link
               to="/estimate"
-              className="text-sm font-semibold px-3 py-1.5 rounded-lg transition-all"
+              className="text-xs font-bold px-3 py-2 rounded-lg transition-all hover:scale-105 active:scale-95 shadow-md shadow-yellow-500/20"
               style={{
                 backgroundColor: BRAND.colors.primary,
                 color: BRAND.colors.dark
@@ -88,10 +88,10 @@ export function Header() {
             </Link>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="text-white p-2"
+              className="text-white p-2 hover:bg-white/10 rounded-lg transition-all"
               aria-label="Toggle menu"
             >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </div>
@@ -131,31 +131,31 @@ export function MobileBottomBar() {
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden border-t border-white/10 bg-black/95 backdrop-blur-xl">
-      <div className="px-3 py-2.5 pb-safe">
-        <div className="grid grid-cols-2 gap-2">
+    <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden border-t border-white/10 bg-black/95 backdrop-blur-xl shadow-2xl">
+      <div className="px-3 py-3 pb-safe">
+        <div className="grid grid-cols-2 gap-2.5">
           <a
             href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`}
-            className="flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-sm transition-all active:scale-95"
+            className="flex items-center justify-center gap-2 py-3.5 rounded-xl font-bold text-sm transition-all active:scale-95 shadow-lg shadow-yellow-500/30"
             style={{
               backgroundColor: BRAND.colors.primary,
               color: BRAND.colors.dark
             }}
           >
-            <Phone size={18} />
+            <Phone size={19} />
             Call Us
           </a>
           <a
             href={`https://wa.me/${BRAND.phoneIntl.replace('+', '')}?text=${BRAND.whatsappPrefill}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-sm transition-all active:scale-95"
+            className="flex items-center justify-center gap-2 py-3.5 rounded-xl font-bold text-sm transition-all active:scale-95 shadow-lg shadow-green-500/30"
             style={{
               backgroundColor: '#25D366',
               color: 'white'
             }}
           >
-            <MessageCircle size={18} />
+            <MessageCircle size={19} />
             WhatsApp
           </a>
         </div>

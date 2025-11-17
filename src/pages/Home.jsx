@@ -44,34 +44,36 @@ function BrandLogo({ name, logo, size = "medium", invert = false }) {
 
 function ServiceCard({ service, icon: Icon }) {
   return (
-    <Card className="group hover:scale-[1.02] transition-all duration-300 hover:border-yellow-500/30 overflow-hidden h-full">
-      {/* Service Image */}
-      <ServiceImage service={service.slug} className="h-40 lg:h-48 w-full" />
+    <Card className="group hover:scale-[1.02] transition-all duration-500 hover:border-yellow-500/40 hover:shadow-xl hover:shadow-yellow-500/10 overflow-hidden h-full relative">
+      {/* Service Image with overlay gradient */}
+      <div className="relative overflow-hidden">
+        <ServiceImage service={service.slug} className="h-40 lg:h-48 w-full transform group-hover:scale-105 transition-transform duration-500" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      </div>
 
       <CardBody className="space-y-3 lg:space-y-4 p-5 lg:p-6">
         <div className="flex items-start justify-between">
           <div
-            className="rounded-xl p-2.5 lg:p-3 inline-flex"
+            className="rounded-xl p-2.5 lg:p-3 inline-flex transform group-hover:rotate-3 transition-transform duration-300"
             style={{ backgroundColor: `${BRAND.colors.primary}20` }}
           >
             <Icon size={22} className="lg:w-7 lg:h-7" style={{ color: BRAND.colors.primary }} />
           </div>
           <span
-            className="text-base lg:text-xl font-bold"
-            style={{ color: BRAND.colors.primary }}
+            className="text-base lg:text-xl font-bold gradient-text"
           >
             {service.price}
           </span>
         </div>
         <div>
-          <h3 className="text-base lg:text-xl font-bold text-white mb-1.5 lg:mb-2">{service.title}</h3>
+          <h3 className="text-base lg:text-xl font-bold text-white mb-1.5 lg:mb-2 group-hover:text-yellow-500 transition-colors duration-300">{service.title}</h3>
           <p className="text-white/70 text-sm lg:text-sm leading-relaxed">{service.desc}</p>
         </div>
         <Link to="/estimate" className="block mt-3 lg:mt-4">
           <Button
             variant="ghost"
             icon={MessageCircle}
-            className="w-full text-sm"
+            className="w-full text-sm group-hover:bg-yellow-500/10 border border-yellow-500/0 group-hover:border-yellow-500/30 transition-all duration-300"
           >
             Request Quote
           </Button>
@@ -119,6 +121,9 @@ export default function Home() {
         className="relative overflow-hidden"
         style={{ backgroundColor: BRAND.colors.dark }}
       >
+        {/* Background gradient overlay - Desktop */}
+        <div className="hidden lg:block absolute inset-0 bg-gradient-to-br from-yellow-500/5 via-transparent to-transparent opacity-30" />
+
         {/* Mobile: Background Image with improved overlay */}
         <div className="absolute inset-0 lg:hidden">
           <img
@@ -126,60 +131,61 @@ export default function Home() {
             alt="FixNow Mechanics"
             className="w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/70 to-black/85" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/75 to-black/90" />
         </div>
 
-        <Section className="py-6 lg:py-32 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <Section className="py-8 lg:py-32 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Left: Content */}
-            <div className="text-white space-y-3 lg:space-y-6">
+            <div className="text-white space-y-4 lg:space-y-6 animate-fade-in-up">
               {/* Pills - Desktop Only */}
-              <div className="hidden lg:flex gap-2 flex-wrap">
+              <div className="hidden lg:flex gap-2 flex-wrap animate-slide-in-left">
                 <Pill icon={Wrench}>Mobile Mechanic</Pill>
                 <Pill icon={Clock}>Flexible Hours</Pill>
                 <Pill icon={MapPin}>{BRAND.baseCityCoords.city}</Pill>
               </div>
 
-              <div className="space-y-2 lg:space-y-4">
-                <h1 className="text-2xl lg:text-6xl font-extrabold leading-tight drop-shadow-lg">
-                  <span className="block">Expert Vehicle </span>
-                  <span className="block" style={{ color: BRAND.colors.primary }}>Diagnostics & Repair</span>
+              <div className="space-y-3 lg:space-y-4">
+                <h1 className="text-3xl lg:text-6xl font-extrabold leading-tight">
+                  <span className="block text-white drop-shadow-2xl">Expert Vehicle </span>
+                  <span className="block gradient-text drop-shadow-2xl">Diagnostics & Repair</span>
                 </h1>
-                
-                {/* Mobile: Ultra compact tagline */}
-                <p className="lg:hidden text-sm text-white/90 drop-shadow">
-                  Mobile mechanic • Hemel Hempstead • Diagnostics from £15
+
+                {/* Mobile: Compact tagline with better spacing */}
+                <p className="lg:hidden text-sm text-white/95 drop-shadow-lg leading-relaxed">
+                  Mobile mechanic • Hemel Hempstead<br/>
+                  <span className="text-yellow-400 font-semibold">Diagnostics from £15</span>
                 </p>
-                
+
                 {/* Desktop: Full tagline */}
-                <p className="hidden lg:block text-xl lg:text-2xl font-medium text-white/70 drop-shadow">
+                <p className="hidden lg:block text-xl lg:text-2xl font-medium text-white/80 drop-shadow-lg">
                   {BRAND.tagline}
                 </p>
-                
+
                 {/* Desktop: Extended description */}
-                <p className="hidden lg:block text-white/80 text-base lg:text-lg max-w-2xl leading-relaxed drop-shadow">
+                <p className="hidden lg:block text-white/80 text-base lg:text-lg max-w-2xl leading-relaxed drop-shadow-md">
                   Diagnostics, repairs, and servicing — done at your driveway or workplace.
                   No workshop visits. No hidden markup. Honest service at fair prices.
                 </p>
-                
-                <p className="hidden lg:block text-white/90 text-sm lg:text-base max-w-2xl font-medium drop-shadow">
+
+                <p className="hidden lg:block text-white/90 text-sm lg:text-base max-w-2xl font-medium drop-shadow-md">
                   Mobile mechanic covering Hemel Hempstead and surrounding areas – diagnostic visits from £15, with final price confirmed from your postcode.
                 </p>
               </div>
 
-              {/* Mobile CTA Buttons - Ultra Compact */}
-              <div className="lg:hidden flex flex-col gap-2">
+              {/* Mobile CTA Buttons - Modern & Compact */}
+              <div className="lg:hidden flex flex-col gap-2.5">
                 <Link to="/estimate" className="w-full">
-                  <Button variant="primary" className="w-full py-2.5 text-sm font-semibold" icon={Calculator}>
+                  <Button variant="primary" className="w-full py-3 text-sm font-bold shadow-lg shadow-yellow-500/30 hover:shadow-xl hover:shadow-yellow-500/40 transition-all" icon={Calculator}>
                     Get Free Quote
                   </Button>
                 </Link>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-2 gap-2.5">
                   <LinkButton
                     variant="secondary"
                     icon={Phone}
                     href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`}
-                    className="py-2.5 text-xs font-semibold"
+                    className="py-2.5 text-xs font-semibold hover:bg-yellow-500/5"
                   >
                     Call
                   </LinkButton>
@@ -187,7 +193,7 @@ export default function Home() {
                     variant="ghost"
                     icon={MessageCircle}
                     href={`https://wa.me/${BRAND.phoneIntl.replace('+', '')}?text=${BRAND.whatsappPrefill}`}
-                    className="py-2.5 text-xs font-semibold"
+                    className="py-2.5 text-xs font-semibold hover:bg-white/5"
                   >
                     WhatsApp
                   </LinkButton>
@@ -197,7 +203,7 @@ export default function Home() {
               {/* Desktop CTA Buttons */}
               <div className="hidden lg:flex gap-4">
                 <Link to="/estimate" className="flex-1 sm:flex-initial">
-                  <Button variant="primary" className="w-full" icon={Calculator}>
+                  <Button variant="primary" className="w-full shadow-xl shadow-yellow-500/20 hover:shadow-2xl hover:shadow-yellow-500/30 transition-all" icon={Calculator}>
                     Get Quote
                   </Button>
                 </Link>
@@ -205,7 +211,7 @@ export default function Home() {
                   variant="secondary"
                   icon={Phone}
                   href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`}
-                  className="flex-1 sm:flex-initial"
+                  className="flex-1 sm:flex-initial hover:bg-yellow-500/5"
                 >
                   Call Now
                 </LinkButton>
@@ -237,37 +243,37 @@ export default function Home() {
       </div>
 
       {/* Features */}
-      <Section className="py-4 lg:py-16">
-        {/* Mobile: Compact 2-column grid */}
-        <div className="lg:hidden grid grid-cols-2 gap-2">
+      <Section className="py-6 lg:py-16">
+        {/* Mobile: Compact 2-column grid with better design */}
+        <div className="lg:hidden grid grid-cols-2 gap-3">
           {features.map((feature, i) => (
-            <Card key={i} className="p-3">
+            <Card key={i} className="p-3.5 hover:border-yellow-500/30 transition-all duration-300 hover:shadow-lg hover:shadow-yellow-500/5">
               <div className="text-center">
                 <div
-                  className="w-10 h-10 rounded-lg flex items-center justify-center mx-auto mb-2"
+                  className="w-11 h-11 rounded-xl flex items-center justify-center mx-auto mb-2 shadow-md"
                   style={{ backgroundColor: `${BRAND.colors.primary}20` }}
                 >
-                  <feature.icon size={20} style={{ color: BRAND.colors.primary }} />
+                  <feature.icon size={22} style={{ color: BRAND.colors.primary }} />
                 </div>
-                <h3 className="text-white font-bold text-xs mb-0.5">{feature.title}</h3>
-                <p className="text-white/70 text-[10px] leading-tight">{feature.desc}</p>
+                <h3 className="text-white font-bold text-xs mb-1 leading-tight">{feature.title}</h3>
+                <p className="text-white/70 text-[10px] leading-snug">{feature.desc}</p>
               </div>
             </Card>
           ))}
         </div>
-        
-        {/* Desktop: Grid layout */}
+
+        {/* Desktop: Grid layout with enhanced hover effects */}
         <div className="hidden lg:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
           {features.map((feature, i) => (
-            <Card key={i} className="p-4 lg:p-6 text-center hover:scale-[1.02] transition-transform">
+            <Card key={i} className="p-4 lg:p-6 text-center hover:scale-105 hover:border-yellow-500/40 hover:shadow-xl hover:shadow-yellow-500/10 transition-all duration-500 group">
               <div
-                className="w-12 h-12 lg:w-16 lg:h-16 rounded-2xl mx-auto mb-3 lg:mb-4 flex items-center justify-center"
+                className="w-12 h-12 lg:w-16 lg:h-16 rounded-2xl mx-auto mb-3 lg:mb-4 flex items-center justify-center transform group-hover:rotate-6 transition-transform duration-300"
                 style={{ backgroundColor: `${BRAND.colors.primary}20` }}
               >
                 <feature.icon size={24} className="lg:w-8 lg:h-8" style={{ color: BRAND.colors.primary }} />
               </div>
-              <h3 className="text-white font-bold text-base lg:text-lg mb-1 lg:mb-2">{feature.title}</h3>
-              <p className="text-white/70 text-xs lg:text-sm">{feature.desc}</p>
+              <h3 className="text-white font-bold text-base lg:text-lg mb-1 lg:mb-2 group-hover:text-yellow-400 transition-colors">{feature.title}</h3>
+              <p className="text-white/70 text-xs lg:text-sm group-hover:text-white/80 transition-colors">{feature.desc}</p>
             </Card>
           ))}
         </div>
@@ -370,36 +376,35 @@ export default function Home() {
           </Card>
         </div>
 
-        {/* Mobile: Clean single-column cards with proper spacing */}
-        <div className="lg:hidden space-y-3 px-4">
+        {/* Mobile: Modern single-column cards with enhanced design */}
+        <div className="lg:hidden space-y-3 px-2">
           {SERVICES.map((service, i) => (
-            <Card 
-              key={service.slug} 
-              className="overflow-hidden hover:border-yellow-500/40 transition-all"
+            <Card
+              key={service.slug}
+              className="overflow-hidden hover:border-yellow-500/50 hover:shadow-lg hover:shadow-yellow-500/10 transition-all duration-300 active:scale-98"
             >
-              <div className="flex items-start gap-3 p-3">
+              <div className="flex items-start gap-3 p-3.5">
                 {/* Icon */}
                 <div
-                  className="rounded-lg p-2 flex-shrink-0"
+                  className="rounded-xl p-2.5 flex-shrink-0 shadow-sm"
                   style={{ backgroundColor: `${BRAND.colors.primary}20` }}
                 >
-                  {React.createElement(serviceIcons[i], { size: 20, style: { color: BRAND.colors.primary } })}
+                  {React.createElement(serviceIcons[i], { size: 22, style: { color: BRAND.colors.primary } })}
                 </div>
-                
+
                 {/* Content */}
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-start justify-between gap-2 mb-1">
+                  <div className="flex items-start justify-between gap-2 mb-1.5">
                     <h3 className="text-white font-bold text-sm leading-tight">
                       {service.title}
                     </h3>
-                    <span 
-                      className="text-sm font-bold flex-shrink-0"
-                      style={{ color: BRAND.colors.primary }}
+                    <span
+                      className="text-sm font-bold flex-shrink-0 gradient-text"
                     >
                       {service.price}
                     </span>
                   </div>
-                  <p className="text-white/70 text-xs leading-relaxed">
+                  <p className="text-white/75 text-xs leading-relaxed">
                     {service.desc}
                   </p>
                 </div>
@@ -651,30 +656,47 @@ export default function Home() {
       </Section>
 
       {/* CTA Section */}
-      <Section className="py-3 lg:py-16">
-        <Card className="p-4 lg:p-12 text-center bg-gradient-to-br from-white/10 to-white/5 border-2" style={{ borderColor: `${BRAND.colors.primary}40` }}>
-          <div className="max-w-2xl mx-auto">
-            <h2 className="text-white text-base lg:text-4xl font-bold mb-1 lg:mb-4">
+      <Section className="py-4 lg:py-16">
+        <Card className="p-5 lg:p-12 text-center bg-gradient-to-br from-white/10 via-white/5 to-transparent border-2 hover:border-yellow-500/60 transition-all duration-500 shadow-xl hover:shadow-2xl hover:shadow-yellow-500/20 relative overflow-hidden" style={{ borderColor: `${BRAND.colors.primary}40` }}>
+          {/* Decorative gradient orb - Desktop only */}
+          <div className="hidden lg:block absolute -top-20 -right-20 w-40 h-40 bg-yellow-500/10 rounded-full blur-3xl" />
+          <div className="hidden lg:block absolute -bottom-20 -left-20 w-40 h-40 bg-yellow-500/10 rounded-full blur-3xl" />
+
+          <div className="max-w-2xl mx-auto relative z-10">
+            <h2 className="text-white text-lg lg:text-4xl font-bold mb-2 lg:mb-4">
               Need a Mobile Mechanic Today?
             </h2>
             <p className="hidden lg:block text-white/80 text-sm lg:text-lg mb-1 lg:mb-2">
               Get your free quote in under 2 minutes
             </p>
-            <p className="text-white/60 text-[10px] lg:text-sm mb-2 lg:mb-8">
-              ✅ No obligation • ✅ Instant confirmation • ✅ Professional service
+            <p className="text-white/70 text-xs lg:text-sm mb-3 lg:mb-8 flex items-center justify-center gap-2 flex-wrap">
+              <span className="flex items-center gap-1">
+                <CheckCircle2 size={14} className="text-yellow-400" />
+                <span>No obligation</span>
+              </span>
+              <span className="text-white/30">•</span>
+              <span className="flex items-center gap-1">
+                <CheckCircle2 size={14} className="text-yellow-400" />
+                <span>Instant confirmation</span>
+              </span>
+              <span className="text-white/30">•</span>
+              <span className="flex items-center gap-1">
+                <CheckCircle2 size={14} className="text-yellow-400" />
+                <span>Professional service</span>
+              </span>
             </p>
-            <div className="flex flex-col gap-1.5 lg:gap-4 justify-center">
+            <div className="flex flex-col gap-2.5 lg:gap-4 justify-center">
               <Link to="/estimate">
-                <Button variant="primary" icon={Calculator} className="w-full text-xs lg:text-lg py-2 lg:py-6">
+                <Button variant="primary" icon={Calculator} className="w-full text-sm lg:text-lg py-3 lg:py-6 shadow-xl shadow-yellow-500/30 hover:shadow-2xl hover:shadow-yellow-500/40 transition-all">
                   Get Free Quote Now
                 </Button>
               </Link>
-              <div className="flex gap-1.5 lg:gap-3">
+              <div className="flex gap-2.5 lg:gap-3">
                 <LinkButton
                   variant="secondary"
                   icon={Phone}
                   href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`}
-                  className="flex-1 text-[10px] lg:text-base py-2 lg:py-3"
+                  className="flex-1 text-xs lg:text-base py-2.5 lg:py-3 hover:bg-yellow-500/5"
                 >
                   Call
                 </LinkButton>
@@ -682,13 +704,13 @@ export default function Home() {
                   variant="ghost"
                   icon={MessageCircle}
                   href={`https://wa.me/${BRAND.phoneIntl.replace('+', '')}?text=${BRAND.whatsappPrefill}`}
-                  className="flex-1 text-[10px] lg:text-base py-2 lg:py-3"
+                  className="flex-1 text-xs lg:text-base py-2.5 lg:py-3 hover:bg-white/5"
                 >
                   WhatsApp
                 </LinkButton>
               </div>
             </div>
-            <p className="hidden lg:block text-white/40 text-[10px] lg:text-xs mt-3 lg:mt-6">
+            <p className="hidden lg:block text-white/40 text-[10px] lg:text-xs mt-4 lg:mt-6">
               New service launching in Hemel Hempstead • Available {BRAND.hoursDisplay}
             </p>
           </div>
