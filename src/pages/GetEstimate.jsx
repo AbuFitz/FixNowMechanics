@@ -484,41 +484,41 @@ ${BRAND.tagline}
   const StepIcon = STEPS[currentStep - 1].icon;
 
   return (
-    <Section className="py-6 lg:py-16">
+    <Section className="py-8 lg:py-16">
       <div className="max-w-3xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-6 lg:mb-8">
-          <h1 className="text-white text-2xl lg:text-4xl font-bold mb-2 lg:mb-3">
+        <div className="text-center mb-8 lg:mb-8 space-y-2">
+          <h1 className="text-white text-3xl lg:text-4xl font-bold">
             Get Your Free Quote
           </h1>
-          <p className="text-white/70 text-sm lg:text-lg">
-            Complete the form below and we'll send you a detailed quote
+          <p className="text-white/70 text-base lg:text-lg">
+            Complete the form and we'll send you a detailed quote
           </p>
         </div>
 
         {/* Step Indicator */}
-        <div className="mb-6 lg:mb-8">
-          {/* Mobile: Simplified Step Indicator */}
-          <div className="lg:hidden mb-4">
-            <div className="flex items-center justify-center gap-3 mb-2">
+        <div className="mb-8 lg:mb-8">
+          {/* Mobile: Modern Step Indicator */}
+          <div className="lg:hidden mb-6">
+            <div className="flex items-center justify-center gap-3 mb-3">
               <div
-                className="w-12 h-12 rounded-full flex items-center justify-center"
+                className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg"
                 style={{
                   backgroundColor: BRAND.colors.primary,
                   color: BRAND.colors.dark
                 }}
               >
-                <StepIcon size={20} />
+                <StepIcon size={24} strokeWidth={2.5} />
               </div>
             </div>
-            <div className="text-center">
-              <p className="text-white/60 text-xs mb-1">Step {currentStep} of {STEPS.length}</p>
-              <p className="text-white font-semibold text-base">{STEPS[currentStep - 1].title}</p>
+            <div className="text-center space-y-2">
+              <p className="text-white/60 text-sm">Step {currentStep} of {STEPS.length}</p>
+              <p className="text-white font-bold text-lg">{STEPS[currentStep - 1].title}</p>
             </div>
-            {/* Progress bar */}
-            <div className="mt-3 w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+            {/* Modern progress bar */}
+            <div className="mt-4 w-full h-2 bg-white/10 rounded-full overflow-hidden">
               <div
-                className="h-full rounded-full transition-all duration-500"
+                className="h-full rounded-full transition-all duration-500 shadow-lg"
                 style={{
                   width: `${(currentStep / STEPS.length) * 100}%`,
                   backgroundColor: BRAND.colors.primary
@@ -566,25 +566,25 @@ ${BRAND.tagline}
         </div>
 
         {/* Form Card */}
-        <Card className="p-3 sm:p-6 lg:p-8">
-          <div className="mb-4 lg:mb-6">
-            <div className="flex items-center gap-2 lg:gap-3 mb-2">
+        <Card className="p-6 sm:p-6 lg:p-8 shadow-2xl">
+          <div className="mb-6 lg:mb-6">
+            <div className="flex items-center gap-3 lg:gap-3 mb-3">
               <div
-                className="w-8 h-8 lg:w-10 lg:h-10 rounded-xl flex items-center justify-center"
+                className="w-10 h-10 lg:w-10 lg:h-10 rounded-xl flex items-center justify-center"
                 style={{ backgroundColor: `${BRAND.colors.primary}20` }}
               >
-                <StepIcon size={18} style={{ color: BRAND.colors.primary }} className="lg:w-5 lg:h-5" />
+                <StepIcon size={20} style={{ color: BRAND.colors.primary }} className="lg:w-5 lg:h-5" />
               </div>
-              <h2 className="text-white text-lg lg:text-2xl font-bold">
+              <h2 className="text-white text-xl lg:text-2xl font-bold">
                 {STEPS[currentStep - 1].title}
               </h2>
             </div>
           </div>
 
-          <form ref={formRef} className="space-y-4 lg:space-y-6">
+          <form ref={formRef} className="space-y-5 lg:space-y-6">
             {/* Step 1: Your Details */}
             {currentStep === 1 && (
-              <div className="space-y-4 animate-in fade-in slide-in-from-right-5 duration-300">
+              <div className="space-y-5 animate-in fade-in slide-in-from-right-5 duration-300">
                 <Input
                   label="Full Name *"
                   name="name"
@@ -619,10 +619,10 @@ ${BRAND.tagline}
 
             {/* Step 2: Vehicle Info */}
             {currentStep === 2 && (
-              <div className="space-y-4 animate-in fade-in slide-in-from-right-5 duration-300">
+              <div className="space-y-5 animate-in fade-in slide-in-from-right-5 duration-300">
                 {/* Info message */}
                 <Card className="bg-blue-500/10 border-blue-500/30 p-4">
-                  <p className="text-blue-300 text-sm">
+                  <p className="text-blue-300 text-sm leading-relaxed">
                     <strong>Vehicle Details:</strong> Make and model help us prepare the right tools and parts. Registration is optional but helpful for our records.
                   </p>
                 </Card>
@@ -672,7 +672,7 @@ ${BRAND.tagline}
 
             {/* Step 3: Location */}
             {currentStep === 3 && (
-              <div className="space-y-4 animate-in fade-in slide-in-from-right-5 duration-300">
+              <div className="space-y-5 animate-in fade-in slide-in-from-right-5 duration-300">
                 <div className="flex gap-3">
                   <Input
                     label="Postcode *"
@@ -781,27 +781,27 @@ ${BRAND.tagline}
 
             {/* Step 4: Service */}
             {currentStep === 4 && (
-              <div className="space-y-4 animate-in fade-in slide-in-from-right-5 duration-300">
+              <div className="space-y-5 animate-in fade-in slide-in-from-right-5 duration-300">
                 {/* Diagnostic Visit Info */}
-                <Card className="bg-blue-500/10 border-blue-500/30 p-4">
-                  <p className="text-blue-300 text-sm mb-2">
-                    <strong>About Our Diagnostic Visit:</strong>
+                <Card className="bg-blue-500/10 border-blue-500/30 p-5">
+                  <p className="text-blue-300 text-sm mb-3 font-semibold">
+                    About Our Diagnostic Visit:
                   </p>
-                  <p className="text-white/80 text-xs mb-2">
+                  <p className="text-white/80 text-sm mb-3 leading-relaxed">
                     {postcodeData ? (
                       <>Your diagnostic visit fee is <strong>{postcodeData.priceRange}</strong> based on your location ({postcodeData.distanceMiles.toFixed(1)} miles from Hemel Hempstead).</>
                     ) : (
                       <>Diagnostic visit typically costs £15–£25 depending on your distance from Hemel Hempstead.</>
                     )}
                   </p>
-                  <p className="text-white/70 text-xs">
+                  <p className="text-white/70 text-sm leading-relaxed">
                     This covers travel, initial checks, and professional advice. If we carry out paid repair work during the same visit, £{DIAGNOSTIC_PRICING.labourDeduction} of your diagnostic fee is deducted from the labour.
                   </p>
                 </Card>
 
                 {/* Service Scope Info */}
-                <Card className="bg-white/5 border-white/10 p-4">
-                  <p className="text-white/80 text-sm">
+                <Card className="bg-white/5 border-white/10 p-5">
+                  <p className="text-white/80 text-sm leading-relaxed">
                     <strong>Our Specialization:</strong> We focus on major mechanical repairs including diagnostics, braking systems, suspension, battery, and engine servicing. For other repairs, please describe below or contact us via WhatsApp.
                   </p>
                 </Card>
@@ -833,8 +833,8 @@ ${BRAND.tagline}
                   error={errors.description}
                 />
 
-                <Card className="bg-white/5 border-white/10 p-3">
-                  <p className="text-white/60 text-xs">
+                <Card className="bg-white/5 border-white/10 p-4">
+                  <p className="text-white/60 text-sm">
                     💡 <strong>Tip:</strong> The more detail you provide, the better we can prepare and give you an accurate quote!
                   </p>
                 </Card>
@@ -844,9 +844,9 @@ ${BRAND.tagline}
             {/* Step 5: Review */}
             {currentStep === 5 && (
               <div className="space-y-6 animate-in fade-in slide-in-from-right-5 duration-300">
-                <div className="space-y-4">
+                <div className="space-y-5">
                   <div className="border-b border-white/10 pb-4">
-                    <h3 className="text-white font-semibold mb-2">Contact Details</h3>
+                    <h3 className="text-white font-semibold mb-3 text-base">Contact Details</h3>
                     <p className="text-white/80 text-sm">{formData.name}</p>
                     <p className="text-white/80 text-sm">{formData.phone}</p>
                     <p className="text-white/80 text-sm">{formData.email}</p>
@@ -854,7 +854,7 @@ ${BRAND.tagline}
 
                   {(formData.vehicleMake || formData.vehicleModel) && (
                     <div className="border-b border-white/10 pb-4">
-                      <h3 className="text-white font-semibold mb-2">Vehicle</h3>
+                      <h3 className="text-white font-semibold mb-3 text-base">Vehicle</h3>
                       <p className="text-white/80 text-sm">
                         {formData.vehicleMake} {formData.vehicleModel} {formData.vehicleYear}
                         {formData.vehicleReg && ` (${formData.vehicleReg})`}
@@ -863,14 +863,14 @@ ${BRAND.tagline}
                   )}
 
                   <div className="border-b border-white/10 pb-4">
-                    <h3 className="text-white font-semibold mb-2">Location</h3>
+                    <h3 className="text-white font-semibold mb-3 text-base">Location</h3>
                     <p className="text-white/80 text-sm">{formData.addressLine1}</p>
                     {formData.addressLine2 && <p className="text-white/80 text-sm">{formData.addressLine2}</p>}
                     <p className="text-white/80 text-sm">{formData.city}, {formData.postcode}</p>
                   </div>
 
                   <div className="border-b border-white/10 pb-4">
-                    <h3 className="text-white font-semibold mb-2">Service Required</h3>
+                    <h3 className="text-white font-semibold mb-3 text-base">Service Required</h3>
                     <p className="text-white/80 text-sm">
                       {SERVICES.find(s => s.slug === formData.serviceType)?.title || formData.serviceType}
                     </p>
@@ -895,7 +895,7 @@ ${BRAND.tagline}
             )}
 
             {/* Navigation Buttons */}
-            <div className="flex gap-3 pt-6 border-t border-white/10">
+            <div className="flex gap-3 pt-8 border-t border-white/10">
               {currentStep > 1 && (
                 <Button
                   type="button"
@@ -903,7 +903,7 @@ ${BRAND.tagline}
                   variant="ghost"
                   icon={ArrowLeft}
                   disabled={submitting}
-                  className="flex-1"
+                  className="flex-1 py-4 border border-white/20"
                 >
                   Back
                 </Button>
@@ -914,14 +914,14 @@ ${BRAND.tagline}
                 variant="primary"
                 icon={currentStep === STEPS.length ? (submitting ? Loader2 : CheckCircle2) : ArrowRight}
                 disabled={submitting}
-                className="flex-1"
+                className="flex-1 py-4 font-bold shadow-lg"
               >
                 {submitting ? 'Submitting...' : currentStep === STEPS.length ? 'Submit Request' : 'Continue'}
               </Button>
             </div>
 
-            <p className="text-white/40 text-xs text-center mt-4">
-              Press Enter to continue or use the buttons above
+            <p className="text-white/40 text-sm text-center mt-4">
+              Press Enter to continue
             </p>
           </form>
         </Card>

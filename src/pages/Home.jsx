@@ -126,13 +126,13 @@ export default function Home() {
             alt="FixNow Mechanics"
             className="w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/70 to-black/85" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/80 to-black/90" />
         </div>
 
-        <Section className="py-6 lg:py-32 relative z-10">
+        <Section className="py-12 lg:py-32 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left: Content */}
-            <div className="text-white space-y-3 lg:space-y-6">
+            <div className="text-white space-y-6 lg:space-y-6">
               {/* Pills - Desktop Only */}
               <div className="hidden lg:flex gap-2 flex-wrap">
                 <Pill icon={Wrench}>Mobile Mechanic</Pill>
@@ -140,15 +140,16 @@ export default function Home() {
                 <Pill icon={MapPin}>{BRAND.baseCityCoords.city}</Pill>
               </div>
 
-              <div className="space-y-2 lg:space-y-4">
-                <h1 className="text-2xl lg:text-6xl font-extrabold leading-tight drop-shadow-lg">
+              <div className="space-y-4 lg:space-y-4">
+                <h1 className="text-3xl lg:text-6xl font-extrabold leading-tight drop-shadow-lg">
                   <span className="block">Expert Vehicle </span>
                   <span className="block" style={{ color: BRAND.colors.primary }}>Diagnostics & Repair</span>
                 </h1>
                 
-                {/* Mobile: Ultra compact tagline */}
-                <p className="lg:hidden text-sm text-white/90 drop-shadow">
-                  Mobile mechanic • Hemel Hempstead • Diagnostics from £15
+                {/* Mobile: Modern tagline with better spacing */}
+                <p className="lg:hidden text-base text-white/90 drop-shadow-md leading-relaxed">
+                  Mobile mechanic in Hemel Hempstead<br/>
+                  <span className="text-white/70 text-sm">Diagnostics from £15</span>
                 </p>
                 
                 {/* Desktop: Full tagline */}
@@ -167,27 +168,27 @@ export default function Home() {
                 </p>
               </div>
 
-              {/* Mobile CTA Buttons - Ultra Compact */}
-              <div className="lg:hidden flex flex-col gap-2">
+              {/* Mobile CTA Buttons - Modern spacing */}
+              <div className="lg:hidden flex flex-col gap-3">
                 <Link to="/estimate" className="w-full">
-                  <Button variant="primary" className="w-full py-2.5 text-sm font-semibold" icon={Calculator}>
+                  <Button variant="primary" className="w-full py-4 text-base font-bold shadow-xl" icon={Calculator}>
                     Get Free Quote
                   </Button>
                 </Link>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-2 gap-3">
                   <LinkButton
                     variant="secondary"
                     icon={Phone}
                     href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`}
-                    className="py-2.5 text-xs font-semibold"
+                    className="py-3.5 text-sm font-semibold"
                   >
-                    Call
+                    Call Now
                   </LinkButton>
                   <LinkButton
                     variant="ghost"
                     icon={MessageCircle}
                     href={`https://wa.me/${BRAND.phoneIntl.replace('+', '')}?text=${BRAND.whatsappPrefill}`}
-                    className="py-2.5 text-xs font-semibold"
+                    className="py-3.5 text-sm font-semibold border border-white/20"
                   >
                     WhatsApp
                   </LinkButton>
@@ -237,20 +238,20 @@ export default function Home() {
       </div>
 
       {/* Features */}
-      <Section className="py-4 lg:py-16">
-        {/* Mobile: Compact 2-column grid */}
-        <div className="lg:hidden grid grid-cols-2 gap-2">
+      <Section className="py-8 lg:py-16">
+        {/* Mobile: Modern 2-column grid with better spacing */}
+        <div className="lg:hidden grid grid-cols-2 gap-4">
           {features.map((feature, i) => (
-            <Card key={i} className="p-3">
-              <div className="text-center">
+            <Card key={i} className="p-4 hover:bg-white/10 transition-all duration-300">
+              <div className="text-center space-y-2">
                 <div
-                  className="w-10 h-10 rounded-lg flex items-center justify-center mx-auto mb-2"
+                  className="w-12 h-12 rounded-xl flex items-center justify-center mx-auto"
                   style={{ backgroundColor: `${BRAND.colors.primary}20` }}
                 >
-                  <feature.icon size={20} style={{ color: BRAND.colors.primary }} />
+                  <feature.icon size={22} style={{ color: BRAND.colors.primary }} />
                 </div>
-                <h3 className="text-white font-bold text-xs mb-0.5">{feature.title}</h3>
-                <p className="text-white/70 text-[10px] leading-tight">{feature.desc}</p>
+                <h3 className="text-white font-bold text-sm leading-tight">{feature.title}</h3>
+                <p className="text-white/70 text-xs leading-relaxed">{feature.desc}</p>
               </div>
             </Card>
           ))}
@@ -274,9 +275,9 @@ export default function Home() {
       </Section>
 
       {/* Trusted Brands & Parts */}
-      <Section className="py-3 lg:py-12" style={{ backgroundColor: BRAND.colors.mid }}>
-        <div className="text-center mb-2 lg:mb-8">
-          <h2 className="text-white text-base lg:text-2xl font-bold mb-1 lg:mb-2">
+      <Section className="py-8 lg:py-12" style={{ backgroundColor: BRAND.colors.mid }}>
+        <div className="text-center mb-6 lg:mb-8">
+          <h2 className="text-white text-xl lg:text-2xl font-bold mb-2 lg:mb-2">
             Quality Parts & Trusted Brands
           </h2>
           <p className="hidden lg:block text-white/60 text-sm max-w-2xl mx-auto">
@@ -350,14 +351,24 @@ export default function Home() {
       </Section>
 
       {/* Services */}
-      <Section className="py-4 lg:py-16">
-        <div className="text-center mb-3 lg:mb-12">
-          <h2 className="text-white text-lg lg:text-4xl font-bold mb-1 lg:mb-3">
+      <Section className="py-10 lg:py-16">
+        <div className="text-center mb-8 lg:mb-12 space-y-3">
+          <h2 className="text-white text-2xl lg:text-4xl font-bold">
             Our Core Services
           </h2>
-          <p className="hidden lg:block text-white/70 text-sm lg:text-lg max-w-3xl mx-auto mb-4 lg:mb-6">
-            Specializing in major mechanical repairs and diagnostics. Fixed-price services with transparent pricing.
+          <p className="text-white/60 text-sm lg:text-lg max-w-2xl mx-auto px-4">
+            Major mechanical repairs with transparent pricing
           </p>
+
+          {/* BYO Policy Callout - Mobile version */}
+          <Card className="lg:hidden inline-block bg-white/5 border-white/20 p-3 mx-4">
+            <div className="flex items-center justify-center gap-2 text-white/90">
+              <CheckCircle2 size={16} className="flex-shrink-0" style={{ color: BRAND.colors.primary }} />
+              <p className="text-xs font-medium">
+                <span style={{ color: BRAND.colors.primary }}>BYO Parts Welcome</span> — We'll fit them
+              </p>
+            </div>
+          </Card>
 
           {/* BYO Policy Callout - Desktop Only */}
           <Card className="hidden lg:inline-block bg-white/5 border-white/20 p-2 lg:p-4 max-w-2xl">
@@ -370,39 +381,39 @@ export default function Home() {
           </Card>
         </div>
 
-        {/* Mobile: Clean single-column cards with proper spacing */}
-        <div className="lg:hidden space-y-3 px-4">
+        {/* Mobile: Modern card layout with better spacing and design */}
+        <div className="lg:hidden space-y-4">
           {SERVICES.map((service, i) => (
             <Card 
               key={service.slug} 
-              className="overflow-hidden hover:border-yellow-500/40 transition-all"
+              className="overflow-hidden hover:bg-white/10 transition-all duration-300 mx-4"
             >
-              <div className="flex items-start gap-3 p-3">
-                {/* Icon */}
-                <div
-                  className="rounded-lg p-2 flex-shrink-0"
-                  style={{ backgroundColor: `${BRAND.colors.primary}20` }}
-                >
-                  {React.createElement(serviceIcons[i], { size: 20, style: { color: BRAND.colors.primary } })}
-                </div>
-                
-                {/* Content */}
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-start justify-between gap-2 mb-1">
-                    <h3 className="text-white font-bold text-sm leading-tight">
+              <div className="p-5 space-y-3">
+                {/* Header with icon and price */}
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <div
+                      className="rounded-xl p-2.5 flex-shrink-0"
+                      style={{ backgroundColor: `${BRAND.colors.primary}20` }}
+                    >
+                      {React.createElement(serviceIcons[i], { size: 24, style: { color: BRAND.colors.primary } })}
+                    </div>
+                    <h3 className="text-white font-bold text-base leading-tight">
                       {service.title}
                     </h3>
-                    <span 
-                      className="text-sm font-bold flex-shrink-0"
-                      style={{ color: BRAND.colors.primary }}
-                    >
-                      {service.price}
-                    </span>
                   </div>
-                  <p className="text-white/70 text-xs leading-relaxed">
-                    {service.desc}
-                  </p>
+                  <span 
+                    className="text-lg font-bold flex-shrink-0"
+                    style={{ color: BRAND.colors.primary }}
+                  >
+                    {service.price}
+                  </span>
                 </div>
+                
+                {/* Description */}
+                <p className="text-white/70 text-sm leading-relaxed">
+                  {service.desc}
+                </p>
               </div>
             </Card>
           ))}
@@ -428,28 +439,27 @@ export default function Home() {
           </Card>
         </div>
 
-        {/* Contact for Other Services - More compact on mobile */}
-        <div className="mt-4 lg:mt-12 px-4 lg:px-0">
-          <Card className="p-3 lg:p-6 bg-gradient-to-r from-white/5 to-white/10 border-white/20">
-            <div className="text-center space-y-2 lg:space-y-3">
-              <h3 className="text-white text-sm lg:text-xl font-bold">
+        {/* Contact for Other Services - Better mobile spacing */}
+        <div className="mt-8 lg:mt-12">
+          <Card className="p-6 lg:p-6 bg-gradient-to-r from-white/5 to-white/10 border-white/20 mx-4 lg:mx-0">
+            <div className="text-center space-y-4 lg:space-y-3">
+              <h3 className="text-white text-lg lg:text-xl font-bold">
                 Need a Different Repair?
               </h3>
-              <p className="hidden lg:block text-white/70 text-xs lg:text-sm max-w-2xl mx-auto leading-relaxed">
-                We focus on major mechanical work like diagnostics, braking systems, suspension, and engine servicing.
-                For other repairs not listed above, please reach out via WhatsApp or phone to discuss your specific needs.
+              <p className="text-white/70 text-sm lg:text-sm max-w-2xl mx-auto leading-relaxed">
+                We focus on major mechanical work. For other repairs, reach out to discuss your needs.
               </p>
-              <div className="flex gap-2 lg:gap-3 justify-center pt-1 lg:pt-2">
+              <div className="flex flex-col sm:flex-row gap-3 lg:gap-3 justify-center pt-2 lg:pt-2">
                 <LinkButton
                   variant="ghost"
                   icon={MessageCircle}
                   href={`https://wa.me/${BRAND.phoneIntl.replace('+', '')}?text=${encodeURIComponent('Hi! I need help with a repair not listed on your website')}`}
-                  className="flex-1 lg:flex-initial lg:min-w-[180px] text-xs lg:text-sm py-2 lg:py-3"
+                  className="flex-1 sm:flex-initial lg:min-w-[180px] text-sm lg:text-sm py-3 lg:py-3 border border-white/20"
                 >
                   WhatsApp
                 </LinkButton>
-                <Link to="/estimate" className="flex-1 lg:flex-initial">
-                  <Button variant="primary" icon={Calculator} className="w-full lg:min-w-[180px] text-xs lg:text-sm py-2 lg:py-3">
+                <Link to="/estimate" className="flex-1 sm:flex-initial">
+                  <Button variant="primary" icon={Calculator} className="w-full lg:min-w-[180px] text-sm lg:text-sm py-3 lg:py-3">
                     Get Quote
                   </Button>
                 </Link>
@@ -460,11 +470,11 @@ export default function Home() {
       </Section>
 
       {/* About Section with Map */}
-      <Section className="py-4 lg:py-16">
-        <Card className="p-3 lg:p-8 xl:p-12">
-          <div className="grid md:grid-cols-2 gap-4 lg:gap-10">
-            <div className="text-white space-y-2 lg:space-y-6">
-              <h2 className="text-base lg:text-3xl font-bold">About FixNow Mechanics</h2>
+      <Section className="py-10 lg:py-16">
+        <Card className="p-6 lg:p-8 xl:p-12">
+          <div className="grid md:grid-cols-2 gap-6 lg:gap-10">
+            <div className="text-white space-y-4 lg:space-y-6">
+              <h2 className="text-xl lg:text-3xl font-bold">About FixNow Mechanics</h2>
               <p className="text-white/80 leading-relaxed text-xs lg:text-base">
                 We're a mobile mechanic service based in <strong>{BRAND.baseCityCoords.city}</strong>,
                 covering Hertfordshire and surrounding areas. Our mission is simple — bring
@@ -472,33 +482,33 @@ export default function Home() {
                 transparency and reliability.
               </p>
 
-              <div className="space-y-1.5 lg:space-y-3 text-white/85 text-xs lg:text-base">
-                <div className="flex items-start gap-2">
-                  <CheckCircle2 size={14} className="lg:w-5 lg:h-5 mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
+              <div className="space-y-3 lg:space-y-3 text-white/85 text-sm lg:text-base">
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 size={18} className="lg:w-5 lg:h-5 mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
                   <div>
                     <strong>Major mechanical repairs</strong> — diagnostics, brakes, suspension & engine work
                   </div>
                 </div>
-                <div className="flex items-start gap-2">
-                  <CheckCircle2 size={14} className="lg:w-5 lg:h-5 mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 size={18} className="lg:w-5 lg:h-5 mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
                   <div>
                     <strong>BYO parts welcome</strong> — bring your own parts, we'll fit them
                   </div>
                 </div>
-                <div className="flex items-start gap-2">
-                  <CheckCircle2 size={14} className="lg:w-5 lg:h-5 mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 size={18} className="lg:w-5 lg:h-5 mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
                   <div>
                     <strong>Transparent pricing</strong> with detailed breakdown before we start
                   </div>
                 </div>
-                <div className="flex items-start gap-2">
-                  <CheckCircle2 size={14} className="lg:w-5 lg:h-5 mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 size={18} className="lg:w-5 lg:h-5 mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
                   <div>
                     <strong>Flexible hours:</strong> {BRAND.hoursDisplay}
                   </div>
                 </div>
-                <div className="flex items-start gap-2">
-                  <CheckCircle2 size={14} className="lg:w-5 lg:h-5 mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 size={18} className="lg:w-5 lg:h-5 mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
                   <div>
                     <strong>Wide coverage</strong> across Hertfordshire and beyond
                   </div>
@@ -506,12 +516,12 @@ export default function Home() {
               </div>
 
               <div>
-                <h3 className="text-white font-semibold mb-1.5 lg:mb-3 text-xs lg:text-lg">Service Areas</h3>
-                <div className="flex flex-wrap gap-1 lg:gap-2">
+                <h3 className="text-white font-semibold mb-3 lg:mb-3 text-sm lg:text-lg">Service Areas</h3>
+                <div className="flex flex-wrap gap-2 lg:gap-2">
                   {BRAND.serviceAreas.map((area) => (
                     <span
                       key={area}
-                      className="px-2 lg:px-4 py-0.5 lg:py-2 rounded-full border border-white/10 text-white/90 bg-white/5 text-[10px] lg:text-sm"
+                      className="px-3 lg:px-4 py-1.5 lg:py-2 rounded-full border border-white/10 text-white/90 bg-white/5 text-xs lg:text-sm"
                     >
                       {area}
                     </span>
@@ -521,11 +531,11 @@ export default function Home() {
             </div>
 
             {/* Map Section */}
-            <div className="space-y-2 lg:space-y-4">
-              <h3 className="text-white font-semibold text-xs lg:text-lg">Our Location</h3>
+            <div className="space-y-4 lg:space-y-4">
+              <h3 className="text-white font-semibold text-sm lg:text-lg">Our Location</h3>
 
               {/* Interactive Map */}
-              <div className="rounded-lg lg:rounded-2xl overflow-hidden border border-white/10 h-48 lg:h-96">
+              <div className="rounded-xl lg:rounded-2xl overflow-hidden border border-white/10 h-64 lg:h-96">
                 <iframe
                   title="FixNow Mechanics Location"
                   width="100%"
@@ -537,21 +547,21 @@ export default function Home() {
                 />
               </div>
 
-              <div className="bg-white/5 rounded-lg p-2 lg:p-4 border border-white/10 text-xs lg:text-sm">
-                <div className="flex items-start gap-2 mb-1.5 lg:mb-3">
-                  <MapPin size={14} className="lg:w-5 lg:h-5 mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
+              <div className="bg-white/5 rounded-lg p-4 lg:p-4 border border-white/10 space-y-3">
+                <div className="flex items-start gap-3">
+                  <MapPin size={18} className="lg:w-5 lg:h-5 mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
                   <div>
-                    <p className="text-white font-semibold text-xs lg:text-base">Base Location</p>
-                    <p className="text-white/70 text-[10px] lg:text-sm">{BRAND.baseArea}</p>
+                    <p className="text-white font-semibold text-sm lg:text-base">Base Location</p>
+                    <p className="text-white/70 text-xs lg:text-sm">{BRAND.baseArea}</p>
                   </div>
                 </div>
-                <div className="flex items-start gap-2">
-                  <Phone size={14} className="lg:w-5 lg:h-5 mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
+                <div className="flex items-start gap-3">
+                  <Phone size={18} className="lg:w-5 lg:h-5 mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
                   <div>
-                    <p className="text-white font-semibold text-xs lg:text-base">Contact</p>
+                    <p className="text-white font-semibold text-sm lg:text-base">Contact</p>
                     <a
                       href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`}
-                      className="text-[10px] lg:text-sm hover:underline"
+                      className="text-sm lg:text-sm hover:underline"
                       style={{ color: BRAND.colors.primary }}
                     >
                       {BRAND.phoneDisplay}
@@ -560,8 +570,8 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="border-t border-white/10 pt-2 lg:pt-4">
-                <p className="text-white/70 text-[10px] lg:text-sm leading-relaxed">
+              <div className="border-t border-white/10 pt-4 lg:pt-4">
+                <p className="text-white/70 text-xs lg:text-sm leading-relaxed">
                   FixNow Mechanics is proudly operated under the{' '}
                   <span className="font-semibold" style={{ color: BRAND.colors.primary }}>
                     ARF Automotive Group
@@ -651,45 +661,47 @@ export default function Home() {
       </Section>
 
       {/* CTA Section */}
-      <Section className="py-3 lg:py-16">
-        <Card className="p-4 lg:p-12 text-center bg-gradient-to-br from-white/10 to-white/5 border-2" style={{ borderColor: `${BRAND.colors.primary}40` }}>
-          <div className="max-w-2xl mx-auto">
-            <h2 className="text-white text-base lg:text-4xl font-bold mb-1 lg:mb-4">
-              Need a Mobile Mechanic Today?
-            </h2>
-            <p className="hidden lg:block text-white/80 text-sm lg:text-lg mb-1 lg:mb-2">
-              Get your free quote in under 2 minutes
-            </p>
-            <p className="text-white/60 text-[10px] lg:text-sm mb-2 lg:mb-8">
-              ✅ No obligation • ✅ Instant confirmation • ✅ Professional service
-            </p>
-            <div className="flex flex-col gap-1.5 lg:gap-4 justify-center">
+      <Section className="py-10 lg:py-16">
+        <Card className="p-8 lg:p-12 text-center bg-gradient-to-br from-white/10 to-white/5 border-2" style={{ borderColor: `${BRAND.colors.primary}40` }}>
+          <div className="max-w-2xl mx-auto space-y-6">
+            <div className="space-y-3">
+              <h2 className="text-white text-2xl lg:text-4xl font-bold">
+                Need a Mobile Mechanic Today?
+              </h2>
+              <p className="text-white/80 text-base lg:text-lg">
+                Get your free quote in under 2 minutes
+              </p>
+              <p className="text-white/60 text-sm lg:text-sm">
+                ✅ No obligation • ✅ Instant confirmation • ✅ Professional service
+              </p>
+            </div>
+            <div className="flex flex-col gap-3 lg:gap-4 justify-center">
               <Link to="/estimate">
-                <Button variant="primary" icon={Calculator} className="w-full text-xs lg:text-lg py-2 lg:py-6">
+                <Button variant="primary" icon={Calculator} className="w-full text-base lg:text-lg py-4 lg:py-6 font-bold shadow-xl">
                   Get Free Quote Now
                 </Button>
               </Link>
-              <div className="flex gap-1.5 lg:gap-3">
+              <div className="flex gap-3 lg:gap-3">
                 <LinkButton
                   variant="secondary"
                   icon={Phone}
                   href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`}
-                  className="flex-1 text-[10px] lg:text-base py-2 lg:py-3"
+                  className="flex-1 text-sm lg:text-base py-3 lg:py-3"
                 >
-                  Call
+                  Call Now
                 </LinkButton>
                 <LinkButton
                   variant="ghost"
                   icon={MessageCircle}
                   href={`https://wa.me/${BRAND.phoneIntl.replace('+', '')}?text=${BRAND.whatsappPrefill}`}
-                  className="flex-1 text-[10px] lg:text-base py-2 lg:py-3"
+                  className="flex-1 text-sm lg:text-base py-3 lg:py-3 border border-white/20"
                 >
                   WhatsApp
                 </LinkButton>
               </div>
             </div>
-            <p className="hidden lg:block text-white/40 text-[10px] lg:text-xs mt-3 lg:mt-6">
-              New service launching in Hemel Hempstead • Available {BRAND.hoursDisplay}
+            <p className="text-white/40 text-xs lg:text-xs">
+              Available {BRAND.hoursDisplay}
             </p>
           </div>
         </Card>

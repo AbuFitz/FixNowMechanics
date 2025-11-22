@@ -34,13 +34,13 @@ export function Header() {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <div className="sticky top-0 z-50 border-b border-white/10 backdrop-blur-xl bg-black/60">
-      <Section className="py-4">
+    <div className="sticky top-0 z-50 border-b border-white/10 backdrop-blur-xl bg-black/70">
+      <Section className="py-5">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link
             to="/"
-            className="text-white font-extrabold text-xl tracking-tight hover:opacity-80 transition-opacity"
+            className="text-white font-extrabold text-xl lg:text-xl tracking-tight hover:opacity-80 transition-opacity"
           >
             Fix<span style={{ color: BRAND.colors.primary }}>Now</span> Mechanics
           </Link>
@@ -75,10 +75,10 @@ export function Header() {
           </div>
 
           {/* Mobile Get Quote + Menu */}
-          <div className="lg:hidden flex items-center gap-2">
+          <div className="lg:hidden flex items-center gap-3">
             <Link
               to="/estimate"
-              className="text-sm font-semibold px-3 py-1.5 rounded-lg transition-all"
+              className="text-sm font-bold px-4 py-2 rounded-lg transition-all shadow-lg"
               style={{
                 backgroundColor: BRAND.colors.primary,
                 color: BRAND.colors.dark
@@ -88,7 +88,7 @@ export function Header() {
             </Link>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="text-white p-2"
+              className="text-white p-2 hover:bg-white/10 rounded-lg transition-colors"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -98,16 +98,16 @@ export function Header() {
 
         {/* Mobile Dropdown Menu */}
         {mobileMenuOpen && (
-          <div className="lg:hidden mt-4 pb-4 space-y-3 border-t border-white/10 pt-4">
+          <div className="lg:hidden mt-5 pb-4 space-y-1 border-t border-white/10 pt-5 animate-in fade-in slide-in-from-top-2 duration-200">
             {mobileDropdownLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`block py-2 font-medium transition-colors ${
+                className={`block py-3 px-4 font-medium rounded-lg transition-all ${
                   isActive(link.path)
-                    ? 'text-white'
-                    : 'text-white/70'
+                    ? 'bg-white/10 text-white'
+                    : 'text-white/70 hover:bg-white/5'
                 }`}
                 style={isActive(link.path) ? { color: BRAND.colors.primary } : {}}
               >
@@ -131,31 +131,31 @@ export function MobileBottomBar() {
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden border-t border-white/10 bg-black/95 backdrop-blur-xl">
-      <div className="px-3 py-2.5 pb-safe">
-        <div className="grid grid-cols-2 gap-2">
+    <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden border-t border-white/10 bg-black/95 backdrop-blur-xl shadow-2xl">
+      <div className="px-4 py-4 pb-safe">
+        <div className="grid grid-cols-2 gap-3">
           <a
             href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`}
-            className="flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-sm transition-all active:scale-95"
+            className="flex items-center justify-center gap-2 py-4 rounded-xl font-bold text-base transition-all active:scale-95 shadow-lg"
             style={{
               backgroundColor: BRAND.colors.primary,
               color: BRAND.colors.dark
             }}
           >
-            <Phone size={18} />
+            <Phone size={20} />
             Call Us
           </a>
           <a
             href={`https://wa.me/${BRAND.phoneIntl.replace('+', '')}?text=${BRAND.whatsappPrefill}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-sm transition-all active:scale-95"
+            className="flex items-center justify-center gap-2 py-4 rounded-xl font-bold text-base transition-all active:scale-95 shadow-lg"
             style={{
               backgroundColor: '#25D366',
               color: 'white'
             }}
           >
-            <MessageCircle size={18} />
+            <MessageCircle size={20} />
             WhatsApp
           </a>
         </div>
@@ -178,50 +178,50 @@ export function MobileWhatsAppFloat() {
       href={`https://wa.me/${BRAND.phoneIntl.replace('+', '')}?text=${BRAND.whatsappPrefill}`}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-50 lg:hidden w-14 h-14 rounded-full shadow-2xl flex items-center justify-center transition-all active:scale-95 hover:scale-110"
+      className="fixed bottom-6 right-6 z-50 lg:hidden w-16 h-16 rounded-full shadow-2xl flex items-center justify-center transition-all active:scale-95 hover:scale-110"
       style={{
         backgroundColor: '#25D366',
-        boxShadow: '0 4px 20px rgba(37, 211, 102, 0.4)'
+        boxShadow: '0 8px 32px rgba(37, 211, 102, 0.5)'
       }}
       aria-label="WhatsApp"
     >
-      <MessageCircle size={24} color="white" />
+      <MessageCircle size={28} color="white" strokeWidth={2} />
     </a>
   );
 }
 
 export function Footer() {
   return (
-    <footer className="w-full bg-black/60 text-white border-t border-white/10 mt-6 lg:mt-20">
-      <Section className="py-4 lg:py-12">
-        {/* Mobile: Ultra compact single column */}
-        <div className="lg:hidden space-y-3">
+    <footer className="w-full bg-black/60 text-white border-t border-white/10 mt-8 lg:mt-20">
+      <Section className="py-8 lg:py-12">
+        {/* Mobile: Modern compact layout */}
+        <div className="lg:hidden space-y-6">
           <div className="text-center">
-            <h3 className="font-bold text-base mb-1">
+            <h3 className="font-bold text-lg mb-2">
               Fix<span style={{ color: BRAND.colors.primary }}>Now</span> Mechanics
             </h3>
-            <p className="text-white/70 text-xs">
+            <p className="text-white/70 text-sm">
               Mobile mechanic service covering Hertfordshire
             </p>
           </div>
           
-          <div className="flex justify-center gap-6 text-xs text-white/70">
-            <Link to="/" className="hover:text-white">Home</Link>
-            <Link to="/estimate" className="hover:text-white">Get Quote</Link>
-            <Link to="/privacy" className="hover:text-white">Privacy</Link>
-            <Link to="/terms" className="hover:text-white">Terms</Link>
+          <div className="flex justify-center gap-8 text-sm text-white/70">
+            <Link to="/" className="hover:text-white transition-colors">Home</Link>
+            <Link to="/estimate" className="hover:text-white transition-colors">Quote</Link>
+            <Link to="/privacy" className="hover:text-white transition-colors">Privacy</Link>
+            <Link to="/terms" className="hover:text-white transition-colors">Terms</Link>
           </div>
           
-          <div className="text-center text-xs text-white/70 space-y-1">
+          <div className="text-center text-sm text-white/70 space-y-2">
             <p>
-              <a href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`} className="hover:text-white" style={{ color: BRAND.colors.primary }}>
+              <a href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`} className="hover:text-white font-medium" style={{ color: BRAND.colors.primary }}>
                 {BRAND.phoneDisplay}
               </a>
             </p>
             <p>{BRAND.baseArea}</p>
           </div>
           
-          <div className="text-center pt-2 border-t border-white/10 text-[10px] text-white/50">
+          <div className="text-center pt-4 border-t border-white/10 text-xs text-white/50">
             <p>© {new Date().getFullYear()} FixNow Mechanics | Part of ARF Automotive Group</p>
           </div>
         </div>

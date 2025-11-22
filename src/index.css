@@ -9,8 +9,20 @@
 }
 
 html, body, #root { height: 100%; }
-body { background: var(--brand-dark); }
+body { 
+  background: var(--brand-dark);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
+/* Smooth scrolling */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Brand logo scrolling animations */
 @keyframes scroll {
   0% {
     transform: translateX(0);
@@ -26,4 +38,81 @@ body { background: var(--brand-dark); }
 
 .animate-scroll-mobile {
   animation: scroll 15s linear infinite;
+}
+
+/* Modern fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Slide in from right */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Slide in from top */
+@keyframes slideInTop {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Utility classes */
+.animate-in {
+  animation-duration: 0.3s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-fill-mode: both;
+}
+
+.fade-in {
+  animation-name: fadeIn;
+}
+
+.slide-in-from-right-5 {
+  animation-name: slideInRight;
+}
+
+.slide-in-from-top-2 {
+  animation-name: slideInTop;
+}
+
+/* Safe area padding for mobile devices */
+@supports (padding: max(0px)) {
+  .pb-safe {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* Improved touch targets for mobile */
+@media (max-width: 768px) {
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Better text rendering on mobile */
+@media (max-width: 768px) {
+  body {
+    text-rendering: optimizeLegibility;
+  }
 }
