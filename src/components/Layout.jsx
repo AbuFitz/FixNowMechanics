@@ -18,6 +18,7 @@ export function Section({ children, className = '' }) {
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const [showGetQuote, setShowGetQuote] = React.useState(false);
   const location = useLocation();
 
   const navLinks = [
@@ -32,6 +33,26 @@ export function Header() {
   ];
 
   const isActive = (path) => location.pathname === path;
+
+  // Show Get Quote button on scroll (mobile only)
+  React.useEffect(() => {
+    const handleScroll = () => {
+      if (window.innerWidth < 1024) {
+        setShowGetQuote(window.scrollY > 100);
+      } else {
+        setShowGetQuote(true); // Always show on desktop
+      }
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
+  }, []);
 
   return (
     <div className="sticky top-0 z-50 border-b border-white/10 backdrop-blur-xl bg-black/70">
@@ -76,16 +97,18 @@ export function Header() {
 
           {/* Mobile Get Quote + Menu */}
           <div className="lg:hidden flex items-center gap-3">
-            <Link
-              to="/estimate"
-              className="text-sm font-bold px-4 py-2.5 rounded-lg transition-all shadow-lg flex items-center justify-center"
-              style={{
-                backgroundColor: BRAND.colors.primary,
-                color: BRAND.colors.dark
-              }}
-            >
-              Get Quote
-            </Link>
+            {showGetQuote && (
+              <Link
+                to="/estimate"
+                className="text-sm font-bold px-4 py-2.5 rounded-lg transition-all shadow-lg flex items-center justify-center animate-in fade-in slide-in-from-right-5 duration-300"
+                style={{
+                  backgroundColor: BRAND.colors.primary,
+                  color: BRAND.colors.dark
+                }}
+              >
+                Get Quote
+              </Link>
+            )}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="text-white p-2 hover:bg-white/10 rounded-lg transition-colors"

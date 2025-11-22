@@ -82,33 +82,9 @@ function ServiceCard({ service, icon: Icon }) {
 }
 
 export default function Home() {
-  const [showCTA, setShowCTA] = React.useState(false);
-
   // Scroll to top when component mounts
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
-
-  // Show CTA on mobile after scrolling
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.innerWidth < 1024) { // Only on mobile
-        setShowCTA(window.scrollY > 100);
-      } else {
-        setShowCTA(true); // Always show on desktop
-      }
-    };
-
-    // Set initial state
-    handleScroll();
-    
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('resize', handleScroll);
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
-    };
   }, []);
 
   const serviceIcons = [Gauge, Wrench, BatteryCharging, Droplet, Settings2];
@@ -191,16 +167,14 @@ export default function Home() {
                 </p>
               </div>
 
-              {/* Mobile CTA Buttons - Show after scroll */}
-              {showCTA && (
-                <div className="lg:hidden flex flex-col gap-3 animate-in fade-in slide-in-from-top-2 duration-300">
-                  <Link to="/estimate" className="w-full">
-                    <Button variant="primary" className="w-full py-4 text-base font-bold shadow-xl" icon={Calculator}>
-                      Get Free Quote
-                    </Button>
-                  </Link>
-                </div>
-              )}
+              {/* Mobile CTA Buttons - Simplified */}
+              <div className="lg:hidden flex flex-col gap-3">
+                <Link to="/estimate" className="w-full">
+                  <Button variant="primary" className="w-full py-4 text-base font-bold shadow-xl" icon={Calculator}>
+                    Get Free Quote
+                  </Button>
+                </Link>
+              </div>
 
               {/* Desktop CTA Buttons */}
               <div className="hidden lg:flex gap-4">
