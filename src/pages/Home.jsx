@@ -255,8 +255,8 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* Trusted Brands & Parts - Hidden on mobile */}
-      <Section className="hidden lg:block py-8 lg:py-12" style={{ backgroundColor: BRAND.colors.mid }}>
+      {/* Trusted Brands & Parts */}
+      <Section className="py-8 lg:py-12" style={{ backgroundColor: BRAND.colors.mid }}>
         <div className="text-center mb-6 lg:mb-8">
           <h2 className="text-white text-xl lg:text-2xl font-bold mb-2 lg:mb-2">
             Quality Parts & Trusted Brands
@@ -441,47 +441,56 @@ export default function Home() {
       </Section>
 
       {/* About Section with Map */}
-      <Section className="py-10 lg:py-16">
+      <Section className="py-8 lg:py-16">
         <Card className="p-6 lg:p-8 xl:p-12">
           <div className="grid md:grid-cols-2 gap-6 lg:gap-10">
             <div className="text-white space-y-4 lg:space-y-6">
-              <h2 className="text-xl lg:text-3xl font-bold">About FixNow Mechanics</h2>
-              <p className="text-white/80 leading-relaxed text-xs lg:text-base">
-                We're a mobile mechanic service based in <strong>{BRAND.baseCityCoords.city}</strong>,
-                covering Hertfordshire and surrounding areas. Our mission is simple — bring
-                workshop-quality repairs directly to your home or workplace with full
-                transparency and reliability.
+              <h2 className="text-xl lg:text-3xl font-bold">About Us</h2>
+              
+              {/* Mobile: Super simple version */}
+              <p className="lg:hidden text-white/80 leading-relaxed text-sm">
+                Mobile mechanic service covering Hertfordshire. We bring professional repairs to your location with transparent pricing.
               </p>
+              
+              {/* Desktop: Full description with bullet points */}
+              <div className="hidden lg:block space-y-6">
+                <p className="text-white/80 leading-relaxed text-base">
+                  We're a mobile mechanic service based in <strong>{BRAND.baseCityCoords.city}</strong>,
+                  covering Hertfordshire and surrounding areas. Our mission is simple — bring
+                  workshop-quality repairs directly to your home or workplace with full
+                  transparency and reliability.
+                </p>
 
-              <div className="space-y-3 lg:space-y-3 text-white/85 text-sm lg:text-base">
-                <div className="flex items-start gap-3">
-                  <CheckCircle2 size={18} className="lg:w-5 lg:h-5 mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
-                  <div>
-                    <strong>Major mechanical repairs</strong> — diagnostics, brakes, suspension & engine work
+                <div className="space-y-3 text-white/85 text-base">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 size={20} className="mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
+                    <div>
+                      <strong>Major mechanical repairs</strong> — diagnostics, brakes, suspension & engine work
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle2 size={18} className="lg:w-5 lg:h-5 mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
-                  <div>
-                    <strong>BYO parts welcome</strong> — bring your own parts, we'll fit them
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 size={20} className="mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
+                    <div>
+                      <strong>BYO parts welcome</strong> — bring your own parts, we'll fit them
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle2 size={18} className="lg:w-5 lg:h-5 mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
-                  <div>
-                    <strong>Transparent pricing</strong> with detailed breakdown before we start
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 size={20} className="mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
+                    <div>
+                      <strong>Transparent pricing</strong> with detailed breakdown before we start
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle2 size={18} className="lg:w-5 lg:h-5 mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
-                  <div>
-                    <strong>Flexible hours:</strong> {BRAND.hoursDisplay}
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 size={20} className="mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
+                    <div>
+                      <strong>Flexible hours:</strong> {BRAND.hoursDisplay}
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle2 size={18} className="lg:w-5 lg:h-5 mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
-                  <div>
-                    <strong>Wide coverage</strong> across Hertfordshire and beyond
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 size={20} className="mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
+                    <div>
+                      <strong>Wide coverage</strong> across Hertfordshire and beyond
+                    </div>
                   </div>
                 </div>
               </div>
@@ -504,12 +513,12 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Map Section - Desktop only */}
-            <div className="hidden lg:block space-y-4">
-              <h3 className="text-white font-semibold text-lg">Our Location</h3>
+            {/* Map Section */}
+            <div className="space-y-4 lg:space-y-4">
+              <h3 className="text-white font-semibold text-sm lg:text-lg">Our Location</h3>
 
               {/* Interactive Map */}
-              <div className="rounded-2xl overflow-hidden border border-white/10 h-96">
+              <div className="rounded-xl lg:rounded-2xl overflow-hidden border border-white/10 h-48 lg:h-96">
                 <iframe
                   title="FixNow Mechanics Location"
                   width="100%"
