@@ -142,14 +142,13 @@ export default function Home() {
 
               <div className="space-y-4 lg:space-y-4">
                 <h1 className="text-3xl lg:text-6xl font-extrabold leading-tight drop-shadow-lg">
-                  <span className="block">Expert Vehicle </span>
-                  <span className="block" style={{ color: BRAND.colors.primary }}>Diagnostics & Repair</span>
+                  <span className="block">Expert Mobile </span>
+                  <span className="block" style={{ color: BRAND.colors.primary }}>Mechanic Service</span>
                 </h1>
                 
-                {/* Mobile: Modern tagline with better spacing */}
+                {/* Mobile: Simple tagline */}
                 <p className="lg:hidden text-base text-white/90 drop-shadow-md leading-relaxed">
-                  Mobile mechanic in Hemel Hempstead<br/>
-                  <span className="text-white/70 text-sm">Diagnostics from £15</span>
+                  Professional repairs at your location
                 </p>
                 
                 {/* Desktop: Full tagline */}
@@ -168,31 +167,13 @@ export default function Home() {
                 </p>
               </div>
 
-              {/* Mobile CTA Buttons - Modern spacing */}
+              {/* Mobile CTA Buttons - Simplified */}
               <div className="lg:hidden flex flex-col gap-3">
                 <Link to="/estimate" className="w-full">
                   <Button variant="primary" className="w-full py-4 text-base font-bold shadow-xl" icon={Calculator}>
                     Get Free Quote
                   </Button>
                 </Link>
-                <div className="grid grid-cols-2 gap-3">
-                  <LinkButton
-                    variant="secondary"
-                    icon={Phone}
-                    href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`}
-                    className="py-3.5 text-sm font-semibold"
-                  >
-                    Call Now
-                  </LinkButton>
-                  <LinkButton
-                    variant="ghost"
-                    icon={MessageCircle}
-                    href={`https://wa.me/${BRAND.phoneIntl.replace('+', '')}?text=${BRAND.whatsappPrefill}`}
-                    className="py-3.5 text-sm font-semibold border border-white/20"
-                  >
-                    WhatsApp
-                  </LinkButton>
-                </div>
               </div>
 
               {/* Desktop CTA Buttons */}
@@ -239,8 +220,8 @@ export default function Home() {
 
       {/* Features */}
       <Section className="py-8 lg:py-16">
-        {/* Mobile: Modern 2-column grid with better spacing */}
-        <div className="lg:hidden grid grid-cols-2 gap-4">
+        {/* Mobile: Hidden - info available in bottom bar and services */}
+        <div className="hidden">
           {features.map((feature, i) => (
             <Card key={i} className="p-4 hover:bg-white/10 transition-all duration-300">
               <div className="text-center space-y-2">
@@ -274,8 +255,8 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* Trusted Brands & Parts */}
-      <Section className="py-8 lg:py-12" style={{ backgroundColor: BRAND.colors.mid }}>
+      {/* Trusted Brands & Parts - Hidden on mobile */}
+      <Section className="hidden lg:block py-8 lg:py-12" style={{ backgroundColor: BRAND.colors.mid }}>
         <div className="text-center mb-6 lg:mb-8">
           <h2 className="text-white text-xl lg:text-2xl font-bold mb-2 lg:mb-2">
             Quality Parts & Trusted Brands
@@ -351,73 +332,62 @@ export default function Home() {
       </Section>
 
       {/* Services */}
-      <Section className="py-10 lg:py-16">
-        <div className="text-center mb-8 lg:mb-12 space-y-3">
+      <Section className="py-8 lg:py-16">
+        <div className="text-center mb-6 lg:mb-12">
           <h2 className="text-white text-2xl lg:text-4xl font-bold">
-            Our Core Services
+            Our Services
           </h2>
-          <p className="text-white/60 text-sm lg:text-lg max-w-2xl mx-auto px-4">
-            Major mechanical repairs with transparent pricing
-          </p>
-
-          {/* BYO Policy Callout - Mobile version */}
-          <Card className="lg:hidden inline-block bg-white/5 border-white/20 p-3 mx-4">
-            <div className="flex items-center justify-center gap-2 text-white/90">
-              <CheckCircle2 size={16} className="flex-shrink-0" style={{ color: BRAND.colors.primary }} />
-              <p className="text-xs font-medium">
-                <span style={{ color: BRAND.colors.primary }}>BYO Parts Welcome</span> — We'll fit them
-              </p>
-            </div>
-          </Card>
-
-          {/* BYO Policy Callout - Desktop Only */}
-          <Card className="hidden lg:inline-block bg-white/5 border-white/20 p-2 lg:p-4 max-w-2xl">
-            <div className="flex items-center justify-center gap-2 text-white/90">
-              <CheckCircle2 size={14} className="lg:w-5 lg:h-5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
-              <p className="text-[10px] lg:text-sm font-medium">
-                <span style={{ color: BRAND.colors.primary }}>BYO Parts:</span> Bring your own parts, we'll fit them
-              </p>
-            </div>
-          </Card>
         </div>
 
-        {/* Mobile: Modern card layout with better spacing and design */}
-        <div className="lg:hidden space-y-4">
-          {SERVICES.map((service, i) => (
-            <Card 
-              key={service.slug} 
-              className="overflow-hidden hover:bg-white/10 transition-all duration-300 mx-4"
-            >
-              <div className="p-5 space-y-3">
-                {/* Header with icon and price */}
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex items-center gap-3">
-                    <div
-                      className="rounded-xl p-2.5 flex-shrink-0"
-                      style={{ backgroundColor: `${BRAND.colors.primary}20` }}
-                    >
-                      {React.createElement(serviceIcons[i], { size: 24, style: { color: BRAND.colors.primary } })}
-                    </div>
-                    <h3 className="text-white font-bold text-base leading-tight">
-                      {service.title}
-                    </h3>
-                  </div>
-                  <span 
-                    className="text-lg font-bold flex-shrink-0"
-                    style={{ color: BRAND.colors.primary }}
+        {/* Mobile: Super compact list */}
+        <div className="lg:hidden">
+          <Card className="mx-4 divide-y divide-white/10">
+            {SERVICES.map((service, i) => (
+              <div key={service.slug} className="p-4 flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3 flex-1">
+                  <div
+                    className="rounded-lg p-2 flex-shrink-0"
+                    style={{ backgroundColor: `${BRAND.colors.primary}20` }}
                   >
-                    {service.price}
-                  </span>
+                    {React.createElement(serviceIcons[i], { size: 20, style: { color: BRAND.colors.primary } })}
+                  </div>
+                  <h3 className="text-white font-semibold text-sm">
+                    {service.title}
+                  </h3>
                 </div>
-                
-                {/* Description */}
-                <p className="text-white/70 text-sm leading-relaxed">
-                  {service.desc}
+                <span 
+                  className="text-base font-bold flex-shrink-0"
+                  style={{ color: BRAND.colors.primary }}
+                >
+                  {service.price}
+                </span>
+              </div>
+            ))}
+          </Card>
+          <div className="mt-4 text-center px-4">
+            <Link to="/estimate">
+              <Button variant="primary" icon={Calculator} className="w-full py-3.5">
+                Get Quote
+              </Button>
+            </Link>
+          </div>
+        </div>
+
+        {/* Desktop: Full cards - keep BYO and descriptions */}
+        <div className="hidden lg:block">
+          <div className="text-center mb-8 space-y-3">
+            <p className="text-white/60 text-lg max-w-2xl mx-auto">
+              Major mechanical repairs with transparent pricing
+            </p>
+            <Card className="inline-block bg-white/5 border-white/20 p-4 max-w-2xl">
+              <div className="flex items-center justify-center gap-2 text-white/90">
+                <CheckCircle2 size={20} className="flex-shrink-0" style={{ color: BRAND.colors.primary }} />
+                <p className="text-sm font-medium">
+                  <span style={{ color: BRAND.colors.primary }}>BYO Parts:</span> Bring your own parts, we'll fit them
                 </p>
               </div>
             </Card>
-          ))}
-        </div>
+          </div>
 
         {/* Desktop: Grid layout */}
         <div className="hidden lg:grid md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
@@ -439,27 +409,27 @@ export default function Home() {
           </Card>
         </div>
 
-        {/* Contact for Other Services - Better mobile spacing */}
-        <div className="mt-8 lg:mt-12">
-          <Card className="p-6 lg:p-6 bg-gradient-to-r from-white/5 to-white/10 border-white/20 mx-4 lg:mx-0">
-            <div className="text-center space-y-4 lg:space-y-3">
-              <h3 className="text-white text-lg lg:text-xl font-bold">
+        {/* Contact for Other Services - Desktop only */}
+        <div className="hidden lg:block mt-12">
+          <Card className="p-6 bg-gradient-to-r from-white/5 to-white/10 border-white/20">
+            <div className="text-center space-y-3">
+              <h3 className="text-white text-xl font-bold">
                 Need a Different Repair?
               </h3>
-              <p className="text-white/70 text-sm lg:text-sm max-w-2xl mx-auto leading-relaxed">
+              <p className="text-white/70 text-sm max-w-2xl mx-auto leading-relaxed">
                 We focus on major mechanical work. For other repairs, reach out to discuss your needs.
               </p>
-              <div className="flex flex-col sm:flex-row gap-3 lg:gap-3 justify-center pt-2 lg:pt-2">
+              <div className="flex gap-3 justify-center pt-2">
                 <LinkButton
                   variant="ghost"
                   icon={MessageCircle}
                   href={`https://wa.me/${BRAND.phoneIntl.replace('+', '')}?text=${encodeURIComponent('Hi! I need help with a repair not listed on your website')}`}
-                  className="flex-1 sm:flex-initial lg:min-w-[180px] text-sm lg:text-sm py-3 lg:py-3 border border-white/20"
+                  className="min-w-[180px] text-sm py-3 border border-white/20"
                 >
                   WhatsApp
                 </LinkButton>
-                <Link to="/estimate" className="flex-1 sm:flex-initial">
-                  <Button variant="primary" icon={Calculator} className="w-full lg:min-w-[180px] text-sm lg:text-sm py-3 lg:py-3">
+                <Link to="/estimate">
+                  <Button variant="primary" icon={Calculator} className="min-w-[180px] text-sm py-3">
                     Get Quote
                   </Button>
                 </Link>
@@ -516,12 +486,15 @@ export default function Home() {
               </div>
 
               <div>
-                <h3 className="text-white font-semibold mb-3 lg:mb-3 text-sm lg:text-lg">Service Areas</h3>
-                <div className="flex flex-wrap gap-2 lg:gap-2">
+                <h3 className="text-white font-semibold mb-3 text-sm lg:text-lg">Coverage</h3>
+                <p className="lg:hidden text-white/70 text-sm">
+                  Hemel Hempstead and surrounding areas
+                </p>
+                <div className="hidden lg:flex flex-wrap gap-2">
                   {BRAND.serviceAreas.map((area) => (
                     <span
                       key={area}
-                      className="px-3 lg:px-4 py-1.5 lg:py-2 rounded-full border border-white/10 text-white/90 bg-white/5 text-xs lg:text-sm"
+                      className="px-4 py-2 rounded-full border border-white/10 text-white/90 bg-white/5 text-sm"
                     >
                       {area}
                     </span>
@@ -530,12 +503,12 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Map Section */}
-            <div className="space-y-4 lg:space-y-4">
-              <h3 className="text-white font-semibold text-sm lg:text-lg">Our Location</h3>
+            {/* Map Section - Desktop only */}
+            <div className="hidden lg:block space-y-4">
+              <h3 className="text-white font-semibold text-lg">Our Location</h3>
 
               {/* Interactive Map */}
-              <div className="rounded-xl lg:rounded-2xl overflow-hidden border border-white/10 h-64 lg:h-96">
+              <div className="rounded-2xl overflow-hidden border border-white/10 h-96">
                 <iframe
                   title="FixNow Mechanics Location"
                   width="100%"
@@ -661,46 +634,18 @@ export default function Home() {
       </Section>
 
       {/* CTA Section */}
-      <Section className="py-10 lg:py-16">
-        <Card className="p-8 lg:p-12 text-center bg-gradient-to-br from-white/10 to-white/5 border-2" style={{ borderColor: `${BRAND.colors.primary}40` }}>
-          <div className="max-w-2xl mx-auto space-y-6">
-            <div className="space-y-3">
-              <h2 className="text-white text-2xl lg:text-4xl font-bold">
-                Need a Mobile Mechanic Today?
-              </h2>
-              <p className="text-white/80 text-base lg:text-lg">
-                Get your free quote in under 2 minutes
-              </p>
-              <p className="text-white/60 text-sm lg:text-sm">
-                ✅ No obligation • ✅ Instant confirmation • ✅ Professional service
-              </p>
-            </div>
-            <div className="flex flex-col gap-3 lg:gap-4 justify-center">
-              <Link to="/estimate">
-                <Button variant="primary" icon={Calculator} className="w-full text-base lg:text-lg py-4 lg:py-6 font-bold shadow-xl">
-                  Get Free Quote Now
-                </Button>
-              </Link>
-              <div className="flex gap-3 lg:gap-3">
-                <LinkButton
-                  variant="secondary"
-                  icon={Phone}
-                  href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`}
-                  className="flex-1 text-sm lg:text-base py-3 lg:py-3"
-                >
-                  Call Now
-                </LinkButton>
-                <LinkButton
-                  variant="ghost"
-                  icon={MessageCircle}
-                  href={`https://wa.me/${BRAND.phoneIntl.replace('+', '')}?text=${BRAND.whatsappPrefill}`}
-                  className="flex-1 text-sm lg:text-base py-3 lg:py-3 border border-white/20"
-                >
-                  WhatsApp
-                </LinkButton>
-              </div>
-            </div>
-            <p className="text-white/40 text-xs lg:text-xs">
+      <Section className="py-8 lg:py-16">
+        <Card className="p-6 lg:p-12 text-center bg-gradient-to-br from-white/10 to-white/5 border-2 mx-4 lg:mx-0" style={{ borderColor: `${BRAND.colors.primary}40` }}>
+          <div className="max-w-2xl mx-auto space-y-5">
+            <h2 className="text-white text-xl lg:text-4xl font-bold">
+              Ready to Get Started?
+            </h2>
+            <Link to="/estimate" className="block">
+              <Button variant="primary" icon={Calculator} className="w-full text-base lg:text-lg py-4 lg:py-6 font-bold shadow-xl">
+                Get Free Quote
+              </Button>
+            </Link>
+            <p className="hidden lg:block text-white/40 text-xs">
               Available {BRAND.hoursDisplay}
             </p>
           </div>

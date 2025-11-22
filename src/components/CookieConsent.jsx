@@ -28,8 +28,7 @@ export function CookieConsent() {
   if (!showBanner) return null;
 
   return (
-    <div className="fixed bottom-20 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-auto z-50 sm:max-w-sm">
-      <div className="bg-black/95 border border-white/20 rounded-lg p-4 backdrop-blur-xl shadow-2xl">
+    <div className="hidden lg:block fixed bottom-20 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-auto z-50 sm:max-w-sm">\n      <div className="bg-black/95 border border-white/20 rounded-lg p-4 backdrop-blur-xl shadow-2xl">
         <div className="flex items-start gap-3 mb-3">
           <span className="text-2xl">🍪</span>
           <div className="flex-1">

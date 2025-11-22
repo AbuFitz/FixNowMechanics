@@ -78,7 +78,7 @@ export function Header() {
           <div className="lg:hidden flex items-center gap-3">
             <Link
               to="/estimate"
-              className="text-sm font-bold px-4 py-2 rounded-lg transition-all shadow-lg"
+              className="text-sm font-bold px-4 py-2.5 rounded-lg transition-all shadow-lg flex items-center justify-center"
               style={{
                 backgroundColor: BRAND.colors.primary,
                 color: BRAND.colors.dark
