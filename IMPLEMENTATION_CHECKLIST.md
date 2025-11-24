@@ -39,9 +39,7 @@
 ### Day 1-2: Google Business Profile Optimization
 
 #### Update Business Description (CRITICAL)
-Current phone in schema: `07930991598`  
-Current phone in brand: `07354 915941`  
-**ACTION NEEDED:** Verify correct phone number and update consistently.
+✅ **Phone number verified:** `07354 915941` (now consistent across all files)
 
 Login to Google Business Profile and update:
 
@@ -75,73 +73,16 @@ In GBP Services section, add these exact titles:
 
 ### Day 3-4: Google Posts (Location Focus)
 
-Create 4 posts this week, one every other day:
+**📄 See `GOOGLE_POSTS_ALL_LOCATIONS.md` for all posts for all 9 locations**
 
-**Post 1 - Watford:**
-```
-🔧 Mobile Mechanic Now Serving Watford
+Create 4 posts this week, one every other day. Use the posts from the document above.
 
-Professional car repairs at your Watford location - home, work, or roadside.
+**Recommended First Week:**
+- Day 3: Post Watford Post 1
+- Day 5: Post St Albans Post 1
+- Day 7: Post Luton Post 1
 
-✅ Brake repairs
-✅ Diagnostics
-✅ Servicing
-✅ Battery replacement
-
-Covering all Watford postcodes: WD17, WD18, WD19, WD24, WD25
-
-Get a free quote: 07354 915941
-Visit: fixnowmechanics.co.uk/locations/watford
-```
-
-**Post 2 - St Albans:**
-```
-🚗 Mobile Mechanic Service in St Albans
-
-Same-day mobile repairs throughout St Albans & surrounding areas.
-From diagnostics to major repairs - we come to you.
-
-✅ No workshop visit needed
-✅ Transparent pricing
-✅ Professional service
-
-Covering: AL1, AL2, AL3, AL4
-
-Free quotes ➜ 07354 915941
-fixnowmechanics.co.uk/locations/st-albans
-```
-
-**Post 3 - Luton:**
-```
-⚙️ Professional Mobile Mechanic in Luton
-
-Luton's trusted mobile mechanic service - we come to your location.
-
-• Brake repairs & servicing
-• Diagnostics & fault finding
-• Battery replacement
-• Oil & filter changes
-
-All Luton postcodes covered: LU1, LU2, LU3, LU4, LU5
-
-Call 07354 915941 | fixnowmechanics.co.uk/locations/luton
-```
-
-**Post 4 - Milton Keynes:**
-```
-🔧 Milton Keynes Mobile Mechanic Service
-
-Professional car repairs across Milton Keynes - at your home or workplace.
-
-✅ Same-day service available
-✅ Evening & weekend appointments
-✅ Fully equipped mobile workshop
-
-MK postcodes covered: MK1-MK15
-
-Get your free quote: 07354 915941
-fixnowmechanics.co.uk/locations/milton-keynes
-```
+Then continue rotating through all locations weekly.
 
 ### Day 5-7: Q&A Section
 
@@ -364,32 +305,7 @@ FixNow Mechanics
 
 ---
 
-## 🚨 CRITICAL PHONE NUMBER ISSUE
-
-**URGENT: Fix Phone Number Inconsistency**
-
-Your website shows two different phone numbers:
-
-1. Schema markup in `index.html`: `07930991598`
-2. Brand constants in `brand.js`: `07354 915941`
-3. SEO_STRATEGY.md references: `07354 915941`
-
-**ACTION REQUIRED:**
-1. Determine which is the correct, active number
-2. Update ALL instances to match:
-   - `/workspaces/FixNowMechanics/index.html` (line with telephone in schema)
-   - Google Business Profile
-   - All directory listings
-   - Social media profiles
-
-**Consistency is CRITICAL for:**
-- NAP (Name, Address, Phone) citations
-- Google ranking signals
-- Customer trust
-
----
-
-## 📈 EXPECTED RESULTS TIMELINE
+## � NEXT ACTIONS (Start Today)
 
 ### Week 2-3:
 - Location pages indexed by Google
@@ -414,12 +330,11 @@ Your website shows two different phone numbers:
 
 ## 📞 NEXT ACTIONS (Start Today)
 
-1. **Fix phone number inconsistency** (URGENT)
-2. **Update Google Business Profile** description with all service areas
-3. **Create first Google Post** focusing on Watford
-4. **Add 5 location-specific services** to GBP
-5. **Set up tracking** in Google Analytics & Search Console
-6. **Request first location-specific review** from recent customer
+1. **Update Google Business Profile** description with all service areas (see template in checklist)
+2. **Create first Google Post** focusing on Watford (see GOOGLE_POSTS_ALL_LOCATIONS.md)
+3. **Add 5 location-specific services** to GBP
+4. **Set up tracking** in Google Analytics & Search Console
+5. **Request first location-specific review** from recent customer
 
 ---
 

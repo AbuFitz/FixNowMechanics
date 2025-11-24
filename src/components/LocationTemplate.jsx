@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, Phone, MessageCircle, Clock, CheckCircle2, Calculator } from 'lucide-react';
-import { BRAND, SERVICES } from '../constants/brand';
+import { MapPin, Phone, MessageCircle, Clock, CheckCircle2, Calculator, Wrench } from 'lucide-react';
+import { BRAND } from '../constants/brand';
 import { Section } from '../components/Layout';
 import { Button, LinkButton } from '../components/Button';
 import { Card } from '../components/Card';
@@ -9,38 +9,58 @@ import { Card } from '../components/Card';
 export default function LocationTemplate({ location }) {
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = `${location.title} | FixNow Mechanics - Same Day Service`;
+    document.title = `${location.title} | FixNow Mechanics`;
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
       metaDesc.setAttribute('content', location.metaDescription);
     }
   }, [location]);
 
-  const benefits = [
-    `Same-day mobile mechanic service across ${location.name}`,
-    'We come to your home, workplace or roadside',
-    'Transparent pricing - no hidden costs',
-    'Evening & weekend appointments available'
+  const services = [
+    {
+      category: 'Diagnostics',
+      items: ['Full system diagnostic scan', 'Engine light diagnosis', 'ABS/DSC faults', 'Airbag/SRS faults', 'Electrical fault tracing', 'Live data analysis']
+    },
+    {
+      category: 'Servicing',
+      items: ['Full service', 'Interim service', 'Oil & filter change', 'Air/pollen/fuel filter changes', 'Spark plugs', 'Vehicle health check']
+    },
+    {
+      category: 'Brakes',
+      items: ['Brake pads', 'Discs & pads', 'Brake inspections', 'ABS sensor replacement', 'Brake fluid top-up']
+    },
+    {
+      category: 'Electrical & Starting',
+      items: ['Battery test & replacement', 'Alternator replacement', 'Starter motor replacement', 'Sensor replacements (MAF, MAP, O2, crank, cam)']
+    },
+    {
+      category: 'Suspension & Steering',
+      items: ['Springs', 'Shock absorbers', 'Drop links', 'Control arms', 'Ball joints', 'Track rod ends']
+    },
+    {
+      category: 'General Services',
+      items: ['Pre-purchase inspections', 'Jump starts', 'Battery drain checks', 'Leak inspections', 'Warning lights investigation']
+    }
   ];
 
   return (
     <div>
       {/* Hero Section */}
       <div style={{ backgroundColor: BRAND.colors.dark }}>
-        <Section className="py-16 lg:py-24">
+        <Section className="py-16 lg:py-20">
           <div className="max-w-4xl mx-auto text-center space-y-6">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-white/5 text-white/90 mb-4">
               <MapPin size={18} style={{ color: BRAND.colors.primary }} />
-              <span className="text-sm font-medium">Serving {location.name} & Surrounding Areas</span>
+              <span className="text-sm font-medium">We Travel to {location.name}</span>
             </div>
             
-            <h1 className="text-4xl lg:text-6xl font-extrabold text-white leading-tight">
-              Mobile Mechanic
-              <span className="block" style={{ color: BRAND.colors.primary }}>{location.name}</span>
+            <h1 className="text-4xl lg:text-5xl font-extrabold text-white leading-tight">
+              Mobile Mechanic Service
+              <span className="block mt-2" style={{ color: BRAND.colors.primary }}>Available in {location.name}</span>
             </h1>
             
-            <p className="text-xl text-white/80 max-w-2xl mx-auto">
-              Professional mobile mechanic service covering all areas of {location.name}. We bring workshop-quality repairs directly to your location.
+            <p className="text-lg text-white/80 max-w-2xl mx-auto">
+              Based in Hemel Hempstead, we bring professional mobile mechanic services to {location.name}. We come to your home, workplace, or roadside location.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
@@ -62,81 +82,134 @@ export default function LocationTemplate({ location }) {
         </Section>
       </div>
 
-      {/* Why Choose Us */}
+      {/* Coverage Info */}
       <Section className="py-12 lg:py-16">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-8 text-center">
-            Why Choose FixNow for {location.name} Mobile Mechanic Services?
-          </h2>
-          
-          <div className="grid md:grid-cols-2 gap-6 mb-12">
-            {benefits.map((benefit, index) => (
-              <Card key={index} className="p-6">
-                <div className="flex items-start gap-4">
-                  <CheckCircle2 size={24} className="flex-shrink-0 mt-1" style={{ color: BRAND.colors.primary }} />
-                  <p className="text-white/90 text-lg">{benefit}</p>
-                </div>
-              </Card>
-            ))}
-          </div>
-
           <Card className="p-8 bg-gradient-to-br from-white/10 to-white/5">
-            <h3 className="text-2xl font-bold text-white mb-4">
-              {location.name}'s Trusted Mobile Mechanic
-            </h3>
+            <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+              <MapPin size={28} style={{ color: BRAND.colors.primary }} />
+              Serving {location.name} from Hemel Hempstead
+            </h2>
             <p className="text-white/80 leading-relaxed mb-4">
-              Serving {location.name} and the surrounding areas, FixNow Mechanics brings professional vehicle repairs 
-              directly to your driveway, workplace, or roadside location. Based nearby in Hemel Hempstead, 
-              we're perfectly positioned to provide fast, reliable mobile mechanic services throughout {location.name}.
+              FixNow Mechanics is based in Hemel Hempstead and provides mobile mechanic services throughout {location.name}. 
+              Whether you're in {location.localAreas.slice(0, 3).join(', ')}, or anywhere else in {location.name}, 
+              we'll travel to your location with our fully equipped mobile workshop.
             </p>
             <p className="text-white/80 leading-relaxed">
-              Whether you're in {location.localAreas.slice(0, 3).join(', ')}, or any other part of {location.name}, 
-              our fully equipped mobile workshop comes to you. No need to arrange recovery or waste time at a garage 
-              – we handle diagnostics, repairs, and servicing at a time and place that suits you.
+              No need to arrange recovery or visit a garage – we handle diagnostics, repairs, and servicing at your driveway, 
+              workplace, or roadside. Same-day appointments often available.
             </p>
+            
+            <div className="mt-6 pt-6 border-t border-white/10">
+              <p className="text-white/70 text-sm">
+                <strong>Postcodes we cover in {location.name}:</strong> {location.postcodes.join(', ')}
+              </p>
+            </div>
           </Card>
         </div>
       </Section>
 
-      {/* Services */}
+      {/* Services We Offer */}
       <Section className="py-12 lg:py-16" style={{ backgroundColor: BRAND.colors.mid }}>
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4 text-center">
-            Mobile Mechanic Services in {location.name}
+            Mobile Mechanic Services We Provide in {location.name}
           </h2>
           <p className="text-white/70 text-center mb-12 max-w-3xl mx-auto">
-            From diagnostics to major repairs, we handle it all at your location in {location.name}
+            Professional repairs and servicing at your {location.name} location
           </p>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {SERVICES.map((service, index) => (
-              <Card key={index} className="p-6 hover:border-yellow-500/30 transition-all">
-                <div className="flex justify-between items-start mb-4">
-                  <h3 className="text-xl font-bold text-white">{service.title}</h3>
-                  <span className="text-xl font-bold" style={{ color: BRAND.colors.primary }}>
-                    {service.price}
-                  </span>
+            {services.map((service, index) => (
+              <Card key={index} className="p-6">
+                <div className="flex items-start gap-3 mb-4">
+                  <Wrench size={24} style={{ color: BRAND.colors.primary }} className="flex-shrink-0 mt-1" />
+                  <h3 className="text-xl font-bold text-white">{service.category}</h3>
                 </div>
-                <p className="text-white/70 text-sm mb-4">{service.desc}</p>
-                <Link to="/estimate">
-                  <Button variant="ghost" icon={MessageCircle} className="w-full">
-                    Get Quote
-                  </Button>
-                </Link>
+                <ul className="space-y-2">
+                  {service.items.map((item, idx) => (
+                    <li key={idx} className="text-white/70 text-sm flex items-start gap-2">
+                      <CheckCircle2 size={16} className="flex-shrink-0 mt-0.5" style={{ color: BRAND.colors.primary }} />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </Card>
             ))}
+          </div>
+
+          <div className="mt-8 text-center">
+            <Link to="/estimate">
+              <Button variant="primary" icon={Calculator}>
+                Get Quote for Your Repair
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </Section>
+
+      {/* Why Choose Us */}
+      <Section className="py-12 lg:py-16">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-8 text-center">
+            Why Choose FixNow for Mobile Mechanic Services in {location.name}?
+          </h2>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            <Card className="p-6">
+              <div className="flex items-start gap-4">
+                <CheckCircle2 size={24} className="flex-shrink-0 mt-1" style={{ color: BRAND.colors.primary }} />
+                <div>
+                  <h3 className="text-lg font-bold text-white mb-2">We Come to You</h3>
+                  <p className="text-white/70">No need to visit a garage. We travel to {location.name} with our fully equipped mobile workshop.</p>
+                </div>
+              </div>
+            </Card>
+
+            <Card className="p-6">
+              <div className="flex items-start gap-4">
+                <CheckCircle2 size={24} className="flex-shrink-0 mt-1" style={{ color: BRAND.colors.primary }} />
+                <div>
+                  <h3 className="text-lg font-bold text-white mb-2">Transparent Pricing</h3>
+                  <p className="text-white/70">Clear quotes before work starts. No hidden fees or surprise charges.</p>
+                </div>
+              </div>
+            </Card>
+
+            <Card className="p-6">
+              <div className="flex items-start gap-4">
+                <CheckCircle2 size={24} className="flex-shrink-0 mt-1" style={{ color: BRAND.colors.primary }} />
+                <div>
+                  <h3 className="text-lg font-bold text-white mb-2">Flexible Appointments</h3>
+                  <p className="text-white/70">Evening and weekend appointments available to fit your schedule.</p>
+                </div>
+              </div>
+            </Card>
+
+            <Card className="p-6">
+              <div className="flex items-start gap-4">
+                <CheckCircle2 size={24} className="flex-shrink-0 mt-1" style={{ color: BRAND.colors.primary }} />
+                <div>
+                  <h3 className="text-lg font-bold text-white mb-2">Same-Day Service</h3>
+                  <p className="text-white/70">Fast response times. Same-day service often available in {location.name}.</p>
+                </div>
+              </div>
+            </Card>
           </div>
         </div>
       </Section>
 
       {/* Areas Covered */}
-      <Section className="py-12 lg:py-16">
+      <Section className="py-12 lg:py-16" style={{ backgroundColor: BRAND.colors.mid }}>
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl lg:text-4xl font-bold text-white mb-8 text-center">
-            {location.name} Areas We Cover
+            {location.name} Areas We Serve
           </h2>
           
           <Card className="p-8">
+            <p className="text-white/80 mb-6 text-center">
+              We provide mobile mechanic services throughout {location.name}, including:
+            </p>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
               {location.localAreas.map((area, index) => (
                 <div key={index} className="flex items-center gap-3">
@@ -148,81 +221,54 @@ export default function LocationTemplate({ location }) {
             
             <div className="mt-8 pt-8 border-t border-white/10">
               <p className="text-white/70 text-center">
-                Plus all surrounding {location.name} postcodes: {location.postcodes.join(', ')}
+                Postcodes: {location.postcodes.join(', ')}
               </p>
             </div>
           </Card>
         </div>
       </Section>
 
-      {/* SEO Content Section */}
-      <Section className="py-12 lg:py-16" style={{ backgroundColor: BRAND.colors.mid }}>
+      {/* How It Works */}
+      <Section className="py-12 lg:py-16">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6 text-center">
-            About Our {location.name} Mobile Mechanic Service
+          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-12 text-center">
+            How Our {location.name} Mobile Mechanic Service Works
           </h2>
           
-          <Card className="p-8">
-            <div className="prose prose-invert max-w-none space-y-4 text-white/80">
-              <p>
-                <strong>Looking for a reliable mobile mechanic in {location.name}?</strong> FixNow Mechanics provides 
-                professional mobile vehicle repair services throughout {location.name} and the surrounding areas. 
-                Based in nearby Hemel Hempstead, we're ideally positioned to serve customers across all 
-                {location.name} postcodes including {location.postcodes.join(', ')}.
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl font-bold" 
+                   style={{ backgroundColor: BRAND.colors.primary, color: BRAND.colors.dark }}>
+                1
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">Get a Quote</h3>
+              <p className="text-white/70">
+                Tell us what's wrong with your vehicle and your {location.name} location. We'll provide a transparent quote.
               </p>
-              
-              <p>
-                Our mobile mechanic service means you don't need to take time off work, arrange vehicle recovery, 
-                or sit in a waiting room. We bring our fully equipped mobile workshop directly to your home, 
-                workplace, or even roadside location anywhere in {location.name}. From diagnostic checks to major 
-                repairs, we handle everything on-site.
-              </p>
-
-              <h3 className="text-2xl font-bold text-white mt-8 mb-4">
-                {location.name} Mobile Mechanic – Fast, Professional Service
-              </h3>
-              
-              <p>
-                Whether you're in {location.localAreas[0]} dealing with a breakdown, in {location.localAreas[1]} needing brake repairs, 
-                or in {location.localAreas[2]} requiring a service, FixNow Mechanics responds quickly. We typically provide 
-                quotes within 2 hours and can often attend the same day or next day depending on your urgency 
-                and our schedule.
-              </p>
-
-              <p>
-                Our transparent pricing means no hidden fees or surprise charges. You'll receive a detailed 
-                quote before any work begins, covering labour and parts. We're also happy to fit parts you 
-                supply yourself – just mention this when requesting your quote for {location.name} mobile mechanic services.
-              </p>
-
-              <h3 className="text-2xl font-bold text-white mt-8 mb-4">
-                Why {location.name} Drivers Choose FixNow Mechanics
-              </h3>
-              
-              <ul className="space-y-2">
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 size={20} className="flex-shrink-0 mt-1" style={{ color: BRAND.colors.primary }} />
-                  <span><strong>Convenient:</strong> We come to your {location.name} location – home, work, or roadside</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 size={20} className="flex-shrink-0 mt-1" style={{ color: BRAND.colors.primary }} />
-                  <span><strong>Transparent:</strong> Clear pricing with no hidden fees</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 size={20} className="flex-shrink-0 mt-1" style={{ color: BRAND.colors.primary }} />
-                  <span><strong>Flexible:</strong> Evening and weekend appointments available</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 size={20} className="flex-shrink-0 mt-1" style={{ color: BRAND.colors.primary }} />
-                  <span><strong>Professional:</strong> Quality repairs using proper tools and parts</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 size={20} className="flex-shrink-0 mt-1" style={{ color: BRAND.colors.primary }} />
-                  <span><strong>Local:</strong> Based nearby, serving all {location.name} areas quickly</span>
-                </li>
-              </ul>
             </div>
-          </Card>
+
+            <div className="text-center">
+              <div className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl font-bold" 
+                   style={{ backgroundColor: BRAND.colors.primary, color: BRAND.colors.dark }}>
+                2
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">Book Your Appointment</h3>
+              <p className="text-white/70">
+                Choose a time that suits you. We offer flexible scheduling including evenings and weekends.
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl font-bold" 
+                   style={{ backgroundColor: BRAND.colors.primary, color: BRAND.colors.dark }}>
+                3
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">We Come to You</h3>
+              <p className="text-white/70">
+                Our mechanic arrives at your {location.name} location with all necessary tools and completes the work.
+              </p>
+            </div>
+          </div>
         </div>
       </Section>
 
@@ -234,8 +280,8 @@ export default function LocationTemplate({ location }) {
             Need a Mobile Mechanic in {location.name}?
           </h2>
           <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
-            Get a free, no-obligation quote for mobile mechanic services anywhere in {location.name}. 
-            Fast response, professional service, transparent pricing.
+            Get a free quote for mobile mechanic services at your {location.name} location. 
+            Fast response, professional service, honest pricing.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -247,7 +293,7 @@ export default function LocationTemplate({ location }) {
             <LinkButton
               variant="secondary"
               icon={MessageCircle}
-              href={`https://wa.me/${BRAND.phoneIntl.replace('+', '')}?text=${encodeURIComponent(`Hi! I need a mobile mechanic in ${location.name} for my vehicle`)}`}
+              href={`https://wa.me/${BRAND.phoneIntl.replace('+', '')}?text=${encodeURIComponent(`Hi! I need a mobile mechanic in ${location.name}`)}`}
               className="flex-1 sm:flex-initial"
             >
               WhatsApp Us
