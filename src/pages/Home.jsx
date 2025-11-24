@@ -1,17 +1,84 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Wrench, Clock, MapPin, Shield, Phone, MessageCircle,
   Gauge, BadgeCheck, BatteryCharging, Droplet, Settings2,
-  CheckCircle2, Calculator
+  CheckCircle2, Calculator, ChevronDown, Activity, Cog,
+  Disc, Zap, CircleDot, Settings
 } from 'lucide-react';
-import { BRAND, SERVICES, CALLOUT_NOTE, DIAGNOSTIC_PRICING } from '../constants/brand';
+import { BRAND, SERVICES, CALLOUT_NOTE, PRICING } from '../constants/brand';
+import { SERVICE_CATEGORIES } from '../constants/services';
 import { Section } from '../components/Layout';
 import { LinkButton, Button } from '../components/Button';
 import { Card, CardBody } from '../components/Card';
 import { Logo } from '../components/Logo';
 import { ServiceImage, HeroImage } from '../components/ServiceImage';
 import CompanyVanImage from '../components/CompanyVan.png';
+
+function ServiceCategoryCard({ category, isOpen, onToggle }) {
+  const categoryIcons = {
+    Diagnostics: Activity,
+    Servicing: Cog,
+    Brakes: Disc,
+    Electrical: Zap,
+    Suspension: CircleDot,
+    General: Settings
+  };
+
+  const Icon = categoryIcons[category.name] || Wrench;
+
+  return (
+    <Card className="overflow-hidden transition-all duration-300 hover:border-yellow-500/30">
+      <button
+        onClick={onToggle}
+        className="w-full p-4 lg:p-6 flex items-center justify-between gap-4 text-left transition-colors hover:bg-white/5"
+      >
+        <div className="flex items-center gap-4 flex-1">
+          <div
+            className="rounded-xl p-3 flex-shrink-0"
+            style={{ backgroundColor: `${BRAND.colors.primary}20` }}
+          >
+            <Icon size={24} style={{ color: BRAND.colors.primary }} />
+          </div>
+          <div className="flex-1">
+            <h3 className="text-white text-lg lg:text-xl font-bold mb-1">{category.name}</h3>
+            <p className="text-white/70 text-sm">{category.description}</p>
+          </div>
+        </div>
+        <ChevronDown
+          size={24}
+          className={`text-white/50 transition-transform duration-300 flex-shrink-0 ${
+            isOpen ? 'rotate-180' : ''
+          }`}
+        />
+      </button>
+
+      <div
+        className={`overflow-hidden transition-all duration-300 ${
+          isOpen ? 'max-h-[2000px]' : 'max-h-0'
+        }`}
+      >
+        <div className="px-4 lg:px-6 pb-4 lg:pb-6 pt-2 border-t border-white/10">
+          <div className="grid sm:grid-cols-2 gap-2 lg:gap-3">
+            {category.services.map((service, idx) => (
+              <div
+                key={idx}
+                className="flex items-start gap-2 p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
+              >
+                <CheckCircle2
+                  size={16}
+                  className="mt-0.5 flex-shrink-0"
+                  style={{ color: BRAND.colors.primary }}
+                />
+                <span className="text-white/90 text-sm">{service}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </Card>
+  );
+}
 
 function Pill({ icon: Icon, children }) {
   return (
@@ -82,6 +149,15 @@ function ServiceCard({ service, icon: Icon }) {
 }
 
 export default function Home() {
+  const [openCategories, setOpenCategories] = useState({});
+
+  const toggleCategory = (categoryName) => {
+    setOpenCategories((prev) => ({
+      ...prev,
+      [categoryName]: !prev[categoryName],
+    }));
+  };
+
   // Scroll to top when component mounts
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -109,7 +185,7 @@ export default function Home() {
           {/* Mobile - Compact */}
           <div className="lg:hidden flex items-center justify-center gap-2 text-white/90 text-xs px-3">
             <Shield size={14} style={{ color: BRAND.colors.primary }} className="flex-shrink-0" />
-            <span className="font-medium">Diagnostic visit £15-£25 based on distance</span>
+            <span className="font-medium">Callout: {PRICING.calloutPerMile * 100}p per mile from Hemel</span>
           </div>
         </Section>
       </div>
@@ -334,93 +410,68 @@ export default function Home() {
       {/* Services */}
       <Section className="py-8 lg:py-16">
         <div className="text-center mb-6 lg:mb-12">
-          <h2 className="text-white text-2xl lg:text-4xl font-bold">
-            Our Services
+          <h2 className="text-white text-2xl lg:text-4xl font-bold mb-3">
+            Comprehensive Mobile Mechanic Services
           </h2>
+          <p className="text-white/70 text-base lg:text-lg max-w-3xl mx-auto">
+            From diagnostics to complete repairs — we bring professional automotive services directly to your location
+          </p>
         </div>
 
-        {/* Mobile: Super compact list */}
-        <div className="lg:hidden">
-          <Card className="mx-4 divide-y divide-white/10">
-            {SERVICES.map((service, i) => (
-              <div key={service.slug} className="p-4 flex items-center justify-between gap-4">
-                <div className="flex items-center gap-3 flex-1">
-                  <div
-                    className="rounded-lg p-2 flex-shrink-0"
-                    style={{ backgroundColor: `${BRAND.colors.primary}20` }}
-                  >
-                    {React.createElement(serviceIcons[i], { size: 20, style: { color: BRAND.colors.primary } })}
-                  </div>
-                  <h3 className="text-white font-semibold text-sm">
-                    {service.title}
-                  </h3>
-                </div>
-                <span 
-                  className="text-base font-bold flex-shrink-0"
-                  style={{ color: BRAND.colors.primary }}
-                >
-                  {service.price}
-                </span>
-              </div>
-            ))}
-          </Card>
-          <div className="mt-4 text-center px-4">
-            <Link to="/estimate">
-              <Button variant="primary" icon={Calculator} className="w-full py-3.5">
-                Get Quote
-              </Button>
-            </Link>
-          </div>
+        {/* Main Service Cards - Mobile friendly compact view */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mb-8 lg:mb-12">
+          {SERVICES.map((service, i) => (
+            <ServiceCard
+              key={service.slug}
+              service={service}
+              icon={serviceIcons[i]}
+            />
+          ))}
         </div>
 
-        {/* Desktop: Full cards - keep BYO and descriptions */}
-        <div className="hidden lg:block">
-          <div className="text-center mb-8 space-y-3">
-            <p className="text-white/60 text-lg max-w-2xl mx-auto">
-              Major mechanical repairs with transparent pricing
+        {/* Comprehensive Service Categories - Expandable */}
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-6 lg:mb-8">
+            <h3 className="text-white text-xl lg:text-2xl font-bold mb-2">
+              Everything We Cover
+            </h3>
+            <p className="text-white/60 text-sm lg:text-base">
+              Click any category below to see our full range of services
             </p>
-            <Card className="inline-block bg-white/5 border-white/20 p-4 max-w-2xl">
-              <div className="flex items-center justify-center gap-2 text-white/90">
-                <CheckCircle2 size={20} className="flex-shrink-0" style={{ color: BRAND.colors.primary }} />
-                <p className="text-sm font-medium">
-                  <span style={{ color: BRAND.colors.primary }}>BYO Parts:</span> Bring your own parts, we'll fit them
-                </p>
-              </div>
-            </Card>
           </div>
 
-          {/* Desktop: Grid layout */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
-            {SERVICES.map((service, i) => (
-              <ServiceCard
-                key={service.slug}
-                service={service}
-                icon={serviceIcons[i]}
+          <div className="space-y-3 lg:space-y-4">
+            {SERVICE_CATEGORIES.map((category) => (
+              <ServiceCategoryCard
+                key={category.name}
+                category={category}
+                isOpen={openCategories[category.name]}
+                onToggle={() => toggleCategory(category.name)}
               />
             ))}
           </div>
         </div>
 
-        {/* Pricing Disclaimer - Hidden on mobile, desktop only */}
-        <div className="hidden lg:block mt-3 lg:mt-8 text-center px-4 lg:px-0">
-          <Card className="inline-block bg-white/5 border-white/10 p-2 lg:p-4 max-w-3xl">
-            <p className="text-white/60 text-[10px] lg:text-sm">
-              *All prices are "from" and depend on your vehicle and distance from Hemel Hempstead. Exact pricing is confirmed in the booking form after you enter your postcode.
+        {/* Pricing Disclaimer */}
+        <div className="mt-8 text-center px-4 lg:px-0">
+          <Card className="inline-block bg-white/5 border-white/10 p-3 lg:p-4 max-w-3xl">
+            <p className="text-white/60 text-xs lg:text-sm">
+              Labour costs vary by job complexity and vehicle type. Callout charged at {PRICING.calloutPerMile * 100}p per mile from Hemel Hempstead. £{PRICING.labourDeduction} deducted from labour if repair proceeds. Get an exact quote for your specific needs.
             </p>
           </Card>
         </div>
 
-        {/* Contact for Other Services - Desktop only */}
-        <div className="hidden lg:block mt-12">
+        {/* Contact for Other Services */}
+        <div className="mt-8 lg:mt-12">
           <Card className="p-6 bg-gradient-to-r from-white/5 to-white/10 border-white/20">
             <div className="text-center space-y-3">
               <h3 className="text-white text-xl font-bold">
-                Need a Different Repair?
+                Don't See What You Need?
               </h3>
               <p className="text-white/70 text-sm max-w-2xl mx-auto leading-relaxed">
-                We focus on major mechanical work. For other repairs, reach out to discuss your needs.
+                We handle a wide range of mechanical repairs. If your repair isn't listed above, contact us to discuss your specific requirements.
               </p>
-              <div className="flex gap-3 justify-center pt-2">
+              <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
                 <LinkButton
                   variant="ghost"
                   icon={MessageCircle}
@@ -430,7 +481,7 @@ export default function Home() {
                   WhatsApp
                 </LinkButton>
                 <Link to="/estimate">
-                  <Button variant="primary" icon={Calculator} className="min-w-[180px] text-sm py-3">
+                  <Button variant="primary" icon={Calculator} className="w-full min-w-[180px] text-sm py-3">
                     Get Quote
                   </Button>
                 </Link>
@@ -586,7 +637,7 @@ export default function Home() {
                 How much is your diagnostic visit?
               </h3>
               <p className="text-white/80 text-[10px] lg:text-sm pl-4 lg:pl-6">
-                Our diagnostic visit costs £15–£25 depending on your distance from Hemel Hempstead. This includes travel, OBD scan, and initial fault checks. The exact price is confirmed when you enter your postcode.
+                Our diagnostic visit is charged at {PRICING.calloutPerMile * 100}p per mile from Hemel Hempstead. This includes travel, OBD scan, and initial fault checks. The exact price is calculated based on your postcode.
               </p>
             </Card>
 

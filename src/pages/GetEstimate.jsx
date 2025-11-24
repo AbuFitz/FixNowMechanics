@@ -3,7 +3,7 @@ import {
   User, Phone, Mail, Car, MapPin, Wrench, CheckCircle2, AlertCircle,
   Loader2, ArrowRight, ArrowLeft, Search, Home, MessageCircle
 } from 'lucide-react';
-import { BRAND, SERVICES, CALLOUT_NOTE, DIAGNOSTIC_PRICING } from '../constants/brand';
+import { BRAND, SERVICES, CALLOUT_NOTE, PRICING } from '../constants/brand';
 import { Section } from '../components/Layout';
 import { Card, CardBody } from '../components/Card';
 import { Input, TextArea, Select } from '../components/Input';
@@ -196,7 +196,7 @@ export default function GetEstimate() {
       if (currentStep === 3 && postcodeData && !postcodeData.withinServiceArea) {
         setErrors(prev => ({ 
           ...prev, 
-          postcode: `This postcode is ${postcodeData.distanceMiles.toFixed(1)} miles away. We only cover up to ${DIAGNOSTIC_PRICING.maxServiceRadius} miles from Hemel Hempstead. Please contact us to discuss.` 
+          postcode: `This postcode is ${postcodeData.distanceMiles.toFixed(1)} miles away. We only cover up to ${PRICING.maxServiceRadius} miles from Hemel Hempstead. Please contact us to discuss.` 
         }));
         return;
       }
@@ -292,7 +292,7 @@ ${formData.description}
 
 Base Price: £${basePrice}
 ${diagnosticVisitFee > 0 ? `Diagnostic Visit Fee: £${diagnosticVisitFee} (${postcodeData.priceRange})` : 'Diagnostic Visit Fee: £0'}
-${diagnosticVisitFee > 0 ? `Note: £${DIAGNOSTIC_PRICING.labourDeduction} of diagnostic fee deducted from labour if repair proceeds` : ''}
+${diagnosticVisitFee > 0 ? `Note: £${PRICING.labourDeduction} of diagnostic fee deducted from labour if repair proceeds` : ''}
 Quote Total: £${estimate}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -728,7 +728,7 @@ ${BRAND.tagline}
                             )}
                           </p>
                           <p className="text-white/60 text-xs mt-2">
-                            If we carry out paid repair work during the visit, £{DIAGNOSTIC_PRICING.labourDeduction} of your diagnostic fee is deducted from the labour.
+                            If we carry out paid repair work during the visit, £{PRICING.labourDeduction} of your diagnostic fee is deducted from the labour.
                           </p>
                         </Card>
                       </>
@@ -741,10 +741,10 @@ ${BRAND.tagline}
                           {postcodeData.district}, {postcodeData.region}
                         </p>
                         <p className="text-white/70 text-xs mb-2">
-                          Distance: {postcodeData.distanceMiles.toFixed(1)} miles (we cover up to {DIAGNOSTIC_PRICING.maxServiceRadius} miles from Hemel Hempstead)
+                          Distance: {postcodeData.distanceMiles.toFixed(1)} miles (we cover up to {PRICING.maxServiceRadius} miles from Hemel Hempstead)
                         </p>
                         <p className="text-red-300 text-sm font-medium">
-                          Unfortunately, this location is outside our {DIAGNOSTIC_PRICING.maxServiceRadius}-mile service radius. Please contact us to discuss alternatives.
+                          Unfortunately, this location is outside our {PRICING.maxServiceRadius}-mile service radius. Please contact us to discuss alternatives.
                         </p>
                       </Card>
                     )}
@@ -791,11 +791,11 @@ ${BRAND.tagline}
                     {postcodeData ? (
                       <>Your diagnostic visit fee is <strong>{postcodeData.priceRange}</strong> based on your location ({postcodeData.distanceMiles.toFixed(1)} miles from Hemel Hempstead).</>
                     ) : (
-                      <>Diagnostic visit typically costs £15–£25 depending on your distance from Hemel Hempstead.</>
+                      <>Diagnostic visit charged at {PRICING.calloutPerMile * 100}p per mile from Hemel Hempstead.</>
                     )}
                   </p>
                   <p className="text-white/70 text-sm leading-relaxed">
-                    This covers travel, initial checks, and professional advice. If we carry out paid repair work during the same visit, £{DIAGNOSTIC_PRICING.labourDeduction} of your diagnostic fee is deducted from the labour.
+                    This covers travel, initial checks, and professional advice. If we carry out paid repair work during the same visit, £{PRICING.labourDeduction} of your diagnostic fee is deducted from the labour.
                   </p>
                 </Card>
 

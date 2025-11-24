@@ -4,7 +4,7 @@ import {
   User, Phone, Mail, Car, MapPin, Calendar, Clock,
   Wrench, AlertCircle, CheckCircle2, Loader2
 } from 'lucide-react';
-import { BRAND, SERVICES, DIAGNOSTIC_PRICING } from '../constants/brand';
+import { BRAND, SERVICES, PRICING } from '../constants/brand';
 import { Section } from '../components/Layout';
 import { Card, CardBody, CardHeader } from '../components/Card';
 import { Input, TextArea, Select } from '../components/Input';
@@ -149,7 +149,7 @@ export default function Quote() {
           <div className="mt-4">
             <Card className="inline-block bg-blue-500/10 border-blue-500/30 p-3 max-w-xl">
               <p className="text-blue-300 text-sm">
-                <strong>Diagnostic Visit:</strong> Typically £15–£25 depending on distance from Hemel Hempstead. 
+                <strong>Diagnostic Visit:</strong> Charged at {PRICING.calloutPerMile * 100}p per mile from Hemel Hempstead.
                 Final price confirmed based on your postcode.
               </p>
             </Card>

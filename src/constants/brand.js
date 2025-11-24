@@ -38,13 +38,11 @@ export const BRAND = {
 };
 
 export const CALLOUT_NOTE =
-  "Diagnostic visit fee: £15–£25 depending on distance (£10 deducted from labour if repair proceeds)";
+  "Callout fee: 65p per mile from Hemel Hempstead (£10 deducted from labour if repair proceeds)";
 
-// Diagnostic Visit Pricing Constants
-export const DIAGNOSTIC_PRICING = {
-  within10Miles: 15,
-  within20Miles: 20,
-  over20Miles: 25,
+// Pricing Constants
+export const PRICING = {
+  calloutPerMile: 0.65, // 65p per mile
   labourDeduction: 10, // Amount deducted from labour if repair goes ahead
   maxServiceRadius: 45, // Maximum service radius in miles
 };
@@ -52,13 +50,13 @@ export const DIAGNOSTIC_PRICING = {
 export const SERVICES = [
   {
     title: "Diagnostic Visit & Fault Scan",
-    desc: "Local call-out, OBD scan and initial fault checks. Final price depends on distance and is confirmed after you enter your postcode. Deeper electrical or multi-system diagnostics are quoted separately if needed (usually from £40).",
-    price: "£15–£25*",
+    desc: "Comprehensive OBD scan and fault diagnosis. Callout charged at 65p per mile from Hemel Hempstead. £10 deducted from labour if you proceed with the repair.",
+    price: "65p/mile*",
     slug: "diagnostics",
   },
   {
     title: "Brake Pads/Discs",
-    desc: "Front or rear pads/discs – professional mobile fitting. Labour from £80, parts priced separately. Final quote is confirmed from your registration and postcode.",
+    desc: "Front or rear pads/discs – professional mobile fitting. Labour from £80, parts priced separately. Final quote confirmed from your registration and postcode.",
     price: "from £80",
     slug: "brakes",
   },
@@ -75,9 +73,9 @@ export const SERVICES = [
     slug: "oil-service",
   },
   {
-    title: "Suspension / Coilovers",
-    desc: "Coilover and suspension setup supplied and fitted. Fully quoted in advance based on your vehicle, parts and location.",
-    price: "POA",
+    title: "Suspension Repairs",
+    desc: "Springs, shocks, drop links, control arms, ball joints and track rod ends. Mobile-friendly suspension work at your location.",
+    price: "from £80",
     slug: "suspension",
   },
 ];
