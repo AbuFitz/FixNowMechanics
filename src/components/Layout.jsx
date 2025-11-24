@@ -23,11 +23,13 @@ export function Header() {
 
   const navLinks = [
     { path: '/', label: 'Home' },
+    { path: '/blog', label: 'Blog' },
     { path: '/estimate', label: 'Get Quote' },
   ];
 
   const mobileDropdownLinks = [
     { path: '/', label: 'Home' },
+    { path: '/blog', label: 'Blog' },
     { path: '/privacy', label: 'Privacy Policy' },
     { path: '/terms', label: 'Terms & Conditions' },
   ];
@@ -310,7 +312,12 @@ export function Footer() {
                   Home
                 </Link>
               </li>
+              <li>blog" className="hover:text-white transition-colors">
+                  Blog
+                </Link>
+              </li>
               <li>
+                <Link to="/
                 <Link to="/estimate" className="hover:text-white transition-colors">
                   Get Estimate
                 </Link>

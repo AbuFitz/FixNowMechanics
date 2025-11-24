@@ -6,6 +6,7 @@ import GetEstimate from './pages/GetEstimate';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsConditions from './pages/TermsConditions';
 import ServiceAreas from './pages/ServiceAreas';
+import Blog from './pages/Blog';
 
 // Location Pages
 import WatfordPage from './pages/locations/Watford';
@@ -18,6 +19,10 @@ import StevenagePage from './pages/locations/Stevenage';
 import HatfieldPage from './pages/locations/Hatfield';
 import NorthLondonPage from './pages/locations/NorthLondon';
 
+// Blog Posts
+import EngineWarningLightPost from './pages/blog/EngineWarningLight';
+import MobileMechanicVsGaragePost from './pages/blog/MobileMechanicVsGarage';
+
 export default function App() {
   return (
     <Router>
@@ -28,6 +33,7 @@ export default function App() {
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsConditions />} />
           <Route path="/locations" element={<ServiceAreas />} />
+          <Route path="/blog" element={<Blog />} />
           
           {/* Location Pages */}
           <Route path="/locations/watford" element={<WatfordPage />} />
@@ -39,6 +45,10 @@ export default function App() {
           <Route path="/locations/stevenage" element={<StevenagePage />} />
           <Route path="/locations/hatfield" element={<HatfieldPage />} />
           <Route path="/locations/north-london" element={<NorthLondonPage />} />
+          
+          {/* Blog Posts */}
+          <Route path="/blog/engine-warning-light-guide" element={<EngineWarningLightPost />} />
+          <Route path="/blog/mobile-mechanic-vs-garage" element={<MobileMechanicVsGaragePost />} />
         </Routes>
       </PageLayout>
     </Router>
