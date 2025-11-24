@@ -264,6 +264,43 @@ export function Footer() {
             </p>
           </div>
 
+          {/* Service Areas */}
+          <div>
+            <h4 className="font-semibold mb-3">Service Areas</h4>
+            <ul className="space-y-2 text-sm text-white/70">
+              <li>
+                <Link to="/locations/watford" className="hover:text-white transition-colors">
+                  Watford
+                </Link>
+              </li>
+              <li>
+                <Link to="/locations/st-albans" className="hover:text-white transition-colors">
+                  St Albans
+                </Link>
+              </li>
+              <li>
+                <Link to="/locations/luton" className="hover:text-white transition-colors">
+                  Luton
+                </Link>
+              </li>
+              <li>
+                <Link to="/locations/milton-keynes" className="hover:text-white transition-colors">
+                  Milton Keynes
+                </Link>
+              </li>
+              <li>
+                <Link to="/locations/aylesbury" className="hover:text-white transition-colors">
+                  Aylesbury
+                </Link>
+              </li>
+              <li>
+                <Link to="/locations" className="hover:text-white transition-colors font-medium" style={{ color: BRAND.colors.primary }}>
+                  View All Areas →
+                </Link>
+              </li>
+            </ul>
+          </div>
+
           {/* Quick Links */}
           <div>
             <h4 className="font-semibold mb-3">Quick Links</h4>
@@ -278,13 +315,6 @@ export function Footer() {
                   Get Estimate
                 </Link>
               </li>
-            </ul>
-          </div>
-
-          {/* Legal */}
-          <div>
-            <h4 className="font-semibold mb-3">Legal</h4>
-            <ul className="space-y-2 text-sm text-white/70">
               <li>
                 <Link to="/privacy" className="hover:text-white transition-colors">
                   Privacy Policy
@@ -292,7 +322,7 @@ export function Footer() {
               </li>
               <li>
                 <Link to="/terms" className="hover:text-white transition-colors">
-                  Terms &amp; Conditions
+                  Terms & Conditions
                 </Link>
               </li>
             </ul>
