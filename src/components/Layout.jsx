@@ -312,12 +312,12 @@ export function Footer() {
                   Home
                 </Link>
               </li>
-              <li>blog" className="hover:text-white transition-colors">
+              <li>
+                <Link to="/blog" className="hover:text-white transition-colors">
                   Blog
                 </Link>
               </li>
               <li>
-                <Link to="/
                 <Link to="/estimate" className="hover:text-white transition-colors">
                   Get Estimate
                 </Link>
