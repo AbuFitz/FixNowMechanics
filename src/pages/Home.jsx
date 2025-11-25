@@ -547,19 +547,60 @@ export default function Home() {
               </div>
 
               <div>
-                <h3 className="text-white font-semibold mb-3 text-sm lg:text-lg">Coverage</h3>
-                <p className="lg:hidden text-white/70 text-sm">
-                  Hemel Hempstead and surrounding areas
+                <h3 className="text-white font-semibold mb-3 text-sm lg:text-lg">Service Areas</h3>
+                <p className="lg:hidden text-white/70 text-sm mb-3">
+                  Mobile mechanic covering Hemel Hempstead and surrounding areas
                 </p>
-                <div className="hidden lg:flex flex-wrap gap-2">
-                  {BRAND.serviceAreas.map((area) => (
-                    <span
-                      key={area}
-                      className="px-4 py-2 rounded-full border border-white/10 text-white/90 bg-white/5 text-sm"
-                    >
-                      {area}
-                    </span>
-                  ))}
+                <div className="hidden lg:block mb-3">
+                  <p className="text-white/70 text-sm">
+                    Professional mobile mechanic service across Hertfordshire, Bedfordshire, and Buckinghamshire:
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {BRAND.serviceAreas.map((area) => {
+                    const areaSlugMap = {
+                      'Watford': 'watford',
+                      'St Albans': 'st-albans',
+                      'Luton': 'luton',
+                      'Dunstable': 'dunstable',
+                      'Milton Keynes': 'milton-keynes',
+                      'Aylesbury': 'aylesbury',
+                      'Stevenage': 'stevenage',
+                      'Hatfield': 'hatfield',
+                      'North London': 'north-london'
+                    };
+                    const slug = areaSlugMap[area];
+                    
+                    if (slug) {
+                      return (
+                        <Link
+                          key={area}
+                          to={`/locations/${slug}`}
+                          className="px-4 py-2 rounded-full border border-white/10 text-white/90 bg-white/5 text-sm hover:bg-white/10 hover:border-yellow-500/30 transition-all"
+                        >
+                          {area}
+                        </Link>
+                      );
+                    }
+                    
+                    return (
+                      <span
+                        key={area}
+                        className="px-4 py-2 rounded-full border border-white/10 text-white/90 bg-white/5 text-sm"
+                      >
+                        {area}
+                      </span>
+                    );
+                  })}
+                </div>
+                <div className="mt-3">
+                  <Link
+                    to="/locations"
+                    className="text-sm hover:underline inline-flex items-center gap-1"
+                    style={{ color: BRAND.colors.primary }}
+                  >
+                    View all coverage areas →
+                  </Link>
                 </div>
               </div>
             </div>
