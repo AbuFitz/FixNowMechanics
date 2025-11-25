@@ -5,6 +5,7 @@ export const LOCATIONS = [
     name: 'Watford',
     title: 'Mobile Mechanic Watford',
     metaDescription: 'Professional mobile mechanic service in Watford. Diagnostics, brakes, servicing & repairs at your location. Call 07354 915941 for same-day service.',
+    coords: { lat: 51.6565, lng: -0.3903 },
     postcodes: ['WD17', 'WD18', 'WD19', 'WD24', 'WD25'],
     localAreas: [
       'Watford Town Centre',
@@ -23,6 +24,7 @@ export const LOCATIONS = [
     name: 'St Albans',
     title: 'Mobile Mechanic St Albans',
     metaDescription: 'Professional mobile mechanic service in St Albans. Diagnostics, brakes, servicing & repairs at your location. Call 07354 915941 for same-day service.',
+    coords: { lat: 51.7520, lng: -0.3360 },
     postcodes: ['AL1', 'AL2', 'AL3', 'AL4'],
     localAreas: [
       'St Albans City Centre',
@@ -44,6 +46,7 @@ export const LOCATIONS = [
     name: 'Luton',
     title: 'Mobile Mechanic Luton',
     metaDescription: 'Professional mobile mechanic service in Luton. Diagnostics, brakes, servicing & repairs at your location. Call 07354 915941 for same-day service.',
+    coords: { lat: 51.8787, lng: -0.4200 },
     postcodes: ['LU1', 'LU2', 'LU3', 'LU4', 'LU5'],
     localAreas: [
       'Luton Town Centre',
@@ -65,6 +68,7 @@ export const LOCATIONS = [
     name: 'Dunstable',
     title: 'Mobile Mechanic Dunstable',
     metaDescription: 'Professional mobile mechanic service in Dunstable. Diagnostics, brakes, servicing & repairs at your location. Call 07354 915941 for same-day service.',
+    coords: { lat: 51.8860, lng: -0.5210 },
     postcodes: ['LU5', 'LU6', 'LU7'],
     localAreas: [
       'Dunstable Town Centre',
@@ -84,6 +88,7 @@ export const LOCATIONS = [
     name: 'Milton Keynes',
     title: 'Mobile Mechanic Milton Keynes',
     metaDescription: 'Professional mobile mechanic service in Milton Keynes. Diagnostics, brakes, servicing & repairs at your location. Call 07354 915941 for same-day service.',
+    coords: { lat: 52.0406, lng: -0.7594 },
     postcodes: ['MK1', 'MK2', 'MK3', 'MK4', 'MK5', 'MK6', 'MK7', 'MK8', 'MK9', 'MK10', 'MK11', 'MK12', 'MK13', 'MK14', 'MK15'],
     localAreas: [
       'Central Milton Keynes',
@@ -105,6 +110,7 @@ export const LOCATIONS = [
     name: 'Aylesbury',
     title: 'Mobile Mechanic Aylesbury',
     metaDescription: 'Professional mobile mechanic service in Aylesbury. Diagnostics, brakes, servicing & repairs at your location. Call 07354 915941 for same-day service.',
+    coords: { lat: 51.8165, lng: -0.8142 },
     postcodes: ['HP18', 'HP19', 'HP20', 'HP21', 'HP22'],
     localAreas: [
       'Aylesbury Town Centre',
@@ -126,6 +132,7 @@ export const LOCATIONS = [
     name: 'Stevenage',
     title: 'Mobile Mechanic Stevenage',
     metaDescription: 'Professional mobile mechanic service in Stevenage. Diagnostics, brakes, servicing & repairs at your location. Call 07354 915941 for same-day service.',
+    coords: { lat: 51.9017, lng: -0.2019 },
     postcodes: ['SG1', 'SG2'],
     localAreas: [
       'Stevenage Old Town',
@@ -146,6 +153,7 @@ export const LOCATIONS = [
     name: 'Hatfield',
     title: 'Mobile Mechanic Hatfield',
     metaDescription: 'Professional mobile mechanic service in Hatfield. Diagnostics, brakes, servicing & repairs at your location. Call 07354 915941 for same-day service.',
+    coords: { lat: 51.7645, lng: -0.2280 },
     postcodes: ['AL9', 'AL10'],
     localAreas: [
       'Hatfield Town Centre',
@@ -165,6 +173,7 @@ export const LOCATIONS = [
     name: 'North London',
     title: 'Mobile Mechanic North London',
     metaDescription: 'Professional mobile mechanic service in North London including Harrow, Brent, Edgware, Kingsbury & Borehamwood. Call 07354 915941 for same-day service.',
+    coords: { lat: 51.5774, lng: -0.2469 },
     postcodes: ['NW4', 'NW7', 'NW9', 'HA3', 'HA8', 'WD6', 'EN5'],
     localAreas: [
       'Harrow',

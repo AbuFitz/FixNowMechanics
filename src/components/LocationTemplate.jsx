@@ -14,6 +14,66 @@ export default function LocationTemplate({ location }) {
     if (metaDesc) {
       metaDesc.setAttribute('content', location.metaDescription);
     }
+
+    // Add structured data for SEO
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "AutoRepair",
+      "name": `FixNow Mechanics - Mobile Mechanic ${location.name}`,
+      "description": location.metaDescription,
+      "url": `https://fixnowmechanics.co.uk/locations/${location.slug}`,
+      "telephone": BRAND.phoneDisplay.replace(/\s/g, ''),
+      "priceRange": "££",
+      "image": "https://fixnowmechanics.co.uk/images/company-van.jpg",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": location.name,
+        "addressRegion": "Hertfordshire",
+        "addressCountry": "GB"
+      },
+      "geo": location.coords ? {
+        "@type": "GeoCoordinates",
+        "latitude": location.coords.lat,
+        "longitude": location.coords.lng
+      } : undefined,
+      "areaServed": {
+        "@type": "City",
+        "name": location.name
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          "opens": "08:00",
+          "closes": "20:00"
+        }
+      ],
+      "serviceType": [
+        "Mobile Mechanic",
+        "Car Diagnostics",
+        "Brake Repair",
+        "Oil Change",
+        "Battery Replacement",
+        "Suspension Repair",
+        "Electrical Repair"
+      ]
+    };
+
+    // Add schema script to head
+    let scriptTag = document.querySelector('script[type="application/ld+json"]');
+    if (!scriptTag) {
+      scriptTag = document.createElement('script');
+      scriptTag.type = 'application/ld+json';
+      document.head.appendChild(scriptTag);
+    }
+    scriptTag.textContent = JSON.stringify(schema);
+
+    // Cleanup
+    return () => {
+      if (scriptTag && scriptTag.parentNode) {
+        scriptTag.parentNode.removeChild(scriptTag);
+      }
+    };
   }, [location]);
 
   const services = [
