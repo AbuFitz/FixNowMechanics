@@ -252,7 +252,7 @@ export function Footer() {
               Fix<span style={{ color: BRAND.colors.primary }}>Now</span> Mechanics
             </h3>
             <p className="text-white/70 text-sm">
-              Mobile mechanic service covering Hertfordshire
+              Mobile mechanic based in {BRAND.baseCityCoords.city}
             </p>
           </div>
           
