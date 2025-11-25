@@ -417,7 +417,7 @@ ${BRAND.tagline}
                 </h2>
 
                 <p className="text-white/90 text-lg">
-                  Thank you, {formData.name}! We'll get back to you shortly.
+                  Thank you! We'll get back to you shortly.
                 </p>
 
                 <div className="bg-white/5 border border-white/10 rounded-lg p-6 text-left space-y-3">
@@ -437,7 +437,7 @@ ${BRAND.tagline}
 
                 <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4">
                   <p className="text-blue-300 text-sm">
-                    <strong>What happens next?</strong> We'll review your request and send you a detailed quote via phone or WhatsApp. If you need urgent assistance, call us directly!
+                    <strong>What's next?</strong> We'll review and send you a quote via phone or WhatsApp.
                   </p>
                 </div>
 
@@ -620,13 +620,6 @@ ${BRAND.tagline}
             {/* Step 2: Vehicle Info */}
             {currentStep === 2 && (
               <div className="space-y-5 animate-in fade-in slide-in-from-right-5 duration-300">
-                {/* Info message */}
-                <Card className="bg-blue-500/10 border-blue-500/30 p-4">
-                  <p className="text-blue-300 text-sm leading-relaxed">
-                    <strong>Vehicle Details:</strong> Make and model help us prepare the right tools and parts. Registration is optional but helpful for our records.
-                  </p>
-                </Card>
-
                 <div className="grid sm:grid-cols-2 gap-4">
                   <Input
                     label="Make *"
@@ -783,26 +776,13 @@ ${BRAND.tagline}
             {currentStep === 4 && (
               <div className="space-y-5 animate-in fade-in slide-in-from-right-5 duration-300">
                 {/* Diagnostic Visit Info */}
-                <Card className="bg-blue-500/10 border-blue-500/30 p-5">
-                  <p className="text-blue-300 text-sm mb-3 font-semibold">
-                    About Our Diagnostic Visit:
-                  </p>
-                  <p className="text-white/80 text-sm mb-3 leading-relaxed">
-                    {postcodeData ? (
-                      <>Your diagnostic visit fee is <strong>{postcodeData.priceRange}</strong> based on your location ({postcodeData.distanceMiles.toFixed(1)} miles from Hemel Hempstead).</>
-                    ) : (
-                      <>Diagnostic visit charged at {PRICING.calloutPerMile * 100}p per mile from Hemel Hempstead.</>
-                    )}
-                  </p>
-                  <p className="text-white/70 text-sm leading-relaxed">
-                    This covers travel, initial checks, and professional advice. If we carry out paid repair work during the same visit, £{PRICING.labourDeduction} of your diagnostic fee is deducted from the labour.
-                  </p>
-                </Card>
-
-                {/* Service Scope Info */}
-                <Card className="bg-white/5 border-white/10 p-5">
+                <Card className="bg-blue-500/10 border-blue-500/30 p-4">
                   <p className="text-white/80 text-sm leading-relaxed">
-                    <strong>Our Specialization:</strong> We focus on major mechanical repairs including diagnostics, braking systems, suspension, battery, and engine servicing. For other repairs, please describe below or contact us via WhatsApp.
+                    {postcodeData ? (
+                      <>Diagnostic visit: <strong>{postcodeData.priceRange}</strong> ({postcodeData.distanceMiles.toFixed(1)} miles from Hemel). £{PRICING.labourDeduction} deducted if repair proceeds.</>
+                    ) : (
+                      <>Diagnostic visit: {PRICING.calloutPerMile * 100}p per mile from Hemel. £{PRICING.labourDeduction} deducted if repair proceeds.</>
+                    )}
                   </p>
                 </Card>
 
@@ -833,9 +813,9 @@ ${BRAND.tagline}
                   error={errors.description}
                 />
 
-                <Card className="bg-white/5 border-white/10 p-4">
-                  <p className="text-white/60 text-sm">
-                    💡 <strong>Tip:</strong> The more detail you provide, the better we can prepare and give you an accurate quote!
+                <Card className="bg-white/5 border-white/10 p-3">
+                  <p className="text-white/60 text-xs">
+                    💡 The more detail you provide, the better we can prepare and quote accurately.
                   </p>
                 </Card>
               </div>

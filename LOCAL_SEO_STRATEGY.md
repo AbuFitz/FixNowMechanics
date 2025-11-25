@@ -1,4 +1,3 @@
-# Local SEO Strategy for FixNow Mechanics Location Pages
 
 ## 🎯 Goal
 Rank for "mobile mechanic [location]" searches in all 9 target areas.

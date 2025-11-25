@@ -70,7 +70,7 @@ export default function Services() {
     {
       icon: Activity,
       title: 'Vehicle Diagnostics',
-      description: 'Professional diagnostics using advanced scanners and software to identify faults accurately.',
+      description: 'Advanced diagnostics to accurately identify faults and provide clear repair guidance.',
       details: [
         'Full fault code scan across all vehicle systems',
         'Live data analysis to pinpoint issues',
@@ -139,8 +139,8 @@ export default function Services() {
     },
     {
       icon: Wrench,
-      title: 'General Mobile Repairs',
-      description: 'Light to medium repairs completed safely at your location without workshop equipment.',
+      title: 'General Repairs',
+      description: 'Light to medium repairs completed safely at your location.',
       details: [
         'Sensor replacements (MAF, MAP, O2, crank, cam)',
         'Suspension links & control arms',
@@ -173,10 +173,10 @@ export default function Services() {
         <Section className="py-16 lg:py-24">
           <div className="max-w-4xl mx-auto text-center space-y-6">
             <h1 className="text-3xl lg:text-5xl font-extrabold text-white leading-tight">
-              Our Services & Pricing
+              Services & Pricing
             </h1>
             <p className="text-lg lg:text-xl text-white/80 max-w-2xl mx-auto leading-relaxed">
-              Transparent, honest pricing for mobile mechanic services across Hertfordshire and surrounding areas.
+              Transparent pricing for mobile mechanic services across Hertfordshire.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
               <Link to="/estimate">
@@ -202,10 +202,10 @@ export default function Services() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-2xl lg:text-3xl font-bold text-white mb-3">
-              Professional Mobile Mechanic Services
+              Main Services
             </h2>
             <p className="text-white/70 max-w-2xl mx-auto">
-              All services performed at your location with professional equipment and transparent pricing
+              All services performed at your location with transparent pricing
             </p>
           </div>
 
@@ -338,22 +338,14 @@ export default function Services() {
                   </h2>
                   <div className="space-y-3 text-white/80 leading-relaxed">
                     <p>
-                      Hi, I'm <strong className="text-white">Abukar Sharif</strong>, the mobile mechanic behind FixNow Mechanics. 
-                      My goal is simple: provide a smooth, stress-free repair experience with honest pricing and clear communication every step of the way.
+                      Hi, I'm <strong className="text-white">Abukar Sharif</strong>, the mechanic behind FixNow Mechanics. 
+                      My goal is to provide quality repairs with honest pricing and clear communication.
                     </p>
                     <p>
-                      I believe in doing right by my customers. That means transparent quotes, quality work, and never recommending 
-                      repairs you don't actually need. If I can't fix something on-site with the equipment I have, I'll tell you straight 
-                      and refer you to a trusted local workshop that can help.
+                      I believe in transparent quotes, quality work, and never recommending unnecessary repairs. If I can't fix something on-site, I'll refer you to a trusted local workshop.
                     </p>
                     <p>
-                      I focus on diagnostics and the repairs I can do safely and professionally at your location — things like brake 
-                      replacements, battery issues, sensors, minor suspension work, and electrical faults. For jobs requiring specialist 
-                      equipment or a lift (like gearbox work or major engine repairs), I'll point you in the right direction.
-                    </p>
-                    <p className="text-white font-medium">
-                      One day, I plan to open a full workshop. Until then, I'm committed to bringing reliable, affordable mobile 
-                      mechanic service directly to you.
+                      I focus on diagnostics and repairs I can do safely at your location — brakes, batteries, sensors, suspension work, and electrical faults. For jobs requiring specialist equipment, I'll point you in the right direction.
                     </p>
                   </div>
                   <div className="flex items-center gap-3 pt-4">
@@ -408,7 +400,7 @@ export default function Services() {
                 Ready to Get Your Vehicle Sorted?
               </h2>
               <p className="text-white/80 max-w-xl mx-auto">
-                Get a free, no-obligation quote for your repair. Clear pricing, professional service, and we come to you.
+                Get a free quote for your repair. Clear pricing and we come to you.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
                 <Link to="/estimate" className="flex-1 sm:flex-initial">

@@ -224,7 +224,7 @@ export default function Home() {
                 
                 {/* Mobile: Simple tagline */}
                 <p className="lg:hidden text-base text-white/90 drop-shadow-md leading-relaxed">
-                  Professional repairs at your location
+                  Quality repairs at your location
                 </p>
                 
                 {/* Desktop: Full tagline */}
@@ -234,12 +234,11 @@ export default function Home() {
                 
                 {/* Desktop: Extended description */}
                 <p className="hidden lg:block text-white/80 text-base lg:text-lg max-w-2xl leading-relaxed drop-shadow">
-                  Diagnostics, repairs, and servicing — done at your driveway or workplace.
-                  No workshop visits. No hidden markup. Honest service at fair prices.
+                  Diagnostics, repairs, and servicing at your location. No workshop visits. No hidden fees. Fair pricing.
                 </p>
                 
                 <p className="hidden lg:block text-white/90 text-sm lg:text-base max-w-2xl font-medium drop-shadow">
-                  Mobile mechanic covering Hemel Hempstead and surrounding areas – diagnostic visits from £15, with final price confirmed from your postcode.
+                  Covering Hemel Hempstead and surrounding areas – diagnostic visits from £15, price confirmed from your postcode.
                 </p>
               </div>
 
@@ -411,10 +410,10 @@ export default function Home() {
       <Section className="py-8 lg:py-16">
         <div className="text-center mb-6 lg:mb-12">
           <h2 className="text-white text-2xl lg:text-4xl font-bold mb-3">
-            Comprehensive Mobile Mechanic Services
+            Core Services
           </h2>
           <p className="text-white/70 text-base lg:text-lg max-w-3xl mx-auto">
-            From diagnostics to complete repairs — we bring professional automotive services directly to your location
+            From diagnostics to repairs — quality work at your location
           </p>
         </div>
 
@@ -429,37 +428,7 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Comprehensive Service Categories - Expandable */}
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-6 lg:mb-8">
-            <h3 className="text-white text-xl lg:text-2xl font-bold mb-2">
-              Everything We Cover
-            </h3>
-            <p className="text-white/60 text-sm lg:text-base">
-              Click any category below to see our full range of services
-            </p>
-          </div>
 
-          <div className="space-y-3 lg:space-y-4">
-            {SERVICE_CATEGORIES.map((category) => (
-              <ServiceCategoryCard
-                key={category.name}
-                category={category}
-                isOpen={openCategories[category.name]}
-                onToggle={() => toggleCategory(category.name)}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* Pricing Disclaimer */}
-        <div className="mt-8 text-center px-4 lg:px-0">
-          <Card className="inline-block bg-white/5 border-white/10 p-3 lg:p-4 max-w-3xl">
-            <p className="text-white/60 text-xs lg:text-sm">
-              Labour costs vary by job complexity and vehicle type. Callout charged at {PRICING.calloutPerMile * 100}p per mile from Hemel Hempstead. £{PRICING.labourDeduction} deducted from labour if repair proceeds. Get an exact quote for your specific needs.
-            </p>
-          </Card>
-        </div>
 
         {/* Contact for Other Services */}
         <div className="mt-8 lg:mt-12">
@@ -500,48 +469,31 @@ export default function Home() {
               
               {/* Mobile: Super simple version */}
               <p className="lg:hidden text-white/80 leading-relaxed text-sm">
-                Mobile mechanic service covering Hertfordshire. We bring professional repairs to your location with transparent pricing.
+                Mobile mechanic service covering Hertfordshire. Quality repairs at your location with transparent pricing.
               </p>
               
-              {/* Desktop: Full description with bullet points */}
-              <div className="hidden lg:block space-y-6">
+              {/* Desktop: Simplified description */}
+              <div className="hidden lg:block space-y-4">
                 <p className="text-white/80 leading-relaxed text-base">
-                  We're a mobile mechanic service based in <strong>{BRAND.baseCityCoords.city}</strong>,
-                  covering Hertfordshire and surrounding areas. Our mission is simple — bring
-                  workshop-quality repairs directly to your home or workplace with full
-                  transparency and reliability.
+                  Mobile mechanic service based in <strong>{BRAND.baseCityCoords.city}</strong>, covering Hertfordshire and surrounding areas. We bring quality repairs directly to your home or workplace.
                 </p>
 
-                <div className="space-y-3 text-white/85 text-base">
+                <div className="space-y-2 text-white/85 text-base">
                   <div className="flex items-start gap-3">
                     <CheckCircle2 size={20} className="mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
-                    <div>
-                      <strong>Major mechanical repairs</strong> — diagnostics, brakes, suspension & engine work
-                    </div>
+                    <div>Diagnostics, brakes, suspension & engine work</div>
                   </div>
                   <div className="flex items-start gap-3">
                     <CheckCircle2 size={20} className="mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
-                    <div>
-                      <strong>BYO parts welcome</strong> — bring your own parts, we'll fit them
-                    </div>
+                    <div>Bring your own parts — we'll fit them</div>
                   </div>
                   <div className="flex items-start gap-3">
                     <CheckCircle2 size={20} className="mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
-                    <div>
-                      <strong>Transparent pricing</strong> with detailed breakdown before we start
-                    </div>
+                    <div>Transparent pricing with breakdown upfront</div>
                   </div>
                   <div className="flex items-start gap-3">
                     <CheckCircle2 size={20} className="mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
-                    <div>
-                      <strong>Flexible hours:</strong> {BRAND.hoursDisplay}
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 size={20} className="mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
-                    <div>
-                      <strong>Wide coverage</strong> across Hertfordshire and beyond
-                    </div>
+                    <div>{BRAND.hoursDisplay}</div>
                   </div>
                 </div>
               </div>
