@@ -218,13 +218,13 @@ export default function Home() {
 
               <div className="space-y-4 lg:space-y-4">
                 <h1 className="text-3xl lg:text-6xl font-extrabold leading-tight drop-shadow-lg">
-                  <span className="block">Mobile Mechanic </span>
-                  <span className="block" style={{ color: BRAND.colors.primary }}>Hemel Hempstead & 45mi</span>
+                  <span className="block">We Fix It. </span>
+                  <span className="block" style={{ color: BRAND.colors.primary }}>You Drive It.</span>
                 </h1>
                 
                 {/* Mobile: Simple tagline */}
                 <p className="lg:hidden text-base text-white/90 drop-shadow-md leading-relaxed">
-                  Quality repairs at your location
+                  Mobile mechanic at your location
                 </p>
                 
                 {/* Desktop: Full tagline */}
@@ -234,11 +234,11 @@ export default function Home() {
                 
                 {/* Desktop: Extended description */}
                 <p className="hidden lg:block text-white/80 text-base lg:text-lg max-w-2xl leading-relaxed drop-shadow">
-                  Diagnostics, repairs, and servicing at your location. No workshop visits. No hidden fees. Fair pricing.
+                  On-site diagnostics and repairs. No workshop trips. Fair rates, clear quotes.
                 </p>
                 
                 <p className="hidden lg:block text-white/90 text-sm lg:text-base max-w-2xl font-medium drop-shadow">
-                  Covering Hemel Hempstead and surrounding areas – diagnostic visits from £15, price confirmed from your postcode.
+                  Covering 45 miles from {BRAND.baseCityCoords.city} – diagnostic visits from £15.
                 </p>
               </div>
 
@@ -627,23 +627,23 @@ export default function Home() {
                 </div>
                 <div className="flex-1 space-y-3 lg:space-y-4">
                   <h2 className="text-xl lg:text-3xl font-bold text-white">
-                    About Your Mechanic
+                    About FixNow Mechanics
                   </h2>
                   <div className="space-y-3 text-white/80 text-sm lg:text-base leading-relaxed">
                     <p>
-                      Hi, I'm <strong className="text-white">Abukar Sharif</strong>, the mechanic behind FixNow Mechanics. 
-                      My goal is to provide quality repairs with honest pricing and clear communication.
+                      Hi, I'm <strong className="text-white">Abukar Sharif</strong>, founder of FixNow Mechanics. 
+                      I started this business to provide accessible, honest mobile mechanic services without the garage markup.
                     </p>
                     <p>
-                      I believe in transparent quotes, quality work, and never recommending unnecessary repairs. If I can't fix something on-site, I'll refer you to a trusted local workshop.
+                      Our approach is simple: transparent quotes, quality work, and never recommending unnecessary repairs. If we can't handle a job on-site, we'll direct you to a trusted local workshop.
                     </p>
                     <p>
-                      I focus on diagnostics and repairs I can do safely at your location — brakes, batteries, sensors, suspension work, and electrical faults. For jobs requiring specialist equipment, I'll point you in the right direction.
+                      We specialize in diagnostics and repairs that can be done safely at your location — brakes, batteries, sensors, suspension, and electrical faults. For jobs requiring specialist equipment, we'll point you in the right direction.
                     </p>
                   </div>
                   <div className="flex items-center gap-3 pt-2 lg:pt-4">
                     <CheckCircle2 size={20} style={{ color: BRAND.colors.primary }} />
-                    <span className="text-white/90 text-sm lg:text-base font-medium">Honest advice, transparent pricing, quality work</span>
+                    <span className="text-white/90 text-sm lg:text-base font-medium">Honest service, fair pricing, trusted advice</span>
                   </div>
                 </div>
               </div>
