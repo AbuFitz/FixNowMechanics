@@ -1,249 +1,230 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Activity, Disc, BatteryCharging, Thermometer, Wrench, 
-  CheckCircle2, Calculator, Phone, MapPin, Clock, User, Shield
+  CheckCircle2, Calculator, Phone, MapPin, Clock, ChevronDown
 } from 'lucide-react';
 import { BRAND, PRICING } from '../constants/brand';
 import { Section } from '../components/Layout';
 import { Button, LinkButton } from '../components/Button';
 import { Card, CardBody } from '../components/Card';
 
-function ServiceCard({ icon: Icon, title, description, pricing, details }) {
+function ServiceCard({ icon: Icon, title, description, price, details, isOpen, onToggle }) {
   return (
-    <Card className="h-full">
-      <CardBody className="space-y-4">
-        <div className="flex items-start gap-4">
-          <div
-            className="rounded-xl p-3 flex-shrink-0"
-            style={{ backgroundColor: `${BRAND.colors.primary}20` }}
-          >
-            <Icon size={28} style={{ color: BRAND.colors.primary }} />
+    <Card className="overflow-hidden hover:border-yellow-500/30 transition-all duration-300">
+      <button
+        onClick={onToggle}
+        className="w-full p-6 flex items-start gap-4 text-left transition-colors hover:bg-white/5"
+      >
+        <div
+          className="rounded-xl p-3 flex-shrink-0"
+          style={{ backgroundColor: `${BRAND.colors.primary}20` }}
+        >
+          <Icon size={28} style={{ color: BRAND.colors.primary }} />
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-start justify-between gap-4 mb-2">
+            <h3 className="text-white text-xl font-bold">{title}</h3>
+            <ChevronDown 
+              size={20} 
+              className={`text-white/50 transition-transform duration-300 flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`}
+            />
           </div>
-          <div className="flex-1">
-            <h3 className="text-white text-xl font-bold mb-2">{title}</h3>
-            <p className="text-white/70 text-sm leading-relaxed">{description}</p>
+          <p className="text-white/70 text-sm mb-3">{description}</p>
+          <div className="inline-block">
+            <span className="text-lg font-bold" style={{ color: BRAND.colors.primary }}>
+              {price}
+            </span>
           </div>
         </div>
+      </button>
 
-        {details && details.length > 0 && (
-          <div className="space-y-2">
-            <p className="text-white/60 text-xs font-semibold uppercase tracking-wide">What's Included:</p>
-            <ul className="space-y-1.5">
-              {details.map((item, idx) => (
-                <li key={idx} className="flex items-start gap-2 text-white/80 text-sm">
-                  <CheckCircle2 size={16} className="mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        <div className="pt-3 border-t border-white/10">
-          <p className="text-white/60 text-xs font-semibold uppercase tracking-wide mb-2">Pricing:</p>
-          <div className="space-y-1">
-            {pricing.map((price, idx) => (
-              <p key={idx} className="text-white text-sm">
-                <span className="font-semibold" style={{ color: BRAND.colors.primary }}>{price.label}:</span>{' '}
-                <span className="text-white/90">{price.value}</span>
-              </p>
+      {/* Expandable Details */}
+      <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-96' : 'max-h-0'}`}>
+        <div className="px-6 pb-6 pt-2 border-t border-white/10">
+          <ul className="space-y-2">
+            {details.map((item, idx) => (
+              <li key={idx} className="flex items-start gap-2 text-white/80 text-sm">
+                <CheckCircle2 size={16} className="mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
+                <span>{item}</span>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
-      </CardBody>
+      </div>
     </Card>
   );
 }
 
 export default function Services() {
+  const [openService, setOpenService] = useState(null);
+
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = 'Our Services & Pricing | FixNow Mechanics';
+    document.title = 'Services & Pricing | FixNow Mechanics';
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
-      metaDesc.setAttribute('content', 'Transparent pricing for mobile mechanic services. Diagnostics, brakes, battery, cooling system checks & more. £45/hour labour, 65p per mile. Call 07354 915941.');
+      metaDesc.setAttribute('content', 'Mobile mechanic services with transparent pricing. Diagnostics £15, brakes from £45, battery from £30. We come to you. Call 07354 915941.');
     }
   }, []);
 
   const services = [
     {
+      id: 'diagnostics',
       icon: Activity,
       title: 'Vehicle Diagnostics',
-      description: 'Advanced diagnostics to accurately identify faults and provide clear repair guidance.',
+      description: 'Professional fault finding with advanced diagnostic equipment',
+      price: '£15 + mileage',
       details: [
-        'Full fault code scan across all vehicle systems',
-        'Live data analysis to pinpoint issues',
-        'Clear explanation of problems found',
-        'Reset warning lights (where appropriate)',
-        'Honest repair guidance & cost estimate'
-      ],
-      pricing: [
-        { label: 'Diagnostic Fee', value: '£15 flat rate' },
-        { label: 'Mileage', value: `${PRICING.calloutPerMile * 100}p per mile (round trip from HP2)` },
-        { label: 'Time Included', value: '20-45 minutes diagnostic work' },
-        { label: 'If Repair Proceeds', value: '£10 deducted from labour cost' }
+        'Full system scan with professional OBD equipment',
+        'Live data analysis to pinpoint exact issues',
+        'Clear explanation of what\'s wrong',
+        'Honest advice on next steps',
+        '£10 deducted from labour if you proceed with repair'
       ]
     },
     {
+      id: 'brakes',
       icon: Disc,
       title: 'Brake Services',
-      description: 'On-site brake replacements using quality parts. Most jobs completed in 1-1.5 hours per axle.',
+      description: 'Professional brake repairs at your location',
+      price: 'from £45',
       details: [
-        'Brake pad replacement (front or rear)',
-        'Brake discs & pads replacement',
-        'Brake system inspections',
+        'Brake pad replacement (1-1.5 hours)',
+        'Discs & pads replacement',
+        'Brake system inspection',
         'ABS sensor replacement',
-        'Brake fluid top-up'
-      ],
-      pricing: [
-        { label: 'Labour Rate', value: '£45 per hour' },
-        { label: 'Front or Rear Pads', value: '£45-£60 labour' },
-        { label: 'Pads + Discs (per axle)', value: '£80-£110 labour' },
-        { label: 'Parts', value: 'Supplied separately (varies by vehicle)' }
+        'Labour: £45/hour | Parts supplied separately'
       ]
     },
     {
+      id: 'battery',
       icon: BatteryCharging,
-      title: 'Battery & Starting System',
-      description: 'Quick diagnosis and replacement for battery and starting issues. Get back on the road fast.',
+      title: 'Battery & Starting',
+      description: 'Fast diagnosis and replacement for starting issues',
+      price: 'from £20',
       details: [
-        'Battery health testing',
-        'Battery replacement & fitting',
+        'Battery health test (free with diagnostics)',
+        'Battery replacement & fitting (£30-£45)',
         'Alternator testing',
-        'Starter motor diagnostics',
-        'Jump-start service'
-      ],
-      pricing: [
-        { label: 'Battery Test', value: 'Included with diagnostics' },
-        { label: 'Battery Replacement', value: '£30-£45 labour (under 1 hour)' },
-        { label: 'Jump-Start (Local)', value: '£20 flat rate' },
-        { label: 'Jump-Start (Outside Area)', value: `£20 + ${PRICING.calloutPerMile * 100}p per mile` }
+        'Jump-start service (£20 local)',
+        'Quick turnaround to get you moving'
       ]
     },
     {
+      id: 'cooling',
       icon: Thermometer,
-      title: 'Cooling System Checks',
-      description: 'Identify overheating and coolant issues before they cause serious damage.',
+      title: 'Cooling System',
+      description: 'Prevent overheating with professional checks',
+      price: 'from £45',
       details: [
         'Coolant level & condition check',
         'Radiator inspection',
         'Thermostat testing',
-        'Water pump assessment',
-        'Leak detection'
-      ],
-      pricing: [
-        { label: 'Basic Check', value: 'Included with diagnostics (if fault-related)' },
-        { label: 'Cooling System Diagnosis', value: '£45/hour (typically 30-60 minutes)' }
+        'Leak detection',
+        'Typically 30-60 minutes'
       ]
     },
     {
+      id: 'repairs',
       icon: Wrench,
       title: 'General Repairs',
-      description: 'Light to medium repairs completed safely at your location.',
+      description: 'Light to medium repairs done at your location',
+      price: 'from £30',
       details: [
-        'Sensor replacements (MAF, MAP, O2, crank, cam)',
+        'Sensor replacements (MAF, O2, crank, cam)',
         'Suspension links & control arms',
-        'Boost hose & intake pipe repairs',
-        'Minor oil leak fixes',
-        'Exhaust bracket repairs',
-        'Wiring checks & repairs',
-        'Wheel nut & hub issues'
-      ],
-      pricing: [
-        { label: 'Labour Rate', value: '£45 per hour' },
-        { label: 'Minor Jobs', value: '£30-£45 flat rate (quick fixes)' },
-        { label: 'Medium Repairs', value: '£45-£90 (1-2 hours)' }
+        'Minor leak fixes',
+        'Wiring repairs',
+        'Quick jobs: £30-£45 | Medium jobs: £45-£90'
       ]
     }
   ];
 
-  const additionalServices = [
-    { service: 'Smoke Leak Test', price: '£30' },
-    { service: 'Service Light Reset', price: '£10' },
-    { service: 'Pre-Purchase Inspection', price: 'from £45' },
-    { service: 'Odd Noise Inspection', price: '£25' },
-    { service: 'Visual Underbody Check', price: '£20' }
+  const extras = [
+    { name: 'Smoke Leak Test', price: '£30' },
+    { name: 'Service Light Reset', price: '£10' },
+    { name: 'Pre-Purchase Inspection', price: 'from £45' },
+    { name: 'Noise Diagnosis', price: '£25' }
   ];
 
   return (
-    <div>
+    <div className="min-h-screen">
       {/* Hero Section */}
       <div style={{ backgroundColor: BRAND.colors.dark }}>
-        <Section className="py-16 lg:py-24">
-          <div className="max-w-4xl mx-auto text-center space-y-6">
-            <h1 className="text-3xl lg:text-5xl font-extrabold text-white leading-tight">
+        <Section className="py-16 lg:py-20">
+          <div className="max-w-3xl mx-auto text-center space-y-6">
+            <h1 className="text-4xl lg:text-5xl font-extrabold text-white leading-tight">
               Services & Pricing
             </h1>
-            <p className="text-lg lg:text-xl text-white/80 max-w-2xl mx-auto leading-relaxed">
-              Transparent pricing for mobile mechanic services across Hertfordshire.
+            <p className="text-lg lg:text-xl text-white/70 leading-relaxed">
+              Honest pricing. Professional service. We come to you.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Link to="/estimate">
-                <Button variant="primary" icon={Calculator} className="w-full sm:w-auto">
-                  Get Free Quote
-                </Button>
-              </Link>
-              <LinkButton
-                variant="secondary"
-                icon={Phone}
-                href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`}
-                className="w-full sm:w-auto"
-              >
-                Call {BRAND.phoneDisplay}
-              </LinkButton>
-            </div>
           </div>
         </Section>
       </div>
 
-      {/* Main Services Grid */}
+      {/* Main Services */}
       <Section className="py-12 lg:py-16">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl lg:text-3xl font-bold text-white mb-3">
-              Main Services
-            </h2>
-            <p className="text-white/70 max-w-2xl mx-auto">
-              All services performed at your location with transparent pricing
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
-            {services.map((service, idx) => (
-              <ServiceCard key={idx} {...service} />
-            ))}
-          </div>
+        <div className="max-w-4xl mx-auto space-y-4">
+          {services.map((service) => (
+            <ServiceCard
+              key={service.id}
+              {...service}
+              isOpen={openService === service.id}
+              onToggle={() => setOpenService(openService === service.id ? null : service.id)}
+            />
+          ))}
         </div>
       </Section>
 
-      {/* Additional Services */}
+      {/* How Pricing Works */}
       <Section className="py-12 lg:py-16" style={{ backgroundColor: BRAND.colors.mid }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <h2 className="text-2xl lg:text-3xl font-bold text-white mb-3">
-              Additional Support Services
+              How Pricing Works
             </h2>
-            <p className="text-white/70">
-              Quick checks and specialized inspections
-            </p>
+            <p className="text-white/60">Simple, transparent, no surprises</p>
           </div>
 
-          <Card>
+          <div className="grid md:grid-cols-2 gap-6">
+            <Card>
+              <CardBody className="space-y-3">
+                <div className="flex items-center gap-3 mb-2">
+                  <Clock size={24} style={{ color: BRAND.colors.primary }} />
+                  <h3 className="text-white font-bold text-lg">Labour Rate</h3>
+                </div>
+                <p className="text-white/80 text-sm leading-relaxed">
+                  Standard rate: <strong className="text-white">£45 per hour</strong>
+                  <br />
+                  <span className="text-white/60 text-xs">Much lower than garage rates (£60-£100/hour)</span>
+                </p>
+              </CardBody>
+            </Card>
+
+            <Card>
+              <CardBody className="space-y-3">
+                <div className="flex items-center gap-3 mb-2">
+                  <MapPin size={24} style={{ color: BRAND.colors.primary }} />
+                  <h3 className="text-white font-bold text-lg">Travel Cost</h3>
+                </div>
+                <p className="text-white/80 text-sm leading-relaxed">
+                  <strong className="text-white">{PRICING.calloutPerMile * 100}p per mile</strong> round trip from HP2
+                  <br />
+                  <span className="text-white/60 text-xs">Example: 10 miles = £13 mileage</span>
+                </p>
+              </CardBody>
+            </Card>
+          </div>
+
+          <Card className="mt-6 bg-white/5 border-white/20">
             <CardBody>
-              <div className="divide-y divide-white/10">
-                {additionalServices.map((item, idx) => (
-                  <div key={idx} className="py-4 flex items-center justify-between">
-                    <span className="text-white font-medium">{item.service}</span>
-                    <span className="text-white/90 font-bold" style={{ color: BRAND.colors.primary }}>
-                      {item.price}
-                    </span>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-6 pt-6 border-t border-white/10">
-                <p className="text-white/60 text-sm">
-                  <span className="font-semibold">Mileage applies:</span> {PRICING.calloutPerMile * 100}p per mile (round trip from HP2)
+              <div className="flex items-start gap-3">
+                <CheckCircle2 size={20} className="mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
+                <p className="text-white/90 text-sm">
+                  <strong>No work starts without your approval.</strong> You'll get a clear breakdown of costs before anything begins.
+                  If costs change during the job, we contact you first.
                 </p>
               </div>
             </CardBody>
@@ -251,86 +232,42 @@ export default function Services() {
         </div>
       </Section>
 
-      {/* Pricing Transparency Section */}
+      {/* Additional Services */}
       <Section className="py-12 lg:py-16">
         <div className="max-w-4xl mx-auto">
-          <Card className="bg-gradient-to-br from-white/10 to-white/5 border-2" style={{ borderColor: `${BRAND.colors.primary}40` }}>
-            <CardBody className="space-y-6">
-              <div className="text-center">
-                <Shield size={48} className="mx-auto mb-4" style={{ color: BRAND.colors.primary }} />
-                <h2 className="text-2xl lg:text-3xl font-bold text-white mb-3">
-                  How Our Pricing Works
-                </h2>
-                <p className="text-white/80 max-w-2xl mx-auto">
-                  No hidden fees. No surprises. Just honest, transparent pricing.
-                </p>
-              </div>
+          <div className="text-center mb-8">
+            <h2 className="text-2xl lg:text-3xl font-bold text-white mb-2">
+              Quick Checks & Extras
+            </h2>
+          </div>
 
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-3">
-                  <h3 className="text-white font-bold flex items-center gap-2">
-                    <MapPin size={20} style={{ color: BRAND.colors.primary }} />
-                    Mileage Charges
-                  </h3>
-                  <p className="text-white/80 text-sm leading-relaxed">
-                    We charge <strong>{PRICING.calloutPerMile * 100}p per mile</strong> for the round trip from Hemel Hempstead (HP2) to your location and back. 
-                    This covers fuel, vehicle maintenance, and travel time. Calculated transparently when you book.
-                  </p>
-                  <p className="text-white/60 text-xs italic">
-                    Example: 10 miles from HP2 = 20 miles round trip = £13 mileage charge
-                  </p>
-                </div>
-
-                <div className="space-y-3">
-                  <h3 className="text-white font-bold flex items-center gap-2">
-                    <Clock size={20} style={{ color: BRAND.colors.primary }} />
-                    Labour Rates
-                  </h3>
-                  <p className="text-white/80 text-sm leading-relaxed">
-                    Our standard labour rate is <strong>£45 per hour</strong>, significantly below typical garage rates (£60-£100/hour). 
-                    Most jobs are quoted as flat rates based on expected time, so you know the exact cost upfront.
-                  </p>
-                  <p className="text-white/60 text-xs italic">
-                    If a repair proceeds after diagnostics, £10 of the diagnostic fee is deducted from labour
-                  </p>
-                </div>
+          <Card>
+            <CardBody>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {extras.map((item, idx) => (
+                  <div key={idx} className="flex items-center justify-between py-3 px-4 rounded-lg bg-white/5">
+                    <span className="text-white/90">{item.name}</span>
+                    <span className="font-bold" style={{ color: BRAND.colors.primary }}>
+                      {item.price}
+                    </span>
+                  </div>
+                ))}
               </div>
-
-              <div className="pt-6 border-t border-white/20">
-                <h3 className="text-white font-bold mb-3">Before Any Work Begins:</h3>
-                <ul className="space-y-2">
-                  <li className="flex items-start gap-2 text-white/80 text-sm">
-                    <CheckCircle2 size={16} className="mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
-                    <span>You'll receive a clear breakdown of labour, parts, and mileage costs</span>
-                  </li>
-                  <li className="flex items-start gap-2 text-white/80 text-sm">
-                    <CheckCircle2 size={16} className="mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
-                    <span>No work starts without your approval on the price</span>
-                  </li>
-                  <li className="flex items-start gap-2 text-white/80 text-sm">
-                    <CheckCircle2 size={16} className="mt-0.5 flex-shrink-0" style={{ color: BRAND.colors.primary }} />
-                    <span>If costs change during the job, we'll contact you first</span>
-                  </li>
-                </ul>
-              </div>
+              <p className="text-white/50 text-xs mt-4 text-center">
+                Mileage applies: {PRICING.calloutPerMile * 100}p per mile from HP2
+              </p>
             </CardBody>
           </Card>
         </div>
       </Section>
 
       {/* Service Area */}
-      <Section className="py-12 lg:py-16">
+      <Section className="py-12 lg:py-16" style={{ backgroundColor: BRAND.colors.mid }}>
         <div className="max-w-4xl mx-auto text-center space-y-6">
-          <div className="inline-flex items-center justify-center gap-2 mb-4">
-            <MapPin size={32} style={{ color: BRAND.colors.primary }} />
-          </div>
           <h2 className="text-2xl lg:text-3xl font-bold text-white">
-            Service Coverage Area
+            Covering {PRICING.maxServiceRadius} Miles from Hemel Hempstead
           </h2>
-          <p className="text-white/70 max-w-2xl mx-auto">
-            We cover up to {PRICING.maxServiceRadius} miles from Hemel Hempstead, including:
-          </p>
-          <div className="flex flex-wrap justify-center gap-3 pt-4">
+          <div className="flex flex-wrap justify-center gap-2">
             {BRAND.serviceAreas.map((area) => (
               <span
                 key={area}
@@ -340,45 +277,40 @@ export default function Services() {
               </span>
             ))}
           </div>
-          <div className="pt-8">
-            <Link to="/locations">
-              <Button variant="ghost" className="border border-white/20">
-                View All Location Pages
-              </Button>
-            </Link>
-          </div>
+          <Link to="/locations" className="inline-block">
+            <Button variant="ghost" className="border border-white/20 mt-4">
+              View All Areas
+            </Button>
+          </Link>
         </div>
       </Section>
 
-      {/* CTA Section */}
-      <Section className="py-12 lg:py-16" style={{ backgroundColor: BRAND.colors.mid }}>
+      {/* CTA */}
+      <Section className="py-16 lg:py-20">
         <div className="max-w-3xl mx-auto">
           <Card className="bg-gradient-to-br from-white/10 to-white/5 border-2" style={{ borderColor: `${BRAND.colors.primary}40` }}>
-            <CardBody className="text-center space-y-6">
-              <h2 className="text-2xl lg:text-3xl font-bold text-white">
-                Ready to Get Your Vehicle Sorted?
+            <CardBody className="text-center space-y-6 py-12">
+              <h2 className="text-3xl lg:text-4xl font-bold text-white">
+                Get Your Free Quote
               </h2>
-              <p className="text-white/80 max-w-xl mx-auto">
-                Get a quote for your repair. We typically respond within 2 hours.
+              <p className="text-white/70 text-lg max-w-xl mx-auto">
+                Professional mobile mechanic service with transparent pricing
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-                <Link to="/estimate" className="flex-1 sm:flex-initial">
-                  <Button variant="primary" icon={Calculator} className="w-full">
-                    Get Free Quote
+                <Link to="/estimate">
+                  <Button variant="primary" icon={Calculator} className="w-full sm:w-auto px-8 py-4 text-lg">
+                    Get Quote
                   </Button>
                 </Link>
                 <LinkButton
                   variant="secondary"
                   icon={Phone}
                   href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`}
-                  className="flex-1 sm:flex-initial"
+                  className="w-full sm:w-auto px-8 py-4 text-lg"
                 >
-                  Call Now
+                  {BRAND.phoneDisplay}
                 </LinkButton>
               </div>
-              <p className="text-white/40 text-xs">
-                Available {BRAND.hoursDisplay}
-              </p>
             </CardBody>
           </Card>
         </div>
