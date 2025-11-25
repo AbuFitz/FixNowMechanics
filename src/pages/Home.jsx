@@ -4,7 +4,7 @@ import {
   Wrench, Clock, MapPin, Shield, Phone, MessageCircle,
   Gauge, BadgeCheck, BatteryCharging, Droplet, Settings2,
   CheckCircle2, Calculator, ChevronDown, Activity, Cog,
-  Disc, Zap, CircleDot, Settings
+  Disc, Zap, CircleDot, Settings, User
 } from 'lucide-react';
 import { BRAND, SERVICES, CALLOUT_NOTE, PRICING } from '../constants/brand';
 import { SERVICE_CATEGORIES } from '../constants/services';
@@ -166,8 +166,8 @@ export default function Home() {
   const serviceIcons = [Gauge, Wrench, BatteryCharging, Droplet, Settings2];
 
   const features = [
-    { icon: Shield, title: 'Transparent Pricing', desc: 'No hidden fees or markups' },
-    { icon: Clock, title: 'Flexible Hours', desc: BRAND.hoursDisplay },
+    { icon: Shield, title: 'Fair Pricing', desc: '£45/hr labour - well below garages' },
+    { icon: Clock, title: 'Available 7 Days', desc: BRAND.hoursDisplay },
     { icon: MapPin, title: 'We Come To You', desc: 'Service at your location' },
     { icon: BadgeCheck, title: 'Quality Work', desc: 'Careful attention to every repair' },
   ];
@@ -218,8 +218,8 @@ export default function Home() {
 
               <div className="space-y-4 lg:space-y-4">
                 <h1 className="text-3xl lg:text-6xl font-extrabold leading-tight drop-shadow-lg">
-                  <span className="block">Expert Mobile </span>
-                  <span className="block" style={{ color: BRAND.colors.primary }}>Mechanic Service</span>
+                  <span className="block">Mobile Mechanic </span>
+                  <span className="block" style={{ color: BRAND.colors.primary }}>Hemel Hempstead & 45mi</span>
                 </h1>
                 
                 {/* Mobile: Simple tagline */}
@@ -609,6 +609,47 @@ export default function Home() {
             </div>
           </div>
         </Card>
+      </Section>
+
+      {/* About Your Mechanic */}
+      <Section className="py-8 lg:py-16" style={{ backgroundColor: BRAND.colors.mid }}>
+        <div className="max-w-4xl mx-auto">
+          <Card>
+            <CardBody className="p-6 lg:p-8">
+              <div className="flex items-start gap-6">
+                <div className="hidden md:block">
+                  <div 
+                    className="w-20 h-20 lg:w-24 lg:h-24 rounded-full flex items-center justify-center"
+                    style={{ backgroundColor: `${BRAND.colors.primary}20` }}
+                  >
+                    <User size={40} className="lg:w-12 lg:h-12" style={{ color: BRAND.colors.primary }} />
+                  </div>
+                </div>
+                <div className="flex-1 space-y-3 lg:space-y-4">
+                  <h2 className="text-xl lg:text-3xl font-bold text-white">
+                    About Your Mechanic
+                  </h2>
+                  <div className="space-y-3 text-white/80 text-sm lg:text-base leading-relaxed">
+                    <p>
+                      Hi, I'm <strong className="text-white">Abukar Sharif</strong>, the mechanic behind FixNow Mechanics. 
+                      My goal is to provide quality repairs with honest pricing and clear communication.
+                    </p>
+                    <p>
+                      I believe in transparent quotes, quality work, and never recommending unnecessary repairs. If I can't fix something on-site, I'll refer you to a trusted local workshop.
+                    </p>
+                    <p>
+                      I focus on diagnostics and repairs I can do safely at your location — brakes, batteries, sensors, suspension work, and electrical faults. For jobs requiring specialist equipment, I'll point you in the right direction.
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3 pt-2 lg:pt-4">
+                    <CheckCircle2 size={20} style={{ color: BRAND.colors.primary }} />
+                    <span className="text-white/90 text-sm lg:text-base font-medium">Honest advice, transparent pricing, quality work</span>
+                  </div>
+                </div>
+              </div>
+            </CardBody>
+          </Card>
+        </div>
       </Section>
 
       {/* FAQ Section - Desktop Only */}

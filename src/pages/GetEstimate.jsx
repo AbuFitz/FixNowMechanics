@@ -492,7 +492,7 @@ ${BRAND.tagline}
             Get Your Free Quote
           </h1>
           <p className="text-white/70 text-base lg:text-lg">
-            Complete the form and we'll send you a detailed quote
+            We typically respond within 2 hours
           </p>
         </div>
 

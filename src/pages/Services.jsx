@@ -318,47 +318,6 @@ export default function Services() {
         </div>
       </Section>
 
-      {/* About Abukar Section */}
-      <Section className="py-12 lg:py-16" style={{ backgroundColor: BRAND.colors.mid }}>
-        <div className="max-w-4xl mx-auto">
-          <Card>
-            <CardBody className="space-y-6">
-              <div className="flex items-start gap-6">
-                <div className="hidden md:block">
-                  <div 
-                    className="w-24 h-24 rounded-full flex items-center justify-center"
-                    style={{ backgroundColor: `${BRAND.colors.primary}20` }}
-                  >
-                    <User size={48} style={{ color: BRAND.colors.primary }} />
-                  </div>
-                </div>
-                <div className="flex-1 space-y-4">
-                  <h2 className="text-2xl lg:text-3xl font-bold text-white">
-                    About Your Mechanic
-                  </h2>
-                  <div className="space-y-3 text-white/80 leading-relaxed">
-                    <p>
-                      Hi, I'm <strong className="text-white">Abukar Sharif</strong>, the mechanic behind FixNow Mechanics. 
-                      My goal is to provide quality repairs with honest pricing and clear communication.
-                    </p>
-                    <p>
-                      I believe in transparent quotes, quality work, and never recommending unnecessary repairs. If I can't fix something on-site, I'll refer you to a trusted local workshop.
-                    </p>
-                    <p>
-                      I focus on diagnostics and repairs I can do safely at your location — brakes, batteries, sensors, suspension work, and electrical faults. For jobs requiring specialist equipment, I'll point you in the right direction.
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-3 pt-4">
-                    <CheckCircle2 size={20} style={{ color: BRAND.colors.primary }} />
-                    <span className="text-white/90 font-medium">Honest advice, transparent pricing, quality work</span>
-                  </div>
-                </div>
-              </div>
-            </CardBody>
-          </Card>
-        </div>
-      </Section>
-
       {/* Service Area */}
       <Section className="py-12 lg:py-16">
         <div className="max-w-4xl mx-auto text-center space-y-6">
@@ -400,7 +359,7 @@ export default function Services() {
                 Ready to Get Your Vehicle Sorted?
               </h2>
               <p className="text-white/80 max-w-xl mx-auto">
-                Get a free quote for your repair. Clear pricing and we come to you.
+                Get a quote for your repair. We typically respond within 2 hours.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
                 <Link to="/estimate" className="flex-1 sm:flex-initial">

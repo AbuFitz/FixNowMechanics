@@ -30,15 +30,15 @@ export const BRAND = {
     accent: "#FFB800",     // Amber variant
   },
   hours: {
-    weekdays: "7pm – 10pm",
-    saturday: "8am – 10pm",
+    weekdays: "7am – 10pm",
+    saturday: "7am – 10pm",
     sunday: "8am – 8pm",
   },
-  hoursDisplay: "Mon-Fri: 7pm-10pm | Sat: 8am-10pm | Sun: 8am-8pm",
+  hoursDisplay: "Mon-Fri: 7am-10pm | Sat: 7am-10pm | Sun: 8am-8pm",
 };
 
 export const CALLOUT_NOTE =
-  "Diagnostic visit: £15 + 65p per mile from Hemel Hempstead (£10 deducted from labour if repair proceeds)";
+  "Diagnostic visit: £15 + mileage (£10 refunded if you book the repair)";
 
 // Pricing Constants
 export const PRICING = {
