@@ -28,10 +28,10 @@ export function Header() {
   ];
 
   const mobileDropdownLinks = [
-    { path: '/', label: 'Home' },
-    { path: '/services', label: 'Services & Pricing' },
-    { path: '/privacy', label: 'Privacy Policy' },
-    { path: '/terms', label: 'Terms & Conditions' },
+    { path: '/', label: 'Home', icon: 'Home' },
+    { path: '/services', label: 'Services & Pricing', icon: 'Services' },
+    { path: '/locations', label: 'Areas We Cover', icon: 'Location' },
+    { path: '/estimate', label: 'Get Free Quote', icon: 'Quote', highlight: true },
   ];
 
   const isActive = (path) => location.pathname === path;
@@ -123,22 +123,48 @@ export function Header() {
 
         {/* Mobile Dropdown Menu */}
         {mobileMenuOpen && (
-          <div className="lg:hidden mt-5 pb-4 space-y-1 border-t border-white/10 pt-5 animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="lg:hidden mt-5 pb-4 space-y-2 border-t border-white/10 pt-5 animate-in fade-in slide-in-from-top-2 duration-200">
             {mobileDropdownLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`block py-3 px-4 font-medium rounded-lg transition-all ${
-                  isActive(link.path)
+                className={`block py-3.5 px-4 font-semibold rounded-xl transition-all text-center ${
+                  link.highlight
+                    ? 'text-black shadow-lg'
+                    : isActive(link.path)
                     ? 'bg-white/10 text-white'
-                    : 'text-white/70 hover:bg-white/5'
+                    : 'text-white/80 hover:bg-white/5 hover:text-white'
                 }`}
-                style={isActive(link.path) ? { color: BRAND.colors.primary } : {}}
+                style={
+                  link.highlight
+                    ? { backgroundColor: BRAND.colors.primary }
+                    : isActive(link.path)
+                    ? { color: BRAND.colors.primary }
+                    : {}
+                }
               >
                 {link.label}
               </Link>
             ))}
+            
+            {/* Quick Contact Links */}
+            <div className="pt-4 mt-4 border-t border-white/10 space-y-2">
+              <a
+                href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`}
+                className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-white/70 hover:text-white hover:bg-white/5 transition-all text-sm font-medium"
+              >
+                <Phone size={16} />
+                {BRAND.phoneDisplay}
+              </a>
+              <Link
+                to="/privacy"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block text-center py-2 text-white/50 hover:text-white/70 text-xs transition-all"
+              >
+                Privacy Policy
+              </Link>
+            </div>
           </div>
         )}
       </Section>

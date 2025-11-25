@@ -79,9 +79,10 @@ export default function Services() {
         'Honest repair guidance & cost estimate'
       ],
       pricing: [
-        { label: 'Diagnostic Fee', value: '£25 flat rate' },
+        { label: 'Diagnostic Fee', value: '£15 flat rate' },
         { label: 'Mileage', value: `${PRICING.calloutPerMile * 100}p per mile (round trip from HP2)` },
-        { label: 'Time Included', value: '20-45 minutes diagnostic work' }
+        { label: 'Time Included', value: '20-45 minutes diagnostic work' },
+        { label: 'If Repair Proceeds', value: '£10 deducted from labour cost' }
       ]
     },
     {

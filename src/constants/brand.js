@@ -38,7 +38,7 @@ export const BRAND = {
 };
 
 export const CALLOUT_NOTE =
-  "Callout fee: 65p per mile from Hemel Hempstead (£10 deducted from labour if repair proceeds)";
+  "Diagnostic visit: £15 + 65p per mile from Hemel Hempstead (£10 deducted from labour if repair proceeds)";
 
 // Pricing Constants
 export const PRICING = {
@@ -50,8 +50,8 @@ export const PRICING = {
 export const SERVICES = [
   {
     title: "Diagnostic Visit & Fault Scan",
-    desc: "Comprehensive OBD scan and fault diagnosis. Callout charged at 65p per mile from Hemel Hempstead. £10 deducted from labour if you proceed with the repair.",
-    price: "65p/mile*",
+    desc: "Comprehensive OBD scan and fault diagnosis. £15 diagnostic fee + 65p per mile from Hemel Hempstead. £10 deducted from labour if you proceed with the repair.",
+    price: "£15 + mileage",
     slug: "diagnostics",
   },
   {
