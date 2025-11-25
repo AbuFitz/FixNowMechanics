@@ -7,6 +7,11 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
+    <loc>https://fixnowmechanics.co.uk/services</loc>
+    <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://fixnowmechanics.co.uk/estimate</loc>
     <priority>0.9</priority>
     <changefreq>monthly</changefreq>

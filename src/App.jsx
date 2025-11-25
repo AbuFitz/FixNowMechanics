@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { PageLayout } from './components/Layout';
 import Home from './pages/Home';
 import GetEstimate from './pages/GetEstimate';
+import Services from './pages/Services';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsConditions from './pages/TermsConditions';
 import ServiceAreas from './pages/ServiceAreas';
@@ -25,6 +26,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/estimate" element={<GetEstimate />} />
+          <Route path="/services" element={<Services />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsConditions />} />
           <Route path="/locations" element={<ServiceAreas />} />

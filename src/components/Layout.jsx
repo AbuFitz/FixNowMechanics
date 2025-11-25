@@ -23,11 +23,13 @@ export function Header() {
 
   const navLinks = [
     { path: '/', label: 'Home' },
+    { path: '/services', label: 'Services' },
     { path: '/estimate', label: 'Get Quote' },
   ];
 
   const mobileDropdownLinks = [
     { path: '/', label: 'Home' },
+    { path: '/services', label: 'Services & Pricing' },
     { path: '/privacy', label: 'Privacy Policy' },
     { path: '/terms', label: 'Terms & Conditions' },
   ];
