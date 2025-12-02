@@ -1,453 +1,344 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  Phone, MessageCircle, MapPin, ArrowRight, CheckCircle2,
-  Wrench, Clock, Shield, Star
-} from 'lucide-react';
-import { BRAND, SERVICES, DIAGNOSTIC_PRICING } from '../constants/brand';
-import { Section } from '../components/Layout';
-import { Card } from '../components/Card';
-import { Button, LinkButton } from '../components/Button';
+import { Phone, ArrowRight, MapPin, Check } from 'lucide-react';
+import { BRAND } from '../constants/brand';
 
-function BrandLogo({ name, logo, size = "medium", invert = false }) {
-  const sizeClasses = {
-    small: "h-8",
-    medium: "h-10",
-    large: "h-24",
-    xlarge: "h-24",
-  };
+// Completely new pricing strategy - starter friendly
+const SERVICES = [
+  {
+    name: 'Diagnostic Visit',
+    brief: 'Complete vehicle diagnostic scan',
+    price: '£15',
+    details: 'OBD scan, visual inspection, and fault identification. Distance-based pricing.'
+  },
+  {
+    name: 'Brake Service',
+    brief: 'Pads, discs, and fluid replacement',
+    price: '£60',
+    details: 'Professional brake work at your location. Parts priced separately.'
+  },
+  {
+    name: 'Oil & Filter',
+    brief: 'Full service oil change',
+    price: '£50',
+    details: 'Correct spec oil for your vehicle. Quick turnaround.'
+  },
+  {
+    name: 'Battery',
+    brief: 'Testing and replacement',
+    price: '£40',
+    details: 'Battery supply and fitting available. Same-day service.'
+  },
+  {
+    name: 'Suspension Work',
+    brief: 'Coilovers and suspension setup',
+    price: 'Quote',
+    details: 'Custom suspension work. Supply and fit available.'
+  }
+];
 
-  return (
-    <div className="flex items-center justify-center px-8 sm:px-10">
-      <img
-        src={logo}
-        alt={name}
-        className={`${sizeClasses[size]} w-auto object-contain opacity-60 hover:opacity-100 transition-opacity duration-300 ${invert ? 'invert brightness-0' : ''}`}
-      />
-    </div>
-  );
-}
+const COVERAGE = ['Hemel Hempstead', 'Watford', 'St Albans', 'Luton', 'Aylesbury', 'Berkhamsted', 'North London', 'Milton Keynes'];
 
 export default function Home() {
+  const [activeService, setActiveService] = useState(null);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   return (
-    <div className="min-h-screen">
-      {/* Hero - Absolute Minimal */}
-      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden" style={{ backgroundColor: BRAND.colors.dark }}>
-        {/* Subtle gradient overlay */}
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/3 via-transparent to-transparent" />
-          <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-yellow-500/5 blur-[120px] rounded-full" />
+    <div className="bg-black text-white min-h-screen">
+      {/* Hero - Asymmetric, Bold, Minimal */}
+      <section className="min-h-screen flex items-center relative overflow-hidden px-6 lg:px-12">
+        {/* Subtle accent */}
+        <div className="absolute top-20 right-0 w-px h-96 bg-gradient-to-b from-transparent via-yellow-500/20 to-transparent" />
+
+        <div className="max-w-[1800px] mx-auto w-full grid lg:grid-cols-[1.5fr,1fr] gap-16 lg:gap-32 items-center">
+          {/* Left: Typography */}
+          <div className="space-y-8 lg:space-y-12">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-px bg-yellow-500" />
+                <span className="text-sm tracking-[0.2em] text-gray-400 uppercase">Mobile Mechanic</span>
+              </div>
+
+              <h1 className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold leading-[0.95] tracking-tight">
+                We come
+                <br />
+                to <span className="italic font-light">you</span>
+              </h1>
+            </div>
+
+            <p className="text-xl lg:text-2xl text-gray-400 max-w-xl leading-relaxed font-light">
+              Professional vehicle diagnostics and repairs.
+              <span className="text-white"> At your location.</span>
+            </p>
+
+            {/* Coverage inline */}
+            <div className="flex flex-wrap gap-2 text-sm text-gray-500">
+              {COVERAGE.slice(0, 4).map((area, i) => (
+                <React.Fragment key={area}>
+                  <span>{area}</span>
+                  {i < 3 && <span className="text-gray-700">•</span>}
+                </React.Fragment>
+              ))}
+              <span>+ more</span>
+            </div>
+          </div>
+
+          {/* Right: Floating contact card */}
+          <div className="lg:justify-self-end w-full lg:max-w-md">
+            <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 lg:p-10 space-y-6">
+              <div>
+                <p className="text-sm text-gray-400 mb-2">Call now for same-day service</p>
+                <a
+                  href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`}
+                  className="text-4xl lg:text-5xl font-bold hover:text-yellow-500 transition-colors inline-block"
+                >
+                  {BRAND.phoneDisplay}
+                </a>
+              </div>
+
+              <div className="h-px bg-white/10" />
+
+              <Link to="/estimate">
+                <button className="w-full bg-yellow-500 hover:bg-yellow-400 text-black font-semibold py-4 rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2">
+                  <span>Get Free Quote</span>
+                  <ArrowRight size={20} />
+                </button>
+              </Link>
+
+              <p className="text-xs text-gray-500 text-center">
+                Response within 2 hours • Transparent pricing
+              </p>
+            </div>
+          </div>
         </div>
 
-        <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
-          {/* Minimal status badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm mb-8">
-            <div className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse" />
-            <span className="text-white/70 text-sm">Same-Day Service Available</span>
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+          <div className="w-px h-16 bg-gradient-to-b from-white/20 to-transparent" />
+        </div>
+      </section>
+
+      {/* Manifesto - Typography Driven */}
+      <section className="px-6 lg:px-12 py-32 lg:py-48">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="grid lg:grid-cols-3 gap-12 lg:gap-16">
+            {[
+              { label: '01', title: 'No workshop', desc: 'We bring the workshop to your driveway or workplace' },
+              { label: '02', title: 'No waiting', desc: 'Same-day service available. Book around your schedule' },
+              { label: '03', title: 'No markup', desc: 'Transparent pricing on parts and labor. BYO parts welcome' }
+            ].map((item) => (
+              <div key={item.label} className="space-y-4">
+                <span className="text-sm text-gray-600 font-mono">{item.label}</span>
+                <h3 className="text-3xl lg:text-4xl font-bold">{item.title}</h3>
+                <p className="text-gray-400 text-lg leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
           </div>
+        </div>
+      </section>
 
-          {/* Hero headline */}
-          <h1 className="text-5xl sm:text-6xl lg:text-8xl font-black text-white mb-6 tracking-tight leading-[1.05]">
-            Mobile Mechanic<br/>
-            <span className="gradient-text">Across Hertfordshire</span>
-          </h1>
-
-          {/* Value proposition */}
-          <p className="text-lg lg:text-2xl text-white/50 max-w-3xl mx-auto mb-12 font-light leading-relaxed">
-            Professional diagnostics & repairs brought to your location.<br className="hidden sm:block" />
-            Covering <span className="text-white/80 font-medium">Hertfordshire, Bedfordshire, Buckinghamshire & North London.</span>
-          </p>
-
-          {/* Primary CTA */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-            <a
-              href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`}
-              className="group inline-flex items-center justify-center gap-3 px-10 py-5 rounded-2xl text-lg font-bold transition-all hover:scale-105 active:scale-95 shadow-2xl w-full sm:w-auto"
-              style={{
-                backgroundColor: BRAND.colors.primary,
-                color: BRAND.colors.dark,
-                boxShadow: `0 20px 60px ${BRAND.colors.primary}25`
-              }}
-            >
-              <Phone size={24} className="group-hover:rotate-12 transition-transform" />
-              {BRAND.phoneDisplay}
-            </a>
-            <Link to="/estimate" className="w-full sm:w-auto">
-              <Button variant="secondary" className="w-full py-5 px-10 text-lg group">
-                <span>Free Quote</span>
-                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </Link>
+      {/* Services - Horizontal Scroll Mobile */}
+      <section className="py-24 lg:py-32 border-y border-white/5">
+        <div className="px-6 lg:px-12 mb-12">
+          <div className="max-w-[1800px] mx-auto">
+            <h2 className="text-4xl lg:text-6xl font-bold mb-4">Services</h2>
+            <p className="text-gray-400 text-lg">Simple pricing. Professional work.</p>
           </div>
+        </div>
 
-          {/* Trust indicators */}
-          <div className="flex flex-wrap items-center justify-center gap-8 text-white/40 text-sm">
-            <div className="flex items-center gap-2">
-              <CheckCircle2 size={16} style={{ color: BRAND.colors.primary }} />
-              <span>Fully Mobile</span>
+        {/* Mobile: Horizontal scroll */}
+        <div className="lg:hidden">
+          <div className="flex gap-4 px-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
+            {SERVICES.map((service, i) => (
+              <div
+                key={i}
+                className="flex-shrink-0 w-[280px] bg-white/5 border border-white/10 rounded-2xl p-6 snap-start"
+              >
+                <div className="space-y-4">
+                  <div className="flex items-start justify-between">
+                    <span className="text-xs text-gray-600 font-mono">0{i + 1}</span>
+                    <span className="text-2xl font-bold text-yellow-500">{service.price}</span>
+                  </div>
+                  <h3 className="text-xl font-bold">{service.name}</h3>
+                  <p className="text-sm text-gray-400">{service.brief}</p>
+                  <Link to="/estimate" className="text-sm text-yellow-500 hover:text-yellow-400 inline-flex items-center gap-1">
+                    Book now <ArrowRight size={14} />
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Desktop: Grid */}
+        <div className="hidden lg:block px-12">
+          <div className="max-w-[1800px] mx-auto grid grid-cols-3 gap-6">
+            {SERVICES.map((service, i) => (
+              <Link key={i} to="/estimate" className="group">
+                <div className="bg-white/5 border border-white/10 hover:border-yellow-500/50 rounded-2xl p-8 transition-all hover:bg-white/[0.07] h-full">
+                  <div className="space-y-6">
+                    <div className="flex items-start justify-between">
+                      <span className="text-xs text-gray-600 font-mono">0{i + 1}</span>
+                      <span className="text-3xl font-bold text-yellow-500">{service.price}</span>
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold mb-3 group-hover:text-yellow-500 transition-colors">{service.name}</h3>
+                      <p className="text-gray-400 leading-relaxed">{service.brief}</p>
+                    </div>
+                    <div className="text-sm text-yellow-500 group-hover:text-yellow-400 inline-flex items-center gap-2">
+                      <span>Book now</span>
+                      <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* Note */}
+        <div className="px-6 lg:px-12 mt-12">
+          <div className="max-w-[1800px] mx-auto">
+            <p className="text-sm text-gray-500">
+              <Check size={16} className="inline text-yellow-500" /> Parts priced separately • <Check size={16} className="inline text-yellow-500" /> Bring your own parts, we'll fit them
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Coverage - Visual Map */}
+      <section className="px-6 lg:px-12 py-32 lg:py-48">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="grid lg:grid-cols-[1fr,1.2fr] gap-16 items-center">
+            {/* Left: Info */}
+            <div className="space-y-8">
+              <div>
+                <h2 className="text-4xl lg:text-6xl font-bold mb-6">45-mile radius</h2>
+                <p className="text-xl text-gray-400 leading-relaxed">
+                  From Hemel Hempstead, covering Hertfordshire, Bedfordshire, Buckinghamshire and North London.
+                </p>
+              </div>
+
+              <div className="space-y-3">
+                {COVERAGE.map((area, i) => (
+                  <div key={i} className="flex items-center gap-3 text-gray-400">
+                    <div className="w-1 h-1 rounded-full bg-yellow-500" />
+                    <span>{area}</span>
+                  </div>
+                ))}
+              </div>
+
+              <Link to="/estimate">
+                <button className="text-yellow-500 hover:text-yellow-400 font-semibold inline-flex items-center gap-2">
+                  Check your postcode <ArrowRight size={20} />
+                </button>
+              </Link>
             </div>
-            <div className="hidden sm:block w-px h-4 bg-white/20" />
-            <div className="flex items-center gap-2">
-              <CheckCircle2 size={16} style={{ color: BRAND.colors.primary }} />
-              <span>Transparent Pricing</span>
-            </div>
-            <div className="hidden sm:block w-px h-4 bg-white/20" />
-            <div className="flex items-center gap-2">
-              <CheckCircle2 size={16} style={{ color: BRAND.colors.primary }} />
-              <span>No Hidden Fees</span>
+
+            {/* Right: Map */}
+            <div className="relative">
+              <div className="aspect-square rounded-3xl overflow-hidden border border-white/10">
+                <iframe
+                  title="Coverage Map"
+                  width="100%"
+                  height="100%"
+                  frameBorder="0"
+                  src={`https://www.openstreetmap.org/export/embed.html?bbox=-0.8,51.5,-0.1,52.0&layer=mapnik&marker=${BRAND.baseCityCoords.lat},${BRAND.baseCityCoords.lng}`}
+                  className="grayscale invert opacity-60"
+                />
+              </div>
+              <div className="absolute bottom-6 left-6 bg-black/80 backdrop-blur-xl border border-white/10 rounded-xl px-4 py-3">
+                <p className="text-sm">
+                  <MapPin size={14} className="inline text-yellow-500" /> Base: {BRAND.baseCityCoords.city}
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Services - Clean Showcase */}
-      <Section className="py-20 lg:py-32" style={{ backgroundColor: BRAND.colors.mid }}>
-        <div className="max-w-6xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-5xl font-black text-white mb-4">
-              What We Do
-            </h2>
-            <p className="text-white/50 text-lg">
-              Specializing in diagnostics, repairs & servicing
-            </p>
-          </div>
-
-          {/* Service grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {SERVICES.map((service, index) => (
-              <Link key={service.slug} to="/estimate" className="group">
-                <Card className="h-full p-8 hover:scale-[1.02] hover:border-yellow-500/40 transition-all duration-500">
-                  {/* Number badge */}
-                  <div className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-white/5 border border-white/10 text-white/40 text-sm font-bold mb-6 group-hover:bg-yellow-500/10 group-hover:border-yellow-500/30 group-hover:text-yellow-400 transition-all">
-                    {(index + 1).toString().padStart(2, '0')}
-                  </div>
-
-                  {/* Service info */}
-                  <div className="mb-6">
-                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-yellow-400 transition-colors">
-                      {service.title}
-                    </h3>
-                    <p className="text-white/60 text-sm leading-relaxed mb-4">
-                      {service.desc.split('.')[0]}.
-                    </p>
-                    <div className="text-2xl font-black gradient-text">
-                      {service.price}
-                    </div>
-                  </div>
-
-                  {/* CTA */}
-                  <div className="flex items-center gap-2 text-white/40 group-hover:text-yellow-400 transition-colors text-sm font-medium">
-                    <span>Request Quote</span>
-                    <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </Card>
-              </Link>
-            ))}
-          </div>
-
-          {/* Additional note */}
-          <div className="mt-12 text-center">
-            <p className="text-white/50 text-sm mb-4">
-              Need something else? <Link to="/estimate" className="text-yellow-400 hover:underline">Get in touch</Link>
-            </p>
-            <Card className="inline-block bg-white/5 border-white/10 px-6 py-3">
-              <p className="text-white/70 text-sm flex items-center gap-2">
-                <CheckCircle2 size={16} style={{ color: BRAND.colors.primary }} />
-                <span><strong className="text-white">BYO Parts:</strong> Bring your own, we'll fit them</span>
-              </p>
-            </Card>
-          </div>
-        </div>
-      </Section>
-
-      {/* Why Choose - Integrated Trust */}
-      <Section className="py-20 lg:py-32">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              {
-                icon: Shield,
-                title: 'Transparent Pricing',
-                desc: 'No hidden fees. You know the cost before we start.'
-              },
-              {
-                icon: Clock,
-                title: 'Same-Day Service',
-                desc: 'Fast response times. Often available within hours.'
-              },
-              {
-                icon: Wrench,
-                title: 'Quality Work',
-                desc: 'Professional repairs using trusted parts and tools.'
-              },
-              {
-                icon: Star,
-                title: 'Customer First',
-                desc: 'Building our reputation one satisfied customer at a time.'
-              }
-            ].map((item, i) => (
-              <div key={i} className="text-center group">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-6 group-hover:scale-110 transition-transform duration-300" style={{ backgroundColor: `${BRAND.colors.primary}15` }}>
-                  <item.icon size={32} style={{ color: BRAND.colors.primary }} />
-                </div>
-                <h3 className="text-xl font-bold text-white mb-3">
-                  {item.title}
-                </h3>
-                <p className="text-white/60 text-sm leading-relaxed">
-                  {item.desc}
-                </p>
-              </div>
+      {/* Trust - Minimal */}
+      <section className="px-6 lg:px-12 py-24 border-y border-white/5">
+        <div className="max-w-[1400px] mx-auto text-center space-y-8">
+          <p className="text-sm text-gray-600 uppercase tracking-[0.2em]">Trusted Parts</p>
+          <div className="flex flex-wrap justify-center items-center gap-12 lg:gap-16 opacity-40">
+            {['Castrol', 'Bosch', 'Brembo', 'Mann', 'Mobil'].map((brand) => (
+              <span key={brand} className="text-xl lg:text-2xl font-bold text-gray-400">{brand}</span>
             ))}
           </div>
         </div>
-      </Section>
+      </section>
 
-      {/* Coverage - Geographic Focus */}
-      <Section className="py-20 lg:py-32" style={{ backgroundColor: BRAND.colors.mid }}>
-        <div className="max-w-6xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-5xl font-black text-white mb-4">
-              We Cover More Than Just Hertfordshire
-            </h2>
-            <p className="text-white/60 text-lg max-w-3xl mx-auto">
-              Mobile service up to 45 miles from Hemel Hempstead.
-              Covering <strong className="text-white">Hertfordshire, Bedfordshire, Buckinghamshire & North London.</strong>
-            </p>
-          </div>
-
-          {/* Coverage grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-12">
-            {[
-              { name: 'Hemel Hempstead', tag: 'Base' },
-              { name: 'Watford' },
-              { name: 'St Albans' },
-              { name: 'Luton' },
-              { name: 'Aylesbury' },
-              { name: 'Berkhamsted' },
-              { name: 'Tring' },
-              { name: 'Dunstable' },
-              { name: 'Hertford' },
-              { name: 'North London' },
-              { name: 'Milton Keynes' },
-              { name: 'Stevenage' }
-            ].map((area, i) => (
-              <Card key={i} className="p-4 text-center hover:scale-105 hover:border-yellow-500/40 transition-all duration-300 group">
-                {area.tag && (
-                  <div className="inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold mb-2" style={{ backgroundColor: BRAND.colors.primary, color: BRAND.colors.dark }}>
-                    {area.tag}
-                  </div>
-                )}
-                <MapPin size={20} className="mx-auto mb-2 opacity-40 group-hover:opacity-100 transition-opacity" style={{ color: BRAND.colors.primary }} />
-                <p className="text-white text-sm font-medium">{area.name}</p>
-              </Card>
-            ))}
-          </div>
-
-          {/* Pricing info */}
-          <Card className="p-8 max-w-3xl mx-auto bg-white/5">
-            <div className="text-center space-y-4">
-              <h3 className="text-xl font-bold text-white">
-                Diagnostic Visit Pricing
-              </h3>
-              <div className="flex flex-wrap justify-center gap-6 text-sm">
-                <div>
-                  <p className="text-white/50 mb-1">0-10 miles</p>
-                  <p className="text-2xl font-black text-yellow-400">£{DIAGNOSTIC_PRICING.within10Miles}</p>
-                </div>
-                <div className="w-px bg-white/10" />
-                <div>
-                  <p className="text-white/50 mb-1">10-20 miles</p>
-                  <p className="text-2xl font-black text-yellow-400">£{DIAGNOSTIC_PRICING.within20Miles}</p>
-                </div>
-                <div className="w-px bg-white/10" />
-                <div>
-                  <p className="text-white/50 mb-1">20+ miles</p>
-                  <p className="text-2xl font-black text-yellow-400">£{DIAGNOSTIC_PRICING.over20Miles}</p>
-                </div>
-              </div>
-              <p className="text-white/60 text-xs pt-4">
-                £{DIAGNOSTIC_PRICING.labourDeduction} deducted from labour if repair goes ahead
+      {/* About - Split */}
+      <section className="px-6 lg:px-12 py-32 lg:py-48">
+        <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-16">
+          <div className="space-y-8">
+            <div>
+              <h2 className="text-4xl lg:text-5xl font-bold mb-6">About FixNow</h2>
+              <p className="text-xl text-gray-400 leading-relaxed">
+                Mobile mechanic service based in {BRAND.baseCityCoords.city}.
+                We're part of ARF Automotive Group, specialists in diagnostics and vehicle enhancement.
               </p>
             </div>
-          </Card>
 
-          {/* CTA */}
-          <div className="text-center mt-12">
-            <Link to="/estimate">
-              <Button variant="primary" className="px-8 py-4">
-                Check Your Postcode
-                <ArrowRight size={20} />
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </Section>
+            <div className="space-y-4">
+              {[
+                'Transparent pricing with no hidden fees',
+                'Same-day service available',
+                'Professional diagnostics equipment',
+                'Covering Hertfordshire & surrounding areas'
+              ].map((point, i) => (
+                <div key={i} className="flex items-start gap-3">
+                  <Check size={20} className="text-yellow-500 flex-shrink-0 mt-0.5" />
+                  <span className="text-gray-400">{point}</span>
+                </div>
+              ))}
+            </div>
 
-      {/* Trusted Brands */}
-      <Section className="py-16 border-y border-white/5">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-white mb-2">
-              Quality Parts, Trusted Brands
-            </h3>
-            <p className="text-white/40 text-sm">
-              Working with industry-leading manufacturers
-            </p>
-          </div>
-
-          {/* Infinite scroll */}
-          <div className="relative overflow-hidden">
-            <div className="flex animate-scroll-slow">
-              <div className="flex items-center gap-0 flex-shrink-0">
-                <BrandLogo name="Brembo" logo="/logos/brembo.png" size="small" />
-                <BrandLogo name="Castrol" logo="/logos/castrol.svg" size="large" />
-                <BrandLogo name="Liqui Moly" logo="/logos/liquimoly.png" size="medium" />
-                <BrandLogo name="Mann" logo="/logos/mann.svg" size="medium" invert={true} />
-                <BrandLogo name="Mobil" logo="/logos/mobil.svg" size="large" />
-                <BrandLogo name="Pagid" logo="/logos/pagid.svg" size="large" invert={true} />
-                <BrandLogo name="Textar" logo="/logos/textar.svg" size="large" />
-                <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" size="large" />
-                <BrandLogo name="Bosch" logo="/logos/bosch.svg" size="large" invert={true} />
-              </div>
-              <div className="flex items-center gap-0 flex-shrink-0">
-                <BrandLogo name="Brembo" logo="/logos/brembo.png" size="small" />
-                <BrandLogo name="Castrol" logo="/logos/castrol.svg" size="large" />
-                <BrandLogo name="Liqui Moly" logo="/logos/liquimoly.png" size="medium" />
-                <BrandLogo name="Mann" logo="/logos/mann.svg" size="medium" invert={true} />
-                <BrandLogo name="Mobil" logo="/logos/mobil.svg" size="large" />
-                <BrandLogo name="Pagid" logo="/logos/pagid.svg" size="large" invert={true} />
-                <BrandLogo name="Textar" logo="/logos/textar.svg" size="large" />
-                <BrandLogo name="Valvoline" logo="/logos/valvoline.svg" size="large" />
-                <BrandLogo name="Bosch" logo="/logos/bosch.svg" size="large" invert={true} />
-              </div>
+            <div className="pt-4 space-y-2 text-sm text-gray-500">
+              <p>{BRAND.hoursDisplay}</p>
+              <p>{BRAND.baseArea}</p>
             </div>
           </div>
-        </div>
-      </Section>
 
-      {/* About with Map */}
-      <Section className="py-20 lg:py-32">
-        <div className="max-w-6xl mx-auto">
-          <Card className="p-8 lg:p-12">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              {/* Left: Info */}
-              <div className="space-y-6">
-                <div>
-                  <h2 className="text-3xl lg:text-4xl font-black text-white mb-4">
-                    About FixNow Mechanics
-                  </h2>
-                  <p className="text-white/70 text-lg leading-relaxed">
-                    Professional mobile mechanic service based in{' '}
-                    <strong className="text-white">{BRAND.baseCityCoords.city}</strong>.
-                    We bring workshop-quality repairs directly to your home or workplace.
-                  </p>
-                </div>
-
-                {/* Key points */}
-                <div className="space-y-3">
-                  {[
-                    'Specializing in diagnostics, brakes, suspension & engine work',
-                    'Transparent pricing — no hidden fees or markups',
-                    'Mobile service covering Hertfordshire & surrounding counties',
-                    'Same-day appointments available'
-                  ].map((point, i) => (
-                    <div key={i} className="flex items-start gap-3">
-                      <CheckCircle2 size={20} className="flex-shrink-0 mt-0.5" style={{ color: BRAND.colors.primary }} />
-                      <span className="text-white/80 text-sm">{point}</span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Operating hours */}
-                <Card className="bg-white/5 border-white/10 p-4">
-                  <div className="flex items-center gap-3">
-                    <Clock size={20} style={{ color: BRAND.colors.primary }} />
-                    <div>
-                      <p className="text-white font-semibold text-sm mb-1">Operating Hours</p>
-                      <p className="text-white/60 text-xs">{BRAND.hoursDisplay}</p>
-                    </div>
-                  </div>
-                </Card>
-
-                {/* ARF Group note */}
-                <p className="text-white/50 text-sm pt-4 border-t border-white/10">
-                  Proudly operated under the{' '}
-                  <strong style={{ color: BRAND.colors.primary }}>ARF Automotive Group</strong>
-                  {' '}— specialists in diagnostics & vehicle enhancement.
-                </p>
-              </div>
-
-              {/* Right: Map */}
-              <div className="space-y-4">
-                <div className="rounded-2xl overflow-hidden border border-white/10 h-[400px]">
-                  <iframe
-                    title="FixNow Mechanics Location"
-                    width="100%"
-                    height="100%"
-                    frameBorder="0"
-                    style={{ border: 0 }}
-                    src={`https://www.openstreetmap.org/export/embed.html?bbox=-0.5023,51.7319,-0.4423,51.7719&layer=mapnik&marker=${BRAND.baseCityCoords.lat},${BRAND.baseCityCoords.lng}`}
-                    allowFullScreen
-                  />
-                </div>
-
-                <Card className="bg-white/5 border-white/10 p-4">
-                  <div className="flex items-start gap-3">
-                    <MapPin size={20} className="flex-shrink-0 mt-0.5" style={{ color: BRAND.colors.primary }} />
-                    <div>
-                      <p className="text-white font-semibold text-sm mb-1">Base Location</p>
-                      <p className="text-white/70 text-sm">{BRAND.baseArea}</p>
-                      <p className="text-white/50 text-xs mt-2">Serving up to 45 miles radius</p>
-                    </div>
-                  </div>
-                </Card>
-              </div>
+          <div className="space-y-4">
+            <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-gray-900 to-black border border-white/10 flex items-center justify-center">
+              <p className="text-gray-600 text-sm">Image placeholder</p>
             </div>
-          </Card>
+            <p className="text-xs text-gray-600 italic">Upload: /public/images/about.jpg</p>
+          </div>
         </div>
-      </Section>
+      </section>
 
-      {/* Final CTA */}
-      <Section className="py-20 lg:py-32" style={{ backgroundColor: BRAND.colors.mid }}>
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl lg:text-6xl font-black text-white mb-6 leading-tight">
-            Ready to get started?
+      {/* Final CTA - Minimal */}
+      <section className="px-6 lg:px-12 py-32 lg:py-48 border-t border-white/5">
+        <div className="max-w-[1000px] mx-auto text-center space-y-12">
+          <h2 className="text-5xl lg:text-7xl font-bold">
+            Need a mechanic?
           </h2>
-          <p className="text-xl text-white/60 mb-12 max-w-2xl mx-auto">
-            Get your free quote in minutes or call us now for same-day service.
-          </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`}
-              className="inline-flex items-center justify-center gap-3 px-12 py-6 rounded-2xl text-xl font-bold transition-all hover:scale-105 shadow-2xl"
-              style={{
-                backgroundColor: BRAND.colors.primary,
-                color: BRAND.colors.dark
-              }}
+              className="bg-yellow-500 hover:bg-yellow-400 text-black text-lg font-bold py-5 px-12 rounded-xl transition-all hover:scale-[1.02] inline-flex items-center justify-center gap-3"
             >
               <Phone size={24} />
-              Call Now
+              <span>Call Now</span>
             </a>
             <Link to="/estimate">
-              <Button variant="secondary" className="px-12 py-6 text-xl">
-                <span>Get Free Quote</span>
+              <button className="border border-white/20 hover:border-yellow-500/50 text-white text-lg font-semibold py-5 px-12 rounded-xl transition-all hover:bg-white/5 inline-flex items-center gap-3">
+                <span>Get Quote</span>
                 <ArrowRight size={24} />
-              </Button>
+              </button>
             </Link>
           </div>
 
-          <p className="text-white/40 text-sm mt-8">
-            {BRAND.hoursDisplay}
-          </p>
+          <p className="text-sm text-gray-600">{BRAND.hoursDisplay}</p>
         </div>
-      </Section>
+      </section>
     </div>
   );
 }
