@@ -22,11 +22,13 @@ export function Header() {
 
   const navLinks = [
     { path: '/', label: 'Home' },
+    { path: '/services', label: 'Services & Areas' },
     { path: '/estimate', label: 'Get Quote' },
   ];
 
   const mobileDropdownLinks = [
     { path: '/', label: 'Home' },
+    { path: '/services', label: 'Services & Areas' },
     { path: '/privacy', label: 'Privacy Policy' },
     { path: '/terms', label: 'Terms & Conditions' },
   ];
@@ -251,8 +253,13 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link to="/services" className="hover:text-white transition-colors">
+                  Services & Areas
+                </Link>
+              </li>
+              <li>
                 <Link to="/estimate" className="hover:text-white transition-colors">
-                  Get Estimate
+                  Get Free Quote
                 </Link>
               </li>
             </ul>

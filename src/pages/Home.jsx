@@ -116,127 +116,119 @@ export default function Home() {
         </Section>
       </div>
 
-      {/* Hero Section */}
+      {/* Hero Section - Redesigned */}
       <div
         className="relative overflow-hidden"
         style={{ backgroundColor: BRAND.colors.dark }}
       >
-        {/* Background gradient overlay - Desktop */}
-        <div className="hidden lg:block absolute inset-0 bg-gradient-to-br from-yellow-500/5 via-transparent to-transparent opacity-30" />
-
-        {/* Mobile: Background Image with improved overlay */}
-        <div className="absolute inset-0 lg:hidden">
+        {/* Background Image - Full Coverage */}
+        <div className="absolute inset-0">
           <img
             src={CompanyVanImage}
-            alt="FixNow Mechanics"
+            alt="FixNow Mechanics Mobile Service"
             className="w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/75 to-black/90" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/85 to-black/80" />
         </div>
 
-        <Section className="py-8 lg:py-32 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            {/* Left: Content */}
-            <div className="text-white space-y-4 lg:space-y-6 animate-fade-in-up">
-              {/* Pills - Desktop Only */}
-              <div className="hidden lg:flex gap-2 flex-wrap animate-slide-in-left">
-                <Pill icon={Wrench}>Mobile Mechanic</Pill>
-                <Pill icon={Clock}>Flexible Hours</Pill>
-                <Pill icon={MapPin}>{BRAND.baseCityCoords.city}</Pill>
-              </div>
+        <Section className="py-12 lg:py-24 relative z-10">
+          <div className="max-w-5xl mx-auto text-center">
+            {/* Main Headline */}
+            <div className="space-y-4 lg:space-y-6 mb-8 lg:mb-10">
+              <h1 className="text-4xl lg:text-7xl font-black leading-tight text-white drop-shadow-2xl">
+                Mobile Mechanic Across<br/>
+                <span className="gradient-text">Hertfordshire</span>
+              </h1>
 
-              <div className="space-y-3 lg:space-y-4">
-                <h1 className="text-3xl lg:text-6xl font-extrabold leading-tight">
-                  <span className="block text-white drop-shadow-2xl">Expert Vehicle </span>
-                  <span className="block gradient-text drop-shadow-2xl">Diagnostics & Repair</span>
-                </h1>
+              <p className="text-xl lg:text-3xl font-bold text-white/90 drop-shadow-lg">
+                Same-Day Service Available
+              </p>
 
-                {/* Mobile: Compact tagline with better spacing */}
-                <p className="lg:hidden text-sm text-white/95 drop-shadow-lg leading-relaxed">
-                  Mobile mechanic • Hemel Hempstead<br/>
-                  <span className="text-yellow-400 font-semibold">Diagnostics from £15</span>
-                </p>
-
-                {/* Desktop: Full tagline */}
-                <p className="hidden lg:block text-xl lg:text-2xl font-medium text-white/80 drop-shadow-lg">
-                  {BRAND.tagline}
-                </p>
-
-                {/* Desktop: Extended description */}
-                <p className="hidden lg:block text-white/80 text-base lg:text-lg max-w-2xl leading-relaxed drop-shadow-md">
-                  Diagnostics, repairs, and servicing — done at your driveway or workplace.
-                  No workshop visits. No hidden markup. Honest service at fair prices.
-                </p>
-
-                <p className="hidden lg:block text-white/90 text-sm lg:text-base max-w-2xl font-medium drop-shadow-md">
-                  Mobile mechanic covering Hemel Hempstead and surrounding areas – diagnostic visits from £15, with final price confirmed from your postcode.
-                </p>
-              </div>
-
-              {/* Mobile CTA Buttons - Modern & Compact */}
-              <div className="lg:hidden flex flex-col gap-2.5">
-                <Link to="/estimate" className="w-full">
-                  <Button variant="primary" className="w-full py-3 text-sm font-bold shadow-lg shadow-yellow-500/30 hover:shadow-xl hover:shadow-yellow-500/40 transition-all" icon={Calculator}>
-                    Get Free Quote
-                  </Button>
-                </Link>
-                <div className="grid grid-cols-2 gap-2.5">
-                  <LinkButton
-                    variant="secondary"
-                    icon={Phone}
-                    href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`}
-                    className="py-2.5 text-xs font-semibold hover:bg-yellow-500/5"
-                  >
-                    Call
-                  </LinkButton>
-                  <LinkButton
-                    variant="ghost"
-                    icon={MessageCircle}
-                    href={`https://wa.me/${BRAND.phoneIntl.replace('+', '')}?text=${BRAND.whatsappPrefill}`}
-                    className="py-2.5 text-xs font-semibold hover:bg-white/5"
-                  >
-                    WhatsApp
-                  </LinkButton>
-                </div>
-              </div>
-
-              {/* Desktop CTA Buttons */}
-              <div className="hidden lg:flex gap-4">
-                <Link to="/estimate" className="flex-1 sm:flex-initial">
-                  <Button variant="primary" className="w-full shadow-xl shadow-yellow-500/20 hover:shadow-2xl hover:shadow-yellow-500/30 transition-all" icon={Calculator}>
-                    Get Quote
-                  </Button>
-                </Link>
-                <LinkButton
-                  variant="secondary"
-                  icon={Phone}
+              {/* Sub-text with key info */}
+              <div className="flex flex-wrap items-center justify-center gap-3 lg:gap-4 text-white/80 text-sm lg:text-base">
+                <span className="flex items-center gap-1.5">
+                  <CheckCircle2 size={18} style={{ color: BRAND.colors.primary }} />
+                  <strong>Fully Mobile</strong>
+                </span>
+                <span className="text-white/40">•</span>
+                <span className="flex items-center gap-1.5">
+                  <CheckCircle2 size={18} style={{ color: BRAND.colors.primary }} />
+                  <strong>Fair Pricing</strong>
+                </span>
+                <span className="text-white/40">•</span>
+                <a
                   href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`}
-                  className="flex-1 sm:flex-initial hover:bg-yellow-500/5"
+                  className="flex items-center gap-1.5 hover:text-white transition-colors font-bold"
+                  style={{ color: BRAND.colors.primary }}
                 >
-                  Call Now
-                </LinkButton>
-              </div>
-
-              {/* Desktop: Stats */}
-              <div className="hidden lg:grid grid-cols-3 gap-3 lg:gap-4 pt-4 lg:pt-6 border-t border-white/20 backdrop-blur-sm bg-white/5 rounded-lg p-3 lg:p-4 lg:bg-transparent lg:backdrop-blur-none lg:border-white/10">
-                <div className="text-center">
-                  <div className="text-xl lg:text-2xl font-bold drop-shadow" style={{ color: BRAND.colors.primary }}>100%</div>
-                  <div className="text-white/70 text-xs lg:text-sm">Mobile Service</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-xl lg:text-2xl font-bold drop-shadow" style={{ color: BRAND.colors.primary }}>Fair</div>
-                  <div className="text-white/70 text-xs lg:text-sm">Pricing</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-xl lg:text-2xl font-bold drop-shadow" style={{ color: BRAND.colors.primary }}>6+</div>
-                  <div className="text-white/70 text-xs lg:text-sm">Areas</div>
-                </div>
+                  <Phone size={18} />
+                  {BRAND.phoneDisplay}
+                </a>
               </div>
             </div>
 
-            {/* Right: Hero Visual - Desktop Only */}
-            <div className="relative hidden lg:flex items-center justify-center">
-              <HeroImage className="min-h-[400px] w-full" />
+            {/* Primary CTA */}
+            <div className="mb-10 lg:mb-12">
+              <a
+                href={`tel:${BRAND.phoneDisplay.replace(/\s/g, '')}`}
+                className="inline-flex items-center justify-center gap-3 px-10 py-5 lg:px-14 lg:py-6 rounded-2xl text-xl lg:text-2xl font-black transition-all hover:scale-105 active:scale-95 shadow-2xl"
+                style={{
+                  backgroundColor: BRAND.colors.primary,
+                  color: BRAND.colors.dark,
+                  boxShadow: `0 20px 60px ${BRAND.colors.primary}40`
+                }}
+              >
+                <Phone size={28} />
+                CALL NOW
+              </a>
+            </div>
+
+            {/* Service Icons Row */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 max-w-4xl mx-auto">
+              <Card className="p-4 lg:p-6 text-center hover:scale-105 transition-all duration-300 bg-white/10 backdrop-blur-md border-white/20">
+                <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl mx-auto mb-3 flex items-center justify-center" style={{ backgroundColor: `${BRAND.colors.primary}30` }}>
+                  <Clock size={28} className="lg:w-8 lg:h-8" style={{ color: BRAND.colors.primary }} />
+                </div>
+                <h3 className="text-white font-bold text-sm lg:text-base">Same-Day<br/>Service</h3>
+              </Card>
+
+              <Card className="p-4 lg:p-6 text-center hover:scale-105 transition-all duration-300 bg-white/10 backdrop-blur-md border-white/20">
+                <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl mx-auto mb-3 flex items-center justify-center" style={{ backgroundColor: `${BRAND.colors.primary}30` }}>
+                  <Gauge size={28} className="lg:w-8 lg:h-8" style={{ color: BRAND.colors.primary }} />
+                </div>
+                <h3 className="text-white font-bold text-sm lg:text-base">OBD<br/>Diagnostics</h3>
+              </Card>
+
+              <Card className="p-4 lg:p-6 text-center hover:scale-105 transition-all duration-300 bg-white/10 backdrop-blur-md border-white/20">
+                <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl mx-auto mb-3 flex items-center justify-center" style={{ backgroundColor: `${BRAND.colors.primary}30` }}>
+                  <Settings2 size={28} className="lg:w-8 lg:h-8" style={{ color: BRAND.colors.primary }} />
+                </div>
+                <h3 className="text-white font-bold text-sm lg:text-base">Brakes &<br/>Servicing</h3>
+              </Card>
+
+              <Card className="p-4 lg:p-6 text-center hover:scale-105 transition-all duration-300 bg-white/10 backdrop-blur-md border-white/20">
+                <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl mx-auto mb-3 flex items-center justify-center" style={{ backgroundColor: `${BRAND.colors.primary}30` }}>
+                  <MapPin size={28} className="lg:w-8 lg:h-8" style={{ color: BRAND.colors.primary }} />
+                </div>
+                <h3 className="text-white font-bold text-sm lg:text-base">Fully<br/>Mobile</h3>
+              </Card>
+            </div>
+
+            {/* Secondary CTAs */}
+            <div className="mt-8 lg:mt-10 flex flex-col sm:flex-row gap-3 lg:gap-4 justify-center max-w-2xl mx-auto">
+              <Link to="/estimate" className="flex-1 sm:flex-initial">
+                <Button variant="secondary" icon={Calculator} className="w-full text-base lg:text-lg py-4 px-8 border-2">
+                  Get Free Quote
+                </Button>
+              </Link>
+              <LinkButton
+                variant="ghost"
+                icon={MessageCircle}
+                href={`https://wa.me/${BRAND.phoneIntl.replace('+', '')}?text=${BRAND.whatsappPrefill}`}
+                className="flex-1 sm:flex-initial text-base lg:text-lg py-4 px-8 border border-white/30 hover:border-white/50"
+              >
+                WhatsApp Us
+              </LinkButton>
             </div>
           </div>
         </Section>
@@ -459,6 +451,107 @@ export default function Home() {
                   </Button>
                 </Link>
               </div>
+            </div>
+          </Card>
+        </div>
+      </Section>
+
+      {/* Work Showcase Section */}
+      <Section className="py-8 lg:py-16">
+        <div className="text-center mb-8 lg:mb-12">
+          <h2 className="text-2xl lg:text-4xl font-bold text-white mb-3">
+            Recent Work & Happy Customers
+          </h2>
+          <p className="text-white/70 text-base lg:text-lg max-w-2xl mx-auto">
+            See the quality of our work and read what our customers have to say
+          </p>
+        </div>
+
+        {/* Placeholder for work photos - You can add your photos here */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mb-10">
+          <Card className="group overflow-hidden hover:scale-105 transition-all duration-500">
+            <div className="aspect-[4/3] bg-gradient-to-br from-yellow-500/20 to-yellow-500/5 flex items-center justify-center relative overflow-hidden">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,184,0,0.1),transparent_50%)]" />
+              <div className="relative z-10 text-center p-6">
+                <Wrench size={48} className="mx-auto mb-3 opacity-50" style={{ color: BRAND.colors.primary }} />
+                <p className="text-white/60 text-sm">Upload your work photos to<br/><code className="text-xs">/public/work-photos/</code></p>
+              </div>
+            </div>
+          </Card>
+
+          <Card className="group overflow-hidden hover:scale-105 transition-all duration-500">
+            <div className="aspect-[4/3] bg-gradient-to-br from-yellow-500/20 to-yellow-500/5 flex items-center justify-center relative overflow-hidden">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,184,0,0.1),transparent_50%)]" />
+              <div className="relative z-10 text-center p-6">
+                <Gauge size={48} className="mx-auto mb-3 opacity-50" style={{ color: BRAND.colors.primary }} />
+                <p className="text-white/60 text-sm">Diagnostics &<br/>Engine Work</p>
+              </div>
+            </div>
+          </Card>
+
+          <Card className="group overflow-hidden hover:scale-105 transition-all duration-500">
+            <div className="aspect-[4/3] bg-gradient-to-br from-yellow-500/20 to-yellow-500/5 flex items-center justify-center relative overflow-hidden">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,184,0,0.1),transparent_50%)]" />
+              <div className="relative z-10 text-center p-6">
+                <Settings2 size={48} className="mx-auto mb-3 opacity-50" style={{ color: BRAND.colors.primary }} />
+                <p className="text-white/60 text-sm">Brake & Suspension<br/>Repairs</p>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        {/* Trust Signals */}
+        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <Card className="p-6 text-center hover:scale-105 transition-all duration-300 bg-white/5">
+            <div className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center" style={{ backgroundColor: `${BRAND.colors.primary}30` }}>
+              <BadgeCheck size={32} style={{ color: BRAND.colors.primary }} />
+            </div>
+            <h3 className="text-white font-bold text-lg mb-2">Professional Service</h3>
+            <p className="text-white/70 text-sm">Quality work with attention to every detail</p>
+          </Card>
+
+          <Card className="p-6 text-center hover:scale-105 transition-all duration-300 bg-white/5">
+            <div className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center" style={{ backgroundColor: `${BRAND.colors.primary}30` }}>
+              <Clock size={32} style={{ color: BRAND.colors.primary }} />
+            </div>
+            <h3 className="text-white font-bold text-lg mb-2">Same-Day Available</h3>
+            <p className="text-white/70 text-sm">Fast response and flexible scheduling</p>
+          </Card>
+
+          <Card className="p-6 text-center hover:scale-105 transition-all duration-300 bg-white/5">
+            <div className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center" style={{ backgroundColor: `${BRAND.colors.primary}30` }}>
+              <Shield size={32} style={{ color: BRAND.colors.primary }} />
+            </div>
+            <h3 className="text-white font-bold text-lg mb-2">Fair & Transparent</h3>
+            <p className="text-white/70 text-sm">No hidden fees, honest pricing</p>
+          </Card>
+        </div>
+
+        {/* Customer Testimonial Placeholder */}
+        <div className="mt-10 lg:mt-12 max-w-3xl mx-auto">
+          <Card className="p-8 lg:p-10 bg-gradient-to-br from-white/10 to-white/5 border-white/20 text-center">
+            <div className="mb-6">
+              <div className="flex justify-center gap-1 mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <svg key={i} className="w-6 h-6" style={{ fill: BRAND.colors.primary }} viewBox="0 0 20 20">
+                    <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                  </svg>
+                ))}
+              </div>
+              <p className="text-white/60 text-sm italic mb-4">
+                "Customer reviews coming soon! Be one of our first customers and share your experience."
+              </p>
+              <p className="text-white/80 text-base font-medium">
+                Recently launched - building our reputation one satisfied customer at a time
+              </p>
+            </div>
+            <div className="pt-6 border-t border-white/10">
+              <p className="text-white/70 text-sm">
+                Had a great experience? We'd love to hear from you!<br/>
+                <a href={`https://wa.me/${BRAND.phoneIntl.replace('+', '')}?text=${encodeURIComponent('Hi! I had a great experience and would like to leave a review')}`} className="font-semibold hover:underline" style={{ color: BRAND.colors.primary }}>
+                  Share your feedback →
+                </a>
+              </p>
             </div>
           </Card>
         </div>
