@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { PageLayout } from './components/Layout';
+import { PageLayout } from './components/LayoutNew';
 import Home from './pages/Home';
 import GetEstimate from './pages/GetEstimate';
 import ServicesLocations from './pages/ServicesLocations';
